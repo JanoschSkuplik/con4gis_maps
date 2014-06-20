@@ -1,0 +1,74 @@
+.c4gMapsEditorDialog {
+    
+}
+
+.c4gMapsEditorButton {
+	cursor: pointer;
+	margin: 2px;
+}
+
+.c4gMapsEditorInvisible {
+	display: none;
+}
+
+.c4gMapsEditorSelected {
+	border: 2px solid black;
+	margin: 0;
+}
+
+.c4gMapsEditInputDiv {
+	margin-top: 5px;
+}
+.c4gMapsEditInput {
+	width: 195px;
+}
+
+
+.c4gMapsEditorContent {
+	border-style:solid;
+	border-width: 2px 0 0 0;
+}
+
+.c4gMapsEditorActionButtons {
+	border-style:solid;
+	border-width: 2px 0 0 0;
+	padding-top: 2px;
+}	
+
+.c4gMapsEditorLocstyles {
+	border-style:solid;
+	border-width: 2px 0 0 0;
+	padding-top: 2px;
+}	
+
+.c4gMapsEditorState {
+	font-weight: bold;
+	margin-bottom: 2px;
+}	
+
+.c4gMapsEditorHelpLink {
+	float: right;
+	color: black;
+}
+
+.olControlScaleLine.c4gMapsEditorDialogActive,
+.olControlZoomPositionPanel.c4gMapsEditorDialogActive,
+.olForeignContainer .olControlZoomPositionPanel.c4gMapsEditorDialogActive {
+	left: 300px;
+}
+
+.c4gMapsEditor .c4gMapsCloseBtn:hover {
+	background-image: url("../osrm/images/cancel_hover.png");
+}
+
+.c4gMapsEditor .c4gMapsCloseBtn {
+	float: right;
+	display: inline;
+	vertical-align: top;
+	background-position: center center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    height: 16px;
+    width: 16px;
+	background-image: url("../osrm/images/cancel.png");
+}

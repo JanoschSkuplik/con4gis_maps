@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="<?php echo $this->language; ?>">
+<head>
+<meta charset="<?php echo $this->charset; ?>">
+<title><?php echo $this->title; ?> - Contao Open Source CMS <?php echo VERSION; ?></title>
+<base href="<?php echo $this->base; ?>">
+<link rel="stylesheet" href="<?php
+  $objCombiner = new Combiner();
+  $objCombiner->add('system/themes/'. $this->theme .'/basic.css');
+  $objCombiner->add('system/modules/con4gis_maps/html/css/styles.css');
+  $objCombiner->add('system/modules/con4gis_maps/html/css/geopicker.css');
+  echo $objCombiner->getCombinedFile();
+?>" media="all">
+<!--[if IE]><link rel="stylesheet" href="<?php echo TL_SCRIPT_URL; ?>system/themes/<?php echo $this->theme; ?>/iefixes.css" media="screen"><![endif]-->
+<script>
+var CONTAO_THEME = '<?php echo $this->theme; ?>';
+var CONTAO_COLLAPSE = '<?php echo $this->collapseNode; ?>';
+var CONTAO_EXPAND = '<?php echo $this->expandNode; ?>';
+var CONTAO_SCRIPT_URL = '<?php echo TL_SCRIPT_URL; ?>';
+var REQUEST_TOKEN = '<?php echo REQUEST_TOKEN; ?>';
+</script>
+<script src="<?php
+  $objCombiner = new Combiner();
+  if (version_compare(VERSION,'3','<')) {
+	$objCombiner->add('plugins/mootools/' . MOOTOOLS . '/mootools-core.js', MOOTOOLS_CORE);
+	$objCombiner->add('plugins/mootools/' . MOOTOOLS . '/mootools-more.js', MOOTOOLS_MORE);
+	$objCombiner->add('contao/contao.js');
+  }
+  else {
+    $objCombiner->add('assets/mootools/core/' . MOOTOOLS . '/mootools.js', MOOTOOLS);
+    $objCombiner->add('assets/mootools/mootao/Mootao.js');
+    $objCombiner->add('assets/contao/js/core.js');
+  }
+  $objCombiner->add('system/themes/'. $this->theme .'/hover.js');  	
+  $objCombiner->add('system/modules/con4gis_maps/html/js/C4GMapsBackend.js');
+  echo $objCombiner->getCombinedFile();
+?>"></script>
+
+<script src="<?php echo $GLOBALS['c4g_maps_extension']['js_openlayers']; ?>"></script>
+<script src="<?php echo $GLOBALS['c4g_maps_extension']['js_google']; ?>"></script>
+<script src="system/modules/con4gis_maps/html/js/C4GMaps.js"></script>
+
+<script>
+
+//<![CDATA[
+function doSubmit() {
+  self.opener.$(self.opener.C4GMapsBackend.currentIdX).value = $("c4gGeoPickerGeoX").value;
+  self.opener.$(self.opener.C4GMapsBackend.currentIdY).value = $("c4gGeoPickerGeoY").value;
+  self.close();
+}          
+           
+var mapdata = <?php echo json_encode($this->mapData) ?>;
+mapdata.onPickGeo = function(geox, geoy) {
+	if (typeof($)!='undefined') {
+		$('c4gGeoPickerGeoX').value = geox;
+		$('c4gGeoPickerGeoY').value = geoy;
+	}	
+};
+C4GMaps(mapdata);
+//]]>
+
+</script>
+<!--[if lt IE 9]><script src="<?php echo TL_PLUGINS_URL; ?>plugins/html5shim/html5-<?php echo HTML5SHIM; ?>.js"></script><![endif]-->
+</head>
+<body class="__ua__">
+
+<div id="container">
+<div id="main" class="mod_c4g_maps">
+
+<h1><?php echo $this->headline; ?></h1>
+<input id="c4gGeoPickerGeoX" type="text" value="<?php echo $this->Input->get('GeoX') ?>" name="GeoX">
+<input id="c4gGeoPickerGeoY" type="text" value="<?php echo $this->Input->get('GeoY') ?>" name="GeoY">
+<input id="Ok" type="button" value="<?php echo $GLOBALS['TL_LANG']['c4g_maps']['transfer'] ?>" onclick="doSubmit()">
+<input id="Cancel" type="button" value="<?php echo $GLOBALS['TL_LANG']['MSC']['cancelBT'] ?>" onclick="self.close()">
+<div id="c4gGeoPickerGeocoding" class="c4gGeoPickerGeocoding"></div>
+<hr>
+<div id="c4g_Map"></div>
+</div>
+</div>
+
+</body>
+</html>

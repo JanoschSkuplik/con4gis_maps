@@ -1,0 +1,158 @@
+.c4gMapsRouter input {
+	width: 216px;
+	margin-left: 10px;
+}
+
+.c4gMapsRouter label {
+	margin: 0px 2px 0px 0px;
+	text-align: left;
+	vertical-align: middle	
+}
+
+.c4gMapsRouterDialog, 
+.c4gMapsRouteInstrDialog {
+    margin: auto;
+    position: absolute;
+    padding: 5px 3px;
+	width: 300px;
+}
+
+.c4gMapsRouterDialog {
+    top: 1px;
+    height: 90px;
+    overflow: hidden;
+}
+
+.c4gMapsRouteInstrDialog {
+	top: 110px;	
+	overflow: auto;	
+}
+
+.olControlScaleLine.c4gMapsRouterDialogActive,
+.olControlZoomPositionPanel.c4gMapsRouterDialogActive,
+.olForeignContainer .olControlZoomPositionPanel.c4gMapsRouterDialogActive {
+	left: 405px;
+}
+
+.c4gMapsRouter .c4gMapsCancelBtn:hover, .c4gMapsRouter .c4gMapsCloseBtn:hover {
+	background-image: url("../osrm/images/cancel_hover.png");
+}
+
+
+.c4gMapsRouter .c4gMapsCancelBtn, .c4gMapsRouter .c4gMapsCloseBtn, .c4gMapsRouter .c4gMapsHideDialogBtn,  
+.c4gMapsRouter .c4gMapsPrinterBtn,  .c4gMapsRouter .c4gMapsPrinterBtnInactive{
+	background-position: center center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    height: 16px;
+    width: 16px;
+	background-image: url("../osrm/images/cancel.png");
+}
+.c4gMapsRouterInput .c4gMapsCancelBtn {
+	padding: 0 8px;
+}
+
+.c4gMapsRouter .c4gMapsCloseBtn, .c4gMapsRouter .c4gMapsHideDialogBtn, 
+.c4gMapsRouter .c4gMapsPrinterBtn,  .c4gMapsRouter .c4gMapsPrinterBtnInactive {
+	float: right;
+	display: inline;
+	vertical-align: top;
+}
+
+
+.c4gMapsRouter .c4gMapsHideDialogBtn:hover {
+	background-image: url("../osrm/images/hide_hover.png");
+}
+
+.c4gMapsRouter .c4gMapsHideDialogBtn {
+	background-image: url("../osrm/images/hide.png");
+	margin-right: 5px;
+}
+
+.c4gMapsRouter .c4gMapsPrinterBtn:hover {
+	background-image: url("../osrm/images/printer_hover.png");
+}
+
+.c4gMapsRouter .c4gMapsPrinterBtn {
+	background-image: url("../osrm/images/printer.png");
+	margin-right: 7px;
+}
+
+.c4gMapsRouter .c4gMapsPrinterBtnInactive {
+	background-image: url("../osrm/images/printer_inactive.png");
+	margin-right: 7px;
+}
+
+/*.mod_c4g_maps .olControlPanelNavigationHistory { top: 20px; }*/
+/*.c4gMapsRouterIcon {
+	background-position: center center;
+    background-repeat: no-repeat;
+    background-image: url(../OpenLayers-2.13.1/theme/default/img/navi.png); 
+    cursor: pointer;
+    height: 20px;
+    width: 20px;   
+    left: 13px;
+    top: 154px;
+    position: absolute;
+    z-index: 2000; 
+}*/
+/*.c4gMapsRouterIcon.olControlZoomOutItemWithoutWorld {
+	top: 136px;
+}
+.c4gMapsRouterIcon.olControlWithoutFullscreen {
+	top: 135px;
+}
+.c4gMapsRouterIcon.olControlZoomOutItemWithoutWorld.olControlWithoutFullscreen {
+	top: 113px;
+}*/
+
+
+.c4gMapsRouterAttribution {
+    bottom: 0;
+    margin: 5px;
+    position: absolute;
+    font-size: 8px;
+    font-weight: normal;
+}
+
+.c4gMapsRouterMessage {
+	background: #CCC;
+	border: 1px solid #666;
+	color: #333;
+	position: absolute;
+	width: 200px;
+	height: 20px;    
+	top: 50%;
+	left: 50%;
+	margin-top: -10px;
+	margin-left: -100px;	
+	text-align: center;
+}
+
+.c4gMapsHideBtn {
+    margin: 0 15px 0 8px;
+    visibility: hidden;
+}
+
+.c4gMapsRouterHeader {
+	font-weight: bold;
+	text-decoration: underline;
+	height:16px;	
+}
+
+
+.c4gMapsRouteInstructions .description-body-direction {
+    height: 18px;
+    width: 18px;
+}
+
+.c4gMapsRouteInstructions .description-body-item {
+    cursor: pointer;	
+}
+
+.ie7 .c4gMapsRouterInputLine div {
+	display: inline;
+}
+.ie7 .c4gMapsRouterHeader {
+	height: 16px;	
+}
