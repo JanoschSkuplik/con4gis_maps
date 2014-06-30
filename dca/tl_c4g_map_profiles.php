@@ -387,7 +387,8 @@ $GLOBALS['TL_DCA']['tl_c4g_map_profiles'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_map_profiles']['geosearch_customengine_attribution'],
 			'exclude'                 => true,
-			'inputType'               => 'text'
+			'inputType'               => 'text',
+			'eval'                    => array('maxlength'=>255, 'tl_class'=>'long', 'allowHtml' => true)
 		),
 
 		'geosearch_div' => array
