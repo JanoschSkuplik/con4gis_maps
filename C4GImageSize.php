@@ -18,11 +18,6 @@
  * Class C4GImageSize
  *
  * Extend ImageSize so that '%' can be used as unit
- * 
- * @copyright  Küstenschmiede GmbH Software & Design 2012
- * @author     Jürgen Witte <http://www.kuestenschmiede.de>
- * @package    con4gis 
- * @author     Jürgen Witte <http://www.kuestenschmiede.de>
  */
 class C4GImageSize extends ImageSize
 {
