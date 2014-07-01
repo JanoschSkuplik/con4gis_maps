@@ -19,10 +19,6 @@
  * DCA eval = array( 'require_input'=>true , adds "mandatory" field without Contao default 
  * "mandatory" functionality being executed 
  * (validation must be handled by code in the "save_callback" of the field)
- * 
- * @copyright  Küstenschmiede GmbH Software & Design 2014
- * @package    con4gis  
- * @author     Jürgen Witte <http://www.kuestenschmiede.de>
  */
 class C4GTextField extends TextField
 {
