@@ -5,7 +5,7 @@
  *
  * @version   php 5
  * @package   con4gis
- * @author     Jürgen Witte <http://www.kuestenschmiede.de>
+ * @author    Jürgen Witte <http://www.kuestenschmiede.de>
  * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
  * @copyright Küstenschmiede GmbH Software & Design 2014
  * @link      https://www.kuestenschmiede.de
@@ -21,7 +21,6 @@
  * (validation must be handled by code in the "save_callback" of the field)
  * 
  * @copyright  Küstenschmiede GmbH Software & Design 2014
- * @author     Jürgen Witte <http://www.kuestenschmiede.de>
  * @package    con4gis  
  * @author     Jürgen Witte <http://www.kuestenschmiede.de>
  */
