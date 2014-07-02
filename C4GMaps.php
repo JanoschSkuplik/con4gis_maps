@@ -5,7 +5,7 @@
  *
  * @version   php 5
  * @package   con4gis
- * @author     Jürgen Witte & Tobias Dobbrunz <http://www.kuestenschmiede.de>
+ * @author    Jürgen Witte & Tobias Dobbrunz <http://www.kuestenschmiede.de>
  * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
  * @copyright Küstenschmiede GmbH Software & Design 2014
  * @link      https://www.kuestenschmiede.de
@@ -18,11 +18,6 @@
  * Class C4GMaps
  *
  * Static Function library for c4g_maps
- *
- * @copyright  Küstenschmiede GmbH Software & Design 2014
- * @author     Jürgen Witte & Tobias Dobbrunz <http://www.kuestenschmiede.de>
- * @package    con4gis 
- * @author     Jürgen Witte & Tobias Dobbrunz <http://www.kuestenschmiede.de>
  */
 class C4GMaps  
 {
@@ -154,7 +149,12 @@ class C4GMaps
     		else {
     			$child = $childData;
     		}
-    			
+
+            // handle permalink-args
+            if (!empty( $_GET['layers'] ) && is_array( $_GET['layers'] )) {
+                $child->data_hidelayer = !in_array( $child->id, $_GET['layers'] );
+            } 
+            
     		// ---------------------------------------------------------
     		// Location Type 'single'
     		// ---------------------------------------------------------
@@ -585,16 +585,15 @@ class C4GMaps
             }
         }
 
-		$profile = $database->prepare ( "SELECT * FROM tl_c4g_map_profiles WHERE id=?" )->limit ( 1 )->execute ( $profileId )->fetchAssoc ();
-		if (!$profile) {
-			$profile = $database->prepare ( "SELECT * FROM tl_c4g_map_profiles WHERE is_default=?" )->limit ( 1 )->execute ( true )->fetchAssoc ();
-			if ($profile) {
-				$profileId = $profile['id'];
-			}
-		}
-		
+        $profile = $database->prepare ( "SELECT * FROM tl_c4g_map_profiles WHERE id=?" )->limit ( 1 )->execute ( $profileId )->fetchAssoc ();
+        if (!$profile) {
+            $profile = $database->prepare ( "SELECT * FROM tl_c4g_map_profiles WHERE is_default=?" )->limit ( 1 )->execute ( true )->fetchAssoc ();
+            if ($profile) {
+                $profileId = $profile['id'];
+            }
+        }
+
 		$mapData['profile'] = $profileId;
-		
 		
 		$mapData ['id'] = $objThis->c4g_map_id;
 		
@@ -659,10 +658,22 @@ class C4GMaps
 	  			$mapData['restr_topright_geoy'] = $data['restr_topright_geoy'];
 	  		}
 
-		}
-		$count = 0;
-		$locStyleIds = array();
-		C4GMaps::$allLocstyles = false;
+        }
+
+        // parse permalink-args:
+        if ($profile['permalink']) {
+            $mapData['center_geox'] = $_GET['lat'] ?: $mapData['center_geox'];
+            $mapData['center_geoy'] = $_GET['lon'] ?: $mapData['center_geoy'];
+            $mapData['zoom'] = $_GET['zoom'] ?: $mapData['zoom'];
+            $objThis->c4g_map_default_mapservice = $_GET['base'] ?: $objThis->c4g_map_default_mapservice;
+            if (!empty( $_GET['layers'] )){
+                $_GET['layers'] = explode('-', base64_decode( $_GET['layers'] ));
+            }
+        }
+
+        $count = 0;
+        $locStyleIds = array();
+        C4GMaps::$allLocstyles = false;
 		if (!$forEditor || $profile['editor_show_items']) {
 			// add all locations, but not when editing (in forum)		
 			self::addLocations($objThis, $database, $objThis->c4g_map_id, $mapData, $data, $locStyleIds, $count);
@@ -817,8 +828,7 @@ class C4GMaps
 		if (!$openlayers_libsource) {
   		  $openlayers_libsource = $GLOBALS['c4g_maps_extension']['js_openlayers_libs']['DEFAULT'];
   	  	  $openlayers_css = $GLOBALS['c4g_maps_extension']['css_openlayers']['DEFAULT'];
-  		}  
-  		  	
+  		}  	
 		
 		// -------------------------------------------------------------------------
 		// collect locationstyle data
@@ -1227,8 +1237,8 @@ class C4GMaps
         		default:
             		break;
         	}
-        }	                               	     
-	    $mapData['defaultServiceKey'] = $objThis->c4g_map_default_mapservice;
+        }
+        $mapData['defaultServiceKey'] = $objThis->c4g_map_default_mapservice;                               	     
 	    
 	    if (count($mapData['service'])==0) {
 	    	// no mapservice defined -> use OSM Mapnik by default
@@ -1284,20 +1294,18 @@ class C4GMaps
             $mapData['viaroute_url'] = 'system/modules/con4gis_maps/C4GViaRoute.php';
             $mapData['router_labels'] = $GLOBALS['TL_LANG']['c4g_maps']['router_labels'];               
         }
+        if ($mapData['permalink']) {
+            $GLOBALS ['TL_JAVASCRIPT'] [] = 'system/modules/con4gis_maps/html/js/C4GPermalink.js';
+        }
 	    
-	    if ($objThis->c4g_map_layer_switcher_ext && $GLOBALS['c4g_jquery_gui_extension']['installed']) {	    	
-	    	
-	    	// Extended LayerSwitcher - only available when extension "c4g_jquery_gui" is installed
-	    	$mapData['ls_tree'] = true;
+	    // Extended LayerSwitcher - only available when extension "c4g_jquery_gui" is installed
+        if ($objThis->c4g_map_layer_switcher_ext && $GLOBALS['c4g_jquery_gui_extension']['installed']) {            
 
 	    	// Initialize Libraries for jQuery Dynatree
 	    	C4GJQueryGUI::initializeTree();
 	    	
 	    	// Include Extended LayerSwitcher JS 
 	    	$GLOBALS ['TL_JAVASCRIPT'] [] = 'system/modules/con4gis_maps/html/js/C4GLayerSwitcher.js';
-            // And appropriate Permalink & ArgParser
-            $GLOBALS ['TL_JAVASCRIPT'] [] = 'system/modules/con4gis_maps/html/js/C4GArgParser.js';
-            $GLOBALS ['TL_JAVASCRIPT'] [] = 'system/modules/con4gis_maps/html/js/C4GPermalink.js';
 
 			// Include LayerSwitcher CSS (Dynatree styling)
 			$GLOBALS['TL_CSS']['c4g_layerswitcher'] = 'system/modules/con4gis_maps/html/css/C4GLayerSwitcher.css';			
