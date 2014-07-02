@@ -82,10 +82,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['c4g_map_layer_switcher_ext'] = array
  * Class tl_content_c4g_maps
  *
  * Provide methods that are used by the data configuration array.
- * @copyright  Küstenschmiede GmbH Software & Design 2012
- * @author     Jürgen Witte <http://www.kuestenschmiede.de>
- * @package    con4gis
- * @author     Jürgen Witte <http://www.kuestenschmiede.de>
+ * 
  */
 class tl_content_c4g_maps extends Backend {
 

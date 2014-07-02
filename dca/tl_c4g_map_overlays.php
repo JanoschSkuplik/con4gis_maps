@@ -5,7 +5,7 @@
  *
  * @version   php 5
  * @package   con4gis
- * @author     Jürgen Witte <http://www.kuestenschmiede.info>
+ * @author    Jürgen Witte <http://www.kuestenschmiede.info>
  * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
  * @copyright Küstenschmiede GmbH Software & Design 2014
  * @link      https://www.kuestenschmiede.de
@@ -173,12 +173,6 @@ $GLOBALS['TL_DCA']['tl_c4g_map_overlays'] = array
 
 /**
  * Class tl_c4g_map_overlays
- *
- * Provide methods that are used by the data configuration array.
- * @copyright  Küstenschmiede
- * @author     Jürgen Witte
- * @package    con4gis
- * @author     Jürgen Witte <http://www.kuestenschmiede.info>
 */
 class tl_c4g_map_overlays extends Backend
 {

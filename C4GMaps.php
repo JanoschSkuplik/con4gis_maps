@@ -5,7 +5,7 @@
  *
  * @version   php 5
  * @package   con4gis
- * @author     Jürgen Witte & Tobias Dobbrunz <http://www.kuestenschmiede.de>
+ * @author    Jürgen Witte & Tobias Dobbrunz <http://www.kuestenschmiede.de>
  * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
  * @copyright Küstenschmiede GmbH Software & Design 2014
  * @link      https://www.kuestenschmiede.de
@@ -19,10 +19,6 @@
  *
  * Static Function library for c4g_maps
  *
- * @copyright  Küstenschmiede GmbH Software & Design 2014
- * @author     Jürgen Witte & Tobias Dobbrunz <http://www.kuestenschmiede.de>
- * @package    con4gis 
- * @author     Jürgen Witte & Tobias Dobbrunz <http://www.kuestenschmiede.de>
  */
 class C4GMaps  
 {

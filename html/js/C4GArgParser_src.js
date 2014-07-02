@@ -1,10 +1,14 @@
 /**
- * @requires OpenLayers/Control.js
+ * Contao Open Source CMS
  *
  * @copyright  Küstenschmiede GmbH Software & Design 2014
  * @author     Tobias Dobbrunz <http://www.kuestenschmiede.de>
  * @package    con4gis 
  * @license    http://opensource.org/licenses/lgpl-3.0.html
+ */
+
+/**
+ * @requires OpenLayers/Control.js
  */
 
 /**
