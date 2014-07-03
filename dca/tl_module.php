@@ -20,7 +20,7 @@
 $GLOBALS['TL_DCA']['tl_module']['palettes']['c4g_maps'] = '{title_legend},name,headline,type;{c4g_map_legend},c4g_map_id,c4g_map_default_mapservice,c4g_map_layer_switcher,c4g_map_mapsize,c4g_map_zoom;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
 $GLOBALS['TL_DCA']['tl_module']['palettes']['__selector__'][] = 'c4g_map_layer_switcher';
 $GLOBALS['TL_DCA']['tl_module']['subpalettes']['c4g_map_layer_switcher'] = 'c4g_map_layer_switcher_open';
-if ($GLOBALS['c4g_jquery_gui_extension']['installed']) {
+if ($GLOBALS['con4gis_common_extension']['installed']) {
 	$GLOBALS['TL_DCA']['tl_module']['subpalettes']['c4g_map_layer_switcher'] .= ',c4g_map_layer_switcher_ext';
 }
 
