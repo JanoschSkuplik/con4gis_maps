@@ -418,7 +418,7 @@ function C4GMapsEditor(mapData,map,styles) {
 			}	
 
 			//showes the tooltip instead of name
-			if ((locstyle.tooltip) && (locstyle.tooltip != 'unknown') && (locstyle.tooltips.indexOf("${") == -1)) {
+			if ((locstyle.tooltip) && (locstyle.tooltip != 'unknown') && (locstyle.tooltip.indexOf("${") == -1)) {
 			  locstyleImg.setAttribute('title',locstyle.tooltip);
 			} else
 			  locstyleImg.setAttribute('title',locstyle.name);

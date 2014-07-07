@@ -30,7 +30,7 @@ locstyleImg.style.width=locstyle.graphicHeight+'px';}
 else{var icon='draw_point.png';if(drawStyle=='polygon'){icon='draw_polygon.png';}
 else if(drawStyle=='line'){icon='draw_path.png';}
 locstyleImg.setAttribute('src','system/modules/con4gis_maps/html/'+icon);}
-if((locstyle.tooltip)&&(locstyle.tooltip!='unknown')&&(locstyle.tooltips.indexOf("${")==-1)){locstyleImg.setAttribute('title',locstyle.tooltip);}else
+if((locstyle.tooltip)&&(locstyle.tooltip!='unknown')&&(locstyle.tooltip.indexOf("${")==-1)){locstyleImg.setAttribute('title',locstyle.tooltip);}else
 locstyleImg.setAttribute('title',locstyle.name);locstyleImg.drawStyle=drawStyle;locstyleDiv.appendChild(locstyleImg);OpenLayers.Event.observe(locstyleImg,'click',OpenLayers.Function.bind(function(element){editor.unselectAllIcons();OpenLayers.Element.addClass(element,'c4gMapsEditorSelected');var locstyleId=element.id.substr(21);var locstyle=mapData.locStyles[locstyleId];editor.curLocstyle=locstyleId;editor.activateDrawControl(locstyleImg.drawStyle);},this,locstyleImg));added=true;};if(locstyle.editor_points){fnAddLocstyleIcon('point');}
 if(locstyle.editor_lines){fnAddLocstyleIcon('line');}
 if(locstyle.editor_polygones){fnAddLocstyleIcon('polygon');}
