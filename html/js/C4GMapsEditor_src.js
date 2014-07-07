@@ -416,7 +416,13 @@ function C4GMapsEditor(mapData,map,styles) {
 				}
 				locstyleImg.setAttribute('src','system/modules/con4gis_maps/html/' + icon);
 			}	
-			locstyleImg.setAttribute('title',locstyle.name);
+
+			//showes the tooltip instead of name
+			if ((locstyle.tooltip) && (locstyle.tooltip != 'unknown') && (locstyle.tooltips.indexOf("${") == -1)) {
+			  locstyleImg.setAttribute('title',locstyle.tooltip);
+			} else
+			  locstyleImg.setAttribute('title',locstyle.name);
+
 			locstyleImg.drawStyle = drawStyle;
 			locstyleDiv.appendChild(locstyleImg);
 			OpenLayers.Event.observe(locstyleImg, 'click',
