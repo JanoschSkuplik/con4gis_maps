@@ -33,9 +33,9 @@ $GLOBALS['TL_LANG']['c4g_maps']['search'] 				= 'Adresse suchen';
 
 $GLOBALS['TL_LANG']['c4g_maps']['update_db'] 			= 'Datenbank aktualisieren';
 $GLOBALS['TL_LANG']['c4g_maps']['update_db_success'] 	= 'Datenbank erfolgreich aktualisiert!';
-$GLOBALS['TL_LANG']['c4g_maps']['db_status'] 			= 'Status der con4gis-Maps Datenbank';
+$GLOBALS['TL_LANG']['c4g_maps']['db_status'] 			= 'Status der con4gis-maps Datenbank';
 $GLOBALS['TL_LANG']['c4g_maps']['db_uptodate'] 			= 'Datenbank ist auf dem aktuellsten Stand!';
-$GLOBALS['TL_LANG']['c4g_maps']['db_update_necessary'] 	= 'Datenbank muss für con4gis-Maps Version >= 2.0 aktualisiert werden!';
+$GLOBALS['TL_LANG']['c4g_maps']['db_update_necessary'] 	= 'Datenbank muss für con4gis-maps Version >= 2.0 aktualisiert werden!';
 
 /**
  * Labels

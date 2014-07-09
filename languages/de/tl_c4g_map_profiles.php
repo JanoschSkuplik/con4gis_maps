@@ -5,7 +5,7 @@
  *
  * @version   php 5
  * @package   con4gis
- * @author     Jürgen Witte <http://www.kuestenschmiede.de>
+ * @author    Jürgen Witte <http://www.kuestenschmiede.de>
  * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
  * @copyright Küstenschmiede GmbH Software & Design 2014
  * @link      https://www.kuestenschmiede.de
@@ -20,7 +20,7 @@
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['name'] 					= array('Name', 
 																			'Bitte geben Sie den Namen des Kartenprofils an.');
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['is_default'] 			= array('Als Standardprofil verwenden', 
-																			'Setzen Sie diese Checkbox, um das Kartenprofil als Standardwert bei neu angelegten Karteneinträgen zu verwenden.');
+																			'Setzen Sie diese Checkbox, um das Kartenprofil als Standardwert, bei neu angelegten Karteneinträgen, zu verwenden.');
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['theme'] 				= array('OpenLayers Theme',
 																			'Wählen Sie eines der integrierten OpenLayers Themes aus.');
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['baselayers']  			= array('Basiskarten', 
@@ -44,7 +44,7 @@ $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['mouse_nav_kinetic'] 	= array('Kineti
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['mouse_nav_toolbar'] 	= array('Maus-Toolbar', 
 																			'Blendet zwei Buttons ein, mit deren Hilfe man zwischen dem Verschieben des Kartenausschnitts mit der Maus und dem Aufziehen eines Rechtecks zum Hineinzoomen in die Karte wechseln kann.');
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['keyboard_nav'] 			= array('Navigation mit der Tastatur', 
-																			'Aktiviert die Möglichkeit, mit Hilfe der Tastatur zu navigieren (Pfeiltasten zum Verschieben, Zoomen mit den Tasten "+" und "-".');
+																			'Aktiviert die Möglichkeit, mit Hilfe der Tastatur zu navigieren (Pfeiltasten zum Verschieben, Zoomen mit den Tasten "+" und "-").');
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['nav_history'] 			= array('Navigations-Historie', 
 																			'Erzeugt einen Vor- und einen Zurück-Schalter, vergleichbar mit denen eines Internet-Browsers.');
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['fullscreen'] 			= array('Vollbildmodus', 
@@ -70,7 +70,7 @@ $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['libsource'] 			= array('Zu verwenden
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['imagepath'] 			= array('Benutzerdefinierter Pfad für OpenLayers Icons (optional)', 
 																			'Nur beim Standard-Theme: Setzt den Pfad zu einem benutzerdefinierten OpenLayers /img/ Verzeichnis für den Fall, dass Sie OpenLayers Standardicons auswechseln möchten. ACHTUNG: Diese Einstellung betrifft NICHT Grafiken aus dem OpenLayers /themes/default/img/ Verzeichnis, die Sie über CSS austauschen können!');
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['script'] 				= array('Eigener JavaScript-Code', 
-																			'Der JavaScript-Code wird am Ende der C4GMaps-Funktion eingefügt.');
+																			'Der JavaScript-Code wird am Ende der con4gis-maps Funktion eingefügt.');
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['link_newwindow'] 		= array('Direktlink in neuem Fenster öffnen', 
 																			'Direktlinks nicht im selben Fenster, sondern in einem neuen Fenster öffnen.');
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['link_open_on'] 			= array('Direktlinks öffnen bei', 
@@ -84,7 +84,7 @@ $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['attribution'] 			= array('Copyright-
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['cfg_logo_attribution'] 	= array('con4gis-Logo einblenden', 
 																			'Blendet das con4gis-Logo auf der Karte ein. Sie können diese Option deaktivieren, jedoch würden wir uns in diesem Fall über eine Erwähung von "con4gis" an einer anderen Stelle, auf Ihrer Seite freuen.');
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['div_attribution'] 		= array('DIV für Copyright-Text (Attribution)',
-																			'DIV zur Positionierung des Copyrights. Nur nötig, falls das Copyright außerhalb der Karte angezeigt werden soll. Muss manuell auf der Seite erzeugt werden, z.B. mit einem HTML Inhaltselement.');
+																			'DIV zur Positionierung des Copyrights. Nur nötig, falls das Copyright außerhalb der Karte angezeigt werden soll. Dieses muss manuell auf der Seite erzeugt werden, z.B. mit einem HTML Inhaltselement.');
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['add_attribution'] 		= array('Zusätzlicher Copyright-Text',
 																			'wird an den Copyright-Text des verwendeten Kartendienstes angefügt.');
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['geosearch'] 			= array('Suche anzeigen',
@@ -96,7 +96,7 @@ $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['geosearch_customengine_url'] 			= ar
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['geosearch_customengine_attribution'] 	= array('Benutzerdefinierte Suchengine-Attribution',
 																							'WICHTIG! Der Copyright-Text des Anbieters der Suchengine.');
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['geosearch_div'] 		= array('DIV für die Suche',
-																			'DIV zur Positionierung der Suche. Nur nötig, falls die Suche nicht direkt vor der Karte angezeigt werden soll. Muss manuell auf der Seite erzeugt werden, z.B. mit einem HTML Inhaltselement.');
+																			'DIV zur Positionierung der Suche. Nur nötig, falls die Suche nicht direkt vor der Karte angezeigt werden soll. Dieses muss manuell auf der Seite erzeugt werden, z.B. mit einem HTML Inhaltselement.');
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['geosearch_zoomto'] 		= array('Zoomlevel',
 																			'Zoomlevel nach einer erfolgreichen Suche, z.B. 12');
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['geosearch_zoombounds'] 	= array('Auf Gebiete zoomen', 
@@ -104,17 +104,17 @@ $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['geosearch_zoombounds'] 	= array('Auf
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['geosearch_attribution'] = array('Copyright für die Suche anzeigen',
 																			'Fügt eine Attribution des verwendeten Suchservice (Nominatim) hinzu. Deaktivierung nicht empfohlen!'); 
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['geopicker'] 			= array('Geopicker anzeigen',
-																			'Zeigt einen Geopicker, wie er im Backend zur Auswahl der Koordinaten verwendet wird im Frontend an. Nützlich z.B. in einem Formular.');
+																			'Zeigt einen Geopicker, wie er im Backend zur Auswahl der Koordinaten verwendet wird, im Frontend an. Nützlich z.B. in einem Formular.');
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['geopicker_fieldx'] 		= array('Formularfeld für die x-Koordinate',
 																			'Ein INPUT Feld, in das die gewählte X-Koordinate geschrieben wird.');
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['geopicker_fieldy'] 		= array('Formularfeld für die y-Koordinate',
 																			'Ein INPUT Feld, in das die gewählte Y-Koordinate geschrieben wird.');
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['geopicker_searchdiv'] 	= array('DIV für Geopicker',
-																			'DIV zur Positionierung des Geopickers. Muss manuell auf der Seite erzeugt werden, z.B. mit einem HTML Formularfeld.');
+																			'DIV zur Positionierung des Geopickers. Dieses muss manuell auf der Seite erzeugt werden, z.B. mit einem HTML Formularfeld.');
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['geopicker_attribution'] = array('Copyright für Geopicker anzeigen',
 																			'Fügt eine Attribution des verwendeten Suchservice (Nominatim) hinzu. Deaktivierung nicht empfohlen!'); 
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['div_layerswitcher'] 	= array('DIV für den Layer-Switcher',
-																			'DIV zur Positionierung des Layer-Switchers außerhalb der Karte. Muss manuell auf der Seite erzeugt werden, z.B. mit einem HTML Inhaltselement.');
+																			'DIV zur Positionierung des Layer-Switchers außerhalb der Karte. Dieses muss manuell auf der Seite erzeugt werden, z.B. mit einem HTML Inhaltselement.');
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['custom_div'] 			= array('DIV für den Kartenbereich',
 																			'DIV zur Umpositionierung des Kartenbereichs. Mit Hilfe dieser Einstellung lässt sich die Karte z.B. mitten in ein Formular hinein verschieben. Das DIV muss manuell auf der Seite erzeugt werden, z.B. mit einem HTML Inhaltselement oder HTML Formularfeld.');
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['label_baselayer'] 		= array('Bezeichnung der Basiskarten im Starboard',
@@ -122,7 +122,7 @@ $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['label_baselayer'] 		= array('Bezeich
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['label_overlays'] 		= array('Bezeichnung der Ebenen im Starboard ',
 																			'z.B. "Kartenelemente"');
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['overpass_url'] 			= array('Alternative URL der Overpass-API (<a href="http://overpass-api.de/" target="_blank">Website des voreingestellten API-Server Anbieters</a>)',
-																			'Geben Sie hier die URL des Overpass API Servers ein, wenn Sie z.B. einen eigenen Overpass API Server nutzen möchten. Standardmäßig wird http://overpass-api.de/api/interpreter verwendet');
+																			'Geben Sie hier die URL des Overpass API Servers ein, wenn Sie z.B. einen eigenen Overpass API Server nutzen möchten. Standardmäßig wird http://overpass-api.de/api/interpreter verwendet.');
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['router'] 				= array('Router aktivieren (Beachten Sie bitte die <a href="https://github.com/DennisOSRM/Project-OSRM/wiki/Api-usage-policy" target="_blank">Nutzungsbedingungen des Standard-Anbieters</a>!)',
 																			'Fügt einen zusätzlichen Schalter in die Karte ein, über den der Router aktiviert werden kann.');
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['router_viaroute_url'] 	= array('Alternative URL der OSRM-API',
@@ -185,7 +185,7 @@ $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['general_legend']		= 'Allgemeine Date
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['baselayer_legend']		= 'Basiskarten';
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['locstyle_legend']		= 'Lokationsstile';
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['navigation_legend']		= 'Karten-Navigation';
-$GLOBALS['TL_LANG']['tl_c4g_map_profiles']['tool_legend']			= 'Karten-Werkzeuge (NEU)';
+$GLOBALS['TL_LANG']['tl_c4g_map_profiles']['tool_legend']			= 'Karten-Werkzeuge';
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['information_legend']	= 'Karten-Informationen';
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['expert_legend']	        = 'Experteneinstellungen';
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['misc_legend']	        = 'Sonstiges';

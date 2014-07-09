@@ -5,7 +5,7 @@
  *
  * @version   php 5
  * @package   con4gis
- * @author     Jürgen Witte <http://www.kuestenschmiede.de>
+ * @author    Jürgen Witte <http://www.kuestenschmiede.de>
  * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
  * @copyright Küstenschmiede GmbH Software & Design 2014
  * @link      https://www.kuestenschmiede.de
@@ -20,10 +20,10 @@
  */
 $GLOBALS['TL_LANG']['MOD']['con4gis'] 					= array( 'con4gis (Baukasten)', 'www.con4gis.org' );
 
-$GLOBALS['TL_LANG']['MOD']['c4g_maps'] 					= array( 'Kartenstrukturen', 'Karten von con4gis-Maps in Kartenstrukturen verwalten.' );
-$GLOBALS['TL_LANG']['MOD']['c4g_map_baselayers'] 		= array( 'Basiskarten', 'Basiskarten von con4gis-Maps verwalten.' );
-$GLOBALS['TL_LANG']['MOD']['c4g_map_locstyles'] 		= array( 'Lokationsstile', 'Lokationsstile von con4gis-Maps verwalten.' );
-$GLOBALS['TL_LANG']['MOD']['c4g_map_profiles'] 			= array( 'Kartenprofile', 'Kartenprofile von con4gis-Maps verwalten.' );
+$GLOBALS['TL_LANG']['MOD']['c4g_maps'] 					= array( 'Kartenstrukturen', 'Karten von con4gis-maps in Kartenstrukturen verwalten.' );
+$GLOBALS['TL_LANG']['MOD']['c4g_map_baselayers'] 		= array( 'Basiskarten', 'Basiskarten von con4gis-maps verwalten.' );
+$GLOBALS['TL_LANG']['MOD']['c4g_map_locstyles'] 		= array( 'Lokationsstile', 'Lokationsstile von con4gis-maps verwalten.' );
+$GLOBALS['TL_LANG']['MOD']['c4g_map_profiles'] 			= array( 'Kartenprofile', 'Kartenprofile von con4gis-maps verwalten.' );
 
 /**
  * Frontend modules

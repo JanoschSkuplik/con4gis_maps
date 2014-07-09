@@ -30,7 +30,7 @@ $GLOBALS['TL_LANG']['tl_c4g_map_prof_services']['bing_style']     = array('Bing 
 $GLOBALS['TL_LANG']['tl_c4g_map_prof_services']['bing_key']       = array('Bing Application Key', 'Enter your Bing Application Key here. You get it from http://bingmapsportal.com/.');
 $GLOBALS['TL_LANG']['tl_c4g_map_prof_services']['google_style']   = array('Google Maps style', 'Please select from the given Google Maps styles.');
 $GLOBALS['TL_LANG']['tl_c4g_map_prof_services']['attribution']    = array('Custom attribution', 'Enter a custom attribution here if needed (optional).');
-$GLOBALS['TL_LANG']['tl_c4g_map_prof_services']['maxzoomlevel']   = array('Custom maximum zoomlevel', 'Enter a custom maximum zoomlevel here if needed (0 means maximum zoomlevel of the map)');
+$GLOBALS['TL_LANG']['tl_c4g_map_prof_services']['maxzoomlevel']   = array('Custom maximum zoomlevel', 'Enter a custom maximum zoomlevel here if needed (0 means maximum zoomlevel of the map).');
 
 /**
  * Reference
