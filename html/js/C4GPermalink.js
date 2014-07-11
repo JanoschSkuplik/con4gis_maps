@@ -254,7 +254,8 @@ OpenLayers.Control.C4GPermalink = OpenLayers.Class(OpenLayers.Control,
                 if (layer == this.map.baseLayer) {
                     params.base = layer.key;
                 } else if (layer.getVisibility() && typeof(layer.key) != 'undefined' && layer.name != "") {
-                    arrLayers.push( layer.key.toString(36) );
+                    // arrLayers.push( layer.key.toString(36) );
+                    arrLayers.push( layer.key );
                 }
             }
             if (arrLayers.length) {

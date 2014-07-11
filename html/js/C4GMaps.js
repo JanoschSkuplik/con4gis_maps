@@ -289,7 +289,9 @@ function C4GMaps(mapData) {
 			// mouse_nav and mouseposition needed for Geo Picking
 			mapData.mouse_nav = true;
 			mapData.mouseposition = true;
-			mapData.mouse_nav_toolbar = false; // Nav Toolbar steels DefaultDblClick event, so turn it off			
+			mapData.mouse_nav_toolbar = false; // Nav Toolbar steels DefaultDblClick event, so turn it off		
+			mapData.editor = false; // not needed when picking
+			mapData.permalink = false;	
 		}
 
 		// -----------------------------------------------
@@ -2295,8 +2297,8 @@ function C4GMaps(mapData) {
 				};
 				fnSetCheckedLayer();
 
-				if (layerSwitcher.dynaTree) {
-					layerSwitcher.dynaTree.options.onExpand = function(flag,node) { 
+				if (layerSwitcher.fancyTree) {
+					layerSwitcher.fancyTree.options.onExpand = function(flag,node) { 
 						fnResizeMap();    
 					};
 				}

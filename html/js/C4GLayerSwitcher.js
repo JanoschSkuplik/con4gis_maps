@@ -28,7 +28,7 @@
  * Class: OpenLayers.Control.C4GLayerSwitcher
  *
  * Extended LayerSwitcher, which allows Overlays to be displayed and switched on/off in a tree.
- * Uses the jQuery Dynatree Plugin.
+ * Uses the jQuery dynatree Plugin.
  *
  * based upon OpenLayers.Control.LayerSwitcher from OpenLayers 2.12, which is: 
  *
@@ -437,9 +437,10 @@ OpenLayers.Control.C4GLayerSwitcher =
                 groupDiv.appendChild(br);
             }
         }
+
         if (children.length > 0) {
             jQuery(this.dataLayersDiv).dynatree({
-                onSelect: function(flag,node) {                     
+                onSelect: function(flag,node) {
                     if (node.data.layer) {
 
                         var fnSetLayerIndex = function( layer ) {
@@ -480,9 +481,9 @@ OpenLayers.Control.C4GLayerSwitcher =
                         return false;
                     }
                 },              
-                checkbox: true,             
                 selectMode: 3,
-                children: children
+                children: children,
+                checkbox: true             
             });     
             this.dynaTree = jQuery(this.dataLayersDiv).dynatree("getTree");
             this.dynaTree.reload();
