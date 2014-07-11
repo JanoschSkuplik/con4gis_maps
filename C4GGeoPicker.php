@@ -82,6 +82,7 @@ class C4GGeoPicker extends Backend
 		$mapData['geocoding_url'] = 'system/modules/con4gis_maps/C4GNominatim.php';
 		$mapData['geocoding_div'] = 'c4gGeoPickerGeocoding';
 		$mapData['geocoding_usebutton'] = true;
+		$mapData['div_attribution'] = 'c4g_attribution';
 		
 		$this->Template->mapData = $mapData;
 		
