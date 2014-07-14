@@ -1207,33 +1207,33 @@ function C4GMapsEditor(mapData,map,styles) {
 	editor.setSelectionMode();
 	editor.active = true;
 
-	if (mapData.fe_editor) {
 
-		var editorPanelDiv = document.createElement('div');
-		editorPanelDiv.id = 'C4GEditorPanel_' + mapData.id;
-		editorPanelDiv.className = 'olControlEditorButtonPanel olControlNoSelect';
-		editorPanelDiv.style.position = 'absolute';
-		editorPanelDiv.style.zIndex = '1025';
+	var editorPanelDiv = document.createElement('div');
+	editorPanelDiv.id = 'C4GEditorPanel_' + mapData.id;
+	editorPanelDiv.className = 'olControlEditorButtonPanel olControlNoSelect';
+	editorPanelDiv.style.position = 'absolute';
+	editorPanelDiv.style.zIndex = '1025';
 
-		var editorIconDiv = document.createElement('div');
-        editorIconDiv.id = 'C4GMapsEditorButtonIconDiv_' + mapData.id;
-        editorIconDiv.className = 'olControlEditorButton olControlEditorButtonInactive olControlNoSelect';
+	var editorIconDiv = document.createElement('div');
+    editorIconDiv.id = 'C4GMapsEditorButtonIconDiv_' + mapData.id;
+    editorIconDiv.className = 'olControlEditorButton olControlEditorButtonInactive olControlNoSelect';
 
-        var editorButton = document.createElement('div');
-        editorButton.id = 'C4GMapsEditorButton_' + mapData.id;
-        editorButton.className = 'olControlEditorButtonIconInactive olButton';
+    var editorButton = document.createElement('div');
+    editorButton.id = 'C4GMapsEditorButton_' + mapData.id;
+    editorButton.className = 'olControlEditorButtonIconInactive olButton';
 
-		editorIconDiv.appendChild(editorButton);
-		editorPanelDiv.appendChild(editorIconDiv);
-		map.viewPortDiv.appendChild(editorPanelDiv);
+	editorIconDiv.appendChild(editorButton);
+	editorPanelDiv.appendChild(editorIconDiv);
+	map.viewPortDiv.appendChild(editorPanelDiv);
 
-		fnIgnoreEvents(editorPanelDiv);
-		fnIgnoreEvents(editorIconDiv);
+	fnIgnoreEvents(editorPanelDiv);
+	fnIgnoreEvents(editorIconDiv);
 
-		OpenLayers.Event.observe(editorButton, 'click',
-    		OpenLayers.Function.bind(function(input) { editor.toggleEditor(); }, this, null));
-		
-		editor.closeEditor();
-	}
+	OpenLayers.Event.observe(editorButton, 'click',
+		OpenLayers.Function.bind(function(input) { editor.toggleEditor(); }, this, null));
+	
+	editor.closeEditor();
+
+	
 	return editor;
 }

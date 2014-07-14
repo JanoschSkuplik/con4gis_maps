@@ -283,7 +283,7 @@ function C4GMaps(mapData) {
 
 
 		// -----------------------------------------------
-		// picking Geo Coordinate handling 
+		// picking Geo Coordinate & BE-Editor handling 
 		// -----------------------------------------------
 		if (mapData.pickGeo) {
 			// mouse_nav and mouseposition needed for Geo Picking
@@ -291,6 +291,11 @@ function C4GMaps(mapData) {
 			mapData.mouseposition = true;
 			mapData.mouse_nav_toolbar = false; // Nav Toolbar steels DefaultDblClick event, so turn it off		
 			mapData.editor = false; // not needed when picking
+			mapData.permalink = false;	
+		}
+		if (mapData.editor && !mapData.fe_editor) {
+			mapData.mouse_nav_toolbar = false; // Nav Toolbar steels DefaultDblClick event, so turn it off		
+			mapData.pickGeo = false; // not needed when picking
 			mapData.permalink = false;	
 		}
 

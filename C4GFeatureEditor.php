@@ -77,6 +77,8 @@ class C4GFeatureEditor extends Backend
   		$mapData['geosearch_zoomto'] = 14;
   		$mapData['geosearch_zoombounds'] = true;
   		$mapData['geosearch_attribution'] = true;
+
+  		$mapData['div_attribution'] = 'c4gAttribution';
   		
   		$item = $this->Database->prepare(
   				"SELECT locstyle ".
