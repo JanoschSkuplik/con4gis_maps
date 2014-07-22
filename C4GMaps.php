@@ -1298,8 +1298,8 @@ class C4GMaps
             $GLOBALS ['TL_JAVASCRIPT'] [] = 'system/modules/con4gis_maps/html/js/C4GPermalink.js';
         }
 	    
-	    // Extended LayerSwitcher - only available when extension "con4gis_common" is installed
-        if ($objThis->c4g_map_layer_switcher_ext && $GLOBALS['con4gis_common_extension']['installed']) {            
+	    // Extended LayerSwitcher - only available when extension "con4gis_core" is installed
+        if ($objThis->c4g_map_layer_switcher_ext && $GLOBALS['con4gis_core_extension']['installed']) {            
 
 	    	// Initialize Libraries for jQuery Dynatree
 	    	C4GJQueryGUI::initializeTree();

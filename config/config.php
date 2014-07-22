@@ -23,7 +23,7 @@ $GLOBALS['c4g_maps_extension']['installed'] = true;
  * Sourcetable definition
  */
 $GLOBALS['c4g_maps_extension']['sourcetable']['tl_calendar_events'] = 
-  array('ptable'        => 'tl_calendar',
+	array('ptable'        => 'tl_calendar',
         'ptable_option' => 'title',
         'geox'          => 'c4g_loc_geox',
         'geoy'          => 'c4g_loc_geoy',
@@ -34,53 +34,54 @@ $GLOBALS['c4g_maps_extension']['sourcetable']['tl_calendar_events'] =
   		'linkurl'       => '{{event_url::[id]}}',
         'sqlwhere'      => 'published = 1',
   		'alias_getparam'=> 'events'
-  );
+	);
         
 
 /**
  * Backend Modules
  */
-array_insert($GLOBALS['BE_MOD'],array_search('content', array_keys($GLOBALS['BE_MOD']))+1,
-	array('con4gis' => array(
-	    'c4g_maps'=>array(
-			'tables' => array('tl_c4g_maps'),
-	 		'icon'	 => 'system/modules/con4gis_maps/html/mapicon.png',
-		    'update_db' => array('C4GMapsBackend', 'updateDB'),
-	 		'javascript' => 'system/modules/con4gis_maps/html/js/C4GMapsBackend.js'
-		),
-	    'c4g_map_baselayers'=>array(
-			'tables' => array('tl_c4g_map_baselayers','tl_c4g_map_overlays'),
-			'icon'	 => 'system/modules/con4gis_maps/html/baselayers.png'
-		),
-		'c4g_map_locstyles'=>array(
-			'tables' => array('tl_c4g_map_locstyles'),
-			'icon'	 => 'system/modules/con4gis_maps/html/locstyles.png'
-		),
-		'c4g_map_profiles'=>array(
-			'tables' => array('tl_c4g_map_profiles'),
-			'icon'	 => 'system/modules/con4gis_maps/html/profiles.png'
-		),
-		
-	) 
-) );
+array_insert( $GLOBALS['BE_MOD']['con4gis'], 1, array
+(
+    'c4g_maps' => array
+    (
+		'tables' 			=> array('tl_c4g_maps'),
+ 		'icon'	 			=> 'system/modules/con4gis_maps/html/mapicon.png',
+	    'update_db' 		=> array('C4GMapsBackend', 'updateDB'),
+ 		'javascript' 		=> 'system/modules/con4gis_maps/html/js/C4GMapsBackend.js'
+	),
+    'c4g_map_baselayers' => array
+    (
+		'tables' 			=> array('tl_c4g_map_baselayers','tl_c4g_map_overlays'),
+		'icon'	 			=> 'system/modules/con4gis_maps/html/baselayers.png'
+	),
+	'c4g_map_locstyles' => array
+	(
+		'tables' 			=> array('tl_c4g_map_locstyles'),
+		'icon'	 			=> 'system/modules/con4gis_maps/html/locstyles.png'
+	),
+	'c4g_map_profiles' => array
+	(
+		'tables' 			=> array('tl_c4g_map_profiles'),
+		'icon'	 			=> 'system/modules/con4gis_maps/html/profiles.png'
+	)
+));
 
-if ($GLOBALS['BE_MOD']['content']['calendar']['javascript']=='') {	
-  $GLOBALS['BE_MOD']['content']['calendar']['javascript'] = 'system/modules/con4gis_maps/html/js/C4GMapsBackend.js'; 
+if ($GLOBALS['BE_MOD']['content']['calendar']['javascript'] == '') {	
+	$GLOBALS['BE_MOD']['content']['calendar']['javascript'] = 'system/modules/con4gis_maps/html/js/C4GMapsBackend.js'; 
 }   
 	
 /**
  * Frontend modules
  */
-array_insert($GLOBALS['FE_MOD']['con4gis'], 10, array
+array_insert( $GLOBALS['FE_MOD']['con4gis'], 1, array
 (
 	'c4g_maps' => 'Module_c4g_maps'
-)
-);	
+));	
 /**
  * Content elements
  */
 
-array_insert($GLOBALS['TL_CTE']['con4gis'], 10, array
+array_insert($GLOBALS['TL_CTE']['con4gis'], 1, array
 (
 	'c4g_maps' => 'Content_c4g_maps'
 ));
@@ -107,9 +108,9 @@ $GLOBALS['c4g_maps_extension']['js_editor'] 					= 'system/modules/con4gis_maps/
 $GLOBALS['c4g_maps_extension']['css_editor'] 					= 'system/modules/con4gis_maps/html/css/C4GMapsEditor.css';
 $GLOBALS['c4g_maps_extension']['js_openlayers_owm'] 			= 'system/modules/con4gis_maps/html/js/OWM.OpenLayers.1.3.4.js';
 
-if ($GLOBALS['con4gis_common_extension']['installed']) {
-	$GLOBALS['TL_JAVASCRIPT']['c4g_jq_bbc'] 	= 'system/modules/con4gis_common/lib/wswgEditor/editor.js';
-	$GLOBALS['TL_CSS']['c4g_jq_bbc'] 			= 'system/modules/con4gis_common/lib/wswgEditor/css/editor.css';
-	$GLOBALS['TL_CSS']['c4g_jq_bbc2'] 			= 'system/modules/con4gis_common/lib/wswgEditor/css/bbcodes.css';
+if ($GLOBALS['con4gis_core_extension']['installed']) {
+	$GLOBALS['TL_JAVASCRIPT']['c4g_jq_bbc'] 	= 'system/modules/con4gis_core/lib/wswgEditor/editor.js';
+	$GLOBALS['TL_CSS']['c4g_jq_bbc'] 			= 'system/modules/con4gis_core/lib/wswgEditor/css/editor.css';
+	$GLOBALS['TL_CSS']['c4g_jq_bbc2'] 			= 'system/modules/con4gis_core/lib/wswgEditor/css/bbcodes.css';
 }
 ?>

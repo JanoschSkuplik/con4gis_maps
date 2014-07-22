@@ -18,8 +18,6 @@
 /**
  * Back end modules
  */
-$GLOBALS['TL_LANG']['MOD']['con4gis'] 					= array( 'con4gis (Baukasten)', 'www.con4gis.org' );
-
 $GLOBALS['TL_LANG']['MOD']['c4g_maps'] 					= array( 'Kartenstrukturen', 'Karten von con4gis-Maps in Kartenstrukturen verwalten.' );
 $GLOBALS['TL_LANG']['MOD']['c4g_map_baselayers'] 		= array( 'Basiskarten', 'Basiskarten von con4gis-Maps verwalten.' );
 $GLOBALS['TL_LANG']['MOD']['c4g_map_locstyles'] 		= array( 'Lokationsstile', 'Lokationsstile von con4gis-Maps verwalten.' );

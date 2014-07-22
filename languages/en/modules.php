@@ -18,8 +18,6 @@
 /**
  * Back end modules
  */
-$GLOBALS['TL_LANG']['MOD']['con4gis'] 				= array( 'con4gis (construction kit)', 'www.con4gis.org' );
-
 $GLOBALS['TL_LANG']['MOD']['c4g_maps'] 				= array( 'Map structures', 'Maintain con4gis-Maps items in map structures.' );
 $GLOBALS['TL_LANG']['MOD']['c4g_map_baselayers'] 	= array( 'Base layers', 'Maintain con4gis-Maps base layers.' );
 $GLOBALS['TL_LANG']['MOD']['c4g_map_locstyles'] 	= array( 'Location styles', 'Maintain con4gis-Maps location styles.' );
