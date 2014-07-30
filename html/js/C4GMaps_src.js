@@ -2827,7 +2827,7 @@ OpenLayers.Layer.OpenWeatherMap_Stations = OpenLayers.Class(OpenLayers.Layer.OSM
 	 */	
 
 	initialize : function(name, options) {
-		var stations = new OpenLayers.Layer.Vector.OWMWeather("Stations");
+		var stations = new OpenLayers.Layer.Vector.OWMStations("Stations");
 		stations.displayInLayerSwitcher = false;
 		//stations.redraw();
 

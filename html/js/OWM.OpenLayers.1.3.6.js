@@ -1,7 +1,12 @@
 //
 //	Open Weather Map
 //	core script for OpenLayers library
-//	http://openweathermap.org/wiki/API/OWM.OpenLayers.js
+//	http://openweathermap.org/wiki/API/OWM.ol.js
+//
+//
+//	Version 1.3.5
+//	2012.11.21
+//		NEW tile server
 //
 //	Version 1.3.4
 //	2012.09.17
@@ -26,25 +31,24 @@
 //	new weather icons
 //
 //	2012.05.23 Version 1.2.1
-//	добавлена серверная кластеризация для станций. Она включена по умолчанию для класса 
-//	OpenLayers.Layer.Vector.OWMStations
+//	ol.layer.Vector.OWMStations
 //
 //	2012.05.20 Version 1.2
 //	добавлена серверная кластеризация. Она включена по умолчанию для класса 
-//	OpenLayers.Layer.Vector.OWMWeather
-//	для класса OpenLayers.Layer.Vector.OWMStations в настоящий момент серверная кластеризация не работает
+//	ol.layer.Vector.OWMWeather
+//	для класса ol.layer.Vector.OWMStations в настоящий момент серверная кластеризация не работает
 //
 //	2012.05.10 Version 1.1
 //	добавлена клиентская кластеризация
 
-if (typeof OpenLayers == 'undefined') {
-//  throw "Needs OpenLayers.";
-	console.log("Needs OpenLayers.");
+if (typeof ol == 'undefined') {
+//  throw "Needs ol.";
+	console.log("Needs ol.");
 }
 
 
 // Композитный слой tiles
-OpenLayers.Layer.OWMComposite = OpenLayers.Class(OpenLayers.Layer.WMS, {
+ol.layer.OWMComposite = ol.Class(ol.layer.WMS, {
 
 initialize:function(layer,name, params)
 {
@@ -70,7 +74,7 @@ initialize:function(layer,name, params)
 		params
 	];
 
-	OpenLayers.Layer.WMS.prototype.initialize.apply(this,newArguments);	
+	ol.layer.WMS.prototype.initialize.apply(this,newArguments);	
 },
 
 getURL: function (bounds) {
@@ -112,7 +116,7 @@ getURL: function (bounds) {
 
 // Radar compozite wms layer
 
-OpenLayers.Layer.OWMRadar = OpenLayers.Class(OpenLayers.Layer.WMS, {
+ol.layer.OWMRadar = ol.Class(ol.layer.WMS, {
 initialize:function(name, params)
 {
 	if(params == undefined) { 
@@ -133,7 +137,7 @@ initialize:function(name, params)
 		params
 	];
 
-	OpenLayers.Layer.WMS.prototype.initialize.apply(this,newArguments);	
+	ol.layer.WMS.prototype.initialize.apply(this,newArguments);	
 },
 
 getURL: function (bounds) {
@@ -163,7 +167,7 @@ getURL: function (bounds) {
 // WMS
 //
 
-OpenLayers.Layer.OWMwms = OpenLayers.Class(OpenLayers.Layer.WMS, {
+ol.layer.OWMwms = ol.Class(ol.layer.WMS, {
 	initialize:function(layer, name, params)
 	{
 		if(params == undefined) { 
@@ -185,12 +189,12 @@ OpenLayers.Layer.OWMwms = OpenLayers.Class(OpenLayers.Layer.WMS, {
 			params
 		];
 
-		OpenLayers.Layer.WMS.prototype.initialize.apply(this,newArguments);	
+		ol.layer.WMS.prototype.initialize.apply(this,newArguments);	
 	}
 
 });
 
-OpenLayers.Layer.OWMCanada = OpenLayers.Class(OpenLayers.Layer.WMS, {
+ol.layer.OWMCanada = ol.Class(ol.layer.WMS, {
 	initialize:function(layer, name, params)
 	{
 		if(params == undefined) { 
@@ -212,7 +216,7 @@ OpenLayers.Layer.OWMCanada = OpenLayers.Class(OpenLayers.Layer.WMS, {
 			params
 		];
 
-		OpenLayers.Layer.WMS.prototype.initialize.apply(this,newArguments);	
+		ol.layer.WMS.prototype.initialize.apply(this,newArguments);	
 	},
 
 getURL: function (bounds) {
@@ -241,7 +245,7 @@ getURL: function (bounds) {
 //
 // A specific format for parsing OpenWeatherMap Weather API JSON responses.
 
-OpenLayers.Format.OWMWeather = OpenLayers.Class(OpenLayers.Format, {
+ol.Format.OWMWeather = ol.Class(ol.Format, {
 
 	read: function(obj) {
 
@@ -250,7 +254,7 @@ OpenLayers.Format.OWMWeather = OpenLayers.Class(OpenLayers.Format, {
 				['OWM failure response (',  obj.cod,'): ',obj.message].join('') );
 		}
 
-		if(!obj || !obj.list || !OpenLayers.Util.isArray(obj.list )) {
+		if(!obj || !obj.list || !ol.Util.isArray(obj.list )) {
                         throw new Error('Unexpected OWM response');
 		}
 		var list = obj.list, x, y, point, feature, features = [];
@@ -258,12 +262,12 @@ OpenLayers.Format.OWMWeather = OpenLayers.Class(OpenLayers.Format, {
 		//console.log('time='+obj.calctime+', cnt='+obj.cnt +', '+ obj.message);
 
 		for(var i=0,l=list.length; i<l; i++) {
-			feature = new OpenLayers.Feature.Vector(
-			new OpenLayers.Geometry.Point(list[i].coord.lon, list[i].coord.lat), 
+			feature = new ol.Feature.Vector(
+			new ol.Geometry.Point(list[i].coord.lon, list[i].coord.lat), 
 			{
                             title: list[i].name,
 			    station: list[i],
-                            temp:  Math.round(10*(list[i].main.temp-273.15))/10
+                            temp:  Math.round(10*(list[i].main.temp))/10
                         });
 			features.push(feature);
 		}
@@ -273,33 +277,12 @@ OpenLayers.Format.OWMWeather = OpenLayers.Class(OpenLayers.Format, {
 
 // Vector 
 //cluster.geometry.getBounds().getCenterLonLat(); 
-OpenLayers.Layer.Vector.OWMWeather = OpenLayers.Class( OpenLayers.Layer.Vector, {
-	projection: new OpenLayers.Projection("EPSG:4326"),
-	strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1})],
-/*	protocol: new OpenLayers.Protocol.Script({
-                        url: "http://openweathermap.org/data/2.1/find/city",
-                        params: {
-//				type: 'city',
-				cluster: 'yes',
-				cnt: 200,
-				format: 'json',
-				layer: this		// идиотское решение, но я не понял как иначе достать OpenLayers.Layer.Vector
-                        },
-                        filterToParams: function(filter, params) {
-				if (filter.type === OpenLayers.Filter.Spatial.BBOX) {
-					params.bbox = filter.value.toArray();
-					params.bbox.push(params.layer.map.getZoom());	//магия - добавляю zoom в параметры
-					if (filter.projection) {
-						params.bbox.push(filter.projection.getCode());
-					}
-				}
-				return params;
-			}, 
-                        callbackKey: 'callback',
-                        format: new OpenLayers.Format.OWMWeather()
-                    }), */
-	styleMap: new OpenLayers.StyleMap(
-		new OpenLayers.Style({
+ol.layer.Vector.OWMWeather = ol.Class( ol.layer.Vector, {
+	projection: new ol.Projection("EPSG:4326"),
+	strategies: [new ol.Strategy.BBOX({resFactor: 1})],
+	units: 'metric',
+	styleMap: new ol.StyleMap(
+		new ol.Style({
 			fontColor: "black",
 			fontSize: "12px",
 			fontFamily: "Arial, Courier New",
@@ -312,7 +295,7 @@ OpenLayers.Layer.Vector.OWMWeather = OpenLayers.Class( OpenLayers.Layer.Vector, 
 			labelOutlineWidth: 3,
 			externalGraphic: "${icon}",
 			graphicWidth: 50,
-                	label : "${temp}"+ "°C"
+                	label : "${temp}"+ "°"
 			},
 			{
 			context: 
@@ -335,6 +318,9 @@ OpenLayers.Layer.Vector.OWMWeather = OpenLayers.Class( OpenLayers.Layer.Vector, 
 				featureunselected: this.onUnselect
 			}
 
+		if (options.units == undefined) this.units='metric';
+		else this.units	= options.units;
+
 		if (options.iconsets == undefined) options.iconsets='main';
 		
 		options.attribution = 'Weather from <a href="http://openweathermap.org/" alt="World Map and worldwide Weather Forecast online">OpenWeatherMap</a>';
@@ -348,18 +334,19 @@ OpenLayers.Layer.Vector.OWMWeather = OpenLayers.Class( OpenLayers.Layer.Vector, 
 
 	        var newArguments = [];
 	        newArguments.push(name, options);
-		OpenLayers.Layer.Vector.prototype.initialize.apply(this,newArguments);	
-
-		this.protocol = new OpenLayers.Protocol.Script({
-                        url: "http://openweathermap.org/data/2.1/find/city",
+		ol.layer.Vector.prototype.initialize.apply(this,newArguments);	
+		this.protocol = new ol.Protocol.Script({
+                        url: "http://api.openweathermap.org/data/2.5/box/city",
                         params: {
-				cluster: 'yes',
-				cnt: 200,
-				format: 'json',
-				layer: this		// идиотское решение, но я не понял как иначе достать OpenLayers.Layer.Vector
+						cluster: 'yes',
+						cnt: 200,
+						format: 'json',
+						units: this.units,
+						layer: this,		// идиотское решение, но я не понял как иначе достать ol.layer.Vector				
+						APPID: '0e2e02c4e890b9c83c283a726b497f93'
                         },
                         filterToParams: function(filter, params) {
-				if (filter.type === OpenLayers.Filter.Spatial.BBOX) {
+				if (filter.type === ol.Filter.Spatial.BBOX) {
 					params.bbox = filter.value.toArray();
 					params.bbox.push(params.layer.map.getZoom());	//магия - добавляю zoom в параметры
 					if (filter.projection) {
@@ -369,7 +356,7 @@ OpenLayers.Layer.Vector.OWMWeather = OpenLayers.Class( OpenLayers.Layer.Vector, 
 				return params;
 			}, 
                         callbackKey: 'callback',
-                        format: new OpenLayers.Format.OWMWeather()
+                        format: new ol.Format.OWMWeather()
                     });
 
 	},
@@ -386,8 +373,8 @@ onPopupClose: function(evt) {
 onSelect: function(evt) {
 	feature = evt.feature;
 	var html = this.options.getPopupHtml(feature.attributes.station);
-	popup = new OpenLayers.Popup("FramedCloud", feature.geometry.getBounds().getCenterLonLat(), 
-	new OpenLayers.Size(this.options.popupX, this.options.popupY), html, "City", false);
+	popup = new ol.Popup("FramedCloud", feature.geometry.getBounds().getCenterLonLat(), 
+	new ol.Size(this.options.popupX, this.options.popupY), html, "City", false);
 
 	feature.popup = popup;
 	popup.feature = feature;
@@ -419,7 +406,15 @@ getIcon: function(station) {
 		var icon = GetWeatherIconDay(station, day);
 		return 'http://openweathermap.org/img/w/' + icon;
 	}
+},
+
+setUnits: function(u) {
+	if( u == 'f')
+		this.units = 'imperial';
+	else
+		this.units = 'metric';
 }
+
 
 });
 
@@ -429,7 +424,7 @@ getIcon: function(station) {
 //	Stations
 //	A specific format for parsing OpenWeatherMap Stations API JSON responses.
 //
-OpenLayers.Format.OWMStations = OpenLayers.Class(OpenLayers.Format, {
+ol.Format.OWMStations = ol.Class(ol.Format, {
 
 	read: function(obj) {
 
@@ -438,7 +433,7 @@ OpenLayers.Format.OWMStations = OpenLayers.Class(OpenLayers.Format, {
                             ['OWM failure response (',  obj.cod,'): ',obj.message].join('') );
                     }
 
-                    if(!obj || !obj.list || !OpenLayers.Util.isArray(obj.list )) {
+                    if(!obj || !obj.list || !ol.Util.isArray(obj.list )) {
                         throw new Error(
                             'Unexpected OWM response');
                     }
@@ -452,12 +447,12 @@ OpenLayers.Format.OWMStations = OpenLayers.Class(OpenLayers.Format, {
 //			list[i].type = list[i].type;
 			if(!list[i].main) continue;
 
-                        feature = new OpenLayers.Feature.Vector(new OpenLayers.Geometry.Point(list[i].coord.lon, list[i].coord.lat), 
+                        feature = new ol.Feature.Vector(new ol.Geometry.Point(list[i].coord.lon, list[i].coord.lat), 
 			{
                             title: list[i].name,
 			    station: list[i],
 			    stationType: list[i].type,
-                            temp:  Math.round(10*(list[i].main.temp-273.15))/10
+                            temp:  Math.round(10*(list[i].main.temp))/10
                         });
                         features.push(feature);
                     }
@@ -466,35 +461,13 @@ OpenLayers.Format.OWMStations = OpenLayers.Class(OpenLayers.Format, {
 });
 
 // Vector Class
-OpenLayers.Layer.Vector.OWMStations = OpenLayers.Class( OpenLayers.Layer.Vector, {
+ol.layer.Vector.OWMStations = ol.Class( ol.layer.Vector, {
 
-		projection: new OpenLayers.Projection("EPSG:4326"),
+		projection: new ol.Projection("EPSG:4326"),
                     strategies: [
-				new OpenLayers.Strategy.BBOX({resFactor: 1})],
-/*                    protocol: new OpenLayers.Protocol.Script({
-                        url: "http://openweathermap.org/data/2.1/find/station",
-                        params: {
-//				type: 'station',
-				cluster_distance: 120,
-				cluster: 'yes',
-				format: 'json',
-				layer: this		// идиотское решение, но я не понял как иначе достать OpenLayers.Layer.Vector
-                        },
-                        filterToParams: function(filter, params) {
-				if (filter.type === OpenLayers.Filter.Spatial.BBOX) {
-					params.bbox = filter.value.toArray();
-					params.bbox.push(params.layer.map.getZoom());	//магия - добавляю zoom в параметры
-					if (filter.projection) {
-						params.bbox.push(filter.projection.getCode());
-					}
-				}
-				return params;
-			},
-                        callbackKey: 'callback',
-                        format: new OpenLayers.Format.OWMStations()
-                    }), */
-		styleMap: new OpenLayers.StyleMap(
-		new OpenLayers.Style({
+				new ol.Strategy.BBOX({resFactor: 1})],
+		styleMap: new ol.StyleMap(
+		new ol.Style({
 			fontColor: "black",
 			fontSize: "12px",
 			fontFamily: "Courier New, monospace",
@@ -505,7 +478,7 @@ OpenLayers.Layer.Vector.OWMStations = OpenLayers.Class( OpenLayers.Layer.Vector,
 			labelOutlineWidth: 3,
 			externalGraphic: "${icon}",
 			graphicWidth: 25,
-                	label : "${temp}°C"
+                	label : "${temp}°"
 		},{
 			context: 
 			{
@@ -515,6 +488,8 @@ OpenLayers.Layer.Vector.OWMStations = OpenLayers.Class( OpenLayers.Layer.Vector,
 			}
 		}
 		)),
+
+		units: 'metric',
 
 		initialize:function(name,options)
 		{
@@ -526,6 +501,8 @@ OpenLayers.Layer.Vector.OWMStations = OpenLayers.Class( OpenLayers.Layer.Vector,
 					featureunselected: this.onUnselect
 				}
 
+			if (options.units == undefined) this.units='metric';
+			else this.units	= options.units;
 
 			options.attribution = 'Weather from <a href="http://openweathermap.org/" alt="World Map and worldwide Weather Forecast online">OpenWeatherMap</a>';
 			var newArguments = [];
@@ -539,19 +516,21 @@ OpenLayers.Layer.Vector.OWMStations = OpenLayers.Class( OpenLayers.Layer.Vector,
 
 			newArguments.push(name, options);
 
-			OpenLayers.Layer.Vector.prototype.initialize.apply(this,newArguments);			
+			ol.layer.Vector.prototype.initialize.apply(this,newArguments);			
 
 			this.StationPopupHtml =  GetStationPopupHtml;
-			this.protocol = new OpenLayers.Protocol.Script({
-                        url: "http://openweathermap.org/data/2.1/find/station",
+			this.protocol = new ol.Protocol.Script({
+                        url: "http://api.openweathermap.org/data/2.5/box/station",
                         params: {
-				cluster_distance: 120,
-				cluster: 'yes',
-				format: 'json',
-				layer: this		// идиотское решение, но я не понял как иначе достать OpenLayers.Layer.Vector
+							cluster_distance: 120,
+							cluster: 'yes',
+							format: 'json',							
+							units: this.units,
+							layer: this,		// идиотское решение, но я не понял как иначе достать ol.layer.Vector
+							APPID: '0e2e02c4e890b9c83c283a726b497f93'
                         },
                         filterToParams: function(filter, params) {
-				if (filter.type === OpenLayers.Filter.Spatial.BBOX) {
+				if (filter.type === ol.Filter.Spatial.BBOX) {
 					params.bbox = filter.value.toArray();
 					params.bbox.push(params.layer.map.getZoom());	//магия - добавляю zoom в параметры
 					if (filter.projection) {
@@ -561,7 +540,7 @@ OpenLayers.Layer.Vector.OWMStations = OpenLayers.Class( OpenLayers.Layer.Vector,
 				return params;
 			},
                         callbackKey: 'callback',
-                        format: new OpenLayers.Format.OWMStations()
+                        format: new ol.Format.OWMStations()
                     });
 
 
@@ -581,9 +560,9 @@ onSelect: function(evt) {
 	feature = evt.feature;
 	var html = this.options.getPopupHtml(feature.attributes.station);
 
-	popup = new OpenLayers.Popup("Popup",
+	popup = new ol.Popup("Popup",
                        feature.geometry.getBounds().getCenterLonLat(), 
-                       new OpenLayers.Size(this.options.popupX, this.options.popupY), html, "Station", false);	
+                       new ol.Size(this.options.popupX, this.options.popupY), html, "Station", false);	
 
 	feature.popup = popup;
 	popup.feature = feature;
@@ -648,16 +627,16 @@ function GetWeatherIconDay(st, hr)
 /* Geometry functions */
 function isboundsinrect(bounds, r)
 {
-	var position = new OpenLayers.LonLat(bounds.left, bounds.bottom);
+	var position = new ol.LonLat(bounds.left, bounds.bottom);
 	position.transform(
-		    new OpenLayers.Projection("EPSG:900913"),
-		    new OpenLayers.Projection("EPSG:4326")
+		    new ol.Projection("EPSG:900913"),
+		    new ol.Projection("EPSG:4326")
 	);
 
-	var position2 = new OpenLayers.LonLat(bounds.right, bounds.top);
+	var position2 = new ol.LonLat(bounds.right, bounds.top);
 	position2.transform(
-		    new OpenLayers.Projection("EPSG:900913"),
-		    new OpenLayers.Projection("EPSG:4326")
+		    new ol.Projection("EPSG:900913"),
+		    new ol.Projection("EPSG:4326")
 	);
 
 	p1 = {x: position.lat, y:position.lon};
@@ -779,9 +758,9 @@ function GetWeatherIcon2(st, we)
 function GetWeatherForecastBubleHtml( st, forecast, cnt )
 {
 var curdate = new Date( (new Date()).getTime()- 280 * 60 * 1000 );
-var temp = Math.round((st.main.temp -273)*10)/10;
-var temp_min = Math.round((st.main.temp_min -273)*100)/100;
-var temp_max = Math.round((st.main.temp_max -273)*100)/100;
+var temp = Math.round((st.main.temp)*10)/10;
+var temp_min = Math.round((st.main.temp_min)*100)/100;
+var temp_max = Math.round((st.main.temp_max)*100)/100;
 var dtat = new Date(st.dt * 1000 );
 //var dt = dtat.toTimeString();
 //var dt = st.dt;
@@ -807,7 +786,7 @@ var h_header =
    </div>\
   </div>\
  </div>\
- <div class="small_val_grey" title="Min and max temperature">Min t: '+temp_min+' / Max t: '+temp_max+' °C</div>\
+ <div class="small_val_grey" title="Min and max temperature">Min t: '+temp_min+' / Max t: '+temp_max+' °</div>\
  <div class="small_val_grey">Humidity: ' + st.main.humidity +'%</div>\
  <div class="small_val_grey">Wind: '+st.wind.speed+' m/s</div>\
 </div>';
@@ -825,9 +804,9 @@ for(var i = j; i < cnt+j ; i++){
 
 	if( dt>times.sunrise && dt < times.sunset ) var day='d'; else var day='n';
 
-	temp = Math.round(forecast[i].main.temp -273);
-	temp_min = Math.round((forecast[i].main.temp_min -273)*100)/100;
-	temp_max = Math.round((forecast[i].main.temp_max -273)*100)/100;
+	temp = Math.round(forecast[i].main.temp);
+	temp_min = Math.round((forecast[i].main.temp_min)*100)/100;
+	temp_max = Math.round((forecast[i].main.temp_max)*100)/100;
 	dtat = new Date(forecast[i].dt * 1000 );
 	if( curdate  > dtat )	continue;
 	hr = dtat.getHours(); 
@@ -840,12 +819,10 @@ h_o =
  <div title="' + WeekDayText.days[dtat.getDay()] + '">'+WeekDayText.days_small[dtat.getDay()]+'</div>\
  <div title="' + dtat.toString() + '">'+dt+'</div>\
  <img alt="'+GetWeatherText2(forecast[i])+'" src="http://openweathermap.org/img/w/'+GetWeatherIcon2(st, forecast[i])+'"/>\
- <div class="small_val" title="Temperature">'+temp+'°C</div>\
+ <div class="small_val" title="Temperature">'+temp+'°</div>\
  <div class="small_val" title="Ветер">'+forecast[i].wind.speed+' m/s</div>\
  <div class="small_val_grey" title="Давление">'+forecast[i].main.pressure+'</div>\
 </div>'
-//<div style="font-size: small; padding: 0pt 3pt;" title="High Temperature">'+temp_max+'°C</div>\
-//<div style="color: gray; font-size: small; padding: 0pt 3pt;" title="Low Temperature">'+temp_min+'°C</div>\
 
 	h_body = h_body + h_o;
 }
@@ -861,9 +838,9 @@ return h_header + h_body + h_footer;
 function GetWeatherPopupHtml(st)
 {
 
-var temp = Math.round((st.main.temp -273.15)*10)/10;
-var temp_min = Math.round((st.main.temp_min -273.15)*10)/10;
-var temp_max = Math.round((st.main.temp_max -273.15)*10)/10;
+var temp = Math.round((st.main.temp)*10)/10;
+var temp_min = Math.round((st.main.temp_min)*10)/10;
+var temp_max = Math.round((st.main.temp_max)*10)/10;
 
 if( st.weather.length > 0 ) {
 	var icon_url  = 'http://openweathermap.org/img/w/' + st.weather[0].icon + '.png';
@@ -891,7 +868,7 @@ var html =
    </div>\
   </div>\
  </div>\
- <div class="small_val_grey" title="Min and max temperature">Min t: '+temp_min+' / Max t: '+temp_max+' °C</div>\
+ <div class="small_val_grey" title="Min and max temperature">Min t: '+temp_min+' / Max t: '+temp_max+' °</div>\
  <div class="small_val_grey">Humidity: ' + st.main.humidity +'%</div>\
  <div class="small_val_grey">Wind: '+st.wind.speed+' m/s</div>\
  <div class="small_val_grey">Clouds: '+st.clouds.all+' %</div>\
@@ -902,7 +879,7 @@ return html;
 
 function GetStationPopupHtml(st)
 {
-var temp = Math.round((st.main.temp -273.15)*10)/10;
+var temp = Math.round((st.main.temp)*10)/10;
 var dt = new Date(st.dt * 1000 );
 
 var html_h=

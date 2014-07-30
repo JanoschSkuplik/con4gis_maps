@@ -106,7 +106,7 @@ $GLOBALS['c4g_maps_extension']['css_openlayers']['SERVER'] 		= 'http://openlayer
 $GLOBALS['c4g_maps_extension']['overpass_proxy'] 				= 'system/modules/con4gis_maps/C4GOverpass.php';
 $GLOBALS['c4g_maps_extension']['js_editor'] 					= 'system/modules/con4gis_maps/html/js/C4GMapsEditor.js';
 $GLOBALS['c4g_maps_extension']['css_editor'] 					= 'system/modules/con4gis_maps/html/css/C4GMapsEditor.css';
-$GLOBALS['c4g_maps_extension']['js_openlayers_owm'] 			= 'system/modules/con4gis_maps/html/js/OWM.OpenLayers.1.3.4.js';
+$GLOBALS['c4g_maps_extension']['js_openlayers_owm'] 			= 'system/modules/con4gis_maps/html/js/OWM.OpenLayers.1.3.6.js';
 
 if ($GLOBALS['con4gis_core_extension']['installed']) {
 	$GLOBALS['TL_JAVASCRIPT']['c4g_jq_bbc'] 	= 'system/modules/con4gis_core/lib/wswgEditor/editor.js';
