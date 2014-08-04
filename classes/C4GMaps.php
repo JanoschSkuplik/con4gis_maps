@@ -84,7 +84,7 @@ class C4GMaps
 
 		// get map
 		$map = C4gMapsModel::findByPk( $objThis->c4g_map_id );
-		if(empty( $map )) return false;
+		// if(empty( $map )) return false;
 		$mapData['id'] = $objThis->c4g_map_id;
 
 		// --------------------------------------------------------------------
@@ -123,8 +123,19 @@ class C4GMaps
 		$mapData['profile'] = $profileId;
 
 
-		//[ DEBUG ]!!!!!!!!!!!!!!!!!!!!
-		return print_r($mapData, true);
-		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+		//[ DEV ]!!!!!!!!!!!!!!!!!!!!!!!!
+
+		// $GLOBALS['TL_JAVASCRIPT'][] = $GLOBALS['con4gis_core_extension']['jQuery-path'];
+		$GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/con4gis_core/lib/jQuery/jquery-1.11.1.min.js';
+		$GLOBALS['TL_JAVASCRIPT'][] = $GLOBALS['c4g_maps_extension']['js_openlayers']['DEFAULT'];
+		$GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/con4gis_maps/assets/js/c4g-maps.js';
+
+
+		$mapData['mapDiv'] = 'c4gMap';
+		// return print_r( $mapData, true );
+		return $mapData;
+
+		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	}
 }

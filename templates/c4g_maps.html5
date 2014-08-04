@@ -1,16 +1,27 @@
-<div id="<?php echo $this->mapDiv ?>"></div>
-<?php echo json_encode($this->mapData) ?>
+<?php // if (!$this->mapData['externalDiv']): ?>
+<div id="<?php echo $this->mapData['mapDiv'] ?>"></div>
+<?php // endif; ?>
+
+<?php // echo json_encode($this->mapData) ?>
+
 <script>
 //<![CDATA[
 
 // C4GMaps(<?php echo json_encode($this->mapData) ?>);
 
-	// var map_<?php echo $this->mapDiv ?> = new c4g.Map({
-	// 	target: "<?php echo $this->mapDiv ?>",
+	// var map_<?php echo $this->mapData['id'] ?> = new c4g.Map({
+	// 	target: "<?php echo $this->mapData['mapDiv'] ?>",
 	// 	baselayers: [
 	// 					<?php #pass ?>
 	// 				]
 	// });
 
+jQuery(document).ready(function() 
+{
+	var c4gMap_<?php echo $this->mapData['id'] ?> = new c4g.Map(
+			 <?php echo json_encode($this->mapData) ?>
+		);
+	// c4gMap_<?php echo $this->mapData['id'] ?>.run();
+});
 //]]>
 </script>
