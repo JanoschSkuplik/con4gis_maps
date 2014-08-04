@@ -1,0 +1,10 @@
+<div id="<?php echo $this->mapDiv ?>"></div>
+
+<script>
+	var map_<?php echo $this->mapDiv ?> = new c4g.Map({
+		target: "<?php echo $this->mapDiv ?>",
+		baselayers: [
+						<?php #pass ?>
+					]
+	});
+</script>
