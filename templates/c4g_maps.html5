@@ -1,10 +1,16 @@
 <div id="<?php echo $this->mapDiv ?>"></div>
-
+<?php echo json_encode($this->mapData) ?>
 <script>
-	var map_<?php echo $this->mapDiv ?> = new c4g.Map({
-		target: "<?php echo $this->mapDiv ?>",
-		baselayers: [
-						<?php #pass ?>
-					]
-	});
+//<![CDATA[
+
+// C4GMaps(<?php echo json_encode($this->mapData) ?>);
+
+	// var map_<?php echo $this->mapDiv ?> = new c4g.Map({
+	// 	target: "<?php echo $this->mapDiv ?>",
+	// 	baselayers: [
+	// 					<?php #pass ?>
+	// 				]
+	// });
+
+//]]>
 </script>

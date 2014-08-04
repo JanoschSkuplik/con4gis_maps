@@ -1,4 +1,4 @@
-<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
+<?php
 
 /**
  * Contao Open Source CMS
@@ -17,13 +17,13 @@ namespace c4g;
 /**
  * Class Content_c4g_maps 
  */
-class Content_c4g_maps extends Module
+class Content_c4g_maps extends \Module
 {
 	/**
 	 * Template
 	 * @var string
 	 */
-	protected $strTemplate = 'ce_c4g_maps';
+	protected $strTemplate = 'c4g_maps';
 	
 	/**
 	 * Generate content element

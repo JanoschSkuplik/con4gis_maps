@@ -1,4 +1,4 @@
-<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
+<?php 
 
 /**
  * Contao Open Source CMS
@@ -23,9 +23,11 @@ class C4GMaps
 {
 	private static $allLocstyles = false;
 	
-	/**
- 	* Validate a longitude coordinate
- 	*/
+ 	/**
+ 	 * Validate a longitude coordinate
+ 	 * @param  [type] $value [description]
+ 	 * @return [type]        [description]
+ 	 */
 	public static function validateLon ( $value )
 	{
 		if (C4GMaps::validateGeo( $value )) {
@@ -34,9 +36,11 @@ class C4GMaps
 		return false;
 	}
 
-	/**
- 	* Validate a latitude coordinate
- 	*/
+ 	/**
+ 	 * Validate a latitude coordinate
+ 	 * @param  [type] $value [description]
+ 	 * @return [type]        [description]
+ 	 */
 	public static function validateLat ( $value )
 	{
 		if (C4GMaps::validateGeo( $value )) {
@@ -45,9 +49,11 @@ class C4GMaps
 		return false;
 	}
 
-	/**
- 	* Validate a Geo Coordinate 
- 	*/
+ 	/**
+ 	 * Validate a Geo Coordinate
+ 	 * @param  [type] $value [description]
+ 	 * @return [type]        [description]
+ 	 */
 	public static function validateGeo ( $value )
 	{
 		if (!isset( $value )) {
@@ -62,21 +68,63 @@ class C4GMaps
 
     /**
      * [prepareMapData description]
-     * @param  [type]  $objThis             [description]
-     * @param  [type]  $database            [description]
-     * @param  [type]  $additionalLocations [description]
-     * @param  boolean $forEditor           [description]
-     * @return [type]                       [description]
+     * @param  [type] $objThis  [description]
+     * @param  [type] $database [description]
+     * @param  array  $options  [description]
+     * @return [type]           [description]
      */
-    public static function prepareMapData ( $objThis, $database, $additionalLocations=NULL, $forEditor=false )
+    public static function prepareMapData ( $objThis, $database, $options=array() )
 	{
-		// fetch user
-        // $objThis->import('FrontendUser', 'User');
+		$mapData = array();
 
+		// import user, if not already done
+		if (!isset( $objThis->User )) {
+	        $objThis->import('FrontendUser', 'User');
+		}
+
+		// get map
 		$map = C4gMapsModel::findByPk( $objThis->c4g_map_id );
-
 		if(empty( $map )) return false;
+		$mapData['id'] = $objThis->c4g_map_id;
 
+		// --------------------------------------------------------------------
+		// get profile for map
+		// --------------------------------------------------------------------
 		$profileId = $map->profile;
+		// check for mobile-profile
+		$isMobile = false;
+		if (($map->profile_mobile > 0) && (\Input::cookie('TL_VIEW') == 'mobile' || (\Environment::get('agent')->mobile && \Input::cookie('TL_VIEW') != 'desktop')))
+		{
+            $isMobile = true;
+			$profileId = $map->profile_mobile;
+		}
+		// check for special-profile
+        if ((FE_USER_LOGGED_IN) && ($map->use_specialprofile)) {
+            $groupMatch = array_intersect( $objThis->User->groups, deserialize( $map->specialprofile_groups ) );
+            if (!empty( $groupMatch )) {
+                if (($isMobile) && ($map->specialprofile_mobile)) {
+                    $profileId = $map->specialprofile_mobile;
+                } else {
+                    $profileId = $map->specialprofile;
+                }
+            }
+        }
+        // get appropriate profile from database
+        $profile = C4gMapProfilesModel::findByPk( $profileId );
+        // use default if the profile was not found
+        if (!$profile) {
+            $profile = C4gMapProfilesModel::findByIs_default( true );
+            if ($profile) {
+                $profileId = $profile->id;
+            } else {
+            	return false;
+            }
+        }
+		$mapData['profile'] = $profileId;
+
+
+		//[ DEBUG ]!!!!!!!!!!!!!!!!!!!!
+		return print_r($mapData, true);
+		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	}
 }

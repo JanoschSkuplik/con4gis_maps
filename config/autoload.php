@@ -26,15 +26,19 @@ ClassLoader::addNamespaces(array
 ClassLoader::addClasses(array
 (
 	// Classes
-	'c4g\C4GMaps'          => 'system/modules/con4gis_maps/classes/C4GMaps.php',
+	'c4g\C4GMaps'               => 'system/modules/con4gis_maps/classes/C4GMaps.php',
 
 	// Models
-	'c4g\C4gMapsModel'     => 'system/modules/con4gis_maps/models/C4gMapsModel.php',
+	'c4g\C4gMapBaselayersModel' => 'system/modules/con4gis_maps/models/C4gMapBaselayersModel.php',
+	'c4g\C4gMapLocstylesModel'  => 'system/modules/con4gis_maps/models/C4gMapLocstylesModel.php',
+	'c4g\C4gMapOverlaysModel'   => 'system/modules/con4gis_maps/models/C4gMapOverlaysModel.php',
+	'c4g\C4gMapProfilesModel'   => 'system/modules/con4gis_maps/models/C4gMapProfilesModel.php',
+	'c4g\C4gMapsModel'          => 'system/modules/con4gis_maps/models/C4gMapsModel.php',
 
 	// Modules
-	'LayerApi'             => 'system/modules/con4gis_maps/modules/api/LayerApi.php',
-	'c4g\Content_c4g_maps' => 'system/modules/con4gis_maps/modules/Content_c4g_maps.php',
-	'c4g\Module_c4g_maps'  => 'system/modules/con4gis_maps/modules/Module_c4g_maps.php',
+	'LayerApi'                  => 'system/modules/con4gis_maps/modules/api/LayerApi.php',
+	'c4g\Content_c4g_maps'      => 'system/modules/con4gis_maps/modules/Content_c4g_maps.php',
+	'c4g\Module_c4g_maps'       => 'system/modules/con4gis_maps/modules/Module_c4g_maps.php',
 ));
 
 

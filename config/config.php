@@ -17,25 +17,27 @@
 /**
  * Global settings
  */
-$GLOBALS['c4g_maps_extension']['installed'] = true;
+$GLOBALS['c4g_maps_extension']['installed'] 		= true;
+$GLOBALS['c4g_maps_extension']['version'] 			= '3.0.0';
+$GLOBALS['c4g_maps_extension']['ol-version'] 		= '3.0.0';
 
 /**
  * Sourcetable definition
  */
-$GLOBALS['c4g_maps_extension']['sourcetable']['tl_calendar_events'] = array
-	(
-		'ptable'        => 'tl_calendar',
-        'ptable_option' => 'title',
-        'geox'          => 'c4g_loc_geox',
-        'geoy'          => 'c4g_loc_geoy',
-        'label'         => 'c4g_loc_label',
-        'locstyle'      => 'c4g_locstyle',
-        'tooltip'       => 'title',
-        'popup'         => '{{event::[id]}},[startDate:date]',
-  		'linkurl'       => '{{event_url::[id]}}',
-        'sqlwhere'      => 'published = 1',
-  		'alias_getparam'=> 'events'
-	);
+// $GLOBALS['c4g_maps_extension']['sourcetable']['tl_calendar_events'] = array
+// 	(
+// 		'ptable'        => 'tl_calendar',
+//         'ptable_option' => 'title',
+//         'geox'          => 'c4g_loc_geox',
+//         'geoy'          => 'c4g_loc_geoy',
+//         'label'         => 'c4g_loc_label',
+//         'locstyle'      => 'c4g_locstyle',
+//         'tooltip'       => 'title',
+//         'popup'         => '{{event::[id]}},[startDate:date]',
+//   		'linkurl'       => '{{event_url::[id]}}',
+//         'sqlwhere'      => 'published = 1',
+//   		'alias_getparam'=> 'events'
+// 	);
         
 
 /**
@@ -48,7 +50,7 @@ array_insert( $GLOBALS['BE_MOD']['con4gis'], 1, array
 		'tables' 			=> array('tl_c4g_maps'),
  		'icon'	 			=> 'system/modules/con4gis_maps/assets/images/be-icons/mapstructure.png',
 	    'update_db' 		=> array('C4GMapsBackend', 'updateDB'),
- 		'javascript' 		=> 'system/modules/con4gis_maps/assets/js/C4GMapsBackend.js'
+ 		// 'javascript' 		=> 'system/modules/con4gis_maps/assets/js/C4GMapsBackend.js'
 	),
     'c4g_map_baselayers' => array
     (
@@ -95,26 +97,27 @@ $GLOBALS['TL_API']['c4g_maps_layerapi'] = 'LayerApi';
 /**
  * Specialized Widgets for Text Input and Image Sizes
  */
-$GLOBALS['BE_FFL']['c4g_text'] 		= 'C4GTextField';
-$GLOBALS['BE_FFL']['c4g_imageSize'] = 'C4GImageSize';
+$GLOBALS['BE_FFL']['c4g_text'] 			= 'C4GTextField';
+$GLOBALS['BE_FFL']['c4g_imageSize'] 	= 'C4GImageSize';
 
 /**
  * Paths to Javascript libraries
  */
-$GLOBALS['c4g_maps_extension']['js_openlayers'] 				= 'system/modules/con4gis_maps/html/OpenLayers-2.13.1/OpenLayers.js';
-$GLOBALS['c4g_maps_extension']['js_google'] 					= 'http://maps.google.com/maps/api/js?v=3.5&amp;sensor=false';
-//$GLOBALS['c4g_maps_extension']['js_openlayers_libs']['DEFAULT'] = 'OpenLayers/OpenLayers.debug.js';
-$GLOBALS['c4g_maps_extension']['js_openlayers_libs']['DEFAULT'] = 'system/modules/con4gis_maps/html/OpenLayers-2.13.1/OpenLayers.js';
-$GLOBALS['c4g_maps_extension']['js_openlayers_libs']['SERVER'] 	= 'http://openlayers.org/api/2.13.1/OpenLayers.js';
-$GLOBALS['c4g_maps_extension']['css_openlayers']['DEFAULT'] 	= 'system/modules/con4gis_maps/html/OpenLayers-2.13.1/theme/default/style.css';
-$GLOBALS['c4g_maps_extension']['css_openlayers']['SERVER'] 		= 'http://openlayers.org/api/2.13.1/theme/default/style.css';
-$GLOBALS['c4g_maps_extension']['overpass_proxy'] 				= 'system/modules/con4gis_maps/C4GOverpass.php';
-$GLOBALS['c4g_maps_extension']['js_editor'] 					= 'system/modules/con4gis_maps/html/js/C4GMapsEditor.js';
-$GLOBALS['c4g_maps_extension']['css_editor'] 					= 'system/modules/con4gis_maps/html/css/C4GMapsEditor.css';
-$GLOBALS['c4g_maps_extension']['js_openlayers_owm'] 			= 'system/modules/con4gis_maps/html/js/OWM.OpenLayers.1.3.4.js';
+// $GLOBALS['c4g_maps_extension']['js_openlayers'] 					= 'system/modules/con4gis_maps/html/OpenLayers-2.13.1/OpenLayers.js';
+// $GLOBALS['c4g_maps_extension']['js_google'] 						= 'http://maps.google.com/maps/api/js?v=3.5&amp;sensor=false';
+$GLOBALS['c4g_maps_extension']['js_openlayers']['DEFAULT'] 			= 'system/modules/con4gis_maps/assets/vendor/OpenLayers-' . $GLOBALS['c4g_maps_extension']['ol-version'] . '/ol.js';
+$GLOBALS['c4g_maps_extension']['js_openlayers']['DEBUG'] 			= 'system/modules/con4gis_maps/assets/vendor/OpenLayers-' . $GLOBALS['c4g_maps_extension']['ol-version'] . '/ol-debug.js';
+// $GLOBALS['c4g_maps_extension']['js_openlayers']['SERVER'] 			= 'http://openlayers.org/api/2.13.1/OpenLayers.js';
+// $GLOBALS['c4g_maps_extension']['css_openlayers']['DEFAULT'] 		= 'system/modules/con4gis_maps/html/OpenLayers-2.13.1/theme/default/style.css';
+// $GLOBALS['c4g_maps_extension']['css_openlayers']['SERVER'] 		= 'http://openlayers.org/api/2.13.1/theme/default/style.css';
+$GLOBALS['c4g_maps_extension']['overpass_proxy'] 					= 'system/modules/con4gis_maps/classes/C4GOverpass.php';
+// $GLOBALS['c4g_maps_extension']['js_editor'] 						= 'system/modules/con4gis_maps/assets/js/C4GMapsEditor.js';
+// $GLOBALS['c4g_maps_extension']['css_editor'] 					= 'system/modules/con4gis_maps/assets/css/C4GMapsEditor.css';
+// $GLOBALS['c4g_maps_extension']['js_openlayers_owm'] 				= 'system/modules/con4gis_maps/assets/vendor/OWM.OpenLayers.1.3.4.js';
 
-if ($GLOBALS['con4gis_core_extension']['installed']) {
+// if ($GLOBALS['con4gis_core_extension']['installed'])
+// {
 	$GLOBALS['TL_JAVASCRIPT']['c4g_jq_bbc'] 	= 'system/modules/con4gis_core/lib/wswgEditor/editor.js';
 	$GLOBALS['TL_CSS']['c4g_jq_bbc'] 			= 'system/modules/con4gis_core/lib/wswgEditor/css/editor.css';
 	$GLOBALS['TL_CSS']['c4g_jq_bbc2'] 			= 'system/modules/con4gis_core/lib/wswgEditor/css/bbcodes.css';
-}
+// }

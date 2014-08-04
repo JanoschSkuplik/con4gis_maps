@@ -1,4 +1,4 @@
-<?php if (!defined('TL_ROOT')) die('You can not access this file directly!');
+<?php 
 
 /**
  * Contao Open Source CMS
@@ -17,13 +17,13 @@ namespace c4g;
 /**
  * Class Module_c4g_maps 
  */
-class Module_c4g_maps extends Module
+class Module_c4g_maps extends \Module
 {
 	/**
 	 * Template
 	 * @var string
 	 */
-	protected $strTemplate = 'mod_c4g_maps';
+	protected $strTemplate = 'c4g_maps';
 
 	/**
 	 * Display a wildcard in the back end
@@ -52,7 +52,7 @@ class Module_c4g_maps extends Module
 	 */
 	protected function compile ()
 	{
-		$this->Template->mapData = \C4GMaps::prepareMapData($this, $this->Database);				
+		$this->Template->mapData = C4GMaps::prepareMapData($this, $this->Database);				
 	}
 	
 	public function repInsertTags ( $str )

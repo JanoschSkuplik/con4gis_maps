@@ -494,7 +494,7 @@ $GLOBALS['TL_DCA']['tl_c4g_map_profiles'] = array
 			'exclude'                 => true,
 			'inputType'               => 'select',
 			'default'                 => 'DEFAULT',		
-		    'options_callback'        => array('tl_c4g_map_profiles','getLibSources'),
+		    'options_callback'        => array('tl_c4g_map_profiles','getOlSources'),
 		    'eval'                    => array('submitOnChange' => true, 'tl_class' => 'long'),
 		),			
 		
@@ -670,10 +670,10 @@ class tl_c4g_map_profiles extends Backend {
 	 * @param object
 	 * @return array
 	 */
-	public function getLibSources(DataContainer $dc)
+	public function getOlSources(DataContainer $dc)
 	{
 		$return = array();
-		foreach ($GLOBALS['c4g_maps_extension']['js_openlayers_libs'] as $key=>$lib)
+		foreach ($GLOBALS['c4g_maps_extension']['js_openlayers'] as $key=>$lib)
 		{
 			$return[$key] = $lib;
 		}
