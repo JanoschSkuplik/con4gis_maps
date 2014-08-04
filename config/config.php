@@ -108,6 +108,7 @@ $GLOBALS['BE_FFL']['c4g_imageSize'] 	= 'C4GImageSize';
 $GLOBALS['c4g_maps_extension']['js_openlayers']['DEFAULT'] 			= 'system/modules/con4gis_maps/assets/vendor/OpenLayers-' . $GLOBALS['c4g_maps_extension']['ol-version'] . '/ol.js';
 $GLOBALS['c4g_maps_extension']['js_openlayers']['DEBUG'] 			= 'system/modules/con4gis_maps/assets/vendor/OpenLayers-' . $GLOBALS['c4g_maps_extension']['ol-version'] . '/ol-debug.js';
 // $GLOBALS['c4g_maps_extension']['js_openlayers']['SERVER'] 			= 'http://openlayers.org/api/2.13.1/OpenLayers.js';
+$GLOBALS['c4g_maps_extension']['css_openlayers']['DEFAULT'] 		= 'system/modules/con4gis_maps/assets/vendor/OpenLayers-' . $GLOBALS['c4g_maps_extension']['ol-version'] . '/ol.css';
 // $GLOBALS['c4g_maps_extension']['css_openlayers']['DEFAULT'] 		= 'system/modules/con4gis_maps/html/OpenLayers-2.13.1/theme/default/style.css';
 // $GLOBALS['c4g_maps_extension']['css_openlayers']['SERVER'] 		= 'http://openlayers.org/api/2.13.1/theme/default/style.css';
 $GLOBALS['c4g_maps_extension']['overpass_proxy'] 					= 'system/modules/con4gis_maps/classes/C4GOverpass.php';

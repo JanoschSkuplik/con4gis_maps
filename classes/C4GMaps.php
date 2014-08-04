@@ -131,6 +131,8 @@ class C4GMaps
 		$GLOBALS['TL_JAVASCRIPT'][] = $GLOBALS['c4g_maps_extension']['js_openlayers']['DEFAULT'];
 		$GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/con4gis_maps/assets/js/c4g-maps.js';
 
+		$GLOBALS['TL_CSS'][] = $GLOBALS['c4g_maps_extension']['css_openlayers']['DEFAULT'];
+
 
 		$mapData['mapDiv'] = 'c4gMap';
 		// return print_r( $mapData, true );
