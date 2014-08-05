@@ -1,6 +1,6 @@
-<?php // if (!$this->mapData['externalDiv']): ?>
-<div id="<?php echo $this->mapData['mapDiv'] ?>"></div>
-<?php // endif; ?>
+<?php if (!$this->mapData['mapDiv']): ?>
+<div id="<?php echo 'c4gMap_' . $this->mapData['id'] ?>"></div>
+<?php  endif; ?>
 
 <?php // echo json_encode($this->mapData) ?>
 
@@ -18,7 +18,8 @@
 
 jQuery(document).ready(function() 
 {
-	var c4gMap_<?php echo $this->mapData['id'] ?> = new c4g.Map(
+	// no use of "var", so it will become global
+	c4gMap_<?php echo $this->mapData['id'] ?> = new c4g.Map(
 			 <?php echo json_encode($this->mapData) ?>
 		);
 	// c4gMap_<?php echo $this->mapData['id'] ?>.run();
