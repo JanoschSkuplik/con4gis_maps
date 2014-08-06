@@ -26,7 +26,9 @@ ClassLoader::addNamespaces(array
 ClassLoader::addClasses(array
 (
 	// Classes
+	'C4GImageSize'              => 'system/modules/con4gis_maps/classes/C4GImageSize.php',
 	'c4g\C4GMaps'               => 'system/modules/con4gis_maps/classes/C4GMaps.php',
+	'C4GTextField'              => 'system/modules/con4gis_maps/classes/C4GTextField.php',
 
 	// Models
 	'c4g\C4gMapBaselayersModel' => 'system/modules/con4gis_maps/models/C4gMapBaselayersModel.php',

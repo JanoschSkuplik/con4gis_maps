@@ -55,6 +55,13 @@ c4g.Map = function(mapData)
 	    })
   	});
 
+    if (mapData.width) {
+        document.getElementById(mapData.mapDiv).width = mapData.width;
+    }
+    if (mapData.height) {
+        document.getElementById(mapData.mapDiv).height = mapData.height;
+    }
+    this.map.updateSize();
 
   	this.map.addControl(new ol.control.MousePosition({projection:'EPSG:4326'}));
 
