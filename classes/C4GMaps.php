@@ -76,6 +76,7 @@ class C4GMaps
     public static function prepareMapData ( $objThis, $database, $options=array() )
 	{
 		$mapData = array();
+		$mapData['elementId'] = $objThis->id;
 
 		// import user, if not already done
 		if (!isset( $objThis->User )) {

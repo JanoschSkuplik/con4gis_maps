@@ -19,7 +19,7 @@ c4g.Map = function(mapData)
 
     mapData = $.extend({
 			// restUrl : 'api',
-			mapDiv : 'c4g_Map' + mapData.id,
+			mapDiv : 'c4g_Map' + mapData.elementId,
 			// width : '',
 			// height : '',
 			center_lat : 37.41,

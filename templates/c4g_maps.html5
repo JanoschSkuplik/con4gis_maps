@@ -1,5 +1,13 @@
+<!-- indexer::stop --> 
+
+<div class="<?php echo $this->class; ?> block"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
+
+<?php if ($this->headline) {
+	echo '<' . $this->hl . '>' . $this->headline . '</' . $this->hl . '>';
+} ?>
+
 <?php if (!$this->mapData['mapDiv']): ?>
-<div id="<?php echo 'c4g_Map' . $this->mapData['id'] ?>"></div>
+<div id="<?php echo 'c4g_Map' . $this->mapData['elementId'] ?>"></div>
 <?php  endif; ?>
 
 <?php // echo json_encode($this->mapData) ?>
@@ -19,10 +27,13 @@
 jQuery(document).ready(function() 
 {
 	// no use of "var"-keyword, so it will become global
-	c4g_Map<?php echo $this->mapData['id'] ?> = new c4g.Map(
+	c4g_Map<?php echo $this->mapData['elementId'] ?> = new c4g.Map(
 			 <?php echo json_encode($this->mapData) ?>
 		);
-	// c4g_Map<?php echo $this->mapData['id'] ?>.run();
+	// c4g_Map<?php echo $this->mapData['elementId'] ?>.run();
 });
 //]]>
 </script>
+
+</div>
+<!-- indexer::continue -->
