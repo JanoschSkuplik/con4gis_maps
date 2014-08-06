@@ -56,10 +56,10 @@ c4g.Map = function(mapData)
   	});
 
     if (mapData.width) {
-        document.getElementById(mapData.mapDiv).width = mapData.width;
+        document.getElementById(mapData.mapDiv).style.width = mapData.width;
     }
     if (mapData.height) {
-        document.getElementById(mapData.mapDiv).height = mapData.height;
+        document.getElementById(mapData.mapDiv).style.height = mapData.height;
     }
     this.map.updateSize();
 

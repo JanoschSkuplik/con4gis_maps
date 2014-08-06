@@ -313,7 +313,7 @@ $GLOBALS['TL_DCA']['tl_c4g_maps'] = array
 			'exclude'                 => true,
 			'inputType'               => 'c4g_text',		    
 			'eval'                    => array('maxlength'=>20, 'tl_class'=>'w50 wizard', 'require_input'=>true ),
-		    'save_callback'           => array(array('tl_c4g_maps','setCenterGeoX')),
+		    'save_callback'           => array(array('tl_c4g_maps','setCenterLon')),
 			'wizard'                  => array(array('tl_c4g_maps', 'geoPicker'))
 		),
 
@@ -323,7 +323,7 @@ $GLOBALS['TL_DCA']['tl_c4g_maps'] = array
 			'exclude'                 => true,
 			'inputType'               => 'c4g_text',
 			'eval'                    => array('maxlength'=>20, 'tl_class'=>'w50 wizard', 'require_input'=>true),
-		    'save_callback'           => array(array('tl_c4g_maps','setCenterGeoY')),
+		    'save_callback'           => array(array('tl_c4g_maps','setCenterLat')),
 			'wizard'                  => array(array('tl_c4g_maps', 'geoPicker'))
 		),
 		'zoom' => array
@@ -364,7 +364,7 @@ $GLOBALS['TL_DCA']['tl_c4g_maps'] = array
 			'exclude'                 => true,
 			'inputType'               => 'c4g_text',
 			'eval'                    => array('maxlength'=>20, 'tl_class'=>'w50 wizard', 'require_input'=>true ),
-		    'save_callback'           => array(array('tl_c4g_maps','setRestrGeoX')),
+		    'save_callback'           => array(array('tl_c4g_maps','setRestrLon')),
 			'wizard'                  => array(array('tl_c4g_maps', 'geoPicker'))
 		),
 		'restr_bottomleft_geoy' => array
@@ -373,7 +373,7 @@ $GLOBALS['TL_DCA']['tl_c4g_maps'] = array
 			'exclude'                 => true,
 			'inputType'               => 'c4g_text',
 			'eval'                    => array('maxlength'=>20, 'tl_class'=>'w50 wizard', 'require_input'=>true ),
-		    'save_callback'           => array(array('tl_c4g_maps','setRestrGeoY')),
+		    'save_callback'           => array(array('tl_c4g_maps','setRestrLat')),
 			'wizard'                  => array(array('tl_c4g_maps', 'geoPicker'))
 		),
 		'restr_topright_geox' => array
@@ -382,7 +382,7 @@ $GLOBALS['TL_DCA']['tl_c4g_maps'] = array
 			'exclude'                 => true,
 			'inputType'               => 'c4g_text',
 			'eval'                    => array('maxlength'=>20, 'tl_class'=>'w50 wizard', 'require_input'=>true ),
-		    'save_callback'           => array(array('tl_c4g_maps','setRestrGeoX')),
+		    'save_callback'           => array(array('tl_c4g_maps','setRestrLon')),
 			'wizard'                  => array(array('tl_c4g_maps', 'geoPicker'))
 		),
 		'restr_topright_geoy' => array
@@ -391,7 +391,7 @@ $GLOBALS['TL_DCA']['tl_c4g_maps'] = array
 			'exclude'                 => true,
 			'inputType'               => 'c4g_text',
 			'eval'                    => array('maxlength'=>20, 'tl_class'=>'w50 wizard', 'require_input'=>true ),
-		    'save_callback'           => array(array('tl_c4g_maps','setRestrGeoY')),
+		    'save_callback'           => array(array('tl_c4g_maps','setRestrLat')),
 			'wizard'                  => array(array('tl_c4g_maps', 'geoPicker'))
 		),
 		'include_sublocations' => array
@@ -417,7 +417,7 @@ $GLOBALS['TL_DCA']['tl_c4g_maps'] = array
 			'exclude'                 => true,
 			'inputType'               => 'c4g_text',
 			'eval'                    => array('mandatory'=>true, 'maxlength'=>20, 'tl_class'=>'w50 wizard' ),		 
-		    'save_callback'           => array(array('tl_c4g_maps','setLocGeoX')),
+		    'save_callback'           => array(array('tl_c4g_maps','setLocLon')),
 			'wizard'                  => array(array('tl_c4g_maps', 'geoPicker'))			
 		),
 
@@ -427,7 +427,7 @@ $GLOBALS['TL_DCA']['tl_c4g_maps'] = array
 			'exclude'                 => true,
 			'inputType'               => 'c4g_text',
 			'eval'                    => array('mandatory'=>true, 'maxlength'=>20, 'tl_class'=>'w50 wizard'),
-		    'save_callback'           => array(array('tl_c4g_maps','setLocGeoY')),
+		    'save_callback'           => array(array('tl_c4g_maps','setLocLat')),
 			'wizard'                  => array(array('tl_c4g_maps', 'geoPicker'))
 		),
 		'locstyle' => array
@@ -1031,12 +1031,12 @@ class tl_c4g_maps extends Backend
 
 
 	/**
-	 * Validate Center GeoX
+	 * Validate Center Lon
 	 */
-	public function setCenterGeoX($varValue, DataContainer $dc)
+	public function setCenterLon($varValue, DataContainer $dc)
 	{
 		if ($dc->activeRecord->calc_extent == 'CENTERZOOM') {
-			if (!C4GMaps::validateGeoX($varValue)) {
+			if (!C4GMaps::validateLon($varValue)) {
 				throw new Exception($GLOBALS['TL_LANG']['c4g_maps']['geox_invalid']);
 			}
 		}
@@ -1044,12 +1044,12 @@ class tl_c4g_maps extends Backend
 	}
 
 	/**
-	 * Validate Center GeoY
+	 * Validate Center Lat
 	 */
-	public function setCenterGeoY($varValue, DataContainer $dc)
+	public function setCenterLat($varValue, DataContainer $dc)
 	{
 		if ($dc->activeRecord->calc_extent == 'CENTERZOOM') {
-			if (!C4GMaps::validateGeoY($varValue)) {
+			if (!C4GMaps::validateLat($varValue)) {
 				throw new Exception($GLOBALS['TL_LANG']['c4g_maps']['geoy_invalid']);
 			}
 		}	
@@ -1058,12 +1058,12 @@ class tl_c4g_maps extends Backend
 
 
 	/**
-	 * Validate restricted GeoX
+	 * Validate restricted Lon
 	 */
-	public function setRestrGeoX($varValue, DataContainer $dc)
+	public function setRestrLon($varValue, DataContainer $dc)
 	{
 		if ($dc->activeRecord->restrict_area) {
-			if (!C4GMaps::validateGeoX($varValue)) {
+			if (!C4GMaps::validateLon($varValue)) {
 				throw new Exception($GLOBALS['TL_LANG']['c4g_maps']['geox_invalid']);
 			}
 		}	
@@ -1071,12 +1071,12 @@ class tl_c4g_maps extends Backend
 	}
 
 	/**
-	 * Validate restricted GeoY
+	 * Validate restricted Lat
 	 */
-	public function setRestrGeoY($varValue, DataContainer $dc)
+	public function setRestrLat($varValue, DataContainer $dc)
 	{
 		if ($dc->activeRecord->restrict_area) {
-			if (!C4GMaps::validateGeoY($varValue)) {
+			if (!C4GMaps::validateLat($varValue)) {
 				throw new Exception($GLOBALS['TL_LANG']['c4g_maps']['geoy_invalid']);
 			}	
 		}
@@ -1084,22 +1084,22 @@ class tl_c4g_maps extends Backend
 	}
 
 	/**
-	 * Validate Location GeoX
+	 * Validate Location Lon
 	 */
-	public function setLocGeoX($varValue, DataContainer $dc)
+	public function setLocLon($varValue, DataContainer $dc)
 	{
-		if (!C4GMaps::validateGeoX($varValue)) {
+		if (!C4GMaps::validateLon($varValue)) {
 			throw new Exception($GLOBALS['TL_LANG']['c4g_maps']['geox_invalid']);
 		}
 		return $varValue;
 	}
 	
 	/**
-	 * Validate Location GeoY
+	 * Validate Location Lat
 	 */
-	public function setLocGeoY($varValue, DataContainer $dc)
+	public function setLocLat($varValue, DataContainer $dc)
 	{
-		if (!C4GMaps::validateGeoY($varValue)) {
+		if (!C4GMaps::validateLat($varValue)) {
 			throw new Exception($GLOBALS['TL_LANG']['c4g_maps']['geoy_invalid']);
 		}
 		return $varValue;
