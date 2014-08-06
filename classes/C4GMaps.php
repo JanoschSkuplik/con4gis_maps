@@ -178,8 +178,8 @@ class C4GMaps
 	  		if ($map->restrict_area) {  		    		    		  
 	  			$mapData['restr_bottomleft_lon'] = $map->restr_bottomleft_lon;
 	  			$mapData['restr_bottomleft_lat'] = $map->restr_bottomleft_lat;
-	  			$mapData['restr_topright_lon'] = $map->restr_topright_lon;
-	  			$mapData['restr_topright_lat'] = $map->restr_topright_lat;
+	  			$mapData['restr_topright_lon'] = $map->restr_topright_geox;
+	  			$mapData['restr_topright_lat'] = $map->restr_topright_geoy;
 	  		}
 		}
 

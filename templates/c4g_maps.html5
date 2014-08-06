@@ -1,5 +1,5 @@
 <?php if (!$this->mapData['mapDiv']): ?>
-<div id="<?php echo 'c4gMap_' . $this->mapData['id'] ?>"></div>
+<div id="<?php echo 'c4g_Map' . $this->mapData['id'] ?>"></div>
 <?php  endif; ?>
 
 <?php // echo json_encode($this->mapData) ?>
@@ -18,11 +18,11 @@
 
 jQuery(document).ready(function() 
 {
-	// no use of "var", so it will become global
-	c4gMap_<?php echo $this->mapData['id'] ?> = new c4g.Map(
+	// no use of "var"-keyword, so it will become global
+	c4g_Map<?php echo $this->mapData['id'] ?> = new c4g.Map(
 			 <?php echo json_encode($this->mapData) ?>
 		);
-	// c4gMap_<?php echo $this->mapData['id'] ?>.run();
+	// c4g_Map<?php echo $this->mapData['id'] ?>.run();
 });
 //]]>
 </script>

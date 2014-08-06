@@ -19,7 +19,7 @@ c4g.Map = function(mapData)
 
     mapData = $.extend({
 			// restUrl : 'api',
-			mapDiv : 'c4gMap_' + mapData.id,
+			mapDiv : 'c4g_Map' + mapData.id,
 			// width : '',
 			// height : '',
 			center_lat : 37.41,
@@ -57,5 +57,6 @@ c4g.Map = function(mapData)
 
 
   	this.map.addControl(new ol.control.MousePosition({projection:'EPSG:4326'}));
+
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 };

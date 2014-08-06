@@ -35,7 +35,7 @@ class Module_c4g_maps extends \Module
 		{
 			$objTemplate = new \BackendTemplate('be_wildcard');
 
-			$objTemplate->wildcard 	= '### '.$GLOBALS['TL_LANG']['FMD']['c4g_maps'][0].' ###';
+			$objTemplate->wildcard 	= '### '.$GLOBALS['TL_LANG']['FMD']['c4g_maps'][0].' ###<img src="system/modules/con4gis_maps/assets/images/logo_con4gis-maps.png" style="float:right">';
 			$objTemplate->title 	= $this->headline;
 			$objTemplate->id 		= $this->id;
 			$objTemplate->link 		= $this->title;
