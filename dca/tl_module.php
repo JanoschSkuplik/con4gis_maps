@@ -35,14 +35,6 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_map_id'] = array
     'options_callback'        => array('tl_module_c4g_maps', 'get_maps'),
 	'eval'                    => array('submitOnChange'=>true)
 );
-// $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_map_mapsize'] = array
-// (
-// 	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['c4g_map_mapsize'],
-// 	'exclude'                 => true,
-// 	'inputType'               => 'c4g_imageSize',
-// 	'options'                 => array('px', '%', 'em', 'pt', 'pc', 'in', 'cm', 'mm'),
-// 	'eval'                    => array('mandatory'=>false, 'rgxp'=>'digit')
-// );
 $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_map_width'] = array
 (
 	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['c4g_map_width'],
@@ -50,7 +42,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_map_width'] = array
 	'inputType'               => 'inputUnit',
 	'options'                 => array('px', '%', 'em', 'pt', 'pc', 'in', 'cm', 'mm'),
 	'eval'                    => array(
-									'rgxp'=>'digit', 
+									'rgxp'=>'digit_auto_inherit', 
 									'tl_class'=>'w50',
 									'includeBlankOption'=>true 
 								),
@@ -63,7 +55,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['c4g_map_height'] = array
 	'inputType'               => 'inputUnit',
 	'options'                 => array('px', '%', 'em', 'pt', 'pc', 'in', 'cm', 'mm'),
 	'eval'                    => array(
-									'rgxp'=>'digit', 
+									'rgxp'=>'digit_auto_inherit', 
 									'tl_class'=>'w50', 
 									'includeBlankOption'=>true 
 								),
