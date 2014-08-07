@@ -47,12 +47,12 @@ Valid **mapData**-values:
   >currently not used.
 
 *@optional*  
-**width** *(String)*
+**width** *(String)*  
   >Defines the width of the map and should be valid CSS.  
   >e.g.: `10px` or `100%`.
 
 *@optional*  
-**zoom** *(int)*
+**zoom** *(int)*  
   >The initial zoom for the View on the Map.  
   >Needs to be an integer between 0(far) and 20(near).  
   >***default***: `4`.
