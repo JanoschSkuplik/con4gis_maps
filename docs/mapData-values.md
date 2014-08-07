@@ -9,13 +9,13 @@ Valid **mapData**-values:
 *@optional*  
 **center_lat** *(float)*  
   >The latitude where the view should center on the map.  
-  >Needs to be a valid float between -90.0 and 90.0.  
+  >Needs to be a valid float between `-90.0` and `90.0`.  
   >***default***: `37.41`.
 
 *@optional*  
 **center_lon** *(float)*  
   >The longitude where the view should center on the map.  
-  >Needs to be a valid float between -180.0 and 180.0.  
+  >Needs to be a valid float between `-180.0` and `180.0`.  
   >***default***: `8.82`.
 
 *@optional*  
@@ -54,7 +54,7 @@ Valid **mapData**-values:
 *@optional*  
 **zoom** *(int)*  
   >The initial zoom for the View on the Map.  
-  >Needs to be an integer between 0(far) and 20(near).  
+  >Needs to be an integer between `0`(far) and `20`(near).  
   >***default***: `4`.
 
 
