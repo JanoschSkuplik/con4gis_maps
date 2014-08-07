@@ -126,7 +126,8 @@ class C4GMaps
 		// --------------------------------------------------------------------
 		// set basic map options
 		// --------------------------------------------------------------------
-		if ($map->id != 0) {
+		if ($map->id != 0) 
+		{
 			// map-center
 			$mapData['center_lon'] = $map->center_geox;
 			$mapData['center_lat'] = $map->center_geoy;
@@ -206,6 +207,14 @@ class C4GMaps
 			$mapData['height'] = $mapHeight['value'] . $mapHeight['unit'];
 		}
 
+		// -------------------------------------------------------------------------
+        // collect data from map profile
+        // -------------------------------------------------------------------------
+		if ($profile) 
+		{
+			//PASS
+		} 
+
 
 		//[ DEV ]!!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -217,6 +226,7 @@ class C4GMaps
 		$GLOBALS['TL_CSS'][] = $GLOBALS['c4g_maps_extension']['css_openlayers']['DEFAULT'];
 
 
+		$mapData['addIdToDiv'] = true;
 		// $mapData['mapDiv'] = 'c4gMap';
 		// return print_r( $mapData, true );
 		return $mapData;

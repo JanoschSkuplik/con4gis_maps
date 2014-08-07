@@ -7,7 +7,7 @@
 } ?>
 
 <?php if (!$this->mapData['mapDiv']): ?>
-<div id="<?php echo 'c4g_Map' . $this->mapData['elementId'] ?>"></div>
+<div id="<?php echo 'c4g_Map' . $this->mapData['mapId'] ?>"></div>
 <?php  endif; ?>
 
 <?php // echo json_encode($this->mapData) ?>
@@ -17,7 +17,7 @@
 
 // C4GMaps(<?php echo json_encode($this->mapData) ?>);
 
-	// var map_<?php echo $this->mapData['id'] ?> = new c4g.Map({
+	// var map_<?php echo $this->mapData['mapId'] ?> = new c4g.Map({
 	// 	target: "<?php echo $this->mapData['mapDiv'] ?>",
 	// 	baselayers: [
 	// 					<?php #pass ?>
@@ -27,10 +27,10 @@
 jQuery(document).ready(function() 
 {
 	// no use of "var"-keyword, so it will become global
-	c4g_Map<?php echo $this->mapData['elementId'] ?> = new c4g.Map(
+	c4g_Map<?php echo $this->mapData['mapId'] ?> = new c4g.Map(
 			 <?php echo json_encode($this->mapData) ?>
 		);
-	// c4g_Map<?php echo $this->mapData['elementId'] ?>.run();
+	// c4g_Map<?php echo $this->mapData['mapId'] ?>.run();
 });
 //]]>
 </script>

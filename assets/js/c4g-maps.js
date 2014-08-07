@@ -3,7 +3,9 @@ var c4g = {};
 
 /**
  * [Map description]
- * @param {[type]} mapData [description]
+ * @param {json-object} mapData [object to configure con4gis-maps. 
+ *                               See "docs/mapData-values.md" 
+ *                               to get a list of valid values for this object]
  */
 c4g.Map = function(mapData) 
 {
@@ -19,15 +21,19 @@ c4g.Map = function(mapData)
 
     mapData = $.extend({
 			// restUrl : 'api',
-			mapDiv : 'c4g_Map' + mapData.elementId,
-			// width : '',
-			// height : '',
+            addIdToDiv : false, 
+            mapId : 1, 
+			mapDiv : 'c4g_Map',
 			center_lat : 37.41,
 			center_lon : 8.82,
 			zoom : 4,
 			calc_extent: 'CENTERZOOM'
 		}, mapData);
 
+    if (mapData.addIdToDiv) {
+        mapData.mapDiv += mapData.mapId;
+    }
+    
     //[ NOTES ] !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     // self.closeAll = function() {};
 
@@ -55,6 +61,7 @@ c4g.Map = function(mapData)
 	    })
   	});
 
+    // set map-size and -margin
     if (mapData.width) {
         document.getElementById(mapData.mapDiv).style.width = mapData.width;
     }
@@ -65,6 +72,7 @@ c4g.Map = function(mapData)
         document.getElementById(mapData.mapDiv).style.margin = mapData.margin;
     }
     this.map.updateSize();
+    // ---
 
   	this.map.addControl(new ol.control.MousePosition({projection:'EPSG:4326'}));
 
