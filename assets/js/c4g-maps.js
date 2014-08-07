@@ -61,6 +61,9 @@ c4g.Map = function(mapData)
     if (mapData.height) {
         document.getElementById(mapData.mapDiv).style.height = mapData.height;
     }
+    if (mapData.margin) {
+        document.getElementById(mapData.mapDiv).style.margin = mapData.margin;
+    }
     this.map.updateSize();
 
   	this.map.addControl(new ol.control.MousePosition({projection:'EPSG:4326'}));

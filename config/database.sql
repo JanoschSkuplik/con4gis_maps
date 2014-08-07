@@ -21,16 +21,7 @@ CREATE TABLE `tl_c4g_maps` (
   `profile` int(10) unsigned NOT NULL default '0',
   `profile_mobile` int(10) unsigned NOT NULL default '0',
   `published` char(1) NOT NULL default '1',
-  `is_map` char(1) NOT NULL default '',
-  `mapsize` varchar(255) NOT NULL default '',
-  `auto_width` char(1) NOT NULL default '',
-  `auto_width_min` int(10) unsigned NOT NULL default '0',  
-  `auto_width_max` int(10) unsigned NOT NULL default '0',  
-  `auto_width_gap` int(10) unsigned NOT NULL default '0',  
-  `auto_height` char(1) NOT NULL default '',
-  `auto_height_min` int(10) unsigned NOT NULL default '0',  
-  `auto_height_max` int(10) unsigned NOT NULL default '0',  
-  `auto_height_gap` int(10) unsigned NOT NULL default '0',  
+  `is_map` char(1) NOT NULL default '',  
   `calc_extent` varchar(10) NOT NULL default '',
   `min_gap` int(10) unsigned NOT NULL default '0',  
   `center_geox` varchar(20) NOT NULL default '',
@@ -164,88 +155,7 @@ CREATE TABLE `tl_c4g_map_profiles` (
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
--- 
--- Table `tl_c4g_map_prof_locstyles` - old table, will be deleted in the future!
--- 
 
-CREATE TABLE `tl_c4g_map_prof_locstyles` (
-  `id` int(10) unsigned NOT NULL auto_increment,
-  `pid` int(10) unsigned NOT NULL default '0',
-  `tstamp` int(10) unsigned NOT NULL default '0',
-  `name` varchar(100) NOT NULL default '',
-  `styletype` varchar(10) NOT NULL default '', 
-  `strokewidth` varchar(100) NOT NULL default '',
-  `strokecolor` varchar(6) NOT NULL default '',
-  `strokeopacity` varchar(100) NOT NULL default '',
-  `fillcolor` varchar(6) NOT NULL default '',
-  `fillopacity` varchar(100) NOT NULL default '',
-  `radius` varchar(100) NOT NULL default '',
-  `ol_icon` varchar(100) NOT NULL default 'marker.png',
-  `ol_icon_size` varchar(100) NOT NULL default '',
-  `ol_icon_offset` varchar(100) NOT NULL default '',
-  `icon_src` binary(16) NULL,
-  `icon_size` varchar(100) NOT NULL default '',
-  `icon_offset` varchar(100) NOT NULL default '',
-  `icon_opacity` varchar(100) NOT NULL default '',
-  `onhover_locstyle` int(10) unsigned NOT NULL default '0',
-  `line_arrows` char(1) NOT NULL default '',
-  `line_arrows_back` char(1) NOT NULL default '',
-  `line_arrows_radius` varchar(100) NOT NULL default '',
-  `line_arrows_minzoom` int(10) unsigned NOT NULL default '0',
-  `label_align_hor` varchar(10) NOT NULL default '',
-  `label_align_ver` varchar(10) NOT NULL default '',
-  `label_offset` varchar(100) NOT NULL default '',
-  `font_family` varchar(100) NOT NULL default '',
-  `font_color` varchar(6) NOT NULL default '',
-  `font_size` varchar(100) NOT NULL default '',
-  `label_outl_color` varchar(6) NOT NULL default '',
-  `label_outl_width` varchar(100) NOT NULL default '',
-  `font_opacity` varchar(100) NOT NULL default '',
-  `font_style` varchar(100) NOT NULL default '',
-  `font_weight` varchar(100) NOT NULL default '',
-  `label` varchar(100) NOT NULL default '',
-  `tooltip` varchar(100) NOT NULL default '',
-  `popup_info` text NULL,
-  `popup_kind` varchar(30) NOT NULL default 'cloud',
-  `popup_size` varchar(100) NOT NULL default '',
-  `popup_offset` varchar(100) NOT NULL default '',  
-  `onclick_zoomto` int(10) unsigned NOT NULL default '0',  
-  `minzoom` int(10) unsigned NOT NULL default '0',  
-  `maxzoom` int(10) unsigned NOT NULL default '0',  
-  `editor_vars` text NULL,
-  `editor_icon` binary(16) NULL,
-  `editor_collect` char(1) NOT NULL default '',
-  PRIMARY KEY  (`id`),
-  KEY `pid` (`pid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
--- 
--- Table `tl_c4g_map_prof_services` - old table, will be deleted in the future!
--- 
-
-CREATE TABLE `tl_c4g_map_prof_services` (
-  `id` int(10) unsigned NOT NULL auto_increment,
-  `pid` int(10) unsigned NOT NULL default '0',
-  `tstamp` int(10) unsigned NOT NULL default '0',
-  `name` varchar(100) NOT NULL default '',
-  `sort` int(10) NOT NULL default '0',
-  `provider` varchar(10) NOT NULL default '', 
-  `osm_style` varchar(30) NOT NULL default '',
-  `osm_style_url1` varchar(255) NOT NULL default '',
-  `osm_style_url2` varchar(255) NOT NULL default '',
-  `osm_style_url3` varchar(255) NOT NULL default '',
-  `osm_style_url4` varchar(255) NOT NULL default '',
-  `osm_keyname` varchar(30) NOT NULL default '',
-  `google_style` varchar(30) NOT NULL default '',
-  `bing_style` varchar(30) NOT NULL default '',
-  `bing_key` varchar(100) NOT NULL default '',
-  `attribution` varchar(255) NOT NULL default '',
-  `maxzoomlevel` int(10) NOT NULL default '0',
-  PRIMARY KEY  (`id`),
-  KEY `pid` (`pid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 -- 
@@ -357,7 +267,6 @@ CREATE TABLE `tl_c4g_map_overlays` (
 
 CREATE TABLE `tl_content` (
   `c4g_map_id` int(10) unsigned NOT NULL default '0',  
-  `c4g_map_mapsize` varchar(255) NOT NULL default '',
   `c4g_map_zoom` int(10) unsigned NOT NULL default '0',
   `c4g_map_default_mapservice` int(10) unsigned NOT NULL default '0',
   `c4g_map_layer_switcher` char(1) NOT NULL default '1',  
@@ -372,7 +281,6 @@ CREATE TABLE `tl_content` (
 
 CREATE TABLE `tl_module` (
   `c4g_map_id` int(10) unsigned NOT NULL default '0',  
-  `c4g_map_mapsize` varchar(255) NOT NULL default '',
   `c4g_map_zoom` int(10) unsigned NOT NULL default '0',
   `c4g_map_default_mapservice` int(10) unsigned NOT NULL default '0',
   `c4g_map_layer_switcher` char(1) NOT NULL default '1',  

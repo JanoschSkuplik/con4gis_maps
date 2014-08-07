@@ -24,9 +24,9 @@ $GLOBALS['TL_LANG']['tl_c4g_maps']['profile_mobile'] = array('Kartenprofil mobil
 $GLOBALS['TL_LANG']['tl_c4g_maps']['published'] = array('Veröffentlicht', 'Legt fest, ob die Karte bzw. die Lokation veröffentlicht wird.');
 $GLOBALS['TL_LANG']['tl_c4g_maps']['is_map'] = array('Als Karte verwenden', 'Soll dieses Element eine im Frontend darstellbare Karte repräsentieren?');
 // $GLOBALS['TL_LANG']['tl_c4g_maps']['mapsize'] = array('Größe der Karte (Breite, Höhe)', 'Geben Sie hier die Größe der Karte im Frontend ein.');
-$GLOBALS['TL_LANG']['tl_c4g_maps']['width'] = array('Breite des standard Karten-Divs', 'Geben Sie hier die Breite der Karte im Frontend ein.');
-$GLOBALS['TL_LANG']['tl_c4g_maps']['height'] = array('Höhe des standard Karten-Divs', 'Geben Sie hier die Höhe der Karte im Frontend ein.');
-$GLOBALS['TL_LANG']['tl_c4g_maps']['margin'] = array('Abstand des standard Karten-Divs', 'Geben Sie hier den Abstand der Karte im Frontend ein.');
+$GLOBALS['TL_LANG']['tl_c4g_maps']['width'] = array('Breite der Karte', 'Geben Sie hier die Breite der Karte im Frontend ein.');
+$GLOBALS['TL_LANG']['tl_c4g_maps']['height'] = array('Höhe der Karte', 'Geben Sie hier die Höhe der Karte im Frontend ein.');
+$GLOBALS['TL_LANG']['tl_c4g_maps']['margin'] = array('Abstand der Karte', 'Geben Sie hier den Abstand der Karte zu umliegenden Elementen ein.');
 // $GLOBALS['TL_LANG']['tl_c4g_maps']['auto_width'] = array('Rechten Kartenrand am Browser ausrichten', 'Wählen Sie diese Option, um den rechten Kartenrand am Browserfenster auszurichten.');
 // $GLOBALS['TL_LANG']['tl_c4g_maps']['auto_width_gap'] = array('Abstand zum rechten Rand (Pixel)', 'Geben Sie den Abstand des rechten Randes des Browserfensters zum rechten Rand der Karte in Pixeln ein.');
 // $GLOBALS['TL_LANG']['tl_c4g_maps']['auto_width_min'] = array('Mindestbreite (Pixel)', 'Geben Sie die Mindestbreite der Karte ein, die nicht unterschritten werden darf.');
@@ -146,4 +146,3 @@ $GLOBALS['TL_LANG']['tl_c4g_maps']['map_legend']		    = 'Karte';
 $GLOBALS['TL_LANG']['tl_c4g_maps']['location_legend']	    = 'Lokation';
 $GLOBALS['TL_LANG']['tl_c4g_maps']['protection_legend']	    = 'Zugriffsschutz';
 $GLOBALS['TL_LANG']['tl_c4g_maps']['expert_legend']	    	= 'Experteneinstellungen';
-?>

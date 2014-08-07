@@ -223,8 +223,12 @@ $GLOBALS['TL_DCA']['tl_c4g_maps'] = array
 			'exclude'                 => true,
 			'inputType'               => 'inputUnit',
 			'options'                 => array('px', '%', 'em', 'pt', 'pc', 'in', 'cm', 'mm'),
-			'eval'                    => array('rgxp'=>'digit', 'tl_class'=>'w50' ),
-			'sql'					  => "varchar(255) NOT NULL default ''"
+			'eval'                    => array(
+											'rgxp'=>'digit_auto_inherit', 
+											'tl_class'=>'w50',
+											'includeBlankOption'=>true 
+										),
+			'sql'					  => "varchar(64) NOT NULL default ''"
 		),
 		'height' => array
 		(
@@ -232,17 +236,24 @@ $GLOBALS['TL_DCA']['tl_c4g_maps'] = array
 			'exclude'                 => true,
 			'inputType'               => 'inputUnit',
 			'options'                 => array('px', '%', 'em', 'pt', 'pc', 'in', 'cm', 'mm'),
-			'eval'                    => array('rgxp'=>'digit', 'tl_class'=>'w50' ),
-			'sql'					  => "varchar(255) NOT NULL default ''"
+			'eval'                    => array(
+											'rgxp'=>'digit_auto_inherit', 
+											'tl_class'=>'w50', 
+											'includeBlankOption'=>true 
+										),
+			'sql'					  => "varchar(64) NOT NULL default ''"
 		),
 		'margin' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_maps']['margin'],
 			'exclude'                 => true,
-			'inputType'               => 'inputUnit',
+			'inputType'               => 'trbl',
 			'options'                 => array('px', '%', 'em', 'pt', 'pc', 'in', 'cm', 'mm'),
-			'eval'                    => array('rgxp'=>'digit', 'tl_class'=>'clr' ),
-			'sql'					  => "varchar(255) NOT NULL default ''"
+			'eval'                    => array(
+											'rgxp'=>'digit_auto_inherit', 
+											'includeBlankOption'=>true 
+										),
+			'sql'					  => "varchar(128) NOT NULL default ''"
 		),
 		// 'auto_width' => array
 		// (
@@ -946,22 +957,23 @@ class tl_c4g_maps extends Backend
 	 */
 	public function generateLabel($row, $label, $dc_table, $folderAttribute)
 	{
+		$image = 'system/modules/con4gis_maps/assets/images/be-icons/';
 		if ($row['is_map']) {
 		 	if ($row['location_type']<>'none') {
-		     	$image = 'system/modules/con4gis_maps/assets/images/be-icons/map_location';
+		     	$image .= 'map_location';
 			}
 			else {
-		    	$image = 'system/modules/con4gis_maps/assets/images/be-icons/map';		
+		    	$image .= 'map';		
 			}
 		}
 		else if ($row['location_type']=='link') {
-		    $image = 'system/modules/con4gis_maps/assets/images/be-icons/link';
+		    $image .= 'link';
 		} 
 		else if ($row['location_type']<>'none') {
-		    $image = 'system/modules/con4gis_maps/assets/images/be-icons/location';
+		    $image .= 'location';
 		} 
 		else {
-		    $image = 'system/modules/con4gis_maps/assets/images/be-icons/mapfolder';
+		    $image .= 'mapfolder';
 		}
 		if (!$row['published']) {
 			$image .= '_1';
@@ -978,7 +990,7 @@ class tl_c4g_maps extends Backend
 	    if (!$dc->id) {
 	    	return;
 	    }	    
-		$objMap = $this->Database->prepare("SELECT is_map,calc_extent,restrict_area,geolocation,auto_width,auto_height FROM tl_c4g_maps WHERE id=?")
+		$objMap = $this->Database->prepare("SELECT is_map,calc_extent,restrict_area,geolocation FROM tl_c4g_maps WHERE id=?")
 			->limit(1)
 			->execute($dc->id);
 		if ($objMap->numRows > 0) {	

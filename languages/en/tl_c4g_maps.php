@@ -23,8 +23,8 @@ $GLOBALS['TL_LANG']['tl_c4g_maps']['profile_mobile'] = array('Map profile mobile
 $GLOBALS['TL_LANG']['tl_c4g_maps']['published'] = array('Published', 'Defines if the map/the location is published.');
 $GLOBALS['TL_LANG']['tl_c4g_maps']['is_map'] = array('Use as map', 'Check if you want to create a map.');
 // $GLOBALS['TL_LANG']['tl_c4g_maps']['mapsize'] = array('Map size (width, height)', 'Enter the size of the map in the frontend.');
-$GLOBALS['TL_LANG']['tl_c4g_maps']['width'] = array('Default Map-div width', 'Enter the width of the map in the frontend.');
-$GLOBALS['TL_LANG']['tl_c4g_maps']['height'] = array('Default Map-div height', 'Enter the height of the map in the frontend.');
+$GLOBALS['TL_LANG']['tl_c4g_maps']['width'] = array('Map width', 'Enter the width of the map in the frontend.');
+$GLOBALS['TL_LANG']['tl_c4g_maps']['height'] = array('Map height', 'Enter the height of the map in the frontend.');
 $GLOBALS['TL_LANG']['tl_c4g_maps']['margin'] = array('Map margin', 'Enter the margin of the map in the frontend.');
 // $GLOBALS['TL_LANG']['tl_c4g_maps']['auto_width'] = array('Align map width to browser width', '.');
 // $GLOBALS['TL_LANG']['tl_c4g_maps']['auto_width_gap'] = array('Right gap (px)', '');
@@ -145,4 +145,3 @@ $GLOBALS['TL_LANG']['tl_c4g_maps']['map_legend']		    = 'Map';
 $GLOBALS['TL_LANG']['tl_c4g_maps']['location_legend']	    = 'Location';
 $GLOBALS['TL_LANG']['tl_c4g_maps']['protection_legend']	    = 'Access protection';
 $GLOBALS['TL_LANG']['tl_c4g_maps']['expert_legend']	    	= 'Expert';
-?>
