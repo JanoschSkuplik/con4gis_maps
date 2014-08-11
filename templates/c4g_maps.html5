@@ -27,6 +27,8 @@
 jQuery(document).ready(function() 
 {
 	// no use of "var"-keyword, so it will become global
+	// var t = window.t = stuff
+	// oder namespace!
 	c4g_Map<?php echo $this->mapData['mapId'] ?> = new c4g.Map(
 			 <?php echo json_encode($this->mapData) ?>
 		);
