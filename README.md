@@ -1,19 +1,24 @@
-con4gis-Maps 3
+c:earth_africa:n4gis-Maps 3
 ==============
 ***NEW!*** *with ol3-taste*
 
 ---
+####**state:** :wrench:`under construction`:nut_and_bolt:
+---
 
-**state:** `under construction`
+<br><br>
 
-working features
+implemented features
 ----------------
 
+- :octocat:
 - place map on a Page via *CE* or *MOD*
 - define map-size and -margin
 
 
-not working features
+upcomming features
 --------------------
 
-**everything else**
+- define *Basemap*
+- API
+- LayerSwitcher
