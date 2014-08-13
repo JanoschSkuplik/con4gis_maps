@@ -93,6 +93,7 @@ array_insert($GLOBALS['TL_CTE']['con4gis'], 1, array
  * Rest-API
  */
 $GLOBALS['TL_API']['c4g_maps_layerapi'] = 'LayerApi';
+$GLOBALS['TL_API']['c4g_maps_layercontentapi'] = 'LayerContentApi';
 
 /**
  * Specialized Widgets for Text Input and Image Sizes

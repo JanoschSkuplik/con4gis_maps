@@ -45,12 +45,15 @@ class tl_settings_maps extends tl_settings
 	public function getMapTables()
 	{
 		$tables = array();
-		foreach ($GLOBALS['c4g_maps_extension']['sourcetable'] as $key=>$sourcetable)
-		{
-			$tables[$key] = $GLOBALS['TL_LANG']['c4g_maps']['sourcetable'][$key]['name'];
-		}
+        
+        if (is_array($GLOBALS['c4g_maps_extension']['sourcetable']))
+        {
+		    foreach ($GLOBALS['c4g_maps_extension']['sourcetable'] as $key=>$sourcetable)
+		    {
+			    $tables[$key] = $GLOBALS['TL_LANG']['c4g_maps']['sourcetable'][$key]['name'];
+		    }
+        }
+        
 		return $tables;
 	}
 }
-
-?>

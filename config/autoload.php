@@ -36,7 +36,8 @@ ClassLoader::addClasses(array
 	'c4g\C4gMapsModel'          => 'system/modules/con4gis_maps/models/C4gMapsModel.php',
 
 	// Modules
-	'LayerApi'                  => 'system/modules/con4gis_maps/modules/api/LayerApi.php',
+	'c4g\LayerApi'              => 'system/modules/con4gis_maps/modules/api/LayerApi.php',
+	'c4g\LayerContentApi'       => 'system/modules/con4gis_maps/modules/api/LayerContentApi.php',
 	'c4g\Content_c4g_maps'      => 'system/modules/con4gis_maps/modules/Content_c4g_maps.php',
 	'c4g\Module_c4g_maps'       => 'system/modules/con4gis_maps/modules/Module_c4g_maps.php',
 ));
