@@ -1,4 +1,4 @@
-<?php if (!defined('TL_ROOT')) die('You can not access this file directly!');
+<?php
 
 /**
  * Contao Open Source CMS
@@ -12,7 +12,6 @@
  * @filesource 
  */
 
-
 $GLOBALS['TL_DCA']['tl_settings']['palettes']['default'] .= ';{c4g_maps_legend},disabledC4gMapObjects'; 
 
 /**
@@ -22,7 +21,7 @@ $GLOBALS['TL_DCA']['tl_settings']['fields']['disabledC4gMapObjects'] = array
 (
 	'label'                   => &$GLOBALS['TL_LANG']['tl_settings']['disabledC4gMapObjects'],
 	'inputType'               => 'checkbox',
-	'options_callback'        => array('tl_settings_maps', 'getMapTables'),
+	'options_callback'        => array('tl_settings_c4g_maps', 'getMapTables'),
 	'eval'                    => array('multiple'=>true)
 );
 
@@ -30,12 +29,8 @@ $GLOBALS['TL_DCA']['tl_settings']['fields']['disabledC4gMapObjects'] = array
  * Class tl_settings_maps
  *
  * Provide methods that are used by the data configuration array.
- * @copyright  Küstenschmiede GmbH Software & Design 2012
- * @author     Jürgen Witte <http://www.kuestenschmiede.de>
- * @package    con4gis
- * @author     Jürgen Witte <http://www.kuestenschmiede.de>
  */
-class tl_settings_maps extends tl_settings
+class tl_settings_c4g_maps extends tl_settings
 {
 	/**
 	 * Return available Map tables

@@ -17,7 +17,7 @@
 /***
  * Palettes
  */
-$GLOBALS['TL_DCA']['tl_content']['palettes']['c4g_maps'] = '{type_legend},type,headline;{c4g_map_legend},c4g_map_id,c4g_map_default_mapservice,c4g_map_layer_switcher,c4g_map_mapsize,c4g_map_zoom;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
+$GLOBALS['TL_DCA']['tl_content']['palettes']['c4g_maps'] = '{type_legend},type,headline;{c4g_map_legend},c4g_map_id,c4g_map_default_mapservice,c4g_map_layer_switcher,c4g_map_width,c4g_map_height,c4g_map_zoom;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
 $GLOBALS['TL_DCA']['tl_content']['palettes']['__selector__'][] = 'c4g_map_layer_switcher';
 $GLOBALS['TL_DCA']['tl_content']['subpalettes']['c4g_map_layer_switcher'] = 'c4g_map_layer_switcher_open';
 if ($GLOBALS['con4gis_core_extension']['installed']) {
@@ -34,14 +34,31 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['c4g_map_id'] = array
     'options_callback'        => array('tl_content_c4g_maps', 'get_maps'),
 	'eval'                    => array('submitOnChange'=>true)
 );
-$GLOBALS['TL_DCA']['tl_content']['fields']['c4g_map_mapsize'] = array
+$GLOBALS['TL_DCA']['tl_content']['fields']['c4g_map_width'] = array
 (
-	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['c4g_map_mapsize'],
+	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['c4g_map_width'],
 	'exclude'                 => true,
-	'inputType'               => 'c4g_imageSize',
+	'inputType'               => 'inputUnit',
 	'options'                 => array('px', '%', 'em', 'pt', 'pc', 'in', 'cm', 'mm'),
-	'reference'               => &$GLOBALS['TL_LANG']['tl_c4g_map']['references'],
-	'eval'                    => array('mandatory'=>false, 'rgxp'=>'digit')
+	'eval'                    => array(
+									'rgxp'=>'digit_auto_inherit', 
+									'tl_class'=>'w50',
+									'includeBlankOption'=>true 
+								),
+	'sql'					  => "varchar(64) NOT NULL default ''"
+);
+$GLOBALS['TL_DCA']['tl_content']['fields']['c4g_map_height'] = array
+(
+	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['c4g_map_height'],
+	'exclude'                 => true,
+	'inputType'               => 'inputUnit',
+	'options'                 => array('px', '%', 'em', 'pt', 'pc', 'in', 'cm', 'mm'),
+	'eval'                    => array(
+									'rgxp'=>'digit_auto_inherit', 
+									'tl_class'=>'w50', 
+									'includeBlankOption'=>true 
+								),
+	'sql'					  => "varchar(64) NOT NULL default ''"
 );
 $GLOBALS['TL_DCA']['tl_content']['fields']['c4g_map_zoom'] = array
 (

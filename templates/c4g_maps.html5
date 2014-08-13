@@ -1,6 +1,14 @@
-<?php // if (!$this->mapData['externalDiv']): ?>
-<div id="<?php echo $this->mapData['mapDiv'] ?>"></div>
-<?php // endif; ?>
+<!-- indexer::stop --> 
+
+<div class="<?php echo $this->class; ?> block"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
+
+<?php if ($this->headline) {
+	echo '<' . $this->hl . '>' . $this->headline . '</' . $this->hl . '>';
+} ?>
+
+<?php if (!$this->mapData['mapDiv']): ?>
+<div id="<?php echo 'c4g_Map' . $this->mapData['mapId'] ?>"></div>
+<?php  endif; ?>
 
 <?php // echo json_encode($this->mapData) ?>
 
@@ -9,7 +17,7 @@
 
 // C4GMaps(<?php echo json_encode($this->mapData) ?>);
 
-	// var map_<?php echo $this->mapData['id'] ?> = new c4g.Map({
+	// var map_<?php echo $this->mapData['mapId'] ?> = new c4g.Map({
 	// 	target: "<?php echo $this->mapData['mapDiv'] ?>",
 	// 	baselayers: [
 	// 					<?php #pass ?>
@@ -18,10 +26,16 @@
 
 jQuery(document).ready(function() 
 {
-	var c4gMap_<?php echo $this->mapData['id'] ?> = new c4g.Map(
+	// no use of "var"-keyword, so it will become global
+	// var t = window.t = stuff
+	// oder namespace!
+	c4g_Map<?php echo $this->mapData['mapId'] ?> = new c4g.Map(
 			 <?php echo json_encode($this->mapData) ?>
 		);
-	// c4gMap_<?php echo $this->mapData['id'] ?>.run();
+	// c4g_Map<?php echo $this->mapData['mapId'] ?>.run();
 });
 //]]>
 </script>
+
+</div>
+<!-- indexer::continue -->

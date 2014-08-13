@@ -116,7 +116,7 @@ $GLOBALS['TL_DCA']['tl_c4g_maps'] = array
 	// Palettes
 	'palettes' => array
 	(
-		'__selector__'                => array( 'is_map', 'profile','location_type', 'tab_source', 'calc_extent', 'auto_width', 'auto_height', 'popup_extend', 'protect_element', 'use_specialprofile'),
+		'__selector__'                => array( 'is_map', 'profile','location_type', 'tab_source', 'calc_extent', 'popup_extend', 'protect_element', 'use_specialprofile'),
 		'default'                     => '{general_legend},name,profile,profile_mobile,published;'.
 		                                 '{map_legend},is_map;'.
 		                                 '{location_legend},location_type,data_layername,data_hidelayer;'.
@@ -217,78 +217,108 @@ $GLOBALS['TL_DCA']['tl_c4g_maps'] = array
 			'inputType'               => 'checkbox',
 			'eval'                    => array('submitOnChange' => true)
 		),
-		'mapsize' => array
+		'width' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_maps']['mapsize'],
+			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_maps']['width'],
 			'exclude'                 => true,
-			'inputType'               => 'c4g_imageSize',
+			'inputType'               => 'inputUnit',
 			'options'                 => array('px', '%', 'em', 'pt', 'pc', 'in', 'cm', 'mm'),
-			'eval'                    => array('rgxp'=>'digit' )
+			'eval'                    => array(
+											'rgxp'=>'digit_auto_inherit', 
+											'tl_class'=>'w50',
+											'includeBlankOption'=>true 
+										),
+			'sql'					  => "varchar(64) NOT NULL default ''"
 		),
-		'auto_width' => array
+		'height' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_maps']['auto_width'],
+			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_maps']['height'],
 			'exclude'                 => true,
-			'default'                 => '',
-			'inputType'               => 'checkbox',
-			'eval'                    => array('submitOnChange' => true, 'tl_class'=>'w50' )
+			'inputType'               => 'inputUnit',
+			'options'                 => array('px', '%', 'em', 'pt', 'pc', 'in', 'cm', 'mm'),
+			'eval'                    => array(
+											'rgxp'=>'digit_auto_inherit', 
+											'tl_class'=>'w50', 
+											'includeBlankOption'=>true 
+										),
+			'sql'					  => "varchar(64) NOT NULL default ''"
 		),
-		'auto_width_min' => array
+		'margin' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_maps']['auto_width_min'],
+			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_maps']['margin'],
 			'exclude'                 => true,
-			'inputType'               => 'c4g_text',
-		    'default'                 => '0',
-			'eval'                    => array('rgxp'=>'digit', 'tl_class'=>'w50')
+			'inputType'               => 'trbl',
+			'options'                 => array('px', '%', 'em', 'pt', 'pc', 'in', 'cm', 'mm'),
+			'eval'                    => array(
+											'rgxp'=>'digit_auto_inherit', 
+											'includeBlankOption'=>true 
+										),
+			'sql'					  => "varchar(128) NOT NULL default ''"
 		),
-		'auto_width_max' => array
-		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_maps']['auto_width_max'],
-			'exclude'                 => true,
-			'inputType'               => 'c4g_text',
-		    'default'                 => '0',
-			'eval'                    => array('rgxp'=>'digit', 'tl_class'=>'w50')
-		),
-		'auto_width_gap' => array
-		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_maps']['auto_width_gap'],
-			'exclude'                 => true,
-			'inputType'               => 'c4g_text',
-		    'default'                 => '0',
-			'eval'                    => array('rgxp'=>'digit', 'tl_class'=>'w50')
-		),
-		'auto_height' => array
-		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_maps']['auto_height'],
-			'exclude'                 => true,
-			'default'                 => '',
-			'inputType'               => 'checkbox',
-			'eval'                    => array('submitOnChange' => true, 'tl_class'=>'w50' )
-		),
-		'auto_height_min' => array
-		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_maps']['auto_height_min'],
-			'exclude'                 => true,
-			'inputType'               => 'c4g_text',
-		    'default'                 => '0',
-			'eval'                    => array('rgxp'=>'digit', 'tl_class'=>'w50')
-		),
-		'auto_height_max' => array
-		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_maps']['auto_height_max'],
-			'exclude'                 => true,
-			'inputType'               => 'c4g_text',
-		    'default'                 => '0',
-			'eval'                    => array('rgxp'=>'digit', 'tl_class'=>'w50')
-		),
-		'auto_height_gap' => array
-		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_maps']['auto_height_gap'],
-			'exclude'                 => true,
-			'inputType'               => 'c4g_text',
-		    'default'                 => '0',
-			'eval'                    => array('rgxp'=>'digit', 'tl_class'=>'w50')
-		),
+		// 'auto_width' => array
+		// (
+		// 	'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_maps']['auto_width'],
+		// 	'exclude'                 => true,
+		// 	'default'                 => '',
+		// 	'inputType'               => 'checkbox',
+		// 	'eval'                    => array('submitOnChange' => true, 'tl_class'=>'w50' )
+		// ),
+		// 'auto_width_min' => array
+		// (
+		// 	'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_maps']['auto_width_min'],
+		// 	'exclude'                 => true,
+		// 	'inputType'               => 'c4g_text',
+		//     'default'                 => '0',
+		// 	'eval'                    => array('rgxp'=>'digit', 'tl_class'=>'w50')
+		// ),
+		// 'auto_width_max' => array
+		// (
+		// 	'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_maps']['auto_width_max'],
+		// 	'exclude'                 => true,
+		// 	'inputType'               => 'c4g_text',
+		//     'default'                 => '0',
+		// 	'eval'                    => array('rgxp'=>'digit', 'tl_class'=>'w50')
+		// ),
+		// 'auto_width_gap' => array
+		// (
+		// 	'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_maps']['auto_width_gap'],
+		// 	'exclude'                 => true,
+		// 	'inputType'               => 'c4g_text',
+		//     'default'                 => '0',
+		// 	'eval'                    => array('rgxp'=>'digit', 'tl_class'=>'w50')
+		// ),
+		// 'auto_height' => array
+		// (
+		// 	'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_maps']['auto_height'],
+		// 	'exclude'                 => true,
+		// 	'default'                 => '',
+		// 	'inputType'               => 'checkbox',
+		// 	'eval'                    => array('submitOnChange' => true, 'tl_class'=>'w50' )
+		// ),
+		// 'auto_height_min' => array
+		// (
+		// 	'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_maps']['auto_height_min'],
+		// 	'exclude'                 => true,
+		// 	'inputType'               => 'c4g_text',
+		//     'default'                 => '0',
+		// 	'eval'                    => array('rgxp'=>'digit', 'tl_class'=>'w50')
+		// ),
+		// 'auto_height_max' => array
+		// (
+		// 	'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_maps']['auto_height_max'],
+		// 	'exclude'                 => true,
+		// 	'inputType'               => 'c4g_text',
+		//     'default'                 => '0',
+		// 	'eval'                    => array('rgxp'=>'digit', 'tl_class'=>'w50')
+		// ),
+		// 'auto_height_gap' => array
+		// (
+		// 	'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_maps']['auto_height_gap'],
+		// 	'exclude'                 => true,
+		// 	'inputType'               => 'c4g_text',
+		//     'default'                 => '0',
+		// 	'eval'                    => array('rgxp'=>'digit', 'tl_class'=>'w50')
+		// ),
 		'calc_extent' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_maps']['calc_extent'],
@@ -313,7 +343,7 @@ $GLOBALS['TL_DCA']['tl_c4g_maps'] = array
 			'exclude'                 => true,
 			'inputType'               => 'c4g_text',		    
 			'eval'                    => array('maxlength'=>20, 'tl_class'=>'w50 wizard', 'require_input'=>true ),
-		    'save_callback'           => array(array('tl_c4g_maps','setCenterGeoX')),
+		    'save_callback'           => array(array('tl_c4g_maps','setCenterLon')),
 			'wizard'                  => array(array('tl_c4g_maps', 'geoPicker'))
 		),
 
@@ -323,7 +353,7 @@ $GLOBALS['TL_DCA']['tl_c4g_maps'] = array
 			'exclude'                 => true,
 			'inputType'               => 'c4g_text',
 			'eval'                    => array('maxlength'=>20, 'tl_class'=>'w50 wizard', 'require_input'=>true),
-		    'save_callback'           => array(array('tl_c4g_maps','setCenterGeoY')),
+		    'save_callback'           => array(array('tl_c4g_maps','setCenterLat')),
 			'wizard'                  => array(array('tl_c4g_maps', 'geoPicker'))
 		),
 		'zoom' => array
@@ -364,7 +394,7 @@ $GLOBALS['TL_DCA']['tl_c4g_maps'] = array
 			'exclude'                 => true,
 			'inputType'               => 'c4g_text',
 			'eval'                    => array('maxlength'=>20, 'tl_class'=>'w50 wizard', 'require_input'=>true ),
-		    'save_callback'           => array(array('tl_c4g_maps','setRestrGeoX')),
+		    'save_callback'           => array(array('tl_c4g_maps','setRestrLon')),
 			'wizard'                  => array(array('tl_c4g_maps', 'geoPicker'))
 		),
 		'restr_bottomleft_geoy' => array
@@ -373,7 +403,7 @@ $GLOBALS['TL_DCA']['tl_c4g_maps'] = array
 			'exclude'                 => true,
 			'inputType'               => 'c4g_text',
 			'eval'                    => array('maxlength'=>20, 'tl_class'=>'w50 wizard', 'require_input'=>true ),
-		    'save_callback'           => array(array('tl_c4g_maps','setRestrGeoY')),
+		    'save_callback'           => array(array('tl_c4g_maps','setRestrLat')),
 			'wizard'                  => array(array('tl_c4g_maps', 'geoPicker'))
 		),
 		'restr_topright_geox' => array
@@ -382,7 +412,7 @@ $GLOBALS['TL_DCA']['tl_c4g_maps'] = array
 			'exclude'                 => true,
 			'inputType'               => 'c4g_text',
 			'eval'                    => array('maxlength'=>20, 'tl_class'=>'w50 wizard', 'require_input'=>true ),
-		    'save_callback'           => array(array('tl_c4g_maps','setRestrGeoX')),
+		    'save_callback'           => array(array('tl_c4g_maps','setRestrLon')),
 			'wizard'                  => array(array('tl_c4g_maps', 'geoPicker'))
 		),
 		'restr_topright_geoy' => array
@@ -391,7 +421,7 @@ $GLOBALS['TL_DCA']['tl_c4g_maps'] = array
 			'exclude'                 => true,
 			'inputType'               => 'c4g_text',
 			'eval'                    => array('maxlength'=>20, 'tl_class'=>'w50 wizard', 'require_input'=>true ),
-		    'save_callback'           => array(array('tl_c4g_maps','setRestrGeoY')),
+		    'save_callback'           => array(array('tl_c4g_maps','setRestrLat')),
 			'wizard'                  => array(array('tl_c4g_maps', 'geoPicker'))
 		),
 		'include_sublocations' => array
@@ -417,7 +447,7 @@ $GLOBALS['TL_DCA']['tl_c4g_maps'] = array
 			'exclude'                 => true,
 			'inputType'               => 'c4g_text',
 			'eval'                    => array('mandatory'=>true, 'maxlength'=>20, 'tl_class'=>'w50 wizard' ),		 
-		    'save_callback'           => array(array('tl_c4g_maps','setLocGeoX')),
+		    'save_callback'           => array(array('tl_c4g_maps','setLocLon')),
 			'wizard'                  => array(array('tl_c4g_maps', 'geoPicker'))			
 		),
 
@@ -427,7 +457,7 @@ $GLOBALS['TL_DCA']['tl_c4g_maps'] = array
 			'exclude'                 => true,
 			'inputType'               => 'c4g_text',
 			'eval'                    => array('mandatory'=>true, 'maxlength'=>20, 'tl_class'=>'w50 wizard'),
-		    'save_callback'           => array(array('tl_c4g_maps','setLocGeoY')),
+		    'save_callback'           => array(array('tl_c4g_maps','setLocLat')),
 			'wizard'                  => array(array('tl_c4g_maps', 'geoPicker'))
 		),
 		'locstyle' => array
@@ -927,22 +957,23 @@ class tl_c4g_maps extends Backend
 	 */
 	public function generateLabel($row, $label, $dc_table, $folderAttribute)
 	{
+		$image = 'system/modules/con4gis_maps/assets/images/be-icons/';
 		if ($row['is_map']) {
 		 	if ($row['location_type']<>'none') {
-		     	$image = 'system/modules/con4gis_maps/html/map_location';
+		     	$image .= 'map_location';
 			}
 			else {
-		    	$image = 'system/modules/con4gis_maps/html/map';		
+		    	$image .= 'map';		
 			}
 		}
 		else if ($row['location_type']=='link') {
-		    $image = 'system/modules/con4gis_maps/html/link';
+		    $image .= 'link';
 		} 
 		else if ($row['location_type']<>'none') {
-		    $image = 'system/modules/con4gis_maps/html/location';
+		    $image .= 'location';
 		} 
 		else {
-		    $image = 'system/modules/con4gis_maps/html/mapfolder';
+		    $image .= 'mapfolder';
 		}
 		if (!$row['published']) {
 			$image .= '_1';
@@ -959,7 +990,7 @@ class tl_c4g_maps extends Backend
 	    if (!$dc->id) {
 	    	return;
 	    }	    
-		$objMap = $this->Database->prepare("SELECT is_map,calc_extent,restrict_area,geolocation,auto_width,auto_height FROM tl_c4g_maps WHERE id=?")
+		$objMap = $this->Database->prepare("SELECT is_map,calc_extent,restrict_area,geolocation FROM tl_c4g_maps WHERE id=?")
 			->limit(1)
 			->execute($dc->id);
 		if ($objMap->numRows > 0) {	
@@ -981,24 +1012,21 @@ class tl_c4g_maps extends Backend
 			else {
 		  		$restrictAreaFields = '';
 			}
-			if ($objMap->auto_height) {
-		  		$autoHeightFields = 'auto_height_gap,auto_height_min,auto_height_max,';
-			} 
-			else {
-		  		$autoHeightFields = '';
-			}	
-			if ($objMap->auto_width) {
-				$autoWidthFields = 'auto_width_gap,auto_width_min,auto_width_max,';
-			}
-			else {
-				$autoWidthFields = '';
-			}				
-			$mapsize = 'mapsize,';
-			if ($objMap->auto_height && $objMap->auto_width) {
-				$mapsize = '';
-			}  
+//@todo (TDo) DELETE
+			// if ($objMap->auto_height) {
+		 //  		$autoHeightFields = 'auto_height_gap,auto_height_min,auto_height_max,';
+			// } 
+			// else {
+		 //  		$autoHeightFields = '';
+			// }	
+			// if ($objMap->auto_width) {
+			// 	$autoWidthFields = 'auto_width_gap,auto_width_min,auto_width_max,';
+			// }
+			// else {
+			// 	$autoWidthFields = '';
+			// }				
 			$GLOBALS['TL_DCA']['tl_c4g_maps']['subpalettes']['is_map'] =
-		   		$mapsize.'auto_width,'.$autoWidthFields.'auto_height,'.$autoHeightFields.'calc_extent,'.$calcExtentFields.'geolocation,'.$geolocationFields.'restrict_area,'.$restrictAreaFields.',include_sublocations;';
+		   		'width,height,margin,calc_extent,'.$calcExtentFields.'geolocation,'.$geolocationFields.'restrict_area,'.$restrictAreaFields.',include_sublocations;';
 		}
 
 	}
@@ -1031,12 +1059,12 @@ class tl_c4g_maps extends Backend
 
 
 	/**
-	 * Validate Center GeoX
+	 * Validate Center Lon
 	 */
-	public function setCenterGeoX($varValue, DataContainer $dc)
+	public function setCenterLon($varValue, DataContainer $dc)
 	{
 		if ($dc->activeRecord->calc_extent == 'CENTERZOOM') {
-			if (!C4GMaps::validateGeoX($varValue)) {
+			if (!C4GMaps::validateLon($varValue)) {
 				throw new Exception($GLOBALS['TL_LANG']['c4g_maps']['geox_invalid']);
 			}
 		}
@@ -1044,12 +1072,12 @@ class tl_c4g_maps extends Backend
 	}
 
 	/**
-	 * Validate Center GeoY
+	 * Validate Center Lat
 	 */
-	public function setCenterGeoY($varValue, DataContainer $dc)
+	public function setCenterLat($varValue, DataContainer $dc)
 	{
 		if ($dc->activeRecord->calc_extent == 'CENTERZOOM') {
-			if (!C4GMaps::validateGeoY($varValue)) {
+			if (!C4GMaps::validateLat($varValue)) {
 				throw new Exception($GLOBALS['TL_LANG']['c4g_maps']['geoy_invalid']);
 			}
 		}	
@@ -1058,12 +1086,12 @@ class tl_c4g_maps extends Backend
 
 
 	/**
-	 * Validate restricted GeoX
+	 * Validate restricted Lon
 	 */
-	public function setRestrGeoX($varValue, DataContainer $dc)
+	public function setRestrLon($varValue, DataContainer $dc)
 	{
 		if ($dc->activeRecord->restrict_area) {
-			if (!C4GMaps::validateGeoX($varValue)) {
+			if (!C4GMaps::validateLon($varValue)) {
 				throw new Exception($GLOBALS['TL_LANG']['c4g_maps']['geox_invalid']);
 			}
 		}	
@@ -1071,12 +1099,12 @@ class tl_c4g_maps extends Backend
 	}
 
 	/**
-	 * Validate restricted GeoY
+	 * Validate restricted Lat
 	 */
-	public function setRestrGeoY($varValue, DataContainer $dc)
+	public function setRestrLat($varValue, DataContainer $dc)
 	{
 		if ($dc->activeRecord->restrict_area) {
-			if (!C4GMaps::validateGeoY($varValue)) {
+			if (!C4GMaps::validateLat($varValue)) {
 				throw new Exception($GLOBALS['TL_LANG']['c4g_maps']['geoy_invalid']);
 			}	
 		}
@@ -1084,22 +1112,22 @@ class tl_c4g_maps extends Backend
 	}
 
 	/**
-	 * Validate Location GeoX
+	 * Validate Location Lon
 	 */
-	public function setLocGeoX($varValue, DataContainer $dc)
+	public function setLocLon($varValue, DataContainer $dc)
 	{
-		if (!C4GMaps::validateGeoX($varValue)) {
+		if (!C4GMaps::validateLon($varValue)) {
 			throw new Exception($GLOBALS['TL_LANG']['c4g_maps']['geox_invalid']);
 		}
 		return $varValue;
 	}
 	
 	/**
-	 * Validate Location GeoY
+	 * Validate Location Lat
 	 */
-	public function setLocGeoY($varValue, DataContainer $dc)
+	public function setLocLat($varValue, DataContainer $dc)
 	{
-		if (!C4GMaps::validateGeoY($varValue)) {
+		if (!C4GMaps::validateLat($varValue)) {
 			throw new Exception($GLOBALS['TL_LANG']['c4g_maps']['geoy_invalid']);
 		}
 		return $varValue;

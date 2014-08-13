@@ -35,7 +35,7 @@ class Content_c4g_maps extends \Module
 			$objMap = $this->Database->prepare("SELECT * FROM tl_c4g_maps WHERE id=?")
 				->limit(1)
 				->execute($this->c4g_map_id);
-			$return = '<h1>' . $objMap->name . '</h1>';
+			$return = '<h1>' . $objMap->name . '<img src="system/modules/con4gis_maps/assets/images/logo_con4gis-maps.png" style="float:right"></h1>';
 			
 			return $return;
 		}
@@ -48,7 +48,7 @@ class Content_c4g_maps extends \Module
 	 */
 	protected function compile ()
 	{
-		$this->Template->mapData = \C4GMaps::prepareMapData($this, $this->Database);		
+		$this->Template->mapData = C4GMaps::prepareMapData($this, $this->Database);		
 	}
 	
 	public function repInsertTags ( $str )
