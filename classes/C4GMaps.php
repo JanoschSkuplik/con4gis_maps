@@ -129,11 +129,17 @@ class C4GMaps
     if ($map->id != 0) 
     {
       // map-center
-      $mapData['center_lon'] = $map->center_geox;
-      $mapData['center_lat'] = $map->center_geoy;
+      if (!empty( $map->center_geox )) {
+        $mapData['center_lon'] = $map->center_geox;
+      }
+      if (!empty( $map->center_geoy )) {
+        $mapData['center_lat'] = $map->center_geoy;
+      }
 
       // map-zoom
-      $mapData['zoom'] = $map->zoom;
+      if (!empty( $map->zoom )) {
+        $mapData['zoom'] = $map->zoom;
+      }
 
       // geolocation (use user-location, if possible)
       if ($map->geolocation) {
@@ -229,9 +235,12 @@ class C4GMaps
     // while ($baseLayers->next()) {}
     if ($baseLayers) {
       $mapData['baseLayer']['id'] = $baseLayers->id;
-      $mapData['baseLayer']['name'] = $baseLayers->display_name;
+      $mapData['baseLayer']['sort'] = $baseLayers->sort;
+      $mapData['baseLayer']['name'] = $baseLayers->display_name ?: $baseLayers->name;
       $mapData['baseLayer']['provider'] = $baseLayers->provider;
       $mapData['baseLayer']['style'] = $baseLayers->osm_style;
+      $mapData['baseLayer']['attribution'] = $baseLayers->attribution;
+      $mapData['baseLayer']['maxZoom'] = $baseLayers->maxzoomlevel;
     }
     // CONTINUE HERE!!!
 
