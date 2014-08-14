@@ -120,6 +120,26 @@ var c4g = c4g || {};
           url: 'http://{a-c}.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png'
         }
     }
+    // ---
+    var stamenSourceConfigs = {
+
+      Toner: {
+          layer: 'toner'
+        },
+
+      TonerLabels: {
+          layer: 'toner-labels'
+        },
+
+      TonerLines: {
+          layer: 'toner-lines'
+        },
+
+      Watercolor: {
+          layer: 'watercolor'
+        }
+    }
+    // [/todo] ---
 
     // set default baseLayer
     var defaultBaseLayer = new ol.layer.Tile({
@@ -155,14 +175,26 @@ var c4g = c4g || {};
                     )
                   )
               });
+          } else if (stamenSourceConfigs[mapData.baseLayer.style]) {
+            //stamen
+            defaultBaseLayer = new ol.layer.Tile({
+                source: new ol.source.Stamen( 
+                    $.extend(
+                      stamenSourceConfigs[mapData.baseLayer.style],
+                      layerOptions
+                    )
+                  )
+              });
+          } else if (mapData.baseLayer.style == 'custom') {
+            // custom
+            console.warn('custom-style is currently unsupported -> switch to default');
           } else {
-            // custom?
-            console.warn('currently unsupported osm-style');
+            console.warn('unsupported osm-style -> switch to default');
           }
           break;
         case 'google':
           //@todo
-          console.warn('currently unsupported provider');
+          console.warn('google-maps are currently unsupported');
           break;
         case 'bing':
           if (mapData.baseLayer.apiKey && mapData.baseLayer.style) {
@@ -175,10 +207,11 @@ var c4g = c4g || {};
                     )
                 });
           }
+          console.warn('wrong bing-key or invalid imagery-set!');
           break;
         default:
           //@todo
-          console.warn('currently unsupported provider');
+          console.warn('unsupported provider');
           break;
       }
 

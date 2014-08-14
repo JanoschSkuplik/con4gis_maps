@@ -11,7 +11,7 @@ c:earth_africa:n4gis-Maps 3
 implemented features
 ----------------
 
-- :octocat:
+- we can haz :octocat: :3
 - place map on a Page via *CE* or *MOD*
 - define map-size and -margin
 - configurate default *Basemap*: *(more soon)*
@@ -23,6 +23,7 @@ implemented features
         - Mapnik (*default*)
         - MapQuestOpen
         - TransportMap
+        - **Stamen** (Toner & Watercolor)
     - ***Bing***
         - Straßenkarte
         - Hybridkarte
@@ -32,6 +33,6 @@ implemented features
 upcomming features
 --------------------
 
-- more Basemaps (google, etc...)
+- more Basemaps (google, more stamen-maps, custom-maps etc...)
 - API
 - LayerSwitcher
