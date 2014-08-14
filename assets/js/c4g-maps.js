@@ -96,7 +96,7 @@ var c4g = c4g || {};
           maxZoom: 19,
           url: 'http://{a-c}.tile.opencyclemap.org/landscape/{z}/{x}/{y}.png'
         },
-
+//@todo (has own class -> ol.source.MapQuest)
       MapQuestOpen: {
           attributions: [
               new ol.Attribution({
@@ -128,11 +128,32 @@ var c4g = c4g || {};
     // override it with appropriate settings, if existant
     if (mapData.baseLayer && !(mapData.baseLayer.provider=='osm' && mapData.baseLayer.style=='Mapnik')) {
 
+      var layerOptions = {};
+      if (mapData.baseLayer.attribution) {
+        layerOptions.attributions = [
+            new ol.Attribution({
+              html: mapData.baseLayer.attribution
+            }),
+            ol.source.OSM.DATA_ATTRIBUTION
+          ]
+      }
+      if (mapData.baseLayer.sort) {
+        layerOptions.sort = mapData.baseLayer.sort;
+      }
+      if (mapData.baseLayer.maxZoom) {
+        layerOptions.maxZoom = mapData.baseLayer.maxZoom;
+      }
+
       switch (mapData.baseLayer.provider) {
         case 'osm':
           if (osmSourceConfigs[mapData.baseLayer.style]) {
             defaultBaseLayer = new ol.layer.Tile({
-                source: new ol.source.OSM( osmSourceConfigs[mapData.baseLayer.style] )
+                source: new ol.source.OSM( 
+                    $.extend(
+                      osmSourceConfigs[mapData.baseLayer.style],
+                      layerOptions
+                    )
+                  )
               });
           } else {
             // custom?

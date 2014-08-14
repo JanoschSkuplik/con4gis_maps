@@ -235,12 +235,18 @@ class C4GMaps
     // while ($baseLayers->next()) {}
     if ($baseLayers) {
       $mapData['baseLayer']['id'] = $baseLayers->id;
-      $mapData['baseLayer']['sort'] = $baseLayers->sort;
       $mapData['baseLayer']['name'] = $baseLayers->display_name ?: $baseLayers->name;
       $mapData['baseLayer']['provider'] = $baseLayers->provider;
       $mapData['baseLayer']['style'] = $baseLayers->osm_style;
-      $mapData['baseLayer']['attribution'] = $baseLayers->attribution;
-      $mapData['baseLayer']['maxZoom'] = $baseLayers->maxzoomlevel;
+      if (!empty( $baseLayers->attribution )) {
+        $mapData['baseLayer']['attribution'] = $baseLayers->attribution;
+      }
+      if (!empty( $baseLayers->maxzoomlevel )) {
+        $mapData['baseLayer']['maxZoom'] = $baseLayers->maxzoomlevel;
+      }
+      if (!empty( $baseLayers->sort )) {
+        $mapData['baseLayer']['sort'] = $baseLayers->sort;
+      }
     }
     // CONTINUE HERE!!!
 

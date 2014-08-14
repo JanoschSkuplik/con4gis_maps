@@ -28,6 +28,6 @@ implemented features
 upcomming features
 --------------------
 
-- Basemaps (google, bing, maxZoom, attribution, etc...)
+- more Basemaps (google, bing, etc...)
 - API
 - LayerSwitcher
