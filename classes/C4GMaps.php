@@ -237,7 +237,25 @@ class C4GMaps
       $mapData['baseLayer']['id'] = $baseLayers->id;
       $mapData['baseLayer']['name'] = $baseLayers->display_name ?: $baseLayers->name;
       $mapData['baseLayer']['provider'] = $baseLayers->provider;
-      $mapData['baseLayer']['style'] = $baseLayers->osm_style;
+      switch ($baseLayers->provider) {
+        case 'osm':
+          $mapData['baseLayer']['style'] = $baseLayers->osm_style;
+          if (!empty( $baseLayers->osm_keyname )) {
+            $mapData['baseLayer']['apiKey'] = $baseLayers->osm_keyname;
+          }
+          break;
+        case 'google':
+          $mapData['baseLayer']['style'] = $baseLayers->google_style;
+          break;
+        case 'bing':
+          $mapData['baseLayer']['style'] = $baseLayers->bing_style;
+          if (!empty( $baseLayers->bing_key )) {
+            $mapData['baseLayer']['apiKey'] = $baseLayers->bing_key;
+          }
+          break;
+        default:
+          die('This should not have happened!');
+      }
       if (!empty( $baseLayers->attribution )) {
         $mapData['baseLayer']['attribution'] = $baseLayers->attribution;
       }

@@ -23,11 +23,15 @@ implemented features
         - Mapnik (*default*)
         - MapQuestOpen
         - TransportMap
+    - ***Bing***
+        - Straßenkarte
+        - Hybridkarte
+        - Satelitenkarte
 
 
 upcomming features
 --------------------
 
-- more Basemaps (google, bing, etc...)
+- more Basemaps (google, etc...)
 - API
 - LayerSwitcher

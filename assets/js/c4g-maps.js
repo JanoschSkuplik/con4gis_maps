@@ -161,7 +161,21 @@ var c4g = c4g || {};
           }
           break;
         case 'google':
+          //@todo
+          console.warn('currently unsupported provider');
+          break;
         case 'bing':
+          if (mapData.baseLayer.apiKey && mapData.baseLayer.style) {
+            defaultBaseLayer = new ol.layer.Tile({
+                  source: new ol.source.BingMaps({
+                        // culture: (@todo),
+                        key: mapData.baseLayer.apiKey,
+                        imagerySet: mapData.baseLayer.style
+                      }
+                    )
+                });
+          }
+          break;
         default:
           //@todo
           console.warn('currently unsupported provider');
