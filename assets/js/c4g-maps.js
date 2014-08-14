@@ -185,9 +185,23 @@ var c4g = c4g || {};
                     )
                   )
               });
-          } else if (mapData.baseLayer.style == 'custom') {
+          } else if (mapData.baseLayer.style == 'osm_custom') {
             // custom
-            console.warn('custom-style is currently unsupported -> switch to default');
+            var noUrl = true;
+            if (mapData.baseLayer.url) {
+              layerOptions.url = mapData.baseLayer.url;
+              noUrl = false;
+            } else if (mapData.baseLayer.urls) {
+              layerOptions.urls = mapData.baseLayer.urls;
+              noUrl = false;
+            }
+            if (!noUrl) {
+              defaultBaseLayer = new ol.layer.Tile({
+                  source: new ol.source.XYZ( layerOptions )
+                });
+            } else {
+              console.warn('custom url(s) missing -> switch to default');
+            }
           } else {
             console.warn('unsupported osm-style -> switch to default');
           }

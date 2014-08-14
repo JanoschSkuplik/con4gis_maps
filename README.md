@@ -24,6 +24,7 @@ implemented features
         - MapQuestOpen
         - TransportMap
         - **Stamen** (Toner & Watercolor)
+        - **Custom**
     - ***Bing***
         - Straßenkarte
         - Hybridkarte
@@ -33,6 +34,6 @@ implemented features
 upcomming features
 --------------------
 
-- more Basemaps (google, more stamen-maps, custom-maps etc...)
+- more Basemaps (google, more stamen-maps, etc...)
 - API
 - LayerSwitcher

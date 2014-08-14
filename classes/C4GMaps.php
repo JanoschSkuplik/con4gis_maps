@@ -243,6 +243,25 @@ class C4GMaps
           if (!empty( $baseLayers->osm_keyname )) {
             $mapData['baseLayer']['apiKey'] = $baseLayers->osm_keyname;
           }
+          // custom?
+          if ($mapData['baseLayer']['style'] == 'osm_custom') {
+            if (!empty( $baseLayers->osm_style_url1 ) && empty( $baseLayers->osm_style_url2 )) {
+              $mapData['baseLayer']['url'] = $baseLayers->osm_style_url1;
+            } else {
+              if (!empty( $baseLayers->osm_style_url1 )) {
+                $mapData['baseLayer']['urls'][] = $baseLayers->osm_style_url1;
+              }
+              if (!empty( $baseLayers->osm_style_url2 )) {
+                $mapData['baseLayer']['urls'][] = $baseLayers->osm_style_url2;
+              }
+              if (!empty( $baseLayers->osm_style_url3 )) {
+                $mapData['baseLayer']['urls'][] = $baseLayers->osm_style_url3;
+              }
+              if (!empty( $baseLayers->osm_style_url4 )) {
+                $mapData['baseLayer']['urls'][] = $baseLayers->osm_style_url4;
+              } 
+            }
+          }
           break;
         case 'google':
           $mapData['baseLayer']['style'] = $baseLayers->google_style;
