@@ -235,12 +235,55 @@ class C4GMaps
     // while ($baseLayers->next()) {}
     if ($baseLayers) {
       $mapData['baseLayer']['id'] = $baseLayers->id;
-      $mapData['baseLayer']['sort'] = $baseLayers->sort;
       $mapData['baseLayer']['name'] = $baseLayers->display_name ?: $baseLayers->name;
       $mapData['baseLayer']['provider'] = $baseLayers->provider;
-      $mapData['baseLayer']['style'] = $baseLayers->osm_style;
-      $mapData['baseLayer']['attribution'] = $baseLayers->attribution;
-      $mapData['baseLayer']['maxZoom'] = $baseLayers->maxzoomlevel;
+      switch ($baseLayers->provider) {
+        case 'osm':
+          $mapData['baseLayer']['style'] = $baseLayers->osm_style;
+          if (!empty( $baseLayers->osm_keyname )) {
+            $mapData['baseLayer']['apiKey'] = $baseLayers->osm_keyname;
+          }
+          // custom?
+          if ($mapData['baseLayer']['style'] == 'osm_custom') {
+            if (!empty( $baseLayers->osm_style_url1 ) && empty( $baseLayers->osm_style_url2 )) {
+              $mapData['baseLayer']['url'] = $baseLayers->osm_style_url1;
+            } else {
+              if (!empty( $baseLayers->osm_style_url1 )) {
+                $mapData['baseLayer']['urls'][] = $baseLayers->osm_style_url1;
+              }
+              if (!empty( $baseLayers->osm_style_url2 )) {
+                $mapData['baseLayer']['urls'][] = $baseLayers->osm_style_url2;
+              }
+              if (!empty( $baseLayers->osm_style_url3 )) {
+                $mapData['baseLayer']['urls'][] = $baseLayers->osm_style_url3;
+              }
+              if (!empty( $baseLayers->osm_style_url4 )) {
+                $mapData['baseLayer']['urls'][] = $baseLayers->osm_style_url4;
+              } 
+            }
+          }
+          break;
+        case 'google':
+          $mapData['baseLayer']['style'] = $baseLayers->google_style;
+          break;
+        case 'bing':
+          $mapData['baseLayer']['style'] = $baseLayers->bing_style;
+          if (!empty( $baseLayers->bing_key )) {
+            $mapData['baseLayer']['apiKey'] = $baseLayers->bing_key;
+          }
+          break;
+        default:
+          die('This should not have happened!');
+      }
+      if (!empty( $baseLayers->attribution )) {
+        $mapData['baseLayer']['attribution'] = $baseLayers->attribution;
+      }
+      if (!empty( $baseLayers->maxzoomlevel )) {
+        $mapData['baseLayer']['maxZoom'] = $baseLayers->maxzoomlevel;
+      }
+      if (!empty( $baseLayers->sort )) {
+        $mapData['baseLayer']['sort'] = $baseLayers->sort;
+      }
     }
     // CONTINUE HERE!!!
 

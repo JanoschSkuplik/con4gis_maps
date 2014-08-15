@@ -96,7 +96,7 @@ var c4g = c4g || {};
           maxZoom: 19,
           url: 'http://{a-c}.tile.opencyclemap.org/landscape/{z}/{x}/{y}.png'
         },
-
+//@todo (has own class -> ol.source.MapQuest)
       MapQuestOpen: {
           attributions: [
               new ol.Attribution({
@@ -120,6 +120,26 @@ var c4g = c4g || {};
           url: 'http://{a-c}.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png'
         }
     }
+    // ---
+    var stamenSourceConfigs = {
+
+      Toner: {
+          layer: 'toner'
+        },
+
+      TonerLabels: {
+          layer: 'toner-labels'
+        },
+
+      TonerLines: {
+          layer: 'toner-lines'
+        },
+
+      Watercolor: {
+          layer: 'watercolor'
+        }
+    }
+    // [/todo] ---
 
     // set default baseLayer
     var defaultBaseLayer = new ol.layer.Tile({
@@ -128,22 +148,84 @@ var c4g = c4g || {};
     // override it with appropriate settings, if existant
     if (mapData.baseLayer && !(mapData.baseLayer.provider=='osm' && mapData.baseLayer.style=='Mapnik')) {
 
+      var layerOptions = {};
+      if (mapData.baseLayer.attribution) {
+        layerOptions.attributions = [
+            new ol.Attribution({
+              html: mapData.baseLayer.attribution
+            }),
+            ol.source.OSM.DATA_ATTRIBUTION
+          ]
+      }
+      if (mapData.baseLayer.sort) {
+        layerOptions.sort = mapData.baseLayer.sort;
+      }
+      if (mapData.baseLayer.maxZoom) {
+        layerOptions.maxZoom = mapData.baseLayer.maxZoom;
+      }
+
       switch (mapData.baseLayer.provider) {
         case 'osm':
           if (osmSourceConfigs[mapData.baseLayer.style]) {
             defaultBaseLayer = new ol.layer.Tile({
-                source: new ol.source.OSM( osmSourceConfigs[mapData.baseLayer.style] )
+                source: new ol.source.OSM( 
+                    $.extend(
+                      osmSourceConfigs[mapData.baseLayer.style],
+                      layerOptions
+                    )
+                  )
               });
+          } else if (stamenSourceConfigs[mapData.baseLayer.style]) {
+            //stamen
+            defaultBaseLayer = new ol.layer.Tile({
+                source: new ol.source.Stamen( 
+                    $.extend(
+                      stamenSourceConfigs[mapData.baseLayer.style],
+                      layerOptions
+                    )
+                  )
+              });
+          } else if (mapData.baseLayer.style == 'osm_custom') {
+            // custom
+            var noUrl = true;
+            if (mapData.baseLayer.url) {
+              layerOptions.url = mapData.baseLayer.url;
+              noUrl = false;
+            } else if (mapData.baseLayer.urls) {
+              layerOptions.urls = mapData.baseLayer.urls;
+              noUrl = false;
+            }
+            if (!noUrl) {
+              defaultBaseLayer = new ol.layer.Tile({
+                  source: new ol.source.XYZ( layerOptions )
+                });
+            } else {
+              console.warn('custom url(s) missing -> switch to default');
+            }
           } else {
-            // custom?
-            console.warn('currently unsupported osm-style');
+            console.warn('unsupported osm-style -> switch to default');
           }
           break;
         case 'google':
+          //@todo
+          console.warn('google-maps are currently unsupported');
+          break;
         case 'bing':
+          if (mapData.baseLayer.apiKey && mapData.baseLayer.style) {
+            defaultBaseLayer = new ol.layer.Tile({
+                  source: new ol.source.BingMaps({
+                        // culture: (@todo),
+                        key: mapData.baseLayer.apiKey,
+                        imagerySet: mapData.baseLayer.style
+                      }
+                    )
+                });
+          }
+          console.warn('wrong bing-key or invalid imagery-set!');
+          break;
         default:
           //@todo
-          console.warn('currently unsupported provider');
+          console.warn('unsupported provider');
           break;
       }
 
