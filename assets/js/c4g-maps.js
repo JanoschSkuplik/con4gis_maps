@@ -96,17 +96,9 @@ var c4g = c4g || {};
           maxZoom: 19,
           url: 'http://{a-c}.tile.opencyclemap.org/landscape/{z}/{x}/{y}.png'
         },
-//@todo (has own class -> ol.source.MapQuest)
-      MapQuestOpen: {
-          attributions: [
-              new ol.Attribution({
-                html: 'Style by <a href="http://www.mapquest.com/">MapQuest</a> ' +
-                  '<img src="http://developer.mapquest.com/content/osm/mq_logo.png">'
-              }),
-              ol.source.OSM.DATA_ATTRIBUTION
-            ],
-          maxZoom: 19,
-          url: 'http://otile{1-4}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png'
+
+      Mapnik: {
+          // is default, so there is nothing to write here ;)
         },
 
       TransportMap: {
@@ -116,7 +108,7 @@ var c4g = c4g || {};
               }),
               ol.source.OSM.DATA_ATTRIBUTION
             ],
-          maxZoom: 19,
+          maxZoom: 10,
           url: 'http://{a-c}.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png'
         }
     }
@@ -124,19 +116,43 @@ var c4g = c4g || {};
     var stamenSourceConfigs = {
 
       Toner: {
-          layer: 'toner'
+          layer: 'toner',
+          maxZoom: 20
         },
 
       TonerLabels: {
-          layer: 'toner-labels'
+          layer: 'toner-labels',
+          maxZoom: 20
         },
 
       TonerLines: {
-          layer: 'toner-lines'
+          layer: 'toner-lines',
+          maxZoom: 20
+        },
+
+      Terrain: {
+          layer: 'terrain',
+          maxZoom: 18
         },
 
       Watercolor: {
-          layer: 'watercolor'
+          layer: 'watercolor',
+          maxZoom: 16
+        }
+    }
+    // ---
+    var mapQuestSourceConfigs = {
+
+      MapQuestOpen: {
+          layer: 'osm'
+        },
+
+      MapQuestHyb: {
+          layer: 'hyb'
+        },
+
+      MapQuestSat: {
+          layer: 'sat'
         }
     }
     // [/todo] ---
@@ -146,7 +162,7 @@ var c4g = c4g || {};
         source: new ol.source.OSM()
       });
     // override it with appropriate settings, if existant
-    if (mapData.baseLayer && !(mapData.baseLayer.provider=='osm' && mapData.baseLayer.style=='Mapnik')) {
+    if (mapData.baseLayer) {
 
       var layerOptions = {};
       if (mapData.baseLayer.attribution) {
@@ -176,7 +192,7 @@ var c4g = c4g || {};
                   )
               });
           } else if (stamenSourceConfigs[mapData.baseLayer.style]) {
-            //stamen
+            // Stamen
             defaultBaseLayer = new ol.layer.Tile({
                 source: new ol.source.Stamen( 
                     $.extend(
@@ -184,6 +200,11 @@ var c4g = c4g || {};
                       layerOptions
                     )
                   )
+              });
+          } else if (mapQuestSourceConfigs[mapData.baseLayer.style]) {
+            // mapQuest
+            defaultBaseLayer = new ol.layer.Tile({
+                source: new ol.source.MapQuest( mapQuestSourceConfigs[mapData.baseLayer.style] )
               });
           } else if (mapData.baseLayer.style == 'osm_custom') {
             // custom
