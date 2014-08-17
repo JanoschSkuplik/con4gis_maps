@@ -52,10 +52,10 @@ class LayerContentApi
         // TODO: Add additional data modes
         
         // Remark:
-        // All Layer information should be returned as geo-JSON.
+        // All Layer information should be returned as geoJSON.
         // Even single location entries.
         
-        switch ($objLayer->type)
+        switch ($objLayer->location_type)
         {
             case "geoJSON":
                 return array(
