@@ -16,9 +16,9 @@ var c4g = c4g || {};
 
     //---
     this.map = null;
-      // this.baseLayers = null;
-      // this.layers = null;
-      this.controls = null;
+    // this.baseLayers = null;
+    // this.layers = null;
+    this.controls = null;
     //---
 
     mapData = $.extend({
@@ -37,6 +37,8 @@ var c4g = c4g || {};
     }
 
     //[ NOTES ] !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // DO THIS @ THE END! They probably need the Map-Object
+    //
     // self.closeAll = function() {};
     // 
     // self.isLoading = ...
@@ -249,24 +251,31 @@ var c4g = c4g || {};
           console.warn('unsupported provider');
           break;
       }
-
-      //   defaultBaseLayer = new ol.layer.Tile({
-      //     source: new ol.source.OSM()
-      //   });
     } 
 
+    var view = new ol.View({
+        // projection: ol.proj.get('EPSG:4326'),
+        // center: [parseFloat(mapData.center_lon), parseFloat(mapData.center_lat)],
+        center: ol.proj.transform([parseFloat(mapData.center_lon), parseFloat(mapData.center_lat)], 'EPSG:4326', 'EPSG:3857'),
+        zoom: parseInt(mapData.zoom)
+      })
+
+    // enable default Controls if there is no profile
+    // [note]: maybe change this in the future? -> "no default"-option?
+    var controls = [];
+    if (!mapData.profile) {
+      controls = ol.control.defaults();
+    }
+
+    // initiallize Map
     this.map = new ol.Map({
+        controls: controls,
         target: mapData.mapDiv,
         layers: [
           defaultBaseLayer
         ],
-        view: new ol.View({
-            // projection: ol.proj.get('EPSG:4326'),
-            // center: [parseFloat(mapData.center_lon), parseFloat(mapData.center_lat)],
-            center: ol.proj.transform([parseFloat(mapData.center_lon), parseFloat(mapData.center_lat)], 'EPSG:4326', 'EPSG:3857'),
-            zoom: parseInt(mapData.zoom)
-          })
-    });
+        view: view
+      });
 
     // set map-size and -margin
     if (mapData.width) {
@@ -281,7 +290,23 @@ var c4g = c4g || {};
     this.map.updateSize();
     // ---
 
-    this.map.addControl( new ol.control.MousePosition({projection:'EPSG:4326'}) );
+    // add controls
+    if (mapData.zoom_panel) {
+      this.map.addControl( new ol.control.Zoom() );
+    }
+    if (mapData.fullscreen) {
+      this.map.addControl( new ol.control.FullScreen() );
+    }
+    if (mapData.scaleline) {
+      this.map.addControl( new ol.control.ScaleLine() );
+    }
+    if (mapData.mouseposition) {
+      this.map.addControl( new ol.control.MousePosition({projection:'EPSG:4326'}) );
+    }
+    if (mapData.attribution) {
+      this.map.addControl( new ol.control.Attribution() );
+    }
+
 
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   };

@@ -219,7 +219,45 @@ class C4GMaps
     // ------------------------------------------------------------------------
     if ($profile) 
     {
-      //PASS
+      // map-navigation
+      $mapData['zoom_panel'] = $profile->zoom_panel;
+      $mapData['fullscreen'] = $profile->fullscreen;
+
+      // map-tools
+      // 
+
+      // map-information
+      $mapData['attribution'] = $profile->attribution;
+          if ($profile->attribution && $profile->cfg_logo_attribution) {
+            $mapData['cfg_logo_attribution'] = $profile->cfg_logo_attribution;
+          }
+          if ($profile->div_attribution) {
+            $mapData['div_attribution'] = $profile->div_attribution;
+          }
+          if ($profile->add_attribution) {
+            $mapData['add_attribution'] = $profile->add_attribution;
+          }
+      $mapData['overviewmap'] = $profile->overviewmap;
+      $mapData['scaleline'] = $profile->scaleline;
+      $mapData['mouseposition'] = $profile->mouseposition;
+
+      // search
+      // 
+
+      // geopicker
+      // 
+
+      // router
+      // 
+
+      // editor
+      // 
+
+      // expert-configs
+      // 
+
+      // miscellaneous
+      // 
     } 
 
     // -----

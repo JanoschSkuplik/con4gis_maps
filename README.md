@@ -14,7 +14,7 @@ implemented features
 - we can haz :octocat: :3
 - place map on a Page via *CE* or *MOD*
 - define map-size and -margin
-- configurate default *Basemap*: *(more soon)*
+- configurate default *Basemap*:
     - ***OSM***
         - CycleMap
         - German
@@ -29,6 +29,12 @@ implemented features
         - Straßenkarte
         - Hybridkarte
         - Satelitenkarte
+- configurate *Controls*: *(more soon)*
+    - Attribution
+    - Fullscreen
+    - MousePosition
+    - ScaleLine
+    - Zoom-Panel
 
 
 upcomming features
