@@ -311,6 +311,17 @@ var c4g = c4g || {};
         this.map.addInteraction( new ol.interaction.DragRotate() );
       }
     }
+    // keyboard navigation
+    if (mapData.keyboard_nav) {
+      // pan (arrow keys)
+      if (mapData.keyboard_nav.pan) {
+        this.map.addInteraction( new ol.interaction.KeyboardPan() );
+      }
+      // zoom ("+" and "-" key)
+      if (mapData.keyboard_nav.zoom) {
+        this.map.addInteraction( new ol.interaction.KeyboardZoom() );
+      }
+    }
     // ===
 
     // add controls ===

@@ -232,14 +232,17 @@ class C4GMaps
       // 
       $mapData['zoom_panel'] = $profile->zoom_panel;
       $mapData['zoom_extent'] = $profile->zoom_panel_world;
-      $mapData['mouse_nav']['drag_pan'] = $profile->mouse_nav;
-      if ($mapData['mouse_nav']['drag_pan']) {
+      if ($profile->mouse_nav) {
+        $mapData['mouse_nav']['drag_pan'] = $profile->mouse_nav;
         $mapData['mouse_nav']['wheel_zoom'] = $profile->mouse_nav_wheel;
         $mapData['mouse_nav']['drag_zoom'] = $profile->mouse_nav_zoombox;
         $mapData['mouse_nav']['kinetic'] = $profile->mouse_nav_kinetic;
         $mapData['mouse_nav']['toolbar'] = $profile->mouse_nav_toolbar;
       }
-      $mapData['keyboard_nav']['enable'] = $profile->keyboard_nav;
+      if ($profile->keyboard_nav) {
+        $mapData['keyboard_nav']['pan'] = $profile->keyboard_nav;
+        $mapData['keyboard_nav']['zoom'] = $profile->keyboard_nav;
+      }
       $mapData['fullscreen'] = $profile->fullscreen;
 
 

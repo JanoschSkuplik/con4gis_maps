@@ -46,6 +46,18 @@ Valid **mapData**-values:
   >e.g.: `10px` or `auto`.
 
 *@optional*  
+**keyboard_nav** *(object)*  
+  >A set of booleans to handle keyboard-navigation.  
+  >
+  >*@optional*  
+  >**pan** *(boolean)*  
+  >  >Enables Map-panning with the keyboards arrow-keys.
+  >
+  >*@optional*  
+  >**zoom** *(boolean)*  
+  >  >Enables Map-zooming with `+` and `-`.
+
+*@optional*  
 **mapDiv** *(string)*  
   >The `id` of the `<div>` where the map should be displayed.  
   >***default***: `c4g_Map`.

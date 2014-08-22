@@ -30,6 +30,9 @@ implemented features
         - Hybridmap
         - Satelitemap
 - configurate *Interactions*: *(more soon)*
+    - keyboard-navigation  
+        - pan (with arrow-keys)
+        - zoom (with `+` and `-`)
     - mouse-navigation
         - drag pan
         - drag zoom
