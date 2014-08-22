@@ -130,15 +130,15 @@ class C4GMaps
     {
       // map-center
       if (!empty( $map->center_geox )) {
-        $mapData['center_lon'] = $map->center_geox;
+        $mapData['center']['lon'] = $map->center_geox;
       }
       if (!empty( $map->center_geoy )) {
-        $mapData['center_lat'] = $map->center_geoy;
+        $mapData['center']['lat'] = $map->center_geoy;
       }
 
       // map-zoom
       if (!empty( $map->zoom )) {
-        $mapData['zoom'] = $map->zoom;
+        $mapData['center']['zoom'] = $map->zoom;
       }
 
       // geolocation (use user-location, if possible)
@@ -202,7 +202,7 @@ class C4GMaps
     }
     // override map-zoom from structure, with values from CE/FE, if set
     if (is_numeric ( $objThis->c4g_map_zoom ) && ($objThis->c4g_map_zoom > 0)) {
-      $mapData['zoom'] = $objThis->c4g_map_zoom;
+      $mapData['center']['zoom'] = $objThis->c4g_map_zoom;
     }
     // override map-size from structure, with values from CE/FE, if set
     $mapWidth = deserialize( $objThis->c4g_map_width );

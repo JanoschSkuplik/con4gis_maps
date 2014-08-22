@@ -29,8 +29,8 @@ var c4g = c4g || {};
       center: {
         lat: 37.41,
         lon: 8.82,
-        zoom: 4,
-      }
+        zoom: 4
+      },
       calc_extent: 'CENTERZOOM'
     }, mapData);
 
@@ -323,6 +323,7 @@ var c4g = c4g || {};
     }
     if (mapData.fullscreen) {
       this.map.addControl( new ol.control.FullScreen() );
+// @todo alternative for unsupported Browsers
     }
     if (mapData.scaleline) {
       this.map.addControl( new ol.control.ScaleLine() );
