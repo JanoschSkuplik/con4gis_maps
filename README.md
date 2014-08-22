@@ -43,9 +43,9 @@ implemented features
     - Zoom-Panel
 
 
-upcomming features
+upcoming features
 --------------------
 
-- more Basemaps (google, more stamen-maps, etc...)
 - API
 - LayerSwitcher
+- more Basemaps (google, more stamen-maps, etc...)

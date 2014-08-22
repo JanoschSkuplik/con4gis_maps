@@ -381,65 +381,130 @@ td:not(.linenos) .linenodiv { padding: 0 !important; }
 <strong><em>default</em></strong>: <code>false</code>.</p>
 </blockquote>
 <p><em>@optional</em><br />
-<strong>center_lat</strong> <em>(float)</em>  </p>
+<strong>attribution</strong> <em>(boolean)</em>  </p>
+<blockquote>
+<p>If set to <code>true</code> the Attributions will be shown on the Map.</p>
+</blockquote>
+<p><em>@optional</em><br />
+<strong>center</strong> <em>(object)</em>  </p>
+<blockquote>
+<p>Defines the initial view on the map.  </p>
+<p><em>@optional</em><br />
+<strong>lat</strong> <em>(float)</em>  </p>
 <blockquote>
 <p>The latitude where the view should center on the map.<br />
 Needs to be a valid float between <code>-90.0</code> and <code>90.0</code>.<br />
 <strong><em>default</em></strong>: <code>37.41</code>.</p>
 </blockquote>
 <p><em>@optional</em><br />
-<strong>center_lon</strong> <em>(float)</em>  </p>
+<strong>lon</strong> <em>(float)</em>  </p>
 <blockquote>
 <p>The longitude where the view should center on the map.<br />
 Needs to be a valid float between <code>-180.0</code> and <code>180.0</code>.<br />
 <strong><em>default</em></strong>: <code>8.82</code>.</p>
 </blockquote>
 <p><em>@optional</em><br />
-<strong>calc_extend</strong> <em>(String)</em>  </p>
+<strong>zoom</strong> <em>(integer)</em>  </p>
+<blockquote>
+<p>The initial zoom for the View on the Map.<br />
+Needs to be an integer between <code>0</code>(far) and <code>20</code>(near).<br />
+<strong><em>default</em></strong>: <code>4</code>.</p>
+</blockquote>
+</blockquote>
+<p><em>@optional</em><br />
+<strong>calc_extend</strong> <em>(string)</em>  </p>
 <blockquote>
 <p>currently not used.</p>
 </blockquote>
 <p><em>@optional</em><br />
-<strong>height</strong> <em>(String)</em>  </p>
+<strong>fullscreen</strong> <em>(boolean)</em>  </p>
+<blockquote>
+<p>If set to <code>true</code> the fullscreen-button will appear on the Map.</p>
+</blockquote>
+<p><em>@optional</em><br />
+<strong>height</strong> <em>(string)</em>  </p>
 <blockquote>
 <p>Defines the height of the map and should be valid CSS.<br />
 e.g.: <code>10px</code> or <code>auto</code>.</p>
 </blockquote>
 <p><em>@optional</em><br />
-<strong>mapDiv</strong> <em>(String)</em>  </p>
+<strong>mapDiv</strong> <em>(string)</em>  </p>
 <blockquote>
 <p>The <code>id</code> of the <code>&lt;div&gt;</code> where the map should be displayed.<br />
 <strong><em>default</em></strong>: <code>c4g_Map</code>.</p>
 </blockquote>
 <p><em>@optional</em><br />
-<strong>mapId</strong> <em>(String)</em>  </p>
+<strong>mapId</strong> <em>(string)</em>  </p>
 <blockquote>
 <p>The unique ID of the Map.<br />
 <strong><em>default</em></strong>: <code>1</code>.</p>
 </blockquote>
 <p><em>@optional</em><br />
-<strong>margin</strong> <em>(String)</em>  </p>
+<strong>margin</strong> <em>(string)</em>  </p>
 <blockquote>
 <p>Defines the margin of the map and should be valid CSS.<br />
 e.g.: <code>10px auto</code> or <code>10px 0 20px 0</code>.</p>
 </blockquote>
 <p><em>@optional</em><br />
-<strong>profile</strong> <em>(int)</em>  </p>
+<strong>mouse_nav</strong> <em>(object)</em>  </p>
+<blockquote>
+<p>A set of booleans to handle mouse-navigation.  </p>
+<p><em>@optional</em><br />
+<strong>drag_pan</strong> <em>(boolean)</em>  </p>
+<blockquote>
+<p>Enables Map-panning with the mouse.</p>
+</blockquote>
+<p><em>@optional</em><br />
+<strong>drag_rotate</strong> <em>(boolean)</em>  </p>
+<blockquote>
+<p>Enables Map-rotating with <code>Shift+LeftMouseButton</code>.</p>
+</blockquote>
+<p><em>@optional</em><br />
+<strong>drag_zoom</strong> <em>(boolean)</em>  </p>
+<blockquote>
+<p>Enables &ldquo;box-zooming&rdquo; with <code>Shift+LeftMouseButton</code>.</p>
+</blockquote>
+<p><em>@optional</em><br />
+<strong>kinetic</strong> <em>(boolean)</em>  </p>
+<blockquote>
+<p>Enables &ldquo;kinetic-scrolling&rdquo; for <em>&ldquo;drag-pan&rdquo;</em>.</p>
+</blockquote>
+<p><em>@optional</em><br />
+<strong>wheel_zoom</strong> <em>(boolean)</em>  </p>
+<blockquote>
+<p>Enables Map-zooming with the mousewheel.</p>
+</blockquote>
+</blockquote>
+<p><em>@optional</em><br />
+<strong>mouseposition</strong> <em>(boolean)</em>  </p>
+<blockquote>
+<p>If set to <code>true</code> the mouseposition will be shown on the Map.</p>
+</blockquote>
+<p><em>@optional</em><br />
+<strong>profile</strong> <em>(integer)</em>  </p>
 <blockquote>
 <p>currently not used.</p>
 </blockquote>
 <p><em>@optional</em><br />
-<strong>width</strong> <em>(String)</em>  </p>
+<strong>scaleline</strong> <em>(boolean)</em>  </p>
+<blockquote>
+<p>If set to <code>true</code> a scaleline will be shown on the Map.</p>
+</blockquote>
+<p><em>@optional</em><br />
+<strong>width</strong> <em>(string)</em>  </p>
 <blockquote>
 <p>Defines the width of the map and should be valid CSS.<br />
 e.g.: <code>10px</code> or <code>100%</code>.</p>
 </blockquote>
 <p><em>@optional</em><br />
-<strong>zoom</strong> <em>(int)</em>  </p>
+<strong>zoom_extent</strong> <em>(boolean)</em>  </p>
 <blockquote>
-<p>The initial zoom for the View on the Map.<br />
-Needs to be an integer between <code>0</code>(far) and <code>20</code>(near).<br />
-<strong><em>default</em></strong>: <code>4</code>.</p>
+<p>If set to <code>true</code> the &ldquo;extend to maxZoom&rdquo;-Button will be shown on the Map.</p>
+</blockquote>
+<p><em>@optional</em><br />
+<strong>zoom_panel</strong> <em>(boolean)</em>  </p>
+<blockquote>
+<p>If set to <code>true</code> the &ldquo;Zoompanel&rdquo; will be shown on the Map.</p>
 </blockquote>
 <h2 id="_1"><a name="user-content-_1" href="#_1" class="headeranchor-link"  aria-hidden="true"><span class="headeranchor"></span></a>&nbsp;</h2>
 <p><sub>&copy; by Küstenschmiede GmbH Software &amp; Design</sub></p></body></html>

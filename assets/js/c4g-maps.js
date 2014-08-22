@@ -23,12 +23,14 @@ var c4g = c4g || {};
 
     mapData = $.extend({
       // restUrl : 'api',
-      addIdToDiv : false, 
-      mapId : 1, 
-      mapDiv : 'c4g_Map',
-      center_lat : 37.41,
-      center_lon : 8.82,
-      zoom : 4,
+      addIdToDiv: false, 
+      mapId: 1, 
+      mapDiv: 'c4g_Map',
+      center: {
+        lat: 37.41,
+        lon: 8.82,
+        zoom: 4,
+      }
       calc_extent: 'CENTERZOOM'
     }, mapData);
 
@@ -247,8 +249,8 @@ var c4g = c4g || {};
     var view = new ol.View({
         // projection: ol.proj.get('EPSG:4326'),
         // center: [parseFloat(mapData.center_lon), parseFloat(mapData.center_lat)],
-        center: ol.proj.transform([parseFloat(mapData.center_lon), parseFloat(mapData.center_lat)], 'EPSG:4326', 'EPSG:3857'),
-        zoom: parseInt(mapData.zoom)
+        center: ol.proj.transform([parseFloat(mapData.center.lon), parseFloat(mapData.center.lat)], 'EPSG:4326', 'EPSG:3857'),
+        zoom: parseInt(mapData.center.zoom)
       })
 
     // enable default Controls/Interactions if there is no profile
