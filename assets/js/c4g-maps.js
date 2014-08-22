@@ -36,21 +36,11 @@ var c4g = c4g || {};
       mapData.mapDiv += mapData.mapId;
     }
 
-    //[ NOTES ] !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    // DO THIS @ THE END! They probably need the Map-Object
-    //
-    // self.closeAll = function() {};
-    // 
-    // self.isLoading = ...
-    // 
-    // foreach x in extensions
-    // x.init(self);
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     //[ DEV ]!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     console.log( mapData );
 
-//@todo: maybe find a better way, to do this
+    // define basemaps
     var osmSourceConfigs = {
 
       CycleMap: {
@@ -157,7 +147,8 @@ var c4g = c4g || {};
           layer: 'sat'
         }
     }
-    // [/todo] ---
+    // ===
+
 
     // set default baseLayer
     var defaultBaseLayer = new ol.layer.Tile({
@@ -260,20 +251,24 @@ var c4g = c4g || {};
         zoom: parseInt(mapData.zoom)
       })
 
-    // enable default Controls if there is no profile
+    // enable default Controls/Interactions if there is no profile
     // [note]: maybe change this in the future? -> "no default"-option?
     var controls = [];
+    var interactions = [];
     if (!mapData.profile) {
       controls = ol.control.defaults();
+      interactions = ol.interaction.defaults();
     }
 
     // initiallize Map
+    // 
     this.map = new ol.Map({
         controls: controls,
-        target: mapData.mapDiv,
+        interactions: interactions,
         layers: [
           defaultBaseLayer
         ],
+        target: mapData.mapDiv,
         view: view
       });
 
@@ -290,9 +285,39 @@ var c4g = c4g || {};
     this.map.updateSize();
     // ---
 
-    // add controls
+    // add interactions ===
+    // 
+    // mouse navigation
+    if (mapData.mouse_nav) {
+      // drag pan and kinetic scrolling
+      if (mapData.mouse_nav.drag_pan) {
+        var kinetic = mapData.mouse_nav.kinetic ? new ol.Kinetic(-0.005, 0.05, 100) : null;
+        this.map.addInteraction( new ol.interaction.DragPan({ kinetic: kinetic }) );
+      }
+      // mousewheel zoom
+      if (mapData.mouse_nav.wheel_zoom) {
+        this.map.addInteraction( new ol.interaction.MouseWheelZoom() );
+      }
+      // drag zoom and rotate
+      if (mapData.mouse_nav.drag_zoom) {
+        if (mapData.mouse_nav.drag_rotate) {
+          this.map.addInteraction( new ol.interaction.DragRotateAndZoom() );
+        } else {
+          this.map.addInteraction( new ol.interaction.DragZoom() );
+        }
+      } else if (mapData.mouse_nav.drag_rotate) {
+        this.map.addInteraction( new ol.interaction.DragRotate() );
+      }
+    }
+    // ===
+
+    // add controls ===
+    // 
     if (mapData.zoom_panel) {
       this.map.addControl( new ol.control.Zoom() );
+    }
+    if (mapData.zoom_extent) {
+      this.map.addControl( new ol.control.ZoomToExtent() );
     }
     if (mapData.fullscreen) {
       this.map.addControl( new ol.control.FullScreen() );
@@ -306,7 +331,18 @@ var c4g = c4g || {};
     if (mapData.attribution) {
       this.map.addControl( new ol.control.Attribution() );
     }
+    // ===
 
+    //[ NOTES ] !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // DO THIS @ THE END! They probably need the Map-Object
+    //
+    // self.closeAll = function() {};
+    // 
+    // self.isLoading = ...
+    // 
+    // foreach x in extensions
+    // x.init(self);
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   };

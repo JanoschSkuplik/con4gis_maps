@@ -26,9 +26,15 @@ implemented features
         - **Stamen** (Toner & Watercolor)
         - **Custom**
     - ***Bing***
-        - Straßenkarte
-        - Hybridkarte
-        - Satelitenkarte
+        - Roadmap
+        - Hybridmap
+        - Satelitemap
+- configurate *Interactions*: *(more soon)*
+    - mouse-navigation
+        - drag pan
+        - drag zoom
+        - kinetic scrolling
+        - mousewheel zoom
 - configurate *Controls*: *(more soon)*
     - Attribution
     - Fullscreen

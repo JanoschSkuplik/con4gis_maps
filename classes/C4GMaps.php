@@ -219,14 +219,35 @@ class C4GMaps
     // ------------------------------------------------------------------------
     if ($profile) 
     {
+      // generel
+      // 
+
+      // basemaps
+      // 
+
+      // location-styles
+      // 
+
       // map-navigation
+      // 
       $mapData['zoom_panel'] = $profile->zoom_panel;
+      $mapData['zoom_extent'] = $profile->zoom_panel_world;
+      $mapData['mouse_nav']['drag_pan'] = $profile->mouse_nav;
+      if ($mapData['mouse_nav']['drag_pan']) {
+        $mapData['mouse_nav']['wheel_zoom'] = $profile->mouse_nav_wheel;
+        $mapData['mouse_nav']['drag_zoom'] = $profile->mouse_nav_zoombox;
+        $mapData['mouse_nav']['kinetic'] = $profile->mouse_nav_kinetic;
+        $mapData['mouse_nav']['toolbar'] = $profile->mouse_nav_toolbar;
+      }
+      $mapData['keyboard_nav']['enable'] = $profile->keyboard_nav;
       $mapData['fullscreen'] = $profile->fullscreen;
+
 
       // map-tools
       // 
 
       // map-information
+      // 
       $mapData['attribution'] = $profile->attribution;
           if ($profile->attribution && $profile->cfg_logo_attribution) {
             $mapData['cfg_logo_attribution'] = $profile->cfg_logo_attribution;
