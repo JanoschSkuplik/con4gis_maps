@@ -14,7 +14,7 @@ implemented features
 - we can haz :octocat: :3
 - place map on a Page via *CE* or *MOD*
 - define map-size and -margin
-- configurate default *Basemap*: *(more soon)*
+- configurate default *Basemap*:
     - ***OSM***
         - CycleMap
         - German
@@ -26,14 +26,29 @@ implemented features
         - **Stamen** (Toner & Watercolor)
         - **Custom**
     - ***Bing***
-        - Straßenkarte
-        - Hybridkarte
-        - Satelitenkarte
+        - Roadmap
+        - Hybridmap
+        - Satelitemap
+- configurate *Interactions*: *(more soon)*
+    - keyboard-navigation  
+        - pan (with arrow-keys)
+        - zoom (with `+` and `-`)
+    - mouse-navigation
+        - drag pan
+        - drag zoom
+        - kinetic scrolling
+        - mousewheel zoom
+- configurate *Controls*: *(more soon)*
+    - Attribution
+    - Fullscreen
+    - MousePosition
+    - ScaleLine
+    - Zoom-Panel
 
 
-upcomming features
+upcoming features
 --------------------
 
-- more Basemaps (google, more stamen-maps, etc...)
 - API
 - LayerSwitcher
+- more Basemaps (google, more stamen-maps, etc...)

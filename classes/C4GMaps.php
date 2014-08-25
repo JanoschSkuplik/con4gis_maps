@@ -130,15 +130,15 @@ class C4GMaps
     {
       // map-center
       if (!empty( $map->center_geox )) {
-        $mapData['center_lon'] = $map->center_geox;
+        $mapData['center']['lon'] = $map->center_geox;
       }
       if (!empty( $map->center_geoy )) {
-        $mapData['center_lat'] = $map->center_geoy;
+        $mapData['center']['lat'] = $map->center_geoy;
       }
 
       // map-zoom
       if (!empty( $map->zoom )) {
-        $mapData['zoom'] = $map->zoom;
+        $mapData['center']['zoom'] = $map->zoom;
       }
 
       // geolocation (use user-location, if possible)
@@ -202,7 +202,7 @@ class C4GMaps
     }
     // override map-zoom from structure, with values from CE/FE, if set
     if (is_numeric ( $objThis->c4g_map_zoom ) && ($objThis->c4g_map_zoom > 0)) {
-      $mapData['zoom'] = $objThis->c4g_map_zoom;
+      $mapData['center']['zoom'] = $objThis->c4g_map_zoom;
     }
     // override map-size from structure, with values from CE/FE, if set
     $mapWidth = deserialize( $objThis->c4g_map_width );
@@ -219,7 +219,69 @@ class C4GMaps
     // ------------------------------------------------------------------------
     if ($profile) 
     {
-      //PASS
+      // generel
+      // 
+
+      // basemaps
+      // 
+
+      // location-styles
+      // 
+
+      // map-navigation
+      // 
+      $mapData['zoom_panel'] = $profile->zoom_panel;
+      $mapData['zoom_extent'] = $profile->zoom_panel_world;
+      if ($profile->mouse_nav) {
+        $mapData['mouse_nav']['drag_pan'] = $profile->mouse_nav;
+        $mapData['mouse_nav']['wheel_zoom'] = $profile->mouse_nav_wheel;
+        $mapData['mouse_nav']['drag_zoom'] = $profile->mouse_nav_zoombox;
+        $mapData['mouse_nav']['kinetic'] = $profile->mouse_nav_kinetic;
+        $mapData['mouse_nav']['toolbar'] = $profile->mouse_nav_toolbar;
+      }
+      if ($profile->keyboard_nav) {
+        $mapData['keyboard_nav']['pan'] = $profile->keyboard_nav;
+        $mapData['keyboard_nav']['zoom'] = $profile->keyboard_nav;
+      }
+      $mapData['fullscreen'] = $profile->fullscreen;
+
+
+      // map-tools
+      // 
+
+      // map-information
+      // 
+      $mapData['attribution'] = $profile->attribution;
+          if ($profile->attribution && $profile->cfg_logo_attribution) {
+            $mapData['cfg_logo_attribution'] = $profile->cfg_logo_attribution;
+          }
+          if ($profile->div_attribution) {
+            $mapData['div_attribution'] = $profile->div_attribution;
+          }
+          if ($profile->add_attribution) {
+            $mapData['add_attribution'] = $profile->add_attribution;
+          }
+      $mapData['overviewmap'] = $profile->overviewmap;
+      $mapData['scaleline'] = $profile->scaleline;
+      $mapData['mouseposition'] = $profile->mouseposition;
+
+      // search
+      // 
+
+      // geopicker
+      // 
+
+      // router
+      // 
+
+      // editor
+      // 
+
+      // expert-configs
+      // 
+
+      // miscellaneous
+      // 
     } 
 
     // -----
@@ -292,6 +354,11 @@ class C4GMaps
     $GLOBALS['TL_JAVASCRIPT'][] = $GLOBALS['c4g_maps_extension']['js_openlayers']['DEFAULT'];
     $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/con4gis_maps/assets/js/c4g-maps.js';
     $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/con4gis_maps/assets/js/c4g-map-starboard.js';
+
+    // later: combine them
+    // $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/con4gis_core/lib/jQuery/jquery-1.11.1.min.js|static';
+    // $GLOBALS['TL_JAVASCRIPT'][] = $GLOBALS['c4g_maps_extension']['js_openlayers']['DEFAULT'] . '|static';
+    // $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/con4gis_maps/assets/js/c4g-maps.js|static';
 
     $GLOBALS['TL_CSS'][] = $GLOBALS['c4g_maps_extension']['css_openlayers']['DEFAULT'];
     $GLOBALS['TL_CSS'][] = 'system/modules/con4gis_maps/assets/css/c4g-map-starboard.css';

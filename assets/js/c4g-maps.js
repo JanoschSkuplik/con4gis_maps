@@ -16,19 +16,21 @@ var c4g = c4g || {};
 
     //---
     this.map = null;
-      // this.baseLayers = null;
-      // this.layers = null;
-      this.controls = null;
+    // this.baseLayers = null;
+    // this.layers = null;
+    this.controls = null;
     //---
 
     mapData = $.extend({
       // restUrl : 'api',
-      addIdToDiv : false, 
-      mapId : 1, 
-      mapDiv : 'c4g_Map',
-      center_lat : 37.41,
-      center_lon : 8.82,
-      zoom : 4,
+      addIdToDiv: false, 
+      mapId: 1, 
+      mapDiv: 'c4g_Map',
+      center: {
+        lat: 37.41,
+        lon: 8.82,
+        zoom: 4
+      },
       calc_extent: 'CENTERZOOM'
     }, mapData);
 
@@ -36,19 +38,11 @@ var c4g = c4g || {};
       mapData.mapDiv += mapData.mapId;
     }
 
-    //[ NOTES ] !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    // self.closeAll = function() {};
-    // 
-    // self.isLoading = ...
-    // 
-    // foreach x in extensions
-    // x.init(self);
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     //[ DEV ]!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     console.log( mapData );
 
-//@todo: maybe find a better way, to do this
+    // define basemaps
     var osmSourceConfigs = {
 
       CycleMap: {
@@ -96,17 +90,9 @@ var c4g = c4g || {};
           maxZoom: 19,
           url: 'http://{a-c}.tile.opencyclemap.org/landscape/{z}/{x}/{y}.png'
         },
-//@todo (has own class -> ol.source.MapQuest)
-      MapQuestOpen: {
-          attributions: [
-              new ol.Attribution({
-                html: 'Style by <a href="http://www.mapquest.com/">MapQuest</a> ' +
-                  '<img src="http://developer.mapquest.com/content/osm/mq_logo.png">'
-              }),
-              ol.source.OSM.DATA_ATTRIBUTION
-            ],
-          maxZoom: 19,
-          url: 'http://otile{1-4}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png'
+
+      Mapnik: {
+          // is default, so there is nothing to write here ;)
         },
 
       TransportMap: {
@@ -116,7 +102,7 @@ var c4g = c4g || {};
               }),
               ol.source.OSM.DATA_ATTRIBUTION
             ],
-          maxZoom: 19,
+          maxZoom: 10,
           url: 'http://{a-c}.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png'
         }
     }
@@ -124,29 +110,54 @@ var c4g = c4g || {};
     var stamenSourceConfigs = {
 
       Toner: {
-          layer: 'toner'
+          layer: 'toner',
+          maxZoom: 20
         },
 
       TonerLabels: {
-          layer: 'toner-labels'
+          layer: 'toner-labels',
+          maxZoom: 20
         },
 
       TonerLines: {
-          layer: 'toner-lines'
+          layer: 'toner-lines',
+          maxZoom: 20
+        },
+
+      Terrain: {
+          layer: 'terrain',
+          maxZoom: 18
         },
 
       Watercolor: {
-          layer: 'watercolor'
+          layer: 'watercolor',
+          maxZoom: 16
         }
     }
-    // [/todo] ---
+    // ---
+    var mapQuestSourceConfigs = {
+
+      MapQuestOpen: {
+          layer: 'osm'
+        },
+
+      MapQuestHyb: {
+          layer: 'hyb'
+        },
+
+      MapQuestSat: {
+          layer: 'sat'
+        }
+    }
+    // ===
+
 
     // set default baseLayer
     var defaultBaseLayer = new ol.layer.Tile({
         source: new ol.source.OSM()
       });
     // override it with appropriate settings, if existant
-    if (mapData.baseLayer && !(mapData.baseLayer.provider=='osm' && mapData.baseLayer.style=='Mapnik')) {
+    if (mapData.baseLayer) {
 
       var layerOptions = {};
       if (mapData.baseLayer.attribution) {
@@ -176,7 +187,7 @@ var c4g = c4g || {};
                   )
               });
           } else if (stamenSourceConfigs[mapData.baseLayer.style]) {
-            //stamen
+            // Stamen
             defaultBaseLayer = new ol.layer.Tile({
                 source: new ol.source.Stamen( 
                     $.extend(
@@ -184,6 +195,11 @@ var c4g = c4g || {};
                       layerOptions
                     )
                   )
+              });
+          } else if (mapQuestSourceConfigs[mapData.baseLayer.style]) {
+            // mapQuest
+            defaultBaseLayer = new ol.layer.Tile({
+                source: new ol.source.MapQuest( mapQuestSourceConfigs[mapData.baseLayer.style] )
               });
           } else if (mapData.baseLayer.style == 'osm_custom') {
             // custom
@@ -228,24 +244,35 @@ var c4g = c4g || {};
           console.warn('unsupported provider');
           break;
       }
-
-      //   defaultBaseLayer = new ol.layer.Tile({
-      //     source: new ol.source.OSM()
-      //   });
     } 
 
+    var view = new ol.View({
+        // projection: ol.proj.get('EPSG:4326'),
+        // center: [parseFloat(mapData.center_lon), parseFloat(mapData.center_lat)],
+        center: ol.proj.transform([parseFloat(mapData.center.lon), parseFloat(mapData.center.lat)], 'EPSG:4326', 'EPSG:3857'),
+        zoom: parseInt(mapData.center.zoom)
+      })
+
+    // enable default Controls/Interactions if there is no profile
+    // [note]: maybe change this in the future? -> "no default"-option?
+    var controls = [];
+    var interactions = [];
+    if (!mapData.profile) {
+      controls = ol.control.defaults();
+      interactions = ol.interaction.defaults();
+    }
+
+    // initiallize Map
+    // 
     this.map = new ol.Map({
-        target: mapData.mapDiv,
+        controls: controls,
+        interactions: interactions,
         layers: [
           defaultBaseLayer
         ],
-        view: new ol.View({
-            // projection: ol.proj.get('EPSG:4326'),
-            // center: [parseFloat(mapData.center_lon), parseFloat(mapData.center_lat)],
-            center: ol.proj.transform([parseFloat(mapData.center_lon), parseFloat(mapData.center_lat)], 'EPSG:4326', 'EPSG:3857'),
-            zoom: parseInt(mapData.zoom)
-          })
-    });
+        target: mapData.mapDiv,
+        view: view
+      });
 
     // set map-size and -margin
     if (mapData.width) {
@@ -260,7 +287,76 @@ var c4g = c4g || {};
     this.map.updateSize();
     // ---
 
-    this.map.addControl( new ol.control.MousePosition({projection:'EPSG:4326'}) );
+    // add interactions ===
+    // 
+    // mouse navigation
+    if (mapData.mouse_nav) {
+      // drag pan and kinetic scrolling
+      if (mapData.mouse_nav.drag_pan) {
+        var kinetic = mapData.mouse_nav.kinetic ? new ol.Kinetic(-0.005, 0.05, 100) : null;
+        this.map.addInteraction( new ol.interaction.DragPan({ kinetic: kinetic }) );
+      }
+      // mousewheel zoom
+      if (mapData.mouse_nav.wheel_zoom) {
+        this.map.addInteraction( new ol.interaction.MouseWheelZoom() );
+      }
+      // drag zoom and rotate
+      if (mapData.mouse_nav.drag_zoom) {
+        if (mapData.mouse_nav.drag_rotate) {
+          this.map.addInteraction( new ol.interaction.DragRotateAndZoom() );
+        } else {
+          this.map.addInteraction( new ol.interaction.DragZoom() );
+        }
+      } else if (mapData.mouse_nav.drag_rotate) {
+        this.map.addInteraction( new ol.interaction.DragRotate() );
+      }
+    }
+    // keyboard navigation
+    if (mapData.keyboard_nav) {
+      // pan (arrow keys)
+      if (mapData.keyboard_nav.pan) {
+        this.map.addInteraction( new ol.interaction.KeyboardPan() );
+      }
+      // zoom ("+" and "-" key)
+      if (mapData.keyboard_nav.zoom) {
+        this.map.addInteraction( new ol.interaction.KeyboardZoom() );
+      }
+    }
+    // ===
+
+    // add controls ===
+    // 
+    if (mapData.zoom_panel) {
+      this.map.addControl( new ol.control.Zoom() );
+    }
+    if (mapData.zoom_extent) {
+      this.map.addControl( new ol.control.ZoomToExtent() );
+    }
+    if (mapData.fullscreen) {
+      this.map.addControl( new ol.control.FullScreen() );
+// @todo alternative for unsupported Browsers
+    }
+    if (mapData.scaleline) {
+      this.map.addControl( new ol.control.ScaleLine() );
+    }
+    if (mapData.mouseposition) {
+      this.map.addControl( new ol.control.MousePosition({projection:'EPSG:4326'}) );
+    }
+    if (mapData.attribution) {
+      this.map.addControl( new ol.control.Attribution() );
+    }
+    // ===
+
+    //[ NOTES ] !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // DO THIS @ THE END! They probably need the Map-Object
+    //
+    // self.closeAll = function() {};
+    // 
+    // self.isLoading = ...
+    // 
+    // foreach x in extensions
+    // x.init(self);
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   };
