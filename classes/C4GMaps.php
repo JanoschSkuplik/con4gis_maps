@@ -46,7 +46,7 @@ class C4GMaps
     if (C4GMaps::validateGeo( $value )) {
       return (($value >= -90.0) && ($value <= 90.0));
     }
-  return false;
+    return false;
   }
 
   /**

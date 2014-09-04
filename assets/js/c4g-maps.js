@@ -1,8 +1,9 @@
 // "namespace"
-var c4g = c4g || {};
+this.c4g = this.c4g || {};
 
-(function($) {
+(function ($, ol) {
   "use strict";
+
 
   /**
    * [Map description]
@@ -10,21 +11,21 @@ var c4g = c4g || {};
    *                               See "docs/mapData-values.md" 
    *                               to get a list of valid values for this object]
    */
-  c4g.Map = function(mapData) {
+  c4g.MapContainer = function (mapData) {
     var self = this;
-    self = {};
+    // self = {};
 
     //---
-    this.map = null;
-    // this.baseLayers = null;
-    // this.layers = null;
-    this.controls = null;
+    self.map = null;
+    // self.baseLayers = null;
+    // self.layers = null;
+    self.controls = null;
     //---
 
     mapData = $.extend({
       // restUrl : 'api',
-      addIdToDiv: false, 
-      mapId: 1, 
+      addIdToDiv: false,
+      mapId: 1,
       mapDiv: 'c4g_Map',
       center: {
         lat: 37.41,
@@ -40,133 +41,133 @@ var c4g = c4g || {};
 
 
     //[ DEV ]!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    console.log( mapData );
+    console.log(mapData);
 
     // define basemaps
     var osmSourceConfigs = {
 
       CycleMap: {
-          attributions: [
-              new ol.Attribution({
-                html: 'Style by <a href="http://www.opencyclemap.org/">OpenCycleMap</a>'
-              }),
-              ol.source.OSM.DATA_ATTRIBUTION
-            ],
-          maxZoom: 19,
-          url: 'http://{a-c}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png'
-        },
+        attributions: [
+          new ol.Attribution({
+            html: 'Style by <a href="http://www.opencyclemap.org/">OpenCycleMap</a>'
+          }),
+          ol.source.OSM.DATA_ATTRIBUTION
+        ],
+        maxZoom: 19,
+        url: 'http://{a-c}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png'
+      },
 
       German: {
-          attributions: [
-              new ol.Attribution({
-                html: 'Style by <a href="http://www.openstreetmap.de/germanstyle.html">openstreetmap.de</a>'
-              }),
-              ol.source.OSM.DATA_ATTRIBUTION
-            ],
-          crossOrigin: null,
-          maxZoom: 19,
-          url: 'http://{a-c}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png'
-        },
+        attributions: [
+          new ol.Attribution({
+            html: 'Style by <a href="http://www.openstreetmap.de/germanstyle.html">openstreetmap.de</a>'
+          }),
+          ol.source.OSM.DATA_ATTRIBUTION
+        ],
+        crossOrigin: null,
+        maxZoom: 19,
+        url: 'http://{a-c}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png'
+      },
 
       GermanTransport: {
-          attributions: [
-              new ol.Attribution({
-                html: 'Style by <a href="http://www.memomaps.de">Memomaps</a>'
-              }),
-              ol.source.OSM.DATA_ATTRIBUTION
-            ],
-          crossOrigin: null,
-          maxZoom: 19,
-          url: 'http://tile.memomaps.de/tilegen/{z}/{x}/{y}.png'
-        },
+        attributions: [
+          new ol.Attribution({
+            html: 'Style by <a href="http://www.memomaps.de">Memomaps</a>'
+          }),
+          ol.source.OSM.DATA_ATTRIBUTION
+        ],
+        crossOrigin: null,
+        maxZoom: 19,
+        url: 'http://tile.memomaps.de/tilegen/{z}/{x}/{y}.png'
+      },
 
       LandscapeMap: {
-          attributions: [
-              new ol.Attribution({
-                html: 'Style by <a href="http://www.opencyclemap.org/">OpenCycleMap</a>'
-              }),
-              ol.source.OSM.DATA_ATTRIBUTION
-            ],
-          maxZoom: 19,
-          url: 'http://{a-c}.tile.opencyclemap.org/landscape/{z}/{x}/{y}.png'
-        },
+        attributions: [
+          new ol.Attribution({
+            html: 'Style by <a href="http://www.opencyclemap.org/">OpenCycleMap</a>'
+          }),
+          ol.source.OSM.DATA_ATTRIBUTION
+        ],
+        maxZoom: 19,
+        url: 'http://{a-c}.tile.opencyclemap.org/landscape/{z}/{x}/{y}.png'
+      },
 
       Mapnik: {
           // is default, so there is nothing to write here ;)
-        },
+      },
 
       TransportMap: {
-          attributions: [
-              new ol.Attribution({
-                html: 'Style by <a href="http://www.opencyclemap.org/">OpenCycleMap</a>'
-              }),
-              ol.source.OSM.DATA_ATTRIBUTION
-            ],
-          maxZoom: 10,
-          url: 'http://{a-c}.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png'
-        }
-    }
+        attributions: [
+          new ol.Attribution({
+            html: 'Style by <a href="http://www.opencyclemap.org/">OpenCycleMap</a>'
+          }),
+          ol.source.OSM.DATA_ATTRIBUTION
+        ],
+        maxZoom: 10,
+        url: 'http://{a-c}.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png'
+      }
+    };
     // ---
     var stamenSourceConfigs = {
 
       Toner: {
-          layer: 'toner',
-          maxZoom: 20
-        },
+        layer: 'toner',
+        maxZoom: 20
+      },
 
       TonerLabels: {
-          layer: 'toner-labels',
-          maxZoom: 20
-        },
+        layer: 'toner-labels',
+        maxZoom: 20
+      },
 
       TonerLines: {
-          layer: 'toner-lines',
-          maxZoom: 20
-        },
+        layer: 'toner-lines',
+        maxZoom: 20
+      },
 
       Terrain: {
-          layer: 'terrain',
-          maxZoom: 18
-        },
+        layer: 'terrain',
+        maxZoom: 18
+      },
 
       Watercolor: {
-          layer: 'watercolor',
-          maxZoom: 16
-        }
-    }
+        layer: 'watercolor',
+        maxZoom: 16
+      }
+    };
     // ---
     var mapQuestSourceConfigs = {
 
       MapQuestOpen: {
-          layer: 'osm'
-        },
+        layer: 'osm'
+      },
 
       MapQuestHyb: {
-          layer: 'hyb'
-        },
+        layer: 'hyb'
+      },
 
       MapQuestSat: {
-          layer: 'sat'
-        }
-    }
+        layer: 'sat'
+      }
+    };
     // ===
 
 
     // set default baseLayer
     var defaultBaseLayer = new ol.layer.Tile({
-        source: new ol.source.OSM()
-      });
+      source: new ol.source.OSM()
+    });
     // override it with appropriate settings, if existant
     if (mapData.baseLayer) {
 
       var layerOptions = {};
       if (mapData.baseLayer.attribution) {
         layerOptions.attributions = [
-            new ol.Attribution({
-              html: mapData.baseLayer.attribution
-            }),
-            ol.source.OSM.DATA_ATTRIBUTION
-          ]
+          new ol.Attribution({
+            html: mapData.baseLayer.attribution
+          }),
+          ol.source.OSM.DATA_ATTRIBUTION
+        ];
       }
       if (mapData.baseLayer.sort) {
         layerOptions.sort = mapData.baseLayer.sort;
@@ -176,85 +177,83 @@ var c4g = c4g || {};
       }
 
       switch (mapData.baseLayer.provider) {
-        case 'osm':
-          if (osmSourceConfigs[mapData.baseLayer.style]) {
+      case 'osm':
+        if (osmSourceConfigs[mapData.baseLayer.style]) {
+          defaultBaseLayer = new ol.layer.Tile({
+            source: new ol.source.OSM(
+              $.extend(
+                osmSourceConfigs[mapData.baseLayer.style],
+                layerOptions
+              )
+            )
+          });
+        } else if (stamenSourceConfigs[mapData.baseLayer.style]) {
+          // Stamen
+          defaultBaseLayer = new ol.layer.Tile({
+            source: new ol.source.Stamen(
+              $.extend(
+                stamenSourceConfigs[mapData.baseLayer.style],
+                layerOptions
+              )
+            )
+          });
+        } else if (mapQuestSourceConfigs[mapData.baseLayer.style]) {
+          // mapQuest
+          defaultBaseLayer = new ol.layer.Tile({
+            source: new ol.source.MapQuest(mapQuestSourceConfigs[mapData.baseLayer.style])
+          });
+        } else if (mapData.baseLayer.style === 'osm_custom') {
+          // custom
+          var noUrl = true;
+          if (mapData.baseLayer.url) {
+            layerOptions.url = mapData.baseLayer.url;
+            noUrl = false;
+          } else if (mapData.baseLayer.urls) {
+            layerOptions.urls = mapData.baseLayer.urls;
+            noUrl = false;
+          }
+          if (!noUrl) {
             defaultBaseLayer = new ol.layer.Tile({
-                source: new ol.source.OSM( 
-                    $.extend(
-                      osmSourceConfigs[mapData.baseLayer.style],
-                      layerOptions
-                    )
-                  )
-              });
-          } else if (stamenSourceConfigs[mapData.baseLayer.style]) {
-            // Stamen
-            defaultBaseLayer = new ol.layer.Tile({
-                source: new ol.source.Stamen( 
-                    $.extend(
-                      stamenSourceConfigs[mapData.baseLayer.style],
-                      layerOptions
-                    )
-                  )
-              });
-          } else if (mapQuestSourceConfigs[mapData.baseLayer.style]) {
-            // mapQuest
-            defaultBaseLayer = new ol.layer.Tile({
-                source: new ol.source.MapQuest( mapQuestSourceConfigs[mapData.baseLayer.style] )
-              });
-          } else if (mapData.baseLayer.style == 'osm_custom') {
-            // custom
-            var noUrl = true;
-            if (mapData.baseLayer.url) {
-              layerOptions.url = mapData.baseLayer.url;
-              noUrl = false;
-            } else if (mapData.baseLayer.urls) {
-              layerOptions.urls = mapData.baseLayer.urls;
-              noUrl = false;
-            }
-            if (!noUrl) {
-              defaultBaseLayer = new ol.layer.Tile({
-                  source: new ol.source.XYZ( layerOptions )
-                });
-            } else {
-              console.warn('custom url(s) missing -> switch to default');
-            }
+              source: new ol.source.XYZ(layerOptions)
+            });
           } else {
-            console.warn('unsupported osm-style -> switch to default');
+            console.warn('custom url(s) missing -> switch to default');
           }
-          break;
-        case 'google':
-          //@todo
-          console.warn('google-maps are currently unsupported');
-          break;
-        case 'bing':
-          if (mapData.baseLayer.apiKey && mapData.baseLayer.style) {
-            defaultBaseLayer = new ol.layer.Tile({
-                  source: new ol.source.BingMaps({
-                        // culture: (@todo),
-                        key: mapData.baseLayer.apiKey,
-                        imagerySet: mapData.baseLayer.style
-                      }
-                    )
-                });
-          }
-          console.warn('wrong bing-key or invalid imagery-set!');
-          break;
-        default:
-          //@todo
-          console.warn('unsupported provider');
-          break;
+        } else {
+          console.warn('unsupported osm-style -> switch to default');
+        }
+        break;
+      case 'google':
+        //@todo
+        console.warn('google-maps are currently unsupported');
+        break;
+      case 'bing':
+        if (mapData.baseLayer.apiKey && mapData.baseLayer.style) {
+          defaultBaseLayer = new ol.layer.Tile({
+            source: new ol.source.BingMaps({
+              // culture: (@todo),
+              key: mapData.baseLayer.apiKey,
+              imagerySet: mapData.baseLayer.style
+            })
+          });
+        }
+        console.warn('wrong bing-key or invalid imagery-set!');
+        break;
+      default:
+        console.warn('unsupported provider');
+        break;
       }
-    } 
+    }
 
     var view = new ol.View({
-        // projection: ol.proj.get('EPSG:4326'),
-        // center: [parseFloat(mapData.center_lon), parseFloat(mapData.center_lat)],
-        center: ol.proj.transform([parseFloat(mapData.center.lon), parseFloat(mapData.center.lat)], 'EPSG:4326', 'EPSG:3857'),
-        zoom: parseInt(mapData.center.zoom)
-      })
+      // projection: ol.proj.get('EPSG:4326'),
+      // center: [parseFloat(mapData.center_lon), parseFloat(mapData.center_lat)],
+      center: ol.proj.transform([parseFloat(mapData.center.lon), parseFloat(mapData.center.lat)], 'EPSG:4326', 'EPSG:3857'),
+      zoom: parseInt(mapData.center.zoom, 10)
+    });
 
     // enable default Controls/Interactions if there is no profile
-    // [note]: maybe change this in the future? -> "no default"-option?
+    // [note]: maybe change self in the future? -> "no default"-option?
     var controls = [];
     var interactions = [];
     if (!mapData.profile) {
@@ -264,15 +263,15 @@ var c4g = c4g || {};
 
     // initiallize Map
     // 
-    this.map = new ol.Map({
-        controls: controls,
-        interactions: interactions,
-        layers: [
-          defaultBaseLayer
-        ],
-        target: mapData.mapDiv,
-        view: view
-      });
+    self.map = new ol.Map({
+      controls: controls,
+      interactions: interactions,
+      layers: [
+        defaultBaseLayer
+      ],
+      target: mapData.mapDiv,
+      view: view
+    });
 
     // set map-size and -margin
     if (mapData.width) {
@@ -284,7 +283,7 @@ var c4g = c4g || {};
     if (mapData.margin) {
       document.getElementById(mapData.mapDiv).style.margin = mapData.margin;
     }
-    this.map.updateSize();
+    self.map.updateSize();
     // ---
 
     // add interactions ===
@@ -294,32 +293,32 @@ var c4g = c4g || {};
       // drag pan and kinetic scrolling
       if (mapData.mouse_nav.drag_pan) {
         var kinetic = mapData.mouse_nav.kinetic ? new ol.Kinetic(-0.005, 0.05, 100) : null;
-        this.map.addInteraction( new ol.interaction.DragPan({ kinetic: kinetic }) );
+        self.map.addInteraction(new ol.interaction.DragPan({ kinetic: kinetic }));
       }
       // mousewheel zoom
       if (mapData.mouse_nav.wheel_zoom) {
-        this.map.addInteraction( new ol.interaction.MouseWheelZoom() );
+        self.map.addInteraction(new ol.interaction.MouseWheelZoom());
       }
       // drag zoom and rotate
       if (mapData.mouse_nav.drag_zoom) {
         if (mapData.mouse_nav.drag_rotate) {
-          this.map.addInteraction( new ol.interaction.DragRotateAndZoom() );
+          self.map.addInteraction(new ol.interaction.DragRotateAndZoom());
         } else {
-          this.map.addInteraction( new ol.interaction.DragZoom() );
+          self.map.addInteraction(new ol.interaction.DragZoom());
         }
       } else if (mapData.mouse_nav.drag_rotate) {
-        this.map.addInteraction( new ol.interaction.DragRotate() );
+        self.map.addInteraction(new ol.interaction.DragRotate());
       }
     }
     // keyboard navigation
     if (mapData.keyboard_nav) {
       // pan (arrow keys)
       if (mapData.keyboard_nav.pan) {
-        this.map.addInteraction( new ol.interaction.KeyboardPan() );
+        self.map.addInteraction(new ol.interaction.KeyboardPan());
       }
       // zoom ("+" and "-" key)
       if (mapData.keyboard_nav.zoom) {
-        this.map.addInteraction( new ol.interaction.KeyboardZoom() );
+        self.map.addInteraction(new ol.interaction.KeyboardZoom());
       }
     }
     // ===
@@ -327,23 +326,23 @@ var c4g = c4g || {};
     // add controls ===
     // 
     if (mapData.zoom_panel) {
-      this.map.addControl( new ol.control.Zoom() );
+      self.map.addControl(new ol.control.Zoom());
     }
     if (mapData.zoom_extent) {
-      this.map.addControl( new ol.control.ZoomToExtent() );
+      self.map.addControl(new ol.control.ZoomToExtent());
     }
     if (mapData.fullscreen) {
-      this.map.addControl( new ol.control.FullScreen() );
-// @todo alternative for unsupported Browsers
+      self.map.addControl(new ol.control.FullScreen());
+      // @TODO find alternative for unsupported Browsers
     }
     if (mapData.scaleline) {
-      this.map.addControl( new ol.control.ScaleLine() );
+      self.map.addControl(new ol.control.ScaleLine());
     }
     if (mapData.mouseposition) {
-      this.map.addControl( new ol.control.MousePosition({projection:'EPSG:4326'}) );
+      self.map.addControl(new ol.control.MousePosition({ projection: 'EPSG:4326' }));
     }
     if (mapData.attribution) {
-      this.map.addControl( new ol.control.Attribution() );
+      self.map.addControl(new ol.control.Attribution());
     }
     // ===
 
@@ -361,4 +360,4 @@ var c4g = c4g || {};
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   };
 
-})(jQuery);
+}(jQuery, ol));
