@@ -1,8 +1,8 @@
-﻿// "namespace"
+﻿// 'namespace'
 this.c4g = this.c4g || {};
 
 (function ($, ol) {
-  "use strict";
+  'use strict';
 
   /**
    * Adds a starboard to an existing mapContainer.
@@ -24,21 +24,27 @@ this.c4g = this.c4g || {};
      */
 
     // Create the visual elements
-    var board = document.createElement("div");
-    var toggle = document.createElement("button");
-    var content = document.createElement("ul");
+    var board = document.createElement('div');
+    var toggle = document.createElement('button');
+    var tooltip = document.createElement('span');
+    var content = document.createElement('ul');
 
     // Set attributes
     $(content).hide();
-    $(board).addClass("c4g-starboard ol-unselectable ol-control");
+    $(board).addClass('c4g-starboard ol-unselectable ol-control');
+    $(toggle).addClass('ol-has-tooltip c4g-starboard-close');
+    $(tooltip).attr('role','tooltip');
     $(toggle).on('click', function (event) {
       event.stopPropagation();
+      // loose focus, otherwise it looks messy
+      this.blur();
       mapContainer.toggleStarboard();
 
       // Load starboard data
       if (!mapContainer.isStarboardLoaded) { mapContainer.loadStarboard(); }
     });
-    toggle.appendChild(document.createTextNode("Starboard"));
+    tooltip.appendChild(document.createTextNode('Starboard'));
+    toggle.appendChild(tooltip);
     board.appendChild(toggle);
     board.appendChild(content);
 
@@ -56,10 +62,14 @@ this.c4g = this.c4g || {};
 
     // Add accessor functions
     mapContainer.openStarboard = function () {
+      $(toggle).removeClass('c4g-starboard-close');
+      $(toggle).addClass('c4g-starboard-open');
       mapContainer.isStarboardOpened = true;
       $(content).show();
     };
     mapContainer.closeStarboard = function () {
+      $(toggle).removeClass('c4g-starboard-open');
+      $(toggle).addClass('c4g-starboard-close');
       mapContainer.isStarboardOpened = false;
       $(content).hide();
     };
@@ -76,7 +86,7 @@ this.c4g = this.c4g || {};
       mapContainer.isStarboardLoading = true;
 
     //@todo get url as parameter
-      $.getJSON("api4gis/c4g_maps_layerapi/1")
+      $.getJSON('api4gis/c4g_maps_layerapi/1')
         .done(function (data) {
           drawStarboard(data);
         })
@@ -89,7 +99,7 @@ this.c4g = this.c4g || {};
     };
 
     // Private functions
-    var drawStarboard = function(data) {
+    var drawStarboard = function (data) {
       /**
        * Remark:
        * Find a good, standardizable way to handle adding and removing layers.
@@ -98,14 +108,14 @@ this.c4g = this.c4g || {};
        */
 
       // Add the layers
-      $.each(data, function (index, item) {
+      $.each(data, function (index, item){
         // Todo:
         // Create layer, extend with state properties and keep the tree.
       });
       mapContainer.isStarboardLoaded = true;
-    }
+    };
 
     // Create anddisplay the control
     mapContainer.map.addControl(new ol.control.Control({ element: board }));
-  }
+  };
 }(jQuery, ol));

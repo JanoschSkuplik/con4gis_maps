@@ -360,8 +360,14 @@ class C4GMaps
     // $GLOBALS['TL_JAVASCRIPT'][] = $GLOBALS['c4g_maps_extension']['js_openlayers']['DEFAULT'] . '|static';
     // $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/con4gis_maps/assets/js/c4g-maps.js|static';
 
-    $GLOBALS['TL_CSS'][] = $GLOBALS['c4g_maps_extension']['css_openlayers']['DEFAULT'];
+    // $GLOBALS['TL_CSS'][] = $GLOBALS['c4g_maps_extension']['css_openlayers']['DEFAULT'];
     $GLOBALS['TL_CSS'][] = 'system/modules/con4gis_maps/assets/css/c4g-map-starboard.css';
+
+    //@TODO "Theme-Test" - make this be-configurable
+    $GLOBALS['TL_CSS'][] = 'system/modules/con4gis_maps/assets/css/themes/c4g-theme-icons-fontawesome.css';
+    $GLOBALS['TL_CSS'][] = 'system/modules/con4gis_maps/assets/css/themes/c4g-theme-buttons-openlayers.css';
+    // $GLOBALS['TL_CSS'][] = 'system/modules/con4gis_maps/assets/css/themes/c4g-theme-buttons-con4gis.css';
+    $GLOBALS['TL_CSS'][] = 'system/modules/con4gis_maps/assets/css/themes/c4g-theme-TEMP.css';
 
     $mapData['addIdToDiv'] = true;
     // $mapData['mapDiv'] = 'c4gMap';
