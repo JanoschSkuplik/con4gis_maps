@@ -42,13 +42,20 @@ implemented features
     - Attribution
     - Fullscreen
     - MousePosition
+    - Rotation (*w/o BE-Option*)
     - ScaleLine
     - Zoom-Panel
+- LayerSwitcher
+    - Code-Skeleton
+- new Theme-mechanism (*w/o BE-Option*)
 
 
 upcoming features
 --------------------
 
 - API
-- LayerSwitcher
+- LayerSwitcher functionality
 - more Basemaps (google, more stamen-maps, etc...)
+- more Controls
+- more Interactions
+- Theme-mechanism (BE-Options)

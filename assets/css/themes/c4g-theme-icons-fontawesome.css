@@ -32,6 +32,10 @@
 .ol-attribution.ol-collapsed button:before {
   content: "\f129";
 }
+span.ol-compass:before {
+  content: "\f062";
+  content: "\f176";
+}
 button.ol-full-screen-false:before {
   content: "\f065";
 }

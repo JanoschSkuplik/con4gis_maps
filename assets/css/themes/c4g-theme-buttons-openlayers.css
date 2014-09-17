@@ -113,6 +113,9 @@
   top: .5em;
   left: .5em;
 }
+.c4g-control-container-top-left > div {
+  margin-bottom: 3px;
+}
 .c4g-control-container-bottom-left {
   position: absolute;
   bottom: .5em;
@@ -149,15 +152,12 @@ button.ol-zoom-out {
   border-radius: 0;
 }
 
-/*.ol-rotate {
+.ol-rotate {
   transition: opacity .25s;
 }
-.ol-compass{
+.ol-compass {
   display:block;
-  font-family:Arial;
-  font-weight:400;
-  font-size:1.2em
-}*/
+}
 
 .ol-scale-line {
   display: inline-block;

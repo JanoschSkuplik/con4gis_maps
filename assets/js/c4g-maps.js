@@ -360,6 +360,11 @@ this.c4g = this.c4g || {};
       $('#' + mapData.mapDiv + ' .ol-zoom-in').after($('#' + mapData.mapDiv + ' .ol-zoom-extent button').addClass('ol-zoom-extent'));
       $('#' + mapData.mapDiv + ' .ol-zoom-extent.ol-control').remove();
     }
+    // rotate-control
+    // TODO -> use something like "mapData.rotate"
+    if (mapData.mouse_nav.drag_rotate) {
+      self.map.addControl(new ol.control.Rotate({ label: '', target: controlContainerTopLeft }));
+    }
 
     // scaleline
     if (mapData.scaleline) {
