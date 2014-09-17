@@ -7,8 +7,8 @@ this.c4g = this.c4g || {};
 
   /**
    * [Map description]
-   * @param {json-object} mapData [object to configure con4gis-maps. 
-   *                               See "docs/mapData-values.md" 
+   * @param {json-object} mapData [object to configure con4gis-maps.
+   *                               See "docs/mapData-values.md"
    *                               to get a list of valid values for this object]
    */
   c4g.MapContainer = function (mapData) {
@@ -262,7 +262,7 @@ this.c4g = this.c4g || {};
     }
 
     // initiallize Map
-    // 
+    //
     self.map = new ol.Map({
       controls: controls,
       interactions: interactions,
@@ -287,7 +287,7 @@ this.c4g = this.c4g || {};
     // ---
 
     // add interactions ===
-    // 
+    //
     // mouse navigation
     if (mapData.mouse_nav) {
       // drag pan and kinetic scrolling
@@ -300,6 +300,8 @@ this.c4g = this.c4g || {};
         self.map.addInteraction(new ol.interaction.MouseWheelZoom());
       }
       // drag zoom and rotate
+    //TODO remove
+    mapData.mouse_nav.drag_rotate = true;
       if (mapData.mouse_nav.drag_zoom) {
         if (mapData.mouse_nav.drag_rotate) {
           self.map.addInteraction(new ol.interaction.DragRotateAndZoom());
@@ -323,26 +325,59 @@ this.c4g = this.c4g || {};
     }
     // ===
 
+    // add control-containers ===
+    //
+    // top-left
+    var controlContainerTopLeft = document.createElement('div');
+    controlContainerTopLeft.className = 'c4g-control-container-top-left ol-unselectable';
+    // $(controlContainerTopLeft).prependTo('#' + mapData.mapDiv + ' .ol-overlaycontainer-stopevent');
+    $('#' + mapData.mapDiv + ' .ol-overlaycontainer-stopevent').prepend(controlContainerTopLeft);
+
+    // bottom-left
+    var controlContainerBottomLeft = document.createElement('div');
+    controlContainerBottomLeft.className = 'c4g-control-container-bottom-left ol-unselectable';
+    $('#' + mapData.mapDiv + ' .ol-overlaycontainer-stopevent').prepend(controlContainerBottomLeft);
+
+    // bottom-right
+    var controlContainerBottomRight = document.createElement('div');
+    controlContainerBottomRight.className = 'c4g-control-container-bottom-right ol-unselectable';
+    $('#' + mapData.mapDiv + ' .ol-overlaycontainer-stopevent').prepend(controlContainerBottomRight);
+    // ===
+
     // add controls ===
-    // 
+    //
+    // zoom-controls
     if (mapData.zoom_panel) {
-      self.map.addControl(new ol.control.Zoom());
+      self.map.addControl(new ol.control.Zoom({ zoomInLabel: '', zoomOutLabel: '', target: controlContainerTopLeft }));
     }
     if (mapData.zoom_extent) {
-      self.map.addControl(new ol.control.ZoomToExtent());
+      self.map.addControl(new ol.control.ZoomToExtent({ target: controlContainerTopLeft }));
     }
-    if (mapData.fullscreen) {
-      self.map.addControl(new ol.control.FullScreen());
-      // @TODO find alternative for unsupported Browsers
+    // combined zoom-controls
+    if (mapData.zoom_panel && mapData.zoom_extent) {
+      $('#' + mapData.mapDiv + ' .ol-zoom').addClass('ol-zoom-with-extent').removeClass('ol-zoom');
+      $('#' + mapData.mapDiv + ' .ol-zoom-in').after($('#' + mapData.mapDiv + ' .ol-zoom-extent button').addClass('ol-zoom-extent'));
+      $('#' + mapData.mapDiv + ' .ol-zoom-extent.ol-control').remove();
     }
+
+    // scaleline
     if (mapData.scaleline) {
-      self.map.addControl(new ol.control.ScaleLine());
+      self.map.addControl(new ol.control.ScaleLine({ target: controlContainerBottomLeft }));
     }
+    // display mouse-position
     if (mapData.mouseposition) {
-      self.map.addControl(new ol.control.MousePosition({ projection: 'EPSG:4326' }));
+      // @TODO combine with Zoom-Level?
+      self.map.addControl(new ol.control.MousePosition({ projection: 'EPSG:4326', target: controlContainerBottomLeft, undefinedHTML: 'N/A' }));
     }
+
+    // show attribution
     if (mapData.attribution) {
-      self.map.addControl(new ol.control.Attribution());
+      self.map.addControl(new ol.control.Attribution({ label: '', collapseLabel: '', target: controlContainerBottomRight }));
+    }
+    // fullscreen
+    if (mapData.fullscreen) {
+      self.map.addControl(new ol.control.FullScreen({ target: controlContainerBottomRight }));
+      // @TODO find alternative for unsupported Browsers
     }
     // ===
 
@@ -350,9 +385,9 @@ this.c4g = this.c4g || {};
     // DO THIS @ THE END! They probably need the Map-Object
     //
     // self.closeAll = function() {};
-    // 
+    //
     // self.isLoading = ...
-    // 
+    //
     // foreach x in extensions
     // x.init(self);
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
