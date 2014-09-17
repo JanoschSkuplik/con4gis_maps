@@ -330,18 +330,19 @@ this.c4g = this.c4g || {};
     // top-left
     var controlContainerTopLeft = document.createElement('div');
     controlContainerTopLeft.className = 'c4g-control-container-top-left ol-unselectable';
-    // $(controlContainerTopLeft).prependTo('#' + mapData.mapDiv + ' .ol-overlaycontainer-stopevent');
     $('#' + mapData.mapDiv + ' .ol-overlaycontainer-stopevent').prepend(controlContainerTopLeft);
 
     // bottom-left
     var controlContainerBottomLeft = document.createElement('div');
     controlContainerBottomLeft.className = 'c4g-control-container-bottom-left ol-unselectable';
-    $('#' + mapData.mapDiv + ' .ol-overlaycontainer-stopevent').prepend(controlContainerBottomLeft);
+    // $('#' + mapData.mapDiv + ' .ol-overlaycontainer-stopevent').prepend(controlContainerBottomLeft);
+    $(controlContainerTopLeft).after(controlContainerBottomLeft);
 
     // bottom-right
     var controlContainerBottomRight = document.createElement('div');
     controlContainerBottomRight.className = 'c4g-control-container-bottom-right ol-unselectable';
-    $('#' + mapData.mapDiv + ' .ol-overlaycontainer-stopevent').prepend(controlContainerBottomRight);
+    // $('#' + mapData.mapDiv + ' .ol-overlaycontainer-stopevent').prepend(controlContainerBottomRight);
+    $(controlContainerBottomLeft).after(controlContainerBottomRight);
     // ===
 
     // add controls ===

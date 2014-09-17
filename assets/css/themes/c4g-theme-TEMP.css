@@ -1,4 +1,5 @@
-﻿.icon-spin {
+﻿/* general stuff */
+.icon-spin {
   -webkit-animation: icon-spin 2s infinite linear;
   animation: icon-spin 2s infinite linear;
 }
@@ -23,6 +24,7 @@
   }
 }
 
+/* controls - general */
 .ol-control {
   background-color: #eee;
   background-color: rgba(255,255,255,.4);
@@ -35,30 +37,36 @@
   background-color: #7b98bc;
   background-color: rgba(0,60,136,.5);
 }
-
 .ol-control button:focus,
 .ol-control button:hover {
   background-color: #4c6079;
   background-color: rgba(0,60,136,.7)
 }
 
+/* tooltips */
 .ol-has-tooltip [role=tooltip] {
   text-shadow: 0 0 2px #fff
 }
-.ol-has-tooltip:focus [role=tooltip],.ol-has-tooltip:hover [role=tooltip] {
-  background: #FFF;
+.ol-has-tooltip:focus [role=tooltip],
+.ol-has-tooltip:hover [role=tooltip] {
+  background: #fff;
   background: rgba(255,255,255,.6);
   color: #000;
   border: 3px solid transparent;
 }
 
-.ol-scale-line {
+
+.ol-scale-line,
+.ol-mouse-position {
   background: #95b9e6;
   background: rgba(0,60,136,.3);
 }
 .ol-scale-line-inner {
   border-color: #eee;
   color: #eee;
+}
+.ol-mouse-position {
+  color: #fff;
 }
 
 
