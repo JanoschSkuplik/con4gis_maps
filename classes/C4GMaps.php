@@ -245,7 +245,6 @@ class C4GMaps
       }
       $mapData['fullscreen'] = $profile->fullscreen;
 
-
       // map-tools
       // 
 
@@ -264,6 +263,7 @@ class C4GMaps
       $mapData['overviewmap'] = $profile->overviewmap;
       $mapData['scaleline'] = $profile->scaleline;
       $mapData['mouseposition'] = $profile->mouseposition;
+      $mapData['zoomlevel'] = $profile->zoomlevel;
 
       // search
       // 

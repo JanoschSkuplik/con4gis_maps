@@ -335,13 +335,11 @@ this.c4g = this.c4g || {};
     // bottom-left
     var controlContainerBottomLeft = document.createElement('div');
     controlContainerBottomLeft.className = 'c4g-control-container-bottom-left ol-unselectable';
-    // $('#' + mapData.mapDiv + ' .ol-overlaycontainer-stopevent').prepend(controlContainerBottomLeft);
     $(controlContainerTopLeft).after(controlContainerBottomLeft);
 
     // bottom-right
     var controlContainerBottomRight = document.createElement('div');
     controlContainerBottomRight.className = 'c4g-control-container-bottom-right ol-unselectable';
-    // $('#' + mapData.mapDiv + ' .ol-overlaycontainer-stopevent').prepend(controlContainerBottomRight);
     $(controlContainerBottomLeft).after(controlContainerBottomRight);
     // ===
 
@@ -370,10 +368,21 @@ this.c4g = this.c4g || {};
     if (mapData.scaleline) {
       self.map.addControl(new ol.control.ScaleLine({ target: controlContainerBottomLeft }));
     }
-    // display mouse-position
-    if (mapData.mouseposition) {
-      // @TODO combine with Zoom-Level?
-      self.map.addControl(new ol.control.MousePosition({ projection: 'EPSG:4326', target: controlContainerBottomLeft, undefinedHTML: 'N/A' }));
+    // zoom-level & mouse-position
+    if (mapData.zoomlevel || mapData.mouseposition) {
+      // wrapper for zoom-level and mouse-position
+      var controlContainerBottomLeftSub = document.createElement('div');
+      controlContainerBottomLeftSub.className = 'c4g-control-container-bottom-left-sub ol-unselectable';
+      $(controlContainerBottomLeft).append(controlContainerBottomLeftSub);
+
+      // display zoom-level
+      if (mapData.zoomlevel) {
+        self.map.addControl(new c4g.control.Zoomlevel({ target: controlContainerBottomLeftSub }));
+      }
+      // display mouse-position
+      if (mapData.mouseposition) {
+        self.map.addControl(new ol.control.MousePosition({ projection: 'EPSG:4326', target: controlContainerBottomLeftSub, undefinedHTML: 'N/A' }));
+      }
     }
 
     // show attribution
@@ -401,4 +410,53 @@ this.c4g = this.c4g || {};
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   };
 
-}(jQuery, ol));
+
+  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  // TODO export following functions to own files:
+  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+  c4g.control = c4g.control || {};
+
+  /**
+   * @constructor
+   * @extends {ol.control.Control}
+   * @param {Object=} opt_options Control options.
+   */
+  c4g.control.Zoomlevel = function (opt_options) {
+
+    // var self = this;
+    var self = this;
+    var options = opt_options || {};
+
+    var element = document.createElement('div');
+    element.className = 'c4g-zoom-level';
+    element.innerHTML = 'N/A';
+
+    var updateZoomlevel = function () {
+      window.theMapYouAreWaitingFor = self.getMap();
+      element.innerHTML = self.getMap().getView().getZoom();
+    };
+
+    // TODO this needs to be "automatic" not "onClick"
+    element.addEventListener('click', updateZoomlevel, false);
+    // [old approaches & notes] -> delete after todo is done       === === === === ===
+    // ---
+    // anchor.addEventListener('touchstart', handleRotateNorth, false);
+    // ---
+    // ol.ObjectEvent();
+    // ---
+    // self.on(ol.ObjectEvent.propertychange('self'), function(){
+    //   self.getMap().getView().on('change:resolution', updateZoomlevel());
+    // });
+    // self.getMap().getView().on('change:resolution', updateZoomlevel());
+    // === === === === === === === === === === === === === === === === === === === ===
+
+    ol.control.Control.call(this, {
+      element: element,
+      target: options.target
+    });
+  };
+  ol.inherits(c4g.control.Zoomlevel, ol.control.Control);
+
+
+}(jQuery, ol)); // 'The End' :)    - ! Do not write stuff after this line ! -

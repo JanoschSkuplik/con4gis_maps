@@ -11,6 +11,10 @@ Valid **mapData**-values:
   >If set to `true` the Attributions will be shown on the Map.
 
 *@optional*  
+**calc_extend** *(string)*  
+  >currently not used.
+
+*@optional*  
 **center** *(object)*  
   >Defines the initial view on the map.  
   >
@@ -31,10 +35,6 @@ Valid **mapData**-values:
   >  >The initial zoom for the View on the Map.  
   >  >Needs to be an integer between `0`(far) and `20`(near).  
   >  >***default***: `4`.
-
-*@optional*  
-**calc_extend** *(string)*  
-  >currently not used.
 
 *@optional*  
 **fullscreen** *(boolean)*  
@@ -120,6 +120,10 @@ Valid **mapData**-values:
 *@optional*  
 **zoom_panel** *(boolean)*  
   >If set to `true` the "Zoompanel" will be shown on the Map.
+
+*@optional*  
+**zoomlevel** *(boolean)*  
+  >If set to `true` the zoomlevel will be shown on the Map.
 
 
 

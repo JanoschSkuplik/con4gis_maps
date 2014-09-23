@@ -131,11 +131,11 @@
   margin-left: 3px;
 }
 
+.c4g-control-container-bottom-left-sub,
 .ol-attribution,
 .ol-full-screen,
 .ol-rotate,
 .ol-scale-line,
-.ol-mouse-position,
 .ol-zoom,
 div.ol-zoom-extent,
 .ol-zoom-with-extent {
@@ -175,11 +175,21 @@ button.ol-zoom-out {
   border-top: none;
 }
 
-.ol-mouse-position {
+.c4g-control-container-bottom-left-sub {
   margin-top: .2em;
   padding: 0 .2em;
   font-size: smaller;
   border-radius: 4px;
+}
+.c4g-control-container-bottom-left-sub div {
+  display: inline-block;
+}
+.c4g-zoom-level {
+  min-width: 5em;
+}
+.c4g-zoom-level:before {
+  content: ' Zoom: ';
+  font-weight: bold;
 }
 .ol-mouse-position:before {
   content: ' Lon/Lat: ';

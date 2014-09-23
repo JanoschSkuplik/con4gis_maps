@@ -56,8 +56,8 @@
 }
 
 
-.ol-scale-line,
-.ol-mouse-position {
+.c4g-control-container-bottom-left-sub,
+.ol-scale-line {
   background: #95b9e6;
   background: rgba(0,60,136,.3);
 }
@@ -65,7 +65,7 @@
   border-color: #eee;
   color: #eee;
 }
-.ol-mouse-position {
+.c4g-control-container-bottom-left-sub {
   color: #fff;
 }
 

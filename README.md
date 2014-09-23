@@ -45,6 +45,7 @@ implemented features
     - Rotation (*w/o BE-Option*)
     - ScaleLine
     - Zoom-Panel
+    - ZoomLevel (*unfinished*)
 - LayerSwitcher
     - Code-Skeleton
 - new Theme-mechanism (*w/o BE-Option*)
