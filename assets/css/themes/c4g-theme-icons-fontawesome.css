@@ -26,6 +26,12 @@
 }
 
 /* set icons */
+.c4g-graticule button:before {
+  content: "\f00a";
+}
+.c4g-graticule.c4g-enabled button:before {
+  content: "\f096";
+}
 .ol-attribution button:before {
   content: "\f101";
 }

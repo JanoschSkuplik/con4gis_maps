@@ -41,6 +41,11 @@ Valid **mapData**-values:
   >If set to `true` the fullscreen-button will appear on the Map.
 
 *@optional*  
+**graticule** *(boolean)*  
+  >If set to `true` the graticule-button will appear on the Map,
+  >which kann toggle a grid layed on the map.
+
+*@optional*  
 **height** *(string)*  
   >Defines the height of the map and should be valid CSS.  
   >e.g.: `10px` or `auto`.

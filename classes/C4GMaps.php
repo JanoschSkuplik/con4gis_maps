@@ -247,6 +247,7 @@ class C4GMaps
 
       // map-tools
       // 
+      $mapData['graticule'] = $profile->graticule;
 
       // map-information
       // 

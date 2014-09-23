@@ -41,6 +41,7 @@ implemented features
 - configurate *Controls*: *(more soon)*
     - Attribution
     - Fullscreen
+    - Grid (Graticule)
     - MousePosition
     - Rotation (*w/o BE-Option*)
     - ScaleLine

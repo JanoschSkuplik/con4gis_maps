@@ -377,7 +377,7 @@ this.c4g = this.c4g || {};
 
       // display zoom-level
       if (mapData.zoomlevel) {
-        self.map.addControl(new c4g.control.Zoomlevel({ target: controlContainerBottomLeftSub }));
+        self.map.addControl(new c4g.control.Zoomlevel({ target: controlContainerBottomLeftSub, undefinedHTML: 'N/A' }));
       }
       // display mouse-position
       if (mapData.mouseposition) {
@@ -388,6 +388,10 @@ this.c4g = this.c4g || {};
     // show attribution
     if (mapData.attribution) {
       self.map.addControl(new ol.control.Attribution({ label: '', collapseLabel: '', target: controlContainerBottomRight }));
+    }
+    // show graticule (grid)
+    if (mapData.graticule) {
+      self.map.addControl(new c4g.control.Grid({ label: '', disableLabel: '', target: controlContainerBottomRight }));
     }
     // fullscreen
     if (mapData.fullscreen) {
@@ -418,22 +422,27 @@ this.c4g = this.c4g || {};
   c4g.control = c4g.control || {};
 
   /**
+   * [Zoomlevel description]
    * @constructor
    * @extends {ol.control.Control}
    * @param {Object=} opt_options Control options.
    */
   c4g.control.Zoomlevel = function (opt_options) {
 
-    // var self = this;
     var self = this;
     var options = opt_options || {};
 
+    // default options
+    options = $.extend({
+      className: 'c4g-zoom-level',
+      undefinedHTML: ''
+    }, options);
+
     var element = document.createElement('div');
-    element.className = 'c4g-zoom-level';
-    element.innerHTML = 'N/A';
+    element.className = options.className;
+    element.innerHTML = options.undefinedHTML;
 
     var updateZoomlevel = function () {
-      window.theMapYouAreWaitingFor = self.getMap();
       element.innerHTML = self.getMap().getView().getZoom();
     };
 
@@ -457,6 +466,86 @@ this.c4g = this.c4g || {};
     });
   };
   ol.inherits(c4g.control.Zoomlevel, ol.control.Control);
+
+  /**
+   * [Grid description]
+   * @constructor
+   * @extends {ol.control.Control}
+   * @param {Object=} opt_options Control options.
+   */
+  c4g.control.Grid = function (opt_options) {
+
+    var self = this;
+    var options = opt_options || {};
+
+    var element,
+      button,
+      tooltip;
+
+    var objGrid = new ol.Graticule();
+
+    // default options
+    options = $.extend({
+      className: 'c4g-graticule',
+      switchable: true,
+      // enabled: false,
+      tipLabel: 'Toggle grid',
+      label: '#',
+      disableLabel: '[]'
+    }, options);
+
+    // function to enable the grid
+    var enable = function () {
+      objGrid.setMap(self.getMap());
+      $(element).addClass('c4g-enabled');
+    };
+
+    // function to disable the grid
+    var disable = function () {
+      objGrid.setMap(null);
+      $(element).removeClass('c4g-enabled');
+    };
+
+    // function to toggle the grid
+    var toggle = function (event) {
+      event.stopPropagation();
+      // loose focus, otherwise it looks messy
+      this.blur();
+      if (objGrid.getMap()) {
+        disable();
+      } else {
+        enable();
+      }
+    };
+
+    // wrapper div
+    element = document.createElement('div');
+    element.className = options.className + ' ol-unselectable ol-control';
+
+    if (options.switchable) {
+      // button
+      button = document.createElement('button');
+      button.className = 'ol-has-tooltip';
+      element.appendChild(button);
+
+      // tooltip
+      tooltip = document.createElement('span');
+      tooltip.setAttribute('role', 'tooltip');
+      tooltip.innerHTML = options.tipLabel;
+      button.appendChild(tooltip);
+
+      // set onClick to the toggle-function
+      button.addEventListener('click', toggle, false);
+      button.addEventListener('touchstart', toggle, false);
+    }
+
+    // inheritance-stuff
+    ol.control.Control.call(this, {
+      element: element,
+      target: options.target
+    });
+  };
+  ol.inherits(c4g.control.Grid, ol.control.Control);
 
 
 }(jQuery, ol)); // 'The End' :)    - ! Do not write stuff after this line ! -

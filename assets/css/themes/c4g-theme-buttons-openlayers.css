@@ -94,10 +94,9 @@
   border-left-width: 3px;
   border-right-width: 0;
 }
-.ol-attribution .ol-has-tooltip:focus [role=tooltip],
-.ol-attribution .ol-has-tooltip:hover [role=tooltip],
-.ol-full-screen .ol-has-tooltip:focus [role=tooltip],
-.ol-full-screen .ol-has-tooltip:hover [role=tooltip] {
+
+.c4g-control-container-bottom-right > div .ol-has-tooltip:focus [role=tooltip],
+.c4g-control-container-bottom-right > div .ol-has-tooltip:hover [role=tooltip] {
   bottom: 2.2em;
   right: 0;
   left: auto;
@@ -132,8 +131,7 @@
 }
 
 .c4g-control-container-bottom-left-sub,
-.ol-attribution,
-.ol-full-screen,
+.c4g-control-container-bottom-right div,
 .ol-rotate,
 .ol-scale-line,
 .ol-zoom,
