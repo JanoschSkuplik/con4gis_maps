@@ -84,8 +84,8 @@
 .ol-zoom-with-extent .ol-has-tooltip:hover [role=tooltip] {
   top: 2.05em;
 }
-.c4g-starboard .ol-has-tooltip:focus [role=tooltip],
-.c4g-starboard .ol-has-tooltip:hover [role=tooltip] {
+.c4g-starboard-control .ol-has-tooltip:focus [role=tooltip],
+.c4g-starboard-control .ol-has-tooltip:hover [role=tooltip] {
   top: 1.7em;
   right: 2.1em;
   left: auto;
@@ -196,7 +196,7 @@ button.ol-zoom-out {
 
 
 /* starboard */
-.c4g-starboard {
+.c4g-starboard-control {
   top: 50%;
   right: 0;
 
@@ -211,7 +211,7 @@ button.ol-zoom-out {
   -o-transform: translate(0, -2em);
   transform: translate(0, -2em);
 }
-.c4g-starboard button {
+.c4g-starboard-control button {
   position: relative;
   height: 4em;
 

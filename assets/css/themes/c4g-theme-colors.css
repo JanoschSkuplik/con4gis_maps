@@ -1,28 +1,4 @@
-﻿/* general stuff */
-.icon-spin {
-  -webkit-animation: icon-spin 2s infinite linear;
-  animation: icon-spin 2s infinite linear;
-}
-@-webkit-keyframes icon-spin {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(359deg);
-    transform: rotate(359deg);
-  }
-}
-@keyframes icon-spin {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(359deg);
-    transform: rotate(359deg);
-  }
-}
+﻿
 
 /* controls - general */
 .ol-control {
@@ -32,7 +8,8 @@
 .ol-control:hover {
   background-color: rgba(255,255,255,.6)
 }
-.ol-control button {
+.ol-control button,
+.c4g-starboard-container {
   color: #fff;
   background-color: #7b98bc;
   background-color: rgba(0,60,136,.5);

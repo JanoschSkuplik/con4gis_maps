@@ -47,10 +47,10 @@ button.ol-full-screen-false:before {
 button.ol-full-screen-true:before {
   content: "\f066";
 }
-button.c4g-starboard-open:before {
+.c4g-starboard-control.c4g-open button:before {
   content: "\f005";
 }
-button.c4g-starboard-close:before {
+.c4g-starboard-control.c4g-close button:before {
   content: "\f006";
 }
 

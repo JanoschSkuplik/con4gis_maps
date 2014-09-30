@@ -1,4 +1,4 @@
-﻿// 'namespace'
+// 'namespace'
 this.c4g = this.c4g || {};
 
 (function ($, ol) {
@@ -24,16 +24,18 @@ this.c4g = this.c4g || {};
      */
 
     // Create the visual elements
-    var board = document.createElement('div');
+    var container = document.createElement('div');
+
+    var control = document.createElement('div');
     var toggle = document.createElement('button');
     var tooltip = document.createElement('span');
-    var content = document.createElement('ul');
 
     // Set attributes
-    $(content).hide();
-    $(board).addClass('c4g-starboard ol-unselectable ol-control');
-    $(toggle).addClass('ol-has-tooltip c4g-starboard-close');
-    $(tooltip).attr('role','tooltip');
+// $(container).hide();
+    $(container).addClass('c4g-starboard-container c4g-close');
+    $(control).addClass('c4g-starboard-control ol-unselectable ol-control c4g-close');
+    $(toggle).addClass('ol-has-tooltip');
+    $(tooltip).attr('role', 'tooltip');
     $(toggle).on('click', function (event) {
       event.stopPropagation();
       // loose focus, otherwise it looks messy
@@ -43,11 +45,18 @@ this.c4g = this.c4g || {};
       // Load starboard data
       if (!mapContainer.isStarboardLoaded) { mapContainer.loadStarboard(); }
     });
-    tooltip.appendChild(document.createTextNode('Starboard'));
+    tooltip.appendChild(document.createTextNode('Open Starboard'));
     toggle.appendChild(tooltip);
-    board.appendChild(toggle);
-    board.appendChild(content);
+    control.appendChild(toggle);
 
+    //@TODO  -> CSS-File?
+    container.style.position = 'absolute';
+    container.style.minWidth = '200px';
+    container.style.top = '0';
+    container.style.right = '-200px';
+    container.style.height = '100%';
+    mapContainer.map.getViewport().appendChild(container);
+    container.style.background = 'rgba(0,60,136,.5)';
     /**
      * Remark:
      * Starboard properties and methods are added directly to the c4g.MapContainer object.
@@ -62,16 +71,30 @@ this.c4g = this.c4g || {};
 
     // Add accessor functions
     mapContainer.openStarboard = function () {
-      $(toggle).removeClass('c4g-starboard-close');
-      $(toggle).addClass('c4g-starboard-open');
+      $(control).removeClass('c4g-close');
+      $(control).addClass('c4g-open');
+      $(container).removeClass('c4g-close');
+      $(container).addClass('c4g-open');
       mapContainer.isStarboardOpened = true;
-      $(content).show();
+      // $(container).show();
+      control.style.right = container.offsetWidth + 'px';
+      container.style.right = 0;
+
+      // @TODO use a parameter
+      tooltip.innerHTML = 'Close Starboard';
     };
     mapContainer.closeStarboard = function () {
-      $(toggle).removeClass('c4g-starboard-open');
-      $(toggle).addClass('c4g-starboard-close');
+      $(control).removeClass('c4g-open');
+      $(control).addClass('c4g-close');
+      $(container).removeClass('c4g-open');
+      $(container).addClass('c4g-close');
       mapContainer.isStarboardOpened = false;
-      $(content).hide();
+      // $(container).hide();
+      container.style.right = '-' + container.offsetWidth + 'px';
+      control.style.right = 0;
+
+      // @TODO use a parameter
+      tooltip.innerHTML = 'Open Starboard';
     };
     mapContainer.toggleStarboard = function () {
       if (mapContainer.isStarboardOpened) {
@@ -85,13 +108,13 @@ this.c4g = this.c4g || {};
       if (mapContainer.isStarboardLoading) { return; }
       mapContainer.isStarboardLoading = true;
 
-    //@todo get url as parameter
+    //@TODO get url as parameter
       $.getJSON('api4gis/c4g_maps_layerapi/1')
         .done(function (data) {
           drawStarboard(data);
         })
         .fail(function () {
-          //@todo error-message
+          //@TODO error-message
         })
         .always(function () {
           mapContainer.isStarboardLoading = false;
@@ -109,13 +132,13 @@ this.c4g = this.c4g || {};
 
       // Add the layers
       $.each(data, function (index, item){
-        // Todo:
+        // TODO:
         // Create layer, extend with state properties and keep the tree.
       });
       mapContainer.isStarboardLoaded = true;
     };
 
     // Create anddisplay the control
-    mapContainer.map.addControl(new ol.control.Control({ element: board }));
+    mapContainer.map.addControl(new ol.control.Control({ element: control }));
   };
 }(jQuery, ol));

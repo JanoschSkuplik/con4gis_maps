@@ -368,7 +368,8 @@ class C4GMaps
     $GLOBALS['TL_CSS'][] = 'system/modules/con4gis_maps/assets/css/themes/c4g-theme-icons-fontawesome.css';
     $GLOBALS['TL_CSS'][] = 'system/modules/con4gis_maps/assets/css/themes/c4g-theme-buttons-openlayers.css';
     // $GLOBALS['TL_CSS'][] = 'system/modules/con4gis_maps/assets/css/themes/c4g-theme-buttons-con4gis.css';
-    $GLOBALS['TL_CSS'][] = 'system/modules/con4gis_maps/assets/css/themes/c4g-theme-TEMP.css';
+    $GLOBALS['TL_CSS'][] = 'system/modules/con4gis_maps/assets/css/themes/c4g-theme-colors.css';
+    $GLOBALS['TL_CSS'][] = 'system/modules/con4gis_maps/assets/css/themes/c4g-theme-effects.css';
 
     $mapData['addIdToDiv'] = true;
     // $mapData['mapDiv'] = 'c4gMap';
