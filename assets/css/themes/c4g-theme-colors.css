@@ -1,15 +1,16 @@
 ﻿
 
 /* controls - general */
-.ol-control {
+.ol-control,
+.c4g-starboard-container {
   background-color: #eee;
   background-color: rgba(255,255,255,.4);
 }
-.ol-control:hover {
+.ol-control:hover,
+.c4g-starboard-container:hover {
   background-color: rgba(255,255,255,.6)
 }
-.ol-control button,
-.c4g-starboard-container {
+.ol-control button {
   color: #fff;
   background-color: #7b98bc;
   background-color: rgba(0,60,136,.5);

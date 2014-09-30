@@ -56,7 +56,6 @@ this.c4g = this.c4g || {};
     container.style.right = '-200px';
     container.style.height = '100%';
     mapContainer.map.getViewport().appendChild(container);
-    container.style.background = 'rgba(0,60,136,.5)';
     /**
      * Remark:
      * Starboard properties and methods are added directly to the c4g.MapContainer object.
