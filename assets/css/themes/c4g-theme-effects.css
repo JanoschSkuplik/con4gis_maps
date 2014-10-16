@@ -26,7 +26,8 @@
 
 
 .c4g-starboard-control,
-.c4g-starboard-container {
+.c4g-starboard-container,
+.c4g-control-container-bottom-right {
   -webkit-transition: all .5s;
   -o-transition: all .5s;
   transition: all .5s;

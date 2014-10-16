@@ -19,7 +19,9 @@ this.c4g = this.c4g || {};
     self.map = null;
     // self.baseLayers = null;
     // self.layers = null;
-    self.controls = null;
+    // self.controls = null;
+    self.leftSlideElements = [];
+    self.rightSlideElements = [];
     //---
 
     mapData = $.extend({
@@ -336,11 +338,15 @@ this.c4g = this.c4g || {};
     var controlContainerBottomLeft = document.createElement('div');
     controlContainerBottomLeft.className = 'c4g-control-container-bottom-left ol-unselectable';
     $(controlContainerTopLeft).after(controlContainerBottomLeft);
+    // element needs to be moved when Portside will be opened
+    self.leftSlideElements.push(controlContainerBottomLeft);
 
     // bottom-right
     var controlContainerBottomRight = document.createElement('div');
     controlContainerBottomRight.className = 'c4g-control-container-bottom-right ol-unselectable';
     $(controlContainerBottomLeft).after(controlContainerBottomRight);
+    // element needs to be moved when Starboard will be opened
+    self.rightSlideElements.push(controlContainerBottomRight);
     // ===
 
     // add controls ===

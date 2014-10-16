@@ -56,6 +56,7 @@ this.c4g = this.c4g || {};
     container.style.right = '-200px';
     container.style.height = '100%';
     mapContainer.map.getViewport().appendChild(container);
+    
     /**
      * Remark:
      * Starboard properties and methods are added directly to the c4g.MapContainer object.
@@ -78,6 +79,11 @@ this.c4g = this.c4g || {};
       // $(container).show();
       control.style.right = container.offsetWidth + 'px';
       container.style.right = 0;
+      // slide other elements
+      mapContainer.rightSlideElements.forEach(function (element, index, array) {
+        // element.style.right = (element.style.right + container.offsetWidth) + 'px';
+        $(element).css('right', '+=' + container.offsetWidth);
+      });
 
       // @TODO use a parameter
       tooltip.innerHTML = 'Close Starboard';
@@ -91,6 +97,11 @@ this.c4g = this.c4g || {};
       // $(container).hide();
       container.style.right = '-' + container.offsetWidth + 'px';
       control.style.right = 0;
+      // slide other elements
+      mapContainer.rightSlideElements.forEach(function (element, index, array) {
+        // element.style.right = (element.style.right - container.offsetWidth) + 'px';
+        $(element).css('right', '-=' + container.offsetWidth);
+      });
 
       // @TODO use a parameter
       tooltip.innerHTML = 'Open Starboard';
