@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation, either
  * version 3 of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this program. If not, please visit the Free
  * Software Foundation website at <http://www.gnu.org/licenses/>.
@@ -36,7 +36,7 @@ OpenLayers.Control.C4gSelectFeature = OpenLayers.Class(OpenLayers.Control.Select
 				if (this.onReclickFeature)
 					this.onReclickFeature(feature);
 			}
-		}	
+		}
 	}
 });
 
@@ -71,7 +71,7 @@ OpenLayers.Control.C4gDrawFeature = OpenLayers.Class(OpenLayers.Control.DrawFeat
 		case 13: // enter
 			this.submit();
 			handled = true;
-			break;				
+			break;
 		}
 	},
 	activate: function () {
@@ -80,7 +80,7 @@ OpenLayers.Control.C4gDrawFeature = OpenLayers.Class(OpenLayers.Control.DrawFeat
 	},
 	deactivate: function () {
 		OpenLayers.Control.DrawFeature.prototype.deactivate.apply(this, arguments);
-		this.keyboardHandler.deactivate();		
+		this.keyboardHandler.deactivate();
 	},
 	cancel: function() {
 		OpenLayers.Control.DrawFeature.prototype.cancel.apply(this);
@@ -118,17 +118,17 @@ OpenLayers.Control.C4gModifyFeature = OpenLayers.Class(OpenLayers.Control.Modify
 			}
 			else {
 				this.submit();
-			}	
+			}
 		}
 		else {
-			if (!this.isPoint) {				
+			if (!this.isPoint) {
 				if (this.mode!==OpenLayers.Control.ModifyFeature.DRAG) {
 					this.setDragMode();
-				} 
+				}
 				else {
 					this.setReshapeMode();
 				}
-			}	
+			}
 		}
 	},
 	handleKeyDown: function (evt) {
@@ -152,7 +152,7 @@ OpenLayers.Control.C4gModifyFeature = OpenLayers.Class(OpenLayers.Control.Modify
 		case 13: // enter
 			this.submit();
 			handled = true;
-			break;				
+			break;
 		}
 	},
 	activate: function () {
@@ -193,7 +193,7 @@ OpenLayers.Control.C4gModifyFeature = OpenLayers.Class(OpenLayers.Control.Modify
 			this.layer.removeFeatures([feature]);
 			if (!feature.modified) {
 				feature.modified = {
-					geometry: feature.geometry					
+					geometry: feature.geometry
 				};
 			}
 			feature.geometry = feature.redoGeometry;
@@ -224,16 +224,16 @@ function C4GMapsEditor(mapData,map,styles) {
 	}
 
 	var editor = {};
-	map.editor = editor;	
+	map.editor = editor;
 	editor.map = map;
-	
+
 	var editorDiv = document.createElement('div');
 	editorDiv.id = 'c4gMapsEditor';
 	editorDiv.className = 'c4gMapsEditor c4gMapsEditorDialog c4gPortsideExtension';
 	editor.editorDiv = editorDiv;
 	map.viewPortDiv.appendChild(editorDiv);
 
-	editor.updateEditorSize = function() {		
+	editor.updateEditorSize = function() {
 		if (this.editorDiv && (this.editorDiv.style.display === '')) {
 			this.editorDiv.style.height = (this.map.getCurrentSize().h - (this.editorDiv.offsetTop * 2) - 12)+'px';
 		}
@@ -263,7 +263,7 @@ function C4GMapsEditor(mapData,map,styles) {
 		OpenLayers.Event.observe(element, 'touchend', fnIgnoreEvent);
 		OpenLayers.Event.observe(element, 'touchmove', fnIgnoreEvent);
 		OpenLayers.Event.observe(element, 'touchcancel', fnIgnoreEvent);
-		OpenLayers.Event.observe(element, 'touchmove', fnIgnoreEvent);		
+		OpenLayers.Event.observe(element, 'touchmove', fnIgnoreEvent);
 	};
 	fnIgnoreEvents(editorDiv);
 
@@ -290,7 +290,7 @@ function C4GMapsEditor(mapData,map,styles) {
 			if (!isNaN(locstyle)) {
 				name = mapData.locStyles[locstyle].name;
 			}
-		}	
+		}
 		return name;
 	};
 
@@ -305,7 +305,7 @@ function C4GMapsEditor(mapData,map,styles) {
 			}
 			else {
 				stateDiv.innerHTML += OpenLayers.i18n('c4gObjectsSelected')._c4gFormat(this.editLayer.selectedFeatures.length);
-			}		
+			}
 		}
 		else if (this.modifyMode) {
 			if (this.modifyFeature.mode == OpenLayers.Control.ModifyFeature.DRAG) {
@@ -313,14 +313,14 @@ function C4GMapsEditor(mapData,map,styles) {
 			}
 			else {
 				stateDiv.innerHTML = OpenLayers.i18n('c4gActChange')+'<br />';
-			}		
+			}
 			stateDiv.innerHTML +=	OpenLayers.i18n('c4gObject')._c4gFormat(editor.getFeatureName(this.actFeature));
 		}
 		else if (this.activeDrawControl !== null) {
 			if (editor.curLocstyle) {
 				stateDiv.innerHTML = OpenLayers.i18n('c4gActAdd')+'<br />'+
 					OpenLayers.i18n('c4gObject')._c4gFormat(mapData.locStyles[editor.curLocstyle].name);
-			}		
+			}
 		}
 	};
 
@@ -345,13 +345,13 @@ function C4GMapsEditor(mapData,map,styles) {
 			feature.style.cursor = cursor;
 			feature.style.graphicZIndex = 1;
 		}
-	};	
+	};
 
 	editor.setAllStyles = function(cursor) {
 		for (var i = 0; i < editor.editLayer.features.length; i++) {
 			this.setStyle(editor.editLayer.features[i],cursor);
 		}
-	};	
+	};
 
 	editor.unselectAllIcons = function() {
 		for (var i = 0; i < locstyleDiv.childNodes.length; i++) {
@@ -414,7 +414,7 @@ function C4GMapsEditor(mapData,map,styles) {
 			locstyleImg.className = 'c4gMapsEditorLocstyle c4gMapsEditorButton';
 			if (locstyle.editor_icon) {
 				locstyleImg.setAttribute('src',locstyle.editor_icon);
-			}	
+			}
 			else if (locstyle.externalGraphic) {
 				locstyleImg.setAttribute('src',locstyle.externalGraphic);
 				if (locstyle.graphicWidth)
@@ -431,12 +431,12 @@ function C4GMapsEditor(mapData,map,styles) {
 					icon = 'draw_path.png';
 				}
 				locstyleImg.setAttribute('src','system/modules/con4gis_maps/html/' + icon);
-			}	
+			}
 			locstyleImg.setAttribute('title',locstyle.name);
 			locstyleImg.drawStyle = drawStyle;
 			locstyleDiv.appendChild(locstyleImg);
 			OpenLayers.Event.observe(locstyleImg, 'click',
-				OpenLayers.Function.bind(function(element) { 
+				OpenLayers.Function.bind(function(element) {
 					editor.unselectAllIcons();
 					OpenLayers.Element.addClass(element,'c4gMapsEditorSelected');
 					var locstyleId = element.id.substr(21);
@@ -449,7 +449,7 @@ function C4GMapsEditor(mapData,map,styles) {
 		};
 		if (locstyle.editor_points) {
 			fnAddLocstyleIcon('point');
-		}	
+		}
 		if (locstyle.editor_lines) {
 			fnAddLocstyleIcon('line');
 		}
@@ -483,13 +483,13 @@ function C4GMapsEditor(mapData,map,styles) {
 	okIcon.setAttribute('title',OpenLayers.i18n('c4gTitleOk'));
 	featureButtonDiv.appendChild(okIcon);
 	OpenLayers.Event.observe(okIcon, 'click',
-		function() {			
+		function() {
 			if (editor.modifyMode) {
 				editor.modifyFeature.onSubmit();
 			}
 			else {
 				editor.activeDrawControl.submit();
-			}	
+			}
 		}
 	);
 
@@ -504,9 +504,9 @@ function C4GMapsEditor(mapData,map,styles) {
 			if (editor.modifyMode) {
 				editor.modifyFeature.onCancel();
 			}
-			else {	
-				editor.activeDrawControl.cancel();			
-			}	
+			else {
+				editor.activeDrawControl.cancel();
+			}
 		}
 	);
 
@@ -521,9 +521,9 @@ function C4GMapsEditor(mapData,map,styles) {
 			if (editor.modifyMode) {
 				editor.modifyFeature.undo();
 			}
-			else {	
-				editor.activeDrawControl.undo();			
-			}	
+			else {
+				editor.activeDrawControl.undo();
+			}
 		}
 	);
 
@@ -539,12 +539,12 @@ function C4GMapsEditor(mapData,map,styles) {
 			if (editor.modifyMode) {
 				editor.modifyFeature.redo();
 			}
-			else {	
-				editor.activeDrawControl.redo();			
-			}	
+			else {
+				editor.activeDrawControl.redo();
+			}
 		}
 	);
-		
+
 	featureButtonDiv.style.display = 'none';
 
 	/* --------------------------------------------------------------------------------------
@@ -607,7 +607,7 @@ function C4GMapsEditor(mapData,map,styles) {
 			window.open( mapData.editor_helpurl,"","width=540,height=500,left=100,top=100,dependent=yes,location=no,menubar=no,scrollbars=yes,status=no,toolbar=no,resizable=yes");
 			return false;
 		};
-	}	
+	}
 
 	/* --------------------------------------------------------------------------------------
 	   initialize content div
@@ -632,7 +632,7 @@ function C4GMapsEditor(mapData,map,styles) {
 				this.editLayer.addFeatures(arrows);
 				delete this.addingArrows;
 			}
-		}	
+		}
 	};
 
 	editor.removeArrows = function(feature) {
@@ -644,7 +644,7 @@ function C4GMapsEditor(mapData,map,styles) {
 				C4GMapsUtils.removeArrows(this.editLayer,feature);
 				delete this.removingArrows;
 			}
-		}	
+		}
 	};
 
 	editor.updateArrows = function(feature) {
@@ -674,7 +674,7 @@ function C4GMapsEditor(mapData,map,styles) {
 		layer.orgMinExtentGapX = layer.minExtentGapX;
 		layer.minExtentGapX = (editor.dialogSize / 2.0) + 20;
 		layer.orgMinExtentGapY = layer.minExtentGapY;
-		layer.minExtentGapY = 20;		
+		layer.minExtentGapY = 20;
 	};
 
 	// force layers to consider size of dialog on map when zooming to extent e.g. of route
@@ -683,20 +683,20 @@ function C4GMapsEditor(mapData,map,styles) {
 		if (layer.isBaseLayer) {
 			editor.setBaseLayerGaps(layer);
 		}
-	}	
+	}
 
 	map.orgZoomToExtentEditor = map.zoomToExtent;
 	map.zoomToExtent = function(bounds, closest) {
 		this.orgZoomToExtentEditor(bounds,closest);
 		// move center so that the route is not covered by the routing dialogs
-		this.moveByPx((this.editor.dialogSize*(-1.0))/2.0,0); 
+		this.moveByPx((this.editor.dialogSize*(-1.0))/2.0,0);
 
 		// workaround: otherwise layer is not displayed correctly
 		this.moveTo(this.baseLayer.getExtent());
-		
+
 	};
 
-	for(var i = 0; i < map.controls.length; ++i) 
+	for(var i = 0; i < map.controls.length; ++i)
 		if (map.controls[i].div)
 			OpenLayers.Element.addClass(map.controls[i].div, 'c4gMapsEditorDialogActive');
 
@@ -707,17 +707,17 @@ function C4GMapsEditor(mapData,map,styles) {
 		var delFeats = [];
 		for (var i = this.editLayer.features.length - 1; i >= 0; i--) {
 			var feat = this.editLayer.features[i];
-			if ((locstyle === undefined) || (feat.attributes.locstyle == locstyle)) {				
+			if ((locstyle === undefined) || (feat.attributes.locstyle == locstyle)) {
 				if (feat.style && feat.style.editor_collect) {
 					if (typeof(collFeat[feat.attributes.locstyle]) == 'undefined') {
-						collFeat[feat.attributes.locstyle] = 
+						collFeat[feat.attributes.locstyle] =
 							new OpenLayers.Feature.Vector(new OpenLayers.Geometry.Collection(),feat.attributes,feat.style);
 					}
 					var curColl = collFeat[feat.attributes.locstyle];
 					if (feat.geometry.CLASS_NAME == 'OpenLayers.Geometry.Collection') {
 						curColl.geometry.addComponents(feat.geometry.components);
 						curColl.attributes = feat.attributes;
-					} 
+					}
 					else {
 						curColl.geometry.addComponents([feat.geometry]);
 					}
@@ -733,7 +733,7 @@ function C4GMapsEditor(mapData,map,styles) {
 		for (var key in collFeat) {
 			this.editLayer.addFeatures([collFeat[key]]);
 			editor.addArrows(collFeat[key]);
-		}		
+		}
 	};
 
 	/* --------------------------------------------------------------------------------------
@@ -760,9 +760,9 @@ function C4GMapsEditor(mapData,map,styles) {
 			editor.locstyleDiv.style.display = '';
 			editor.map.updateSize();
 			editor.setStateInfo();
-		};	
+		};
 		if (handler != OpenLayers.Handler.Point) {
-			
+
 			control.handler.callbacks = OpenLayers.Util.extend(control.handler.callbacks, {
 				point: function(point) {
 					if (editor.featureButtonDiv.style.display == 'none') {
@@ -774,7 +774,7 @@ function C4GMapsEditor(mapData,map,styles) {
 				}
 			});
 
-		}	
+		}
 		return control;
 	};
 
@@ -791,7 +791,7 @@ function C4GMapsEditor(mapData,map,styles) {
 			if (this.drawControls[key].active) {
 				this.drawControls[key].cancel();
 				this.drawControls[key].deactivate();
-			}	
+			}
 		}
 		editor.activeDrawControl = null;
 	};
@@ -823,7 +823,7 @@ function C4GMapsEditor(mapData,map,styles) {
 			if (this.drawControls[key].active) {
 				this.drawControls[key].cancel();
 				this.drawControls[key].deactivate();
-			}	
+			}
 		}
 
 		editor.modifyFeature.deactivate();
@@ -854,7 +854,7 @@ function C4GMapsEditor(mapData,map,styles) {
 		}
 		else {
 			OpenLayers.Element.addClass(this.deleteIcon,'c4gMapsEditorInvisible');
-		}	
+		}
 
 		if (this.modifyMode)
 			return;
@@ -872,21 +872,21 @@ function C4GMapsEditor(mapData,map,styles) {
 							else
 								this.actFeature.attributes[this.varInput[i].getAttribute('data-key')] = true;
 						}
-						else {							
+						else {
 							if (this.varInput[i].value==='')
 								delete this.actFeature.attributes[this.varInput[i].getAttribute('data-key')];
 							else
 								this.actFeature.attributes[this.varInput[i].getAttribute('data-key')] = this.varInput[i].value;
-						}	
+						}
 					}
-				}	
+				}
 				this.actFeature = null;
 			}
 			this.varInput = null;
 			this.contentDiv.innerHTML = '';
 			OpenLayers.Element.addClass(this.contentDiv,'c4gMapsEditorInvisible');
 			OpenLayers.Element.addClass(this.modifyIcon,'c4gMapsEditorInvisible');
-		} 
+		}
 		else {
 			this.actFeature = this.editLayer.selectedFeatures[0];
 			OpenLayers.Element.removeClass(this.contentDiv,'c4gMapsEditorInvisible');
@@ -905,15 +905,15 @@ function C4GMapsEditor(mapData,map,styles) {
 				if (feature.orgStyle) {
 					feature.style = feature.orgStyle;
 					C4GMapsUtils.updateArrowStyle(layer,feature);
-				}	
-			}	
+				}
+			}
 		}
 		else {
-			if (feature.style) {							
+			if (feature.style) {
 				feature.orgStyle = OpenLayers.Util.extend({},feature.style);
 				this.setFeatureSelected(feature);
 				C4GMapsUtils.updateArrowStyle(layer,feature);
-			}    
+			}
 		}
 
 		this.editLayer.redraw();
@@ -940,11 +940,11 @@ function C4GMapsEditor(mapData,map,styles) {
 					if (typeof(feature.attributes.ArrowBack)!='undefined') {
 						if (feature.attributes.ArrowBack)
 							newInput.checked = true	;
-					}	
-					
+					}
+
 					OpenLayers.Event.observe(newInput, 'change',
 						OpenLayers.Function.bind(function(input) {
-							feature.attributes[input.getAttribute('data-key')] = input.checked; 
+							feature.attributes[input.getAttribute('data-key')] = input.checked;
 							editor.updateArrows(editor.actFeature);
 						}, this, newInput)
 					);
@@ -980,10 +980,10 @@ function C4GMapsEditor(mapData,map,styles) {
 						newInput.size = '50';
 						if (typeof(feature.attributes[editorVar.key]) != 'undefined') {
 							newInput.value = feature.attributes[editorVar.key];
-						}	
+						}
 						OpenLayers.Event.observe(newInput, 'change',
 							OpenLayers.Function.bind(function(input) {
-								feature.attributes[input.getAttribute('data-key')] = input.value; 
+								feature.attributes[input.getAttribute('data-key')] = input.value;
 							}, this, newInput)
 						);
 						newDiv.appendChild(newInput);
@@ -1013,20 +1013,20 @@ function C4GMapsEditor(mapData,map,styles) {
 					if (!editor.modifyMode) {
 						this.unselectAll();
 						editor.actFeature = null;
-					}	
+					}
 					editor.setAllStyles('');
 					editor.editLayer.redraw();
 					editor.setStateInfo();
 				}
 			},
 			onSelect: function(feature){
-				if (feature._feature) {					
+				if (feature._feature) {
 					// arrow -> select parent
 					this.unselect(feature);
 					this.select(feature._feature);
 				} else {
 					editor.selectionChanged(feature,true);
-				}	
+				}
 			},
 			onUnselect: function(feature){
 				editor.selectionChanged(feature,false);
@@ -1050,12 +1050,12 @@ function C4GMapsEditor(mapData,map,styles) {
 			this.editLayer.events.triggerEvent('featureunselected');
 			this.updatePanelForSelection();
 		}
-	};    
+	};
 
 	/* --------------------------------------------------------------------------------------
 	   feature modification mode
 	   --------------------------------------------------------------------------------------- */
-	editor.modifyFeature = new OpenLayers.Control.C4gModifyFeature(editor.editLayer, 
+	editor.modifyFeature = new OpenLayers.Control.C4gModifyFeature(editor.editLayer,
 		{
 			standalone: true,
 			mode: OpenLayers.Control.ModifyFeature.RESHAPE,
@@ -1094,7 +1094,7 @@ function C4GMapsEditor(mapData,map,styles) {
 					editor.editLayer.addFeatures([editor.actFeature]);
 					editor.selectFeature.select(editor.actFeature);
 					delete editor.actFeature.modified;
-				}	
+				}
 				editor.addArrows(editor.actFeature);
 			}
 
@@ -1129,7 +1129,7 @@ function C4GMapsEditor(mapData,map,styles) {
 	};
 
 	// --------------------------------------------------------------------------
-	editor.stopEditMode = function() 
+	editor.stopEditMode = function()
 	{
 		editor.createCollectionFeatures();
 		editor.deactivateControls();
@@ -1144,7 +1144,7 @@ function C4GMapsEditor(mapData,map,styles) {
 			editor.map.router.closePanel(false);
 		}
 
-		editor.editorDiv.removeClass('c4gPortsideInactive');
+		OpenLayers.Element.removeClass(editor.editorDiv, 'c4gPortsideInactive');
 
 		for(var i = 0; i < map.controls.length; ++i) {
 			if (map.controls[i].div) {
@@ -1152,21 +1152,21 @@ function C4GMapsEditor(mapData,map,styles) {
 			}
 		}
 		zpPanel = document.getElementById('C4GMapsZoomPositionPanel_' + mapData.id);
-		if (zpPanel) { zpPanel.addClass('c4gMapsEditorDialogActive') }
+		if (zpPanel) { OpenLayers.Element.addClass(zpPanel, 'c4gMapsEditorDialogActive') }
 
 		editor.updateEditorSize();
 		editor.setSelectionMode();
-		editorButton.addClass('olControlEditorButtonIconActive');
-		editorButton.removeClass('olControlEditorButtonIconInactive');
+		OpenLayers.Element.addClass(editorButton, 'olControlEditorButtonIconActive');
+		OpenLayers.Element.removeClass(editorButton, 'olControlEditorButtonIconInactive');
 
 
 		map.orgZoomToExtentEditor = map.zoomToExtent;
 		map.zoomToExtent = function(bounds, closest) {
 			this.orgZoomToExtentEditor(bounds,closest);
-			this.moveByPx((this.editor.dialogSize*(-1.0))/2.0,0); 
+			this.moveByPx((this.editor.dialogSize*(-1.0))/2.0,0);
 			// workaround: otherwise layer is not displayed correctly
 			this.moveTo(this.baseLayer.getExtent());
-			
+
 		};
 
 		editor.active = true;
@@ -1174,12 +1174,12 @@ function C4GMapsEditor(mapData,map,styles) {
 
 	editor.closeEditor = function()
 	{
-		editor.editorDiv.addClass('c4gPortsideInactive');
-		
+		OpenLayers.Element.addClass(editor.editorDiv, 'c4gPortsideInactive');
+
 		editor.stopEditMode();
 		editor.editLayer.removeAllFeatures();
-		editorButton.addClass('olControlEditorButtonIconInactive');
-		editorButton.removeClass('olControlEditorButtonIconActive');
+		OpenLayers.Element.addClass(editorButton, 'olControlEditorButtonIconInactive');
+		OpenLayers.Element.removeClass(editorButton, 'olControlEditorButtonIconActive');
 
 		for(var i = 0; i < map.controls.length; ++i) {
 			if (map.controls[i].div) {
@@ -1187,8 +1187,8 @@ function C4GMapsEditor(mapData,map,styles) {
 			}
 		}
 		zpPanel = document.getElementById('C4GMapsZoomPositionPanel_' + mapData.id);
-		if (zpPanel) { zpPanel.removeClass('c4gMapsEditorDialogActive') }
-		
+		if (zpPanel) { OpenLayers.Element.removeClass(zpPanel, 'c4gMapsEditorDialogActive') }
+
 		map.zoomToExtent = map.orgZoomToExtentEditor;
 		delete map.orgZoomToExtentEditor;
 
@@ -1231,9 +1231,9 @@ function C4GMapsEditor(mapData,map,styles) {
 
 	OpenLayers.Event.observe(editorButton, 'click',
 		OpenLayers.Function.bind(function(input) { editor.toggleEditor(); }, this, null));
-	
+
 	editor.closeEditor();
 
-	
+
 	return editor;
 }
