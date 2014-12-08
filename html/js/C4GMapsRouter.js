@@ -280,7 +280,7 @@ var C4GMapsRouter=function(mapData,map) {
 			}
 		}
 		zpPanel = document.getElementById('C4GMapsZoomPositionPanel_' + mapData.id);
-		if (zpPanel) { OpenLayers.Element.addClass(zpPanel, ('c4gMapsRouterDialogActive') }
+		if (zpPanel) { OpenLayers.Element.addClass(zpPanel, 'c4gMapsRouterDialogActive') }
 
 		if (!router.layer) {
 			router.layer = new OpenLayers.Layer.Vector('Route Layer');
