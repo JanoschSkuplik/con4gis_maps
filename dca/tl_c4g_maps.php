@@ -842,10 +842,10 @@ class tl_c4g_maps extends Backend
 		if ($GLOBALS['c4g_forum_extension']['installed'] ) {
 			$return[] = 'c4gForum';
 		}
-        if (isset($GLOBALS['c4g_locationtypes']) && is_array($GLOBALS['c4g_locationtypes']))
-        {
-            $return = array_merge($return, $GLOBALS['c4g_locationtypes']);
-        }
+		if (isset($GLOBALS['c4g_locationtypes']) && is_array($GLOBALS['c4g_locationtypes']))
+		{
+			$return = array_merge($return, $GLOBALS['c4g_locationtypes']);
+		}
 		return $return;
 	}
 	
