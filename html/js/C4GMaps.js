@@ -1756,9 +1756,9 @@ function C4GMaps(mapData) {
 			}
 
 			if (data.type=="liveTracking")
-		{
-			liveTracking(map, importLayer, data, setStyleHelper);
-		}
+			{
+				liveTracking(map, importLayer, data, setStyleHelper);
+			}
 
 			map.addLayer(importLayer);
 
