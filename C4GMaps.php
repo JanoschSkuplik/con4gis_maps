@@ -1265,13 +1265,13 @@ class C4GMaps
   			$mapData['createDiv'] = true;
   			$mapData['div'] = 'c4g_Map'.$mapData['id'];
   		}
-        $GLOBALS ['TL_JAVASCRIPT'] [] = $openlayers_libsource;
+        $GLOBALS ['TL_JAVASCRIPT'] [] = $openlayers_libsource . '';
 	    $GLOBALS ['TL_JAVASCRIPT'] [] = 'system/modules/con4gis_maps/html/js/C4GMaps.js';
 
 
         // Include Extended OpenWeatherMap JS
-        //TODO Abfrage, Hier anders positionieren
-        $GLOBALS ['TL_JAVASCRIPT'] [] = $GLOBALS['c4g_maps_extension']['js_openlayers_owm'];
+    // @TODO check for appropriate version and legal stuff, then activate or remove ;-)
+        // $GLOBALS ['TL_JAVASCRIPT'] [] = $GLOBALS['c4g_maps_extension']['js_openlayers_owm'];
 
     // @TODO add toolbox-switch
         //if ($profile['toolbox']) {
