@@ -1484,7 +1484,9 @@ function C4GMaps(mapData) {
 				}
 			}
 		};
-
+		var setStyleHelper = function(features, data) {
+			return setStyle(features, data);
+		};
 		function setStyle(features, data) {
 			var defStyle = {};
 			var style = {};
@@ -1677,6 +1679,11 @@ function C4GMaps(mapData) {
 					forceNodes : data.forcenodes
 				};
 				importFormat = new OpenLayers.Format.OSM.Extended(options);
+			} else if (data.type == 'ajax') {
+				options = {
+					internalProjection : map.getProjectionObject()
+				};
+				importFormat = new OpenLayers.Format.GeoJSON(options);
 			}
 			var layerName = '';
 			if ((data.layername !== undefined) && (data.layername !== null)){
@@ -1724,6 +1731,9 @@ function C4GMaps(mapData) {
 			}
 			strategies.push(zoomFilterStrategy);
 			options.strategies = strategies;
+			if (data.type=="liveTracking") {
+				options.strategies = false;
+			}
 			var importLayer = new OpenLayers.Layer.Vector(layerName,
 					options);
 
@@ -1744,6 +1754,12 @@ function C4GMaps(mapData) {
 					}
 				});
 			}
+
+			if (data.type=="liveTracking")
+			{
+				liveTracking(map, importLayer, data, setStyleHelper);
+			}
+
 			map.addLayer(importLayer);
 
 			var fnAdjustBounds=function(layer) {
@@ -1781,14 +1797,23 @@ function C4GMaps(mapData) {
 					fnAdjustBounds(importLayer);
 				}
 
-
 				if (data.url) {
 					fnHandleUrlRequest = function(importLayer, importFormat,
 							data) {
-						var fnRequestHandler = function urlRequestHandler(
-								request) {
-							importLayer.addFeatures(setStyle(importFormat
-									.read(request.responseText), data));
+						var fnRequestHandler = function urlRequestHandler(request) {
+							if (data.type == "ajax") {
+								var requestData = JSON.parse(request.responseText);
+								if (requestData.features[0].properties.projection) {
+									var options = {
+										internalProjection : map.getProjectionObject(),
+										externalProjection : new OpenLayers.Projection(requestData.features[0].properties.projection)
+									};
+									importFormat = new OpenLayers.Format.GeoJSON(options);
+								}
+								importLayer.addFeatures(setStyle(importFormat.read(requestData), data));
+							} else {
+								importLayer.addFeatures(setStyle(importFormat.read(request.responseText), data));
+							}
 							fnAdjustBounds(importLayer);
 						};
 						var url = data.url;
