@@ -530,35 +530,36 @@ class C4GMaps
     			$mapData['data'][$count] = $addData;
     			$count++;
     		}
-    		/* add hook for track-implementation */
 
-    		// HOOK: add custom logic
-    		if (isset($GLOBALS['TL_HOOKS']['c4gAddLocationsParent']) && is_array($GLOBALS['TL_HOOKS']['c4gAddLocationsParent']))
-    		{
-    			foreach ($GLOBALS['TL_HOOKS']['c4gAddLocationsParent'] as $callback)
-    			{
-    				$objThis->import($callback[0]);
-    				$arrData = $objThis->$callback[0]->$callback[1](($level ? $mapId : 0), $child, $objThis);
+            /* add hook for track-implementation */
 
-    				if ($arrData && is_array($arrData) && sizeof($arrData)>0)
-    				{
-    					foreach ($arrData as $data)
-    					{
-    						if ($data['type'])
-    						{
-    							$mapData['data'][$count] = $data;
-    						}
-    						else
-    						{
-    							$mapData['child'][$count] = $data;
-    						}
+            // HOOK: add custom logic
+			if (isset($GLOBALS['TL_HOOKS']['c4gAddLocationsParent']) && is_array($GLOBALS['TL_HOOKS']['c4gAddLocationsParent']))
+			{
+				foreach ($GLOBALS['TL_HOOKS']['c4gAddLocationsParent'] as $callback)
+				{
+                    $objThis->import($callback[0]);
+                    $arrData = $objThis->$callback[0]->$callback[1](($level ? $mapId : 0), $child, $objThis);
 
-    						$count++;
-    					}
+                    if ($arrData && is_array($arrData) && sizeof($arrData)>0)
+                    {
+                        foreach ($arrData as $data)
+                        {
+                            if ($data['type'])
+                            {
+                                $mapData['data'][$count] = $data;
+                            }
+                            else
+                            {
+                                $mapData['child'][$count] = $data;
+                            }
 
-    				}
-    			}
-    		}
+                            $count++;
+                        }
+
+                    }
+				}
+			}
 
     		if ($data['include_sublocations']) {
     			if ($child->id!=$mapId) {
@@ -1294,7 +1295,7 @@ class C4GMaps
   			$mapData['createDiv'] = true;
   			$mapData['div'] = 'c4g_Map'.$mapData['id'];
   		}
-        $GLOBALS ['TL_JAVASCRIPT'] [] = $openlayers_libsource . '';
+        $GLOBALS ['TL_JAVASCRIPT'] [] = $openlayers_libsource;
 	    $GLOBALS ['TL_JAVASCRIPT'] [] = 'system/modules/con4gis_maps/html/js/C4GMaps.js';
 
 
@@ -1336,7 +1337,7 @@ class C4GMaps
 	    	// Include Extended LayerSwitcher JS
 	    	$GLOBALS ['TL_JAVASCRIPT'] [] = 'system/modules/con4gis_maps/html/js/C4GLayerSwitcher.js';
 
-        }
+		}
 		$GLOBALS['TL_CSS']['c4g_layerswitcher'] = 'system/modules/con4gis_maps/html/css/C4GLayerSwitcher.css';
 
 		if ($openlayers_css) {
