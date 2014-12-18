@@ -9,7 +9,7 @@
  * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
  * @copyright Küstenschmiede GmbH Software & Design 2014
  * @link      https://www.kuestenschmiede.de
- * @filesource 
+ * @filesource
  */
 
 
@@ -18,11 +18,12 @@
  * Global settings
  */
 $GLOBALS['c4g_maps_extension']['installed'] = true;
+$GLOBALS['c4g_maps_extension']['version'] = '1.0.0';
 
 /**
  * Sourcetable definition
  */
-$GLOBALS['c4g_maps_extension']['sourcetable']['tl_calendar_events'] = 
+$GLOBALS['c4g_maps_extension']['sourcetable']['tl_calendar_events'] =
 	array('ptable'        => 'tl_calendar',
         'ptable_option' => 'title',
         'geox'          => 'c4g_loc_geox',
@@ -35,7 +36,7 @@ $GLOBALS['c4g_maps_extension']['sourcetable']['tl_calendar_events'] =
         'sqlwhere'      => 'published = 1',
   		'alias_getparam'=> 'events'
 	);
-        
+
 
 /**
  * Backend Modules
@@ -66,17 +67,17 @@ array_insert( $GLOBALS['BE_MOD']['con4gis'], 1, array
 	)
 ));
 
-if ($GLOBALS['BE_MOD']['content']['calendar']['javascript'] == '') {	
-	$GLOBALS['BE_MOD']['content']['calendar']['javascript'] = 'system/modules/con4gis_maps/html/js/C4GMapsBackend.js'; 
-}   
-	
+if ($GLOBALS['BE_MOD']['content']['calendar']['javascript'] == '') {
+	$GLOBALS['BE_MOD']['content']['calendar']['javascript'] = 'system/modules/con4gis_maps/html/js/C4GMapsBackend.js';
+}
+
 /**
  * Frontend modules
  */
 array_insert( $GLOBALS['FE_MOD']['con4gis'], 1, array
 (
 	'c4g_maps' => 'Module_c4g_maps'
-));	
+));
 /**
  * Content elements
  */
