@@ -17,13 +17,13 @@
 /**
  * Global settings
  */
-$GLOBALS['c4g_maps_extension']['installed'] = true;
-$GLOBALS['c4g_maps_extension']['version'] = '1.0.0';
+$GLOBALS['con4gis_maps_extension']['installed'] = true;
+$GLOBALS['con4gis_maps_extension']['version'] = '1.0.0';
 
 /**
  * Sourcetable definition
  */
-$GLOBALS['c4g_maps_extension']['sourcetable']['tl_calendar_events'] =
+$GLOBALS['con4gis_maps_extension']['sourcetable']['tl_calendar_events'] =
 	array('ptable'        => 'tl_calendar',
         'ptable_option' => 'title',
         'geox'          => 'c4g_loc_geox',
@@ -97,17 +97,17 @@ $GLOBALS['BE_FFL']['c4g_imageSize'] = 'C4GImageSize';
 /**
  * Paths to Javascript libraries
  */
-$GLOBALS['c4g_maps_extension']['js_openlayers'] 				= 'system/modules/con4gis_maps/html/OpenLayers-2.13.1/OpenLayers.js';
-$GLOBALS['c4g_maps_extension']['js_google'] 					= 'http://maps.google.com/maps/api/js?v=3.5&amp;sensor=false';
-//$GLOBALS['c4g_maps_extension']['js_openlayers_libs']['DEFAULT'] = 'OpenLayers/OpenLayers.debug.js';
-$GLOBALS['c4g_maps_extension']['js_openlayers_libs']['DEFAULT'] = 'system/modules/con4gis_maps/html/OpenLayers-2.13.1/OpenLayers.js';
-$GLOBALS['c4g_maps_extension']['js_openlayers_libs']['SERVER'] 	= 'http://openlayers.org/api/2.13.1/OpenLayers.js';
-$GLOBALS['c4g_maps_extension']['css_openlayers']['DEFAULT'] 	= 'system/modules/con4gis_maps/html/OpenLayers-2.13.1/theme/default/style.css';
-$GLOBALS['c4g_maps_extension']['css_openlayers']['SERVER'] 		= 'http://openlayers.org/api/2.13.1/theme/default/style.css';
-$GLOBALS['c4g_maps_extension']['overpass_proxy'] 				= 'system/modules/con4gis_maps/C4GOverpass.php';
-$GLOBALS['c4g_maps_extension']['js_editor'] 					= 'system/modules/con4gis_maps/html/js/C4GMapsEditor.js';
-$GLOBALS['c4g_maps_extension']['css_editor'] 					= 'system/modules/con4gis_maps/html/css/C4GMapsEditor.css';
-$GLOBALS['c4g_maps_extension']['js_openlayers_owm'] 			= 'system/modules/con4gis_maps/html/js/OWM.OpenLayers.1.3.6.js';
+$GLOBALS['con4gis_maps_extension']['js_openlayers'] 				= 'system/modules/con4gis_maps/html/OpenLayers-2.13.1/OpenLayers.js';
+$GLOBALS['con4gis_maps_extension']['js_google'] 					= 'http://maps.google.com/maps/api/js?v=3.5&amp;sensor=false';
+//$GLOBALS['con4gis_maps_extension']['js_openlayers_libs']['DEFAULT'] = 'OpenLayers/OpenLayers.debug.js';
+$GLOBALS['con4gis_maps_extension']['js_openlayers_libs']['DEFAULT'] = 'system/modules/con4gis_maps/html/OpenLayers-2.13.1/OpenLayers.js';
+$GLOBALS['con4gis_maps_extension']['js_openlayers_libs']['SERVER'] 	= 'http://openlayers.org/api/2.13.1/OpenLayers.js';
+$GLOBALS['con4gis_maps_extension']['css_openlayers']['DEFAULT'] 	= 'system/modules/con4gis_maps/html/OpenLayers-2.13.1/theme/default/style.css';
+$GLOBALS['con4gis_maps_extension']['css_openlayers']['SERVER'] 		= 'http://openlayers.org/api/2.13.1/theme/default/style.css';
+$GLOBALS['con4gis_maps_extension']['overpass_proxy'] 				= 'system/modules/con4gis_maps/C4GOverpass.php';
+$GLOBALS['con4gis_maps_extension']['js_editor'] 					= 'system/modules/con4gis_maps/html/js/C4GMapsEditor.js';
+$GLOBALS['con4gis_maps_extension']['css_editor'] 					= 'system/modules/con4gis_maps/html/css/C4GMapsEditor.css';
+$GLOBALS['con4gis_maps_extension']['js_openlayers_owm'] 			= 'system/modules/con4gis_maps/html/js/OWM.OpenLayers.1.3.6.js';
 
 if ($GLOBALS['con4gis_core_extension']['installed']) {
 	$GLOBALS['TL_JAVASCRIPT']['c4g_jq_bbc'] 	= 'system/modules/con4gis_core/lib/wswgEditor/editor.js';
