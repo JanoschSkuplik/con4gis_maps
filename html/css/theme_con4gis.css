@@ -1,0 +1,690 @@
+.olMap {
+    color: #def;
+}
+
+.olPopupCloseBox {
+    background: url(../OpenLayers-2.13.1/theme/con4gis/img/close.png) no-repeat;
+}
+
+div.mod_c4g_maps div.olMap a:link,
+div.mod_c4g_maps div.olMap a:visited,
+.olControlLayerSwitcher .layersDiv .baseLayersDiv label {
+    cursor: pointer;
+    color: rgba(221,238,255,0.7);
+    text-decoration: none;
+    text-shadow: 0 0 1px black;
+
+    transition: color 0.5s, text-shadow 0.5s;
+    -webkit-transition: color 0.5s, text-shadow 0.5s;
+    -moz-transition: color 0.5s, text-shadow 0.5s;
+    -ms-transition: color 0.5s, text-shadow 0.5s;
+    -o-transition: color 0.5s, text-shadow 0.5s;
+}
+div.mod_c4g_maps div.olMap a:hover,
+div.mod_c4g_maps div.olMap a:active,
+div.mod_c4g_maps div.olMap a:focus,
+.olControlLayerSwitcher .layersDiv .baseLayersDiv label:hover {
+    outline: none;
+
+    color: #def;
+    text-shadow: 0 0 1px black,
+                 0 0 5px rgba(221,238,255,0.5);
+}
+
+.olControlPanPanel,
+.olControlZoomPanel,
+.olControlFullScreenPanel,
+.olControlRouter,
+.olControlPanel,
+.olControlNavToolbar,
+.olControlEditorButton,
+.c4gPortsideExtension,
+.olControlToolGraticule,
+.olControlToolMeasure,
+.olControlZoomPositionPanel,
+.olControlC4g_Zoomlevel,
+.olMapViewport > .olControlMousePosition,
+.olControlLayerSwitcher,
+/*.olControlOverviewMap,*/
+.olControlPermalink,
+.olControlC4GPermalink,
+.olControlAttribution {
+    box-shadow: 0 0 3px rgba(0,0,0,0.5),
+                0 0 0 2px rgba(255,255,255,0.5);
+    border-radius: 0;
+    /*border: 5px solid rgba(255,255,255,0.5);*/
+    background-color: #ccc;
+    background-image: -webkit-linear-gradient(top, #456 0%, #2c3e50 50%);
+    background-image: -moz-linear-gradient(top, #456 0%, #2c3e50 50%);
+    background-image: -ms-linear-gradient(top, #456 0%, #2c3e50 50%);
+    background-image: -o-linear-gradient(top, #456 0%, #2c3e50 50%);
+}
+.olControlC4g_Zoomlevel,
+.olControlPanPanel,
+.olControlZoomPanel,
+.olControlFullScreenPanel,
+.olControlRouter,
+.olControlPanel,
+.olControlNavToolbar,
+.olControlEditorButtonPanel,
+.olControlToolGraticulePanel,
+.olControlToolMeasure {
+    margin-bottom: 15px;
+}
+
+div.olButton {
+    width: 20px !important;
+    height: 20px !important;
+
+    border: 1px solid #345;
+    background-image: url(../OpenLayers-2.13.1/theme/con4gis/img/icon-set.png);
+
+    transition: background-color 0.5s;
+    -webkit-transition: background-color 0.5s;
+    -moz-transition: background-color 0.5s;
+    -ms-transition: background-color 0.5s;
+    -o-transition: background-color 0.5s;
+}
+div.olButton:hover {
+    border-color: #456;
+    background-color: rgba(255,255,255,0.1);
+}
+/* ------------------------------------------------- Portside --- */
+.c4gPortsideExtension {
+    color: #def;
+    text-shadow: 0 0 1px black;
+
+    border: 1px solid #456;
+    border-spacing: 0;
+    border-radius: 0;
+
+    box-shadow: 0 0 3px rgba(0,0,0,0.5),
+                -222px 0 0 #cfcfcf,
+                0 0 0 6px rgba(255,255,255,0.5);
+
+    -webkit-transition: left 0.5s;
+    -moz-transition: left 0.5s;
+    -ms-transition: left 0.5s;
+    -o-transition: left 0.5s;
+    transition: left 0.5s;
+}
+/* --- Buttons --- */
+.c4gPortsideExtension .c4gMapsEditorButton {
+    /*width: 25px !important;
+    height: 25px !important;*/
+    margin: 0;
+    padding: 3px;
+    border: 1px solid transparent;
+
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+}
+.c4gPortsideExtension .c4gMapsEditorButton:hover {
+    border-color: #666;
+    box-shadow: inset 0 0 3px rgba(255,255,255,0.5);
+    background-color: rgba(255,255,255,0.3);
+}
+.c4gPortsideExtension .c4gMapsEditorSelected {
+    border-color: #666;
+    box-shadow: inset 0 0 3px rgba(0,0,0,0.5);
+    background-color: rgba(255,255,255,0.3);
+}
+.c4gPortsideExtension .c4gMapsCloseBtn,
+.c4gPortsideExtension .c4gMapsCancelBtn,
+.c4gPortsideExtension .c4gMapsPrinterBtn,
+.c4gPortsideExtension .c4gMapsHideDialogBtn {
+    width: 20px;
+    height: 20px;
+    padding: 0;
+
+    line-height: 20px;
+
+    background-image: url(../OpenLayers-2.13.1/theme/con4gis/img/icon-set.png);
+
+    border: 1px solid transparent;
+
+    -webkit-transition: background-color 0.5s;
+    -moz-transition: background-color 0.5s;
+    -ms-transition: background-color 0.5s;
+    -o-transition: background-color 0.5s;
+    transition: background-color 0.5s;
+}
+.c4gPortsideExtension .c4gMapsCloseBtn:hover,
+.c4gPortsideExtension .c4gMapsCancelBtn:hover,
+.c4gPortsideExtension .c4gMapsPrinterBtn:hover,
+.c4gPortsideExtension .c4gMapsHideDialogBtn:hover {
+    border-color: rgba(255,255,255,0.2);
+    background-color: rgba(255,255,255,0.1);
+    background-image: url(../OpenLayers-2.13.1/theme/con4gis/img/icon-set.png);
+}
+.c4gPortsideExtension .c4gMapsCloseBtn,
+.c4gPortsideExtension .c4gMapsCancelBtn {
+    background-position: -160px 0;
+}
+.c4gPortsideExtension .c4gMapsCloseBtn:hover,
+.c4gPortsideExtension .c4gMapsCancelBtn:hover {
+    background-position: -160px -20px;
+}
+.c4gPortsideExtension .c4gMapsHideDialogBtn {
+    background-position: -120px 0;
+}
+.c4gPortsideExtension .c4gMapsHideDialogBtn:hover {
+    background-position: -120px -20px;
+}
+.c4gPortsideExtension .c4gMapsPrinterBtnInactive {
+    cursor: default;
+    background: none;
+}
+.c4gPortsideExtension .c4gMapsPrinterBtn {
+    background-position: -20px -80px;
+}
+.c4gPortsideExtension .c4gMapsPrinterBtn:hover {
+    background-position: -20px -100px;
+}
+.c4gPortsideExtension input {
+    outline: none;
+    margin: 0;
+    padding: 2px 3px;
+    color: #def;
+    background-color: #123;
+    border: none;
+
+    box-shadow: inset 0 -1px 0 #567;
+
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+}
+.c4gPortsideExtension input:hover {
+    background-color: #234;
+}
+.c4gPortsideExtension input:active,
+.c4gPortsideExtension input:focus {
+    background-color: #123;
+}
+/* --- Router --- */
+.c4gPortsideExtension.c4gMapsRouterWrapper input {
+    margin: 0 10px;
+}
+.c4gMapsRouterHeader {
+    height: 25px;
+}
+.c4gMapsRouterMessage {
+    text-shadow: 0 0 1px #def;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+.c4gMapsRouteInstrDialog {
+    color: #123;
+    text-shadow: 0 0 1px #def;
+    background-color: #e6e6e6;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+}
+.c4gMapsRouterMessage,
+.c4gMapsRouteInstrDialog table.description tr td {
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+}
+.c4gMapsRouteInstrDialog table.description tr:hover td {
+    background-color: white;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+/* --- Editor --- */
+.c4gPortsideExtension .c4gMapsEditorToolbar > div {
+    border-top: 2px solid rgba(0, 0, 0, 0.3);
+}
+/* ------------------------------------------------- Pan-Panel --- */
+.olControlPanPanel {
+    width: 44px;
+    height: 44px;
+}
+.olControlPanPanel .olControlPanNorthItemInactive {
+    top: 0;
+    left: 22px;
+    background-position: -80px 0;
+    border-radius: 0 2px 0 0;
+}
+.olControlPanPanel .olControlPanNorthItemInactive:hover {
+    background-position: -80px -20px;
+}
+.olControlPanPanel .olControlPanSouthItemInactive {
+    top: 22px;
+    left: 0;
+    background-position: -100px 0;
+    border-radius: 0 0 0 2px;
+}
+.olControlPanPanel .olControlPanSouthItemInactive:hover {
+    background-position: -100px -20px;
+}
+.olControlPanPanel .olControlPanWestItemInactive {
+    top: 0;
+    left: 0;
+    background-position: -120px 0;
+    border-radius: 2px 0 0 0;
+}
+.olControlPanPanel .olControlPanWestItemInactive:hover {
+    background-position: -120px -20px;
+}
+.olControlPanPanel .olControlPanEastItemInactive {
+    top: 22px;
+    left: 22px;
+    background-position: -140px 0;
+    border-radius: 0 0 2px 0;
+}
+.olControlPanPanel .olControlPanEastItemInactive:hover {
+    background-position: -140px -20px;
+}
+/* ------------------------------------------------ Zoom-Panel --- */
+/* --- 1 --- */
+.olControlZoomPanel {
+    width: 22px;
+}
+.olControlZoomPanel .olControlZoomInItemInactive {
+    background-position: 0 0;
+}
+.olControlZoomPanel .olControlZoomInItemInactive:hover {
+    background-position: 0 -20px;
+}
+.olControlZoomPanel .olControlZoomToMaxExtentItemInactive {
+    background-position: 0 -40px;
+}
+.olControlZoomPanel .olControlZoomToMaxExtentItemInactive:hover {
+    background-position: 0 -60px;
+}
+.olControlZoomPanel .olControlZoomOutItemInactive {
+    background-position: -20px 0;
+}
+.olControlZoomPanel .olControlZoomOutItemInactive:hover {
+    background-position: -20px -20px;
+}
+/* --- 2 --- */
+.olControlZoom {
+
+
+    /*border-radius: 4px;*/
+}
+.olControlZoom a {
+    color: #808080 !important;
+
+    background-color: #ccc;
+    background-image: -webkit-linear-gradient(left, #bbb 0%, #ccc 50%, #bbb 100%);
+    background-image: -moz-linear-gradient(left, #bbb 0%, #ccc 50%, #bbb 100%);
+    background-image: -ms-linear-gradient(left, #bbb 0%, #ccc 50%, #bbb 100%);
+    background-image: -o-linear-gradient(left, #bbb 0%, #ccc 50%, #bbb 100%);
+}
+.olControlZoom a:hover {
+    background-color: #ddd;
+    background-image: -webkit-linear-gradient(left, #ccc 0%, #ddd 50%, #ccc 100%);
+    background-image: -moz-linear-gradient(left, #ccc 0%, #ddd 50%, #ccc 100%);
+    background-image: -ms-linear-gradient(left, #ccc 0%, #ddd 50%, #ccc 100%);
+    background-image: -o-linear-gradient(left, #ccc 0%, #ddd 50%, #ccc 100%);
+
+    filter: none;
+}
+a.olControlZoomIn {
+    border-radius: 4px 4px 0 0;
+}
+a.olControlZoomOut {
+    border-radius: 0 0 4px 4px;
+}
+/* ----------------------------------------- Fullscreen-Button --- */
+.olControlFullScreenPanel {
+    width: 22px;
+    height: 22px;
+}
+.olControlFullScreenItemActive {
+    background-position: -60px 0;
+}
+.olControlFullScreenItemActive:hover {
+    background-position: -60px -20px;
+}
+.olControlFullScreenItemInactive {
+    background-position: -40px 0;
+}
+.olControlFullScreenItemInactive:hover {
+    background-position: -40px -20px;
+}
+/* --------------------------------------------- Router-Button --- */
+.olControlRouter {
+    width: 22px;
+    height: 22px;
+}
+.olControlRouterIconInactive,
+.olControlRouterIconActive {
+    background-position: -20px -40px;
+}
+.olControlRouterIconInactive:hover,
+.olControlRouterIconActive:hover {
+    background-position: -20px -60px;
+}
+.olControlRouterIconActive {
+    background-color: rgba(255 ,255 ,255 ,0.2) !important;
+    border-color: #789 !important;
+}
+/* -------------------------------------- Navigation & Editing --- */
+.olControlNavToolbar {
+    width: 44px;
+    height: 22px;
+}
+.olControlNavToolbar div {
+    margin: 0;
+}
+.olControlNavigationItemInactive,
+.olControlNavigationItemActive {
+    background-position: -40px -40px;
+}
+.olControlNavigationItemInactive:hover {
+    background-position: -40px -60px;
+}
+.olControlNavigationItemActive,
+.olControlZoomBoxItemActive {
+    background-color: rgba(255 ,255 ,255 ,0.2) !important;
+    border-color: #789 !important;
+    cursor: default !important;
+}
+.olControlZoomBoxItemInactive,
+.olControlZoomBoxItemActive {
+    background-position: -60px -40px;
+}
+.olControlZoomBoxItemInactive:hover {
+    background-position: -60px -60px;
+}
+/*.olControlEditingToolbar .olControlDrawFeaturePointItemInactive {
+    background-position: -77px -1px;
+}
+.olControlEditingToolbar .olControlDrawFeaturePointItemActive {
+    background-position: -77px -24px;
+}
+.olControlEditingToolbar .olControlDrawFeaturePathItemInactive {
+    background-position: -51px -1px;
+}
+.olControlEditingToolbar .olControlDrawFeaturePathItemActive {
+    background-position: -51px -24px;
+}
+.olControlEditingToolbar .olControlDrawFeaturePolygonItemInactive{
+    background-position: -26px -1px;
+}
+.olControlEditingToolbar .olControlDrawFeaturePolygonItemActive {
+    background-position: -26px -24px;
+}*/
+/* ----------------------------------- NavigationHistory-Panel --- */
+.olControlPanelNavigationHistory {
+    width: 44px;
+    height: 22px;
+}
+.olControlNavigationHistoryPreviousItemInactive,
+.olControlNavigationHistoryNextItemInactive {
+    background-color: black !important;
+    border-color: #000 !important;
+    cursor: default !important;
+}
+.olControlNavigationHistoryPreviousItemActive,
+.olControlNavigationHistoryPreviousItemInactive {
+    background-position: -80px -40px;
+}
+.olControlNavigationHistoryPreviousItemActive:hover {
+    background-position: -80px -60px;
+}
+.olControlNavigationHistoryNextItemActive,
+.olControlNavigationHistoryNextItemInactive {
+    background-position: -100px -40px;
+}
+.olControlNavigationHistoryNextItemActive:hover {
+    background-position: -100px -60px;
+}
+/* ----------------------------------------- Editor-Button --- */
+.olControlEditorButton {
+    height: 22px;
+}
+.olControlEditorButtonInactive {
+    width: 22px;
+}
+.olControlEditorButtonIconActive,
+.olControlEditorButtonIconInactive {
+    background-position: 0 -80px;
+}
+.olControlEditorButtonIconActive:hover,
+.olControlEditorButtonIconInactive:hover {
+    background-position: 0 -100px;
+}
+.olControlEditorButtonIconActive {
+    background-color: rgba(255 ,255 ,255 ,0.2) !important;
+    border-color: #789 !important;
+}
+/* ----------------------------------------- Graticule-Panel --- */
+.olControlToolGraticule {
+    height: 22px;
+}
+.olControlToolGraticuleInactive {
+    width: 22px;
+}
+.olControlToolGraticuleActive {
+    width: 66px;
+}
+.olControlToolGraticuleIconActive,
+.olControlToolGraticuleIconInactive {
+    background-position: -180px -40px;
+}
+.olControlToolGraticuleIconActive:hover,
+.olControlToolGraticuleIconInactive:hover {
+    background-position: -180px -60px;
+}
+.olControlToolGraticuleIconActive {
+    background-color: rgba(255 ,255 ,255 ,0.2) !important;
+    border-color: #789 !important;
+}
+/* ----------------------------------------- Measuretool-Panel --- */
+.olControlToolMeasure {
+    height: 22px;
+}
+.olControlToolMeasureInactive {
+    width: 22px;
+}
+.olControlToolMeasureActive {
+    width: 66px;
+}
+.olControlToolMeasureIconActive,
+.olControlToolMeasureIconInactive {
+    background-position: -120px -40px;
+}
+.olControlToolMeasureIconActive:hover,
+.olControlToolMeasureIconInactive:hover {
+    background-position: -120px -60px;
+}
+.olControlToolMeasureIconActive,
+.olControlToolMeasureIconLineActive,
+.olControlToolMeasureIconPolygonActive {
+    background-color: rgba(255 ,255 ,255 ,0.2) !important;
+    border-color: #789 !important;
+}
+.olControlToolMeasureIconLineActive,
+.olControlToolMeasureIconPolygonActive {
+    cursor: default !important;
+}
+.olControlToolMeasureIconLineActive,
+.olControlToolMeasureIconLineInactive {
+    background-position: -140px -40px;
+    border: 2px solid #789;
+}
+.olControlToolMeasureIconLineInactive:hover {
+    background-position: -140px -60px;
+}
+.olControlToolMeasureIconPolygonActive,
+.olControlToolMeasureIconPolygonInactive {
+    background-position: -160px -40px;
+    border: 2px solid #789;
+    border-left: none;
+}
+.olControlToolMeasureIconPolygonInactive:hover {
+    background-position: -160px -60px;
+}
+.olControlToolMeasureDisplay {
+    margin-top: 5px;
+    color: #def;
+    background-color: #2c3e50;
+    box-shadow: 0 0 3px rgba(0,0,0,0.5),
+                0 0 0 2px rgba(255,255,255,0.5);
+}
+/* ----------------------------------------- Scaleline-Display --- */
+.olControlScaleLine {
+    left: 10px;
+    bottom: 25px;
+    color: #2c3e50;
+    font-size: xx-small;
+
+    -webkit-transition: left 0.5s;
+    -moz-transition: left 0.5s;
+    -ms-transition: left 0.5s;
+    -o-transition: left 0.5s;
+    transition: left 0.5s;
+}
+.olControlScaleLineTop {
+    border-color: rgba(16, 32, 48, 0.6);
+}
+.olControlScaleLineBottom {
+    border-color: rgba(16, 32, 48, 0.6);
+}
+/* --------------------------- Zoomlevel-Mouseposition-Display --- */
+.olControlZoomlevel,
+.olControlMousePosition,
+.olControlZoomPositionPanel {
+    margin-bottom: 0;
+    padding: 0 4px 0 2px;
+    color: #def;
+    border-radius: 0;
+    font-size: xx-small;
+
+    -webkit-transition: left 0.5s;
+    -moz-transition: left 0.5s;
+    -ms-transition: left 0.5s;
+    -o-transition: left 0.5s;
+    transition: left 0.5s;
+}
+.olForeignContainer .olControlC4g_Zoomlevel,
+.olForeignContainer .olMapViewport > .olControlMousePosition,
+.olForeignContainer .olControlZoomPositionPanel {
+    border-radius: 0;
+}
+/* --------------------------------------------- Layerswitcher --- */
+.olControlLayerSwitcher {
+    color: #def;
+    background-color: transparent;
+}
+.olControlLayerSwitcher .maximizeDiv img,
+.olControlLayerSwitcher .minimizeDiv img {
+    display: none;
+}
+.olControlLayerSwitcher .maximizeDiv {
+    border-radius: 0;
+    background-color: #2c3e50;
+    background-position: -180px 0;
+    box-shadow: 0 0 3px rgba(0,0,0,0.5),
+                0 0 0 2px rgba(255,255,255,0.5);
+}
+.olControlLayerSwitcher .maximizeDiv:hover {
+    background-color: #456;
+    background-position: -180px -20px;
+}
+.olControlLayerSwitcher .minimizeDiv {
+    background-position: -20px 0;
+}
+.olControlLayerSwitcher .minimizeDiv:hover {
+    background-position: -20px -20px;
+}
+.olControlLayerSwitcher .layersDiv {
+    background-color: transparent;
+}
+/* ---------------------------------------------- Overview-Map --- */
+.olControlOverviewMapElement {
+    padding: 1px;
+    background: #2c3e50;
+    border-radius: 0;
+}
+.olControlOverviewMapMaximizeButton,
+.olControlOverviewMapMinimizeButton {
+    bottom: 70px;
+}
+.olControlOverviewMap .olControlOverviewMapMaximizeButton {
+    background-color: #2c3e50;
+    box-shadow: 0 0 3px rgba(0,0,0,0.5),
+                0 0 0 2px rgba(255,255,255,0.5);
+}
+.olControlOverviewMap .olControlOverviewMapMaximizeButton:hover {
+    background-color: #456;
+    background-position: 0 -20px;
+}
+.olControlOverviewMapMinimizeButton {
+    background-position: -20px 0;
+}
+.olControlOverviewMapMinimizeButton:hover {
+    background-position: -20px -20px;
+}
+.olControlOverviewMapMaximizeButton img,
+.olControlOverviewMapMinimizeButton img {
+    display: none;
+}
+.olControlOverviewMapExtentRectangle {
+    background-image: url("../OpenLayers-2.13.1/theme/con4gis/img/blank.gif");
+    border-color: #123;
+}
+.olControlOverviewMapRectReplacement {
+    background-image: url("../OpenLayers-2.13.1/theme/con4gis/img/overview_replacement.gif");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+/* ------------------------------------------ Permalink-Button --- */
+.olControlPermalink,
+.olControlC4GPermalink {
+    right: 0;
+    bottom: 30px;
+    padding: 2px 5px;
+    font-size: smaller;
+    border-radius: 0;
+}
+/* --------------------------------------- Attribution-Display --- */
+.olControlAttribution {
+    right: 0;
+    bottom: 0;
+    padding: 1px 5px 0 5px;
+    line-height: 16px;
+
+    font-size: smaller;
+
+    border: none;
+    border-radius: 0;
+
+    opacity: 0.75;
+}
+.olControlAttribution img {
+    width: 12px;
+    height: 12px;
+}
+/* --------------------------------------- additional Handlers --- */
+.olHandlerBoxZoomBox {
+    background-color: white;
+    border: 2px solid #ccc;
+
+    opacity: 0.50;
+    filter: alpha(opacity=50);
+}
+.olHandlerBoxSelectFeature {
+    background-color: white;
+    border: 2px solid #ccc;
+
+    opacity: 0.50;
+    filter: alpha(opacity=50);
+}
+
+/* ---------------------------------------------------- Fixes --- */
+.olControlNoSelect[style*="width: 0px"],
+.olControlNoSelect[style*="height: 0px"],
+.olControlNoSelect[style*="display: none"] {
+    box-shadow: none !important;
+}

@@ -59,7 +59,7 @@ ul.dynatree-container
 
 .olC4gSwitcher_default ul.dynatree-container
 {
-	background-color: darkblue;	
+	background-color: darkblue;
 }
 
 
@@ -67,19 +67,19 @@ ul.dynatree-container
 .olC4gSwitcher_default ul.dynatree-container a:focus,
 .olC4gSwitcher_default span.dynatree-focused a:link  /* @IE */
 {
-	background-color: blue; 
+	background-color: blue;
 }
 
 .olC4gSwitcher_dark ul.dynatree-container
 {
-	background-color: transparent;	
+	background-color: transparent;
 }
 
 .olC4gSwitcher_dark ul.dynatree-container a:hover,
 .olC4gSwitcher_dark ul.dynatree-container a:focus,
 .olC4gSwitcher_dark span.dynatree-focused a:link  /* @IE */
 {
-	background-color: transparent; 
+	background-color: transparent;
 }
 
 .olC4gSwitcher_blue span.dynatree-selected a,
@@ -90,14 +90,14 @@ ul.dynatree-container
 
 .olC4gSwitcher_blue ul.dynatree-container
 {
-	background-color: transparent;	
+	background-color: transparent;
 }
 
 .olC4gSwitcher_blue ul.dynatree-container a:hover,
 .olC4gSwitcher_blue ul.dynatree-container a:focus,
 .olC4gSwitcher_blue span.dynatree-focused a:link  /* @IE */
 {
-	background-color: transparent; 
+	background-color: transparent;
 }
 
 .olC4gSwitcher_modern span.dynatree-selected a,
@@ -110,9 +110,10 @@ ul.dynatree-container
 
 
 .olC4gSwitcher_modern ul.dynatree-container,
+.olC4gSwitcher_con4gis ul.dynatree-container,
 .olC4gSwitcher_metro ul.dynatree-container
 {
-	background-color: transparent;	
+	background-color: transparent;
 }
 
 .olC4gSwitcher_modern ul.dynatree-container a:hover,
@@ -120,9 +121,12 @@ ul.dynatree-container
 .olC4gSwitcher_modern span.dynatree-focused a:link,
 .olC4gSwitcher_metro ul.dynatree-container a:hover,
 .olC4gSwitcher_metro ul.dynatree-container a:focus,
-.olC4gSwitcher_metro span.dynatree-focused a:link  /* @IE */
+.olC4gSwitcher_metro span.dynatree-focused a:link,
+.olC4gSwitcher_con4gis ul.dynatree-container a:hover,
+.olC4gSwitcher_con4gis ul.dynatree-container a:focus,
+.olC4gSwitcher_con4gis span.dynatree-focused a:link  /* @IE */
 {
-	background-color: transparent; 
+	background-color: transparent;
 }
 
 .olC4gSwitcher_red span.dynatree-selected a,
@@ -133,14 +137,14 @@ ul.dynatree-container
 
 .olC4gSwitcher_red ul.dynatree-container
 {
-	background-color: transparent;	
+	background-color: transparent;
 }
 
 .olC4gSwitcher_red ul.dynatree-container a:hover,
 .olC4gSwitcher_red ul.dynatree-container a:focus,
 .olC4gSwitcher_red span.dynatree-focused a:link  /* @IE */
 {
-	background-color: transparent; 
+	background-color: transparent;
 }
 
 span.dynatree-empty, span.dynatree-vline, span.dynatree-connector, span.dynatree-expander, span.dynatree-icon, span.dynatree-checkbox, span.dynatree-radio, span.dynatree-drag-helper-img, #dynatree-drop-marker

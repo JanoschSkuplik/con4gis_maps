@@ -9,13 +9,13 @@
  * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
  * @copyright Küstenschmiede GmbH Software & Design 2014
  * @link      https://www.kuestenschmiede.de
- * @filesource 
+ * @filesource
  */
 
 
 
 /**
- * Table tl_c4g_stuffprofiles 
+ * Table tl_c4g_stuffprofiles
  */
 $GLOBALS['TL_DCA']['tl_c4g_map_profiles'] = array
 (
@@ -92,23 +92,23 @@ $GLOBALS['TL_DCA']['tl_c4g_map_profiles'] = array
 										 '{navigation_legend},pan_panel,zoom_panel,mouse_nav,keyboard_nav,nav_history,fullscreen;'.
 										 '{tool_legend},measuretool,graticule,editor;'.
 	                                     '{information_legend},attribution, overviewmap,scaleline,mouseposition,permalink,zoomlevel;'.
-	                                     '{geosearch_legend:hide},geosearch;'.	                                     
+	                                     '{geosearch_legend:hide},geosearch;'.
 	                                     '{geopicker_legend:hide},geopicker;'.
 	                                     '{router_legend:hide},router;'.
 	                                     '{editor_legend:hide},editor_styles_point,editor_styles_line,editor_styles_polygon,editor_vars,editor_show_items,editor_helpurl;'.
 	                                     '{expert_legend:hide},libsource,imagepath,script,overpass_url,custom_div;'.
 										 '{misc_legend:hide},link_newwindow,link_open_on,hover_popups,div_layerswitcher,label_baselayer,label_overlays'
-										 
-	                                     
+
+
 	),
 
-	
+
 	// Subpalettes
 	'subpalettes' => array
 	(
 		'mouse_nav'                   => 'mouse_nav_wheel,mouse_nav_zoombox,mouse_nav_kinetic,mouse_nav_toolbar',
 		'attribution'                 => 'cfg_logo_attribution,div_attribution,add_attribution',
-		'hover_popups'				  => 'hover_popups_stay',		
+		'hover_popups'				  => 'hover_popups_stay',
 		'geosearch'					  => 'geosearch_engine,geosearch_div,geosearch_zoomto,geosearch_zoombounds,geosearch_attribution',
 		'geopicker'					  => 'geopicker_fieldx,geopicker_fieldy,geopicker_searchdiv,geopicker_attribution',
 		'router'					  => 'router_viaroute_url,router_attribution'
@@ -140,10 +140,10 @@ $GLOBALS['TL_DCA']['tl_c4g_map_profiles'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_map_profiles']['theme'],
 			'exclude'                 => true,
 			'inputType'               => 'select',
-			'options'				  => array('dark','modern','metro','blue','red'),
+			'options'				  => array('dark','modern','metro','con4gis','blue','red'),
 			'eval'					  => array('tl_class'=>'clr','includeBlankOption' => true, blankOptionLabel => $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['references']['default_theme']),
 			'reference'	   		  	  => &$GLOBALS['TL_LANG']['tl_c4g_map_profiles']['references']
-		
+
 		),
 
 		'baselayers' => array
@@ -154,7 +154,7 @@ $GLOBALS['TL_DCA']['tl_c4g_map_profiles'] = array
 			'options_callback'        => array('tl_c4g_map_profiles','getAllBaseLayers'),
 			'eval'                    => array('mandatory'=>false, 'multiple'=>true)
 		),
-		
+
 		'locstyles' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_map_profiles']['locstyles'],
@@ -163,7 +163,7 @@ $GLOBALS['TL_DCA']['tl_c4g_map_profiles'] = array
 			'options_callback'        => array('tl_c4g_map_profiles','getAllLocStyles'),
 			'eval'                    => array('mandatory'=>false, 'multiple'=>true)
 		),
-		
+
 		'pan_panel' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_map_profiles']['pan_panel'],
@@ -190,14 +190,14 @@ $GLOBALS['TL_DCA']['tl_c4g_map_profiles'] = array
 			'default'                 => true,
 			'inputType'               => 'checkbox'
 		),
-		
+
 		'mouse_nav' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_map_profiles']['mouse_nav'],
 			'exclude'                 => true,
 			'default'                 => true,
 			'inputType'               => 'checkbox',
-            'eval'                    => array('submitOnChange' => true)                             	  
+            'eval'                    => array('submitOnChange' => true)
 		),
 
 		'mouse_nav_wheel' => array
@@ -207,7 +207,7 @@ $GLOBALS['TL_DCA']['tl_c4g_map_profiles'] = array
 			'default'                 => true,
 			'inputType'               => 'checkbox'
 		),
-		
+
 		'mouse_nav_zoombox' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_map_profiles']['mouse_nav_zoombox'],
@@ -223,7 +223,7 @@ $GLOBALS['TL_DCA']['tl_c4g_map_profiles'] = array
 			'default'                 => false,
 			'inputType'               => 'checkbox'
 		),
-		
+
 		'mouse_nav_toolbar' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_map_profiles']['mouse_nav_toolbar'],
@@ -274,7 +274,7 @@ $GLOBALS['TL_DCA']['tl_c4g_map_profiles'] = array
 			'default'                 => false,
 			'inputType'               => 'checkbox'
 		),
-		
+
 		'editor' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_map_profiles']['editor'],
@@ -282,14 +282,14 @@ $GLOBALS['TL_DCA']['tl_c4g_map_profiles'] = array
 			'inputType'               => 'checkbox',
 			'eval'                    => array('mandatory'=>false)
 		),
-		
+
 		'attribution' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_map_profiles']['attribution'],
 			'exclude'                 => true,
 			'default'                 => true,
 			'inputType'               => 'checkbox',
-            'eval'                    => array('submitOnChange' => true)                             	  
+            'eval'                    => array('submitOnChange' => true)
 		),
 
 		'cfg_logo_attribution' => array
@@ -307,7 +307,7 @@ $GLOBALS['TL_DCA']['tl_c4g_map_profiles'] = array
 			'inputType'               => 'text',
 			'eval'                    => array('maxlength'=>30)
 		),
-		
+
 		'add_attribution' => array
 		(
 			'label'					  => &$GLOBALS['TL_LANG']['tl_c4g_map_profiles']['add_attribution'],
@@ -315,7 +315,7 @@ $GLOBALS['TL_DCA']['tl_c4g_map_profiles'] = array
 			'inputType' 		      => 'text',
 			'eval'                    => array('maxlength'=>255, 'tl_class'=>'long', 'allowHtml' => true)
 		),
-		
+
 		'overviewmap' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_map_profiles']['overviewmap'],
@@ -339,7 +339,7 @@ $GLOBALS['TL_DCA']['tl_c4g_map_profiles'] = array
 			'default'                 => false,
 			'inputType'               => 'checkbox'
 		),
-		
+
 		'permalink' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_map_profiles']['permalink'],
@@ -355,14 +355,14 @@ $GLOBALS['TL_DCA']['tl_c4g_map_profiles'] = array
 			'default'                 => false,
 			'inputType'               => 'checkbox'
 		),
-		
+
 		'geosearch' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_map_profiles']['geosearch'],
 			'exclude'                 => true,
 			'default'                 => '',
 			'inputType'               => 'checkbox',
-           	'eval'                    => array('submitOnChange' => true)                             	  
+           	'eval'                    => array('submitOnChange' => true)
 		),
 
 		'geosearch_engine' => array
@@ -405,7 +405,7 @@ $GLOBALS['TL_DCA']['tl_c4g_map_profiles'] = array
 			'inputType'               => 'text',
 			'eval'                    => array('rgxp'=>'digit')
 		),
-		
+
 		'geosearch_zoombounds' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_map_profiles']['geosearch_zoombounds'],
@@ -430,7 +430,7 @@ $GLOBALS['TL_DCA']['tl_c4g_map_profiles'] = array
 			'inputType'               => 'checkbox',
 			'eval'                    => array('submitOnChange' => true)
 		),
-		
+
 		'geopicker_fieldx' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_map_profiles']['geopicker_fieldx'],
@@ -446,7 +446,7 @@ $GLOBALS['TL_DCA']['tl_c4g_map_profiles'] = array
 			'inputType'               => 'text',
 			'eval'                    => array('maxlength'=>30, 'mandatory'=>true)
 		),
-		
+
 		'geopicker_searchdiv' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_map_profiles']['geopicker_searchdiv'],
@@ -454,7 +454,7 @@ $GLOBALS['TL_DCA']['tl_c4g_map_profiles'] = array
 			'inputType'               => 'text',
 			'eval'                    => array('maxlength'=>30, 'mandatory'=>true)
 		),
-		
+
 		'geopicker_attribution' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_map_profiles']['geopicker_attribution'],
@@ -487,24 +487,24 @@ $GLOBALS['TL_DCA']['tl_c4g_map_profiles'] = array
 			'inputType' 		      => 'text',
 			'eval'                    => array('maxlength'=>255, 'tl_class'=>'long', 'allowHtml' => true)
 		),
-		
+
 		'libsource' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_map_profiles']['libsource'],
 			'exclude'                 => true,
 			'inputType'               => 'select',
-			'default'                 => 'DEFAULT',		
+			'default'                 => 'DEFAULT',
 		    'options_callback'        => array('tl_c4g_map_profiles','getLibSources'),
 		    'eval'                    => array('submitOnChange' => true, 'tl_class' => 'long'),
-		),			
-		
+		),
+
 		'imagepath' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_map_profiles']['imagepath'],
 			'exclude'                 => true,
 			'inputType'               => 'fileTree',
 		    'eval'					  => array( 'trailingSlash' => false, 'files' => false, 'fieldType' => 'radio' )
-			
+
 		),
 
 		'script' => array
@@ -523,7 +523,7 @@ $GLOBALS['TL_DCA']['tl_c4g_map_profiles'] = array
 			'inputType'               => 'text',
 			'eval'                    => array('rgxp'=>'url', 'decodeEntities'=>true, 'maxlength'=>255, 'tl_class'=>'long'),
 		),
-		
+
 		'custom_div' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_map_profiles']['custom_div'],
@@ -531,7 +531,7 @@ $GLOBALS['TL_DCA']['tl_c4g_map_profiles'] = array
 			'inputType'               => 'text',
 			'eval'                    => array('maxlength'=>30)
 		),
-		
+
 		'link_newwindow' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_map_profiles']['link_newwindow'],
@@ -549,14 +549,14 @@ $GLOBALS['TL_DCA']['tl_c4g_map_profiles'] = array
 		    'options'                 => array('CLICK','DBLCL'),
 			'reference'               => &$GLOBALS['TL_LANG']['tl_c4g_map_profiles']['references'],
 		),
-		
+
 		'hover_popups' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_map_profiles']['hover_popups'],
 			'exclude'                 => true,
 			'default'                 => '',
 			'inputType'               => 'checkbox',
-            'eval'                    => array('submitOnChange' => true)                             	  
+            'eval'                    => array('submitOnChange' => true)
 		),
 
 		'hover_popups_stay' => array
@@ -566,7 +566,7 @@ $GLOBALS['TL_DCA']['tl_c4g_map_profiles'] = array
 			'default'                 => false,
 			'inputType'               => 'checkbox'
 		),
-		
+
 		'div_layerswitcher' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_map_profiles']['div_layerswitcher'],
@@ -574,7 +574,7 @@ $GLOBALS['TL_DCA']['tl_c4g_map_profiles'] = array
 			'inputType'               => 'text',
 			'eval'                    => array('maxlength'=>30)
 		),
-		
+
 		'label_baselayer' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_map_profiles']['label_baselayer'],
@@ -582,7 +582,7 @@ $GLOBALS['TL_DCA']['tl_c4g_map_profiles'] = array
 			'inputType'               => 'text',
 			'eval'                    => array('maxlength'=>30)
 		),
-		
+
 		'label_overlays' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_map_profiles']['label_overlays'],
@@ -599,7 +599,7 @@ $GLOBALS['TL_DCA']['tl_c4g_map_profiles'] = array
 			'options_callback'        => array('tl_c4g_map_profiles','getAllLocStyles'),
 			'eval'                    => array('mandatory'=>false, 'multiple'=>true)
 		),
-		
+
 		'editor_styles_line' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_map_profiles']['editor_styles_line'],
@@ -608,7 +608,7 @@ $GLOBALS['TL_DCA']['tl_c4g_map_profiles'] = array
 			'options_callback'        => array('tl_c4g_map_profiles','getAllLocStyles'),
 			'eval'                    => array('mandatory'=>false, 'multiple'=>true)
 		),
-		
+
 		'editor_styles_polygon' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_map_profiles']['editor_styles_polygon'],
@@ -617,7 +617,7 @@ $GLOBALS['TL_DCA']['tl_c4g_map_profiles'] = array
 			'options_callback'        => array('tl_c4g_map_profiles','getAllLocStyles'),
 			'eval'                    => array('mandatory'=>false, 'multiple'=>true)
 		),
-		
+
 		'editor_vars' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_map_profiles']['editor_vars'],
@@ -641,8 +641,8 @@ $GLOBALS['TL_DCA']['tl_c4g_map_profiles'] = array
 			'eval'                    => array('rgxp'=>'url', 'decodeEntities'=>true, 'maxlength'=>255, 'tl_class'=>'wizard'),
 			'wizard' 				  => array(array('tl_c4g_map_profiles', 'pickUrl'))
 		),
-		
-		
+
+
     )
 );
 
@@ -660,11 +660,11 @@ class tl_c4g_map_profiles extends Backend {
 	public function set_default($varValue, DataContainer $dc)
 	{
 		if ($varValue) {
-			$this->Database->query('UPDATE tl_c4g_map_profiles SET is_default="" WHERE id <> '.$dc->id);			
+			$this->Database->query('UPDATE tl_c4g_map_profiles SET is_default="" WHERE id <> '.$dc->id);
 		}
 		return $varValue;
-	}	
-	
+	}
+
 	/**
 	 * Return all available OpenLayers Libraries
 	 * @param object
@@ -678,8 +678,8 @@ class tl_c4g_map_profiles extends Backend {
 			$return[$key] = $lib;
 		}
 		return $return;
-	}	
-	
+	}
+
 	/**
 	 * Return all Location Styles as array
 	 * @param object
@@ -711,7 +711,7 @@ class tl_c4g_map_profiles extends Backend {
 		}
 		return $return;
 	}
-		
+
 	/**
 	 * Update the palette information that depend on other values
 	 */
@@ -727,13 +727,13 @@ class tl_c4g_map_profiles extends Backend {
 			if ($objProfile->zoom_panel == '1') {
 				$GLOBALS['TL_DCA']['tl_c4g_map_profiles']['palettes']['default'] =
 					str_replace(',zoom_panel,',',zoom_panel,zoom_panel_world,',
-						$GLOBALS['TL_DCA']['tl_c4g_map_profiles']['palettes']['default']);				
+						$GLOBALS['TL_DCA']['tl_c4g_map_profiles']['palettes']['default']);
 			}
 			if ($objProfile->geosearch_engine == '3') {
 				$GLOBALS['TL_DCA']['tl_c4g_map_profiles']['subpalettes']['geosearch'] =
 					str_replace(',geosearch_div,',',geosearch_customengine_url,geosearch_customengine_attribution,geosearch_div,',
-						$GLOBALS['TL_DCA']['tl_c4g_map_profiles']['subpalettes']['geosearch']);				
-			}			
+						$GLOBALS['TL_DCA']['tl_c4g_map_profiles']['subpalettes']['geosearch']);
+			}
 		}
 
 	}
@@ -751,8 +751,8 @@ class tl_c4g_map_profiles extends Backend {
 		else {
 			return ' <a href="contao/page.php?do='.Input::get('do').'&amp;table='.$dc->table.'&amp;field='.$dc->field.'&amp;value='.str_replace(array('{{link_url::', '}}'), '', $dc->value).'" title="'.specialchars($GLOBALS['TL_LANG']['MSC']['pagepicker']).'" onclick="Backend.getScrollOffset();Backend.openModalSelector({\'width\':765,\'title\':\''.specialchars(str_replace("'", "\\'", $GLOBALS['TL_LANG']['MOD']['page'][0])).'\',\'url\':this.href,\'id\':\''.$dc->field.'\',\'tag\':\'ctrl_'.$dc->field . ((Input::get('act') == 'editAll') ? '_' . $dc->id : '').'\',\'self\':this});return false">' . $this->generateImage('pickpage.gif', $GLOBALS['TL_LANG']['MSC']['pagepicker'], 'style="vertical-align:top;cursor:pointer"') . '</a>';
 		}
-	
+
 	}
-	
+
 }
 ?>
