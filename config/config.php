@@ -74,7 +74,7 @@ if ($GLOBALS['BE_MOD']['content']['calendar']['javascript'] == '') {
 /**
  * Frontend modules
  */
-array_insert( $GLOBALS['FE_MOD']['con4gis'], 1, array
+array_insert( $GLOBALS['FE_MOD']['con4gis'], 0, array
 (
 	'c4g_maps' => 'Module_c4g_maps'
 ));
