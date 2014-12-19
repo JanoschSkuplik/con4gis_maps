@@ -263,7 +263,7 @@ class C4GMaps
             // Location Type "Table" - child locations from other tables in the DB
             // --------------------------------------------------------------------
             if ($child->location_type == 'table') {
-                $source = $GLOBALS['c4g_maps_extension']['sourcetable'][$child->tab_source];
+                $source = $GLOBALS['con4gis_maps_extension']['sourcetable'][$child->tab_source];
                 if (is_array($source)) {
     				if (($source['geox']) && ($source['geoy'])) {
     					$orgCount = $count;
@@ -475,7 +475,7 @@ class C4GMaps
     			}
 
     			if ($child->location_type == 'overpass') {
-    				$addData['url'] = $GLOBALS['c4g_maps_extension']['overpass_proxy'];
+    				$addData['url'] = $GLOBALS['con4gis_maps_extension']['overpass_proxy'];
     				$addData['ovp_request'] = $child->ovp_request;
     				$addData['ovp_bbox_limited'] = $child->ovp_bbox_limited;
     			}
@@ -811,8 +811,8 @@ class C4GMaps
             }
             $mapData['switcher_class'] = 'olC4gSwitcher_default';
           }
-          $openlayers_libsource = $GLOBALS['c4g_maps_extension']['js_openlayers_libs'][$profile['libsource']];
-          $openlayers_css = $GLOBALS['c4g_maps_extension']['css_openlayers'][$profile['libsource']];
+          $openlayers_libsource = $GLOBALS['con4gis_maps_extension']['js_openlayers_libs'][$profile['libsource']];
+          $openlayers_css = $GLOBALS['con4gis_maps_extension']['css_openlayers'][$profile['libsource']];
           $mapData['script'] = $profile['script'];
           $mapData['link_newwindow'] = $profile['link_newwindow'];
           $mapData['link_open_on'] = $profile['link_open_on'];
@@ -856,8 +856,8 @@ class C4GMaps
   		  $mapData['switcher_class'] = 'olC4gSwitcher_dark';
 		}
 		if (!$openlayers_libsource) {
-  		  $openlayers_libsource = $GLOBALS['c4g_maps_extension']['js_openlayers_libs']['DEFAULT'];
-  	  	  $openlayers_css = $GLOBALS['c4g_maps_extension']['css_openlayers']['DEFAULT'];
+  		  $openlayers_libsource = $GLOBALS['con4gis_maps_extension']['js_openlayers_libs']['DEFAULT'];
+  	  	  $openlayers_css = $GLOBALS['con4gis_maps_extension']['css_openlayers']['DEFAULT'];
   		}
 
 		// -------------------------------------------------------------------------
@@ -1301,7 +1301,7 @@ class C4GMaps
 
         // Include Extended OpenWeatherMap JS
     // @TODO check for appropriate version and legal stuff, then activate or remove ;-)
-        // $GLOBALS ['TL_JAVASCRIPT'] [] = $GLOBALS['c4g_maps_extension']['js_openlayers_owm'];
+        // $GLOBALS ['TL_JAVASCRIPT'] [] = $GLOBALS['con4gis_maps_extension']['js_openlayers_owm'];
 
     // @TODO add toolbox-switch
         //if ($profile['toolbox']) {
@@ -1349,7 +1349,7 @@ class C4GMaps
 	    }
 
         if ($useGoogle) {
-		    $GLOBALS ['TL_JAVASCRIPT'] [] = $GLOBALS['c4g_maps_extension']['js_google'];
+		    $GLOBALS ['TL_JAVASCRIPT'] [] = $GLOBALS['con4gis_maps_extension']['js_google'];
         }
 
         if ($useBing) {
