@@ -1060,6 +1060,8 @@ class C4GMaps
  			    if ($forEditor) {
  			    	$locStyleData[$key]['name'] = $locStyles->name;
 
+ 			    	$locStyleData[$key]['tooltip'] = $locStyles->tooltip;
+
  			    	if (version_compare(VERSION, '3.2', '>=')) {
                         // Contao 3.2 Format
                         $objFile = FilesModel::findByUuid($locStyles->editor_icon);
