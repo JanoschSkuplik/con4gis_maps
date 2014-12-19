@@ -9,20 +9,20 @@
  * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
  * @copyright Küstenschmiede GmbH Software & Design 2014
  * @link      https://www.kuestenschmiede.de
- * @filesource 
+ * @filesource
  */
 
 
 
 /**
- * Table tl_c4g_maps 
+ * Table tl_c4g_maps
  */
 $GLOBALS['TL_DCA']['tl_c4g_maps'] = array
 (
 
 	// Config
 	'config' => array
-	(		
+	(
 	    'label'                       => $GLOBALS['TL_CONFIG']['websiteTitle'],
 	    'dataContainer'               => 'Table',
 		'enableVersioning'            => true,
@@ -185,11 +185,11 @@ $GLOBALS['TL_DCA']['tl_c4g_maps'] = array
 			'exclude'                 => true,
 			'inputType'               => 'select',
 		    'foreignKey'              => 'tl_c4g_map_profiles.name',
-			'eval'                    => array('tl_class'=>'w50', 
+			'eval'                    => array('tl_class'=>'w50',
 			                                   'includeBlankOption'=>true, 'blankOptionLabel'=>&$GLOBALS['TL_LANG']['tl_c4g_maps']['default_profile'],
 		                                       'submitOnChange' => true, 'alwaysSave' => true ),
 		    'load_callback'           => array(array('tl_c4g_maps','getDefaultProfile'))
-		
+
 		),
 		'profile_mobile' => array
 		(
@@ -197,9 +197,9 @@ $GLOBALS['TL_DCA']['tl_c4g_maps'] = array
 			'exclude'                 => true,
 			'inputType'               => 'select',
 		    'foreignKey'              => 'tl_c4g_map_profiles.name',
-			'eval'                    => array('tl_class'=>'w50', 
+			'eval'                    => array('tl_class'=>'w50',
 			                                   'includeBlankOption'=>true
-		                                      )		
+		                                      )
 		),
 		'published' => array
 		(
@@ -207,7 +207,7 @@ $GLOBALS['TL_DCA']['tl_c4g_maps'] = array
 			'exclude'                 => true,
 			'default'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('tl_class'=>'clr'), 
+			'eval'                    => array('tl_class'=>'clr'),
 		),
 		'is_map' => array
 		(
@@ -311,7 +311,7 @@ $GLOBALS['TL_DCA']['tl_c4g_maps'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_maps']['center_geox'],
 			'exclude'                 => true,
-			'inputType'               => 'c4g_text',		    
+			'inputType'               => 'c4g_text',
 			'eval'                    => array('maxlength'=>20, 'tl_class'=>'w50 wizard', 'require_input'=>true ),
 		    'save_callback'           => array(array('tl_c4g_maps','setCenterGeoX')),
 			'wizard'                  => array(array('tl_c4g_maps', 'geoPicker'))
@@ -416,9 +416,9 @@ $GLOBALS['TL_DCA']['tl_c4g_maps'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_maps']['loc_geox'],
 			'exclude'                 => true,
 			'inputType'               => 'c4g_text',
-			'eval'                    => array('mandatory'=>true, 'maxlength'=>20, 'tl_class'=>'w50 wizard' ),		 
+			'eval'                    => array('mandatory'=>true, 'maxlength'=>20, 'tl_class'=>'w50 wizard' ),
 		    'save_callback'           => array(array('tl_c4g_maps','setLocGeoX')),
-			'wizard'                  => array(array('tl_c4g_maps', 'geoPicker'))			
+			'wizard'                  => array(array('tl_c4g_maps', 'geoPicker'))
 		),
 
 		'loc_geoy' => array
@@ -437,7 +437,7 @@ $GLOBALS['TL_DCA']['tl_c4g_maps'] = array
 			'inputType'               => 'select',
 		    'options_callback'        => array('tl_c4g_maps','getLocStyles'),
 			'eval'                    => array('tl_class'=>'clr')
-		),			
+		),
 		'loc_only_in_parent' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_maps']['loc_only_in_parent'],
@@ -519,14 +519,14 @@ $GLOBALS['TL_DCA']['tl_c4g_maps'] = array
 			'inputType'               => 'select',
 		    'options_callback'        => array('tl_c4g_maps','getTabSources'),
 		    'eval'                    => array('submitOnChange' => true),
-		),			
+		),
 		'tab_pid' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_maps']['tab_pid'],
 			'exclude'                 => true,
 			'inputType'               => 'select',
 		    'options_callback'        => array('tl_c4g_maps','getTabParentList'),
-		),			
+		),
 		'tab_labeldisplay' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_maps']['tab_labeldisplay'],
@@ -579,14 +579,14 @@ $GLOBALS['TL_DCA']['tl_c4g_maps'] = array
 			'default'               => '',
 			'inputType'             => 'checkbox'
 		),
-		
+
 		'data_file' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_maps']['data_file'],
 			'exclude'                 => true,
 			'inputType'               => 'fileTree',
 			'eval'					  => array( 'trailingSlash' => false, 'files' => true, 'fieldType' => 'radio' )
-					
+
 		),
 		'data_url' => array
 		(
@@ -655,7 +655,7 @@ $GLOBALS['TL_DCA']['tl_c4g_maps'] = array
 			'exclude'                 => true,
 			'inputType'               => 'pageTree',
 			'eval'                    => array('fieldType'=>'radio')
-		),		
+		),
 		'forum_reassign_layer' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_maps']['forum_reassign_layer'],
@@ -725,7 +725,7 @@ $GLOBALS['TL_DCA']['tl_c4g_maps'] = array
 			'exclude'                 => true,
 			'inputType'               => 'select',
 		    'foreignKey'              => 'tl_c4g_map_profiles.name',
-			'eval'                    => array('tl_class'=>'w50', 
+			'eval'                    => array('tl_class'=>'w50',
 			                                   'includeBlankOption'=>true)
 		),
 		'specialprofile_groups' => array
@@ -749,7 +749,7 @@ class tl_c4g_maps extends Backend
 {
 
 	/**
-	 * value of first source table 
+	 * value of first source table
 	 */
 	protected $firstTabSource = null;
 
@@ -762,7 +762,7 @@ class tl_c4g_maps extends Backend
 
 		$this->import('BackendUser', 'User');
 	}
-	
+
 	/**
 	 * Return the copy page with subpages button
 	 * @param array
@@ -781,13 +781,13 @@ class tl_c4g_maps extends Backend
 									  ->limit(1)
 									  ->execute($row['id']);
 
-		if ($objSubpages->numRows > 0) {					
+		if ($objSubpages->numRows > 0) {
 		  return '<a href="'.$this->addToUrl($href.'&amp;id='.$row['id']).'" title="'.specialchars($title).'"'.$attributes.'>'.$this->generateImage($icon, $label).'</a> ';
-		} else {   
+		} else {
 		  return $this->generateImage(preg_replace('/\.gif$/i', '_.gif', $icon)).' ';
-		}  
+		}
 	}
-	
+
 	/**
 	 * Return all Location Styles for current Maps Profile as array
 	 * @param object
@@ -798,17 +798,17 @@ class tl_c4g_maps extends Backend
 		$profile = $this->Database->prepare("SELECT locstyles FROM tl_c4g_map_profiles WHERE id=?")->execute($dc->activeRecord->profile);
 		$ids = deserialize($profile->locstyles,true);
 		if (count($ids)>0) {
-			$locStyles = $this->Database->prepare("SELECT id,name FROM tl_c4g_map_locstyles WHERE id IN (".implode(',',$ids).") ORDER BY name")->execute();				
+			$locStyles = $this->Database->prepare("SELECT id,name FROM tl_c4g_map_locstyles WHERE id IN (".implode(',',$ids).") ORDER BY name")->execute();
 		}
-		else {		
+		else {
 			$locStyles = $this->Database->prepare("SELECT id,name FROM tl_c4g_map_locstyles ORDER BY name")->execute();
-		}										  
+		}
 		while ($locStyles->next())
 		{
 			$return[$locStyles->id] = $locStyles->name;
-		}		
+		}
 		return $return;
-	}	
+	}
 
 	/**
 	 * Return all available Sources for Maps
@@ -826,7 +826,7 @@ class tl_c4g_maps extends Backend
 			$return[$key] = $GLOBALS['TL_LANG']['c4g_maps']['sourcetable'][$key]['name'];
 		}
 		return $return;
-	}	
+	}
 
 	/**
 	 * Return all available locations types
@@ -839,9 +839,13 @@ class tl_c4g_maps extends Backend
 		if ($GLOBALS['c4g_forum_extension']['installed'] ) {
 			$return[] = 'c4gForum';
 		}
+        if (isset($GLOBALS['c4g_locationtypes']) && is_array($GLOBALS['c4g_locationtypes']))
+        {
+            $return = array_merge($return, $GLOBALS['c4g_locationtypes']);
+        }
 		return $return;
 	}
-	
+
 
 	/**
 	 * Return all available map enabled forums
@@ -857,7 +861,7 @@ class tl_c4g_maps extends Backend
 		}
 		return $return;
 	}
-	
+
 	/**
 	 * Return all entries in the parent table for the selection
 	 * @param object
@@ -869,9 +873,9 @@ class tl_c4g_maps extends Backend
 			$tabsource = $dc->activeRecord->tab_source;
 		}
 		else {
-			$tabsource = $this->firstTabSource;			
+			$tabsource = $this->firstTabSource;
 		}
-		
+
 		$source = $GLOBALS['c4g_maps_extension']['sourcetable'][$tabsource];
 		if (is_array($source)) {
 			if (($source['ptable']) && ($source['ptable_option'])) {
@@ -880,28 +884,28 @@ class tl_c4g_maps extends Backend
 				while ($obj->next())
 				{
 					$return[$obj->id] = $obj->$source['ptable_option'];
-				}		
+				}
 				return $return;
-			}			
-		} 
-	}	
+			}
+		}
+	}
 
 	/**
 	 * Recursively step through map item tree
 	 */
 	private function getMapItemTree($tree, $return, $pid,$level)
 	{
-		if (array_key_exists($pid, $tree)) {		
+		if (array_key_exists($pid, $tree)) {
 			foreach ($tree[$pid] AS $key=>$item) {
 				$return[$key] = str_repeat('+',$level).$item;
-				if (array_key_exists($key, $tree)) {		
+				if (array_key_exists($key, $tree)) {
 					$return = $this->getMapItemTree($tree, $return, $key, $level+1);
-				}	
+				}
 			}
 		}
-		return $return;		
+		return $return;
 	}
-	
+
 	/**
 	 * Return all map items ready to be linked
 	 * @param object
@@ -914,13 +918,13 @@ class tl_c4g_maps extends Backend
 		if ($maps->numRows > 0) {
 			while ( $maps->next () ) {
 				$tree [$maps->pid][$maps->id] = $maps->name;
-			}			
+			}
 		}
 		return $this->getMapItemTree($tree,array(),0,0);
 	}
-	
+
 	/**
-	 * Generate the icons to be used 
+	 * Generate the icons to be used
 	 */
 	public function generateLabel($row, $label, $dc_table, $folderAttribute)
 	{
@@ -929,15 +933,15 @@ class tl_c4g_maps extends Backend
 		     	$image = 'system/modules/con4gis_maps/html/map_location';
 			}
 			else {
-		    	$image = 'system/modules/con4gis_maps/html/map';		
+		    	$image = 'system/modules/con4gis_maps/html/map';
 			}
 		}
 		else if ($row['location_type']=='link') {
 		    $image = 'system/modules/con4gis_maps/html/link';
-		} 
+		}
 		else if ($row['location_type']<>'none') {
 		    $image = 'system/modules/con4gis_maps/html/location';
-		} 
+		}
 		else {
 		    $image = 'system/modules/con4gis_maps/html/mapfolder';
 		}
@@ -947,7 +951,7 @@ class tl_c4g_maps extends Backend
 		$image .= '.png';
 		return $this->generateImage($image, '', $folderAttribute) . ' ' . $label;
 	}
-	
+
 	/**
 	 * Update the palette information that depend on other values
 	 */
@@ -955,45 +959,45 @@ class tl_c4g_maps extends Backend
 	{
 	    if (!$dc->id) {
 	    	return;
-	    }	    
+	    }
 		$objMap = $this->Database->prepare("SELECT is_map,calc_extent,restrict_area,geolocation,auto_width,auto_height FROM tl_c4g_maps WHERE id=?")
 			->limit(1)
 			->execute($dc->id);
-		if ($objMap->numRows > 0) {	
+		if ($objMap->numRows > 0) {
 			if ($objMap->calc_extent=='CENTERZOOM') {
 				$calcExtentFields = 'center_geox,center_geoy,zoom,';
-			} 
+			}
 			else {
-				$calcExtentFields = 'min_gap,';				
+				$calcExtentFields = 'min_gap,';
 			}
 			if ($objMap->geolocation) {
 				$geolocationFields = 'geolocation_zoom,';
-			} 
+			}
 			else {
-				$geolocationFields = '';				
+				$geolocationFields = '';
 			}
 			if ($objMap->restrict_area) {
 		  		$restrictAreaFields = 'restr_bottomleft_geox,restr_bottomleft_geoy,restr_topright_geox,restr_topright_geoy,';
-			} 
+			}
 			else {
 		  		$restrictAreaFields = '';
 			}
 			if ($objMap->auto_height) {
 		  		$autoHeightFields = 'auto_height_gap,auto_height_min,auto_height_max,';
-			} 
+			}
 			else {
 		  		$autoHeightFields = '';
-			}	
+			}
 			if ($objMap->auto_width) {
 				$autoWidthFields = 'auto_width_gap,auto_width_min,auto_width_max,';
 			}
 			else {
 				$autoWidthFields = '';
-			}				
+			}
 			$mapsize = 'mapsize,';
 			if ($objMap->auto_height && $objMap->auto_width) {
 				$mapsize = '';
-			}  
+			}
 			$GLOBALS['TL_DCA']['tl_c4g_maps']['subpalettes']['is_map'] =
 		   		$mapsize.'auto_width,'.$autoWidthFields.'auto_height,'.$autoHeightFields.'calc_extent,'.$calcExtentFields.'geolocation,'.$geolocationFields.'restrict_area,'.$restrictAreaFields.',include_sublocations;';
 		}
@@ -1005,24 +1009,24 @@ class tl_c4g_maps extends Backend
 	 */
 	public function getDefaultProfile($varValue, DataContainer $dc)
 	{
-		if (!$varValue) {	
+		if (!$varValue) {
 			if ($dc->activeRecord->pid) {
 				// take default profile from parent entry
 				$objParent = $this->Database->prepare("SELECT profile FROM tl_c4g_maps WHERE id=?")
 					->limit(1)->execute($dc->activeRecord->pid);
 				if ($objParent->numRows > 0) {
-					$varValue = $objParent->profile;	
-				}						
+					$varValue = $objParent->profile;
+				}
 			}
 			if (!$varValue) {
-				// get default profile 	
+				// get default profile
 				$objProfile = $this->Database->prepare("SELECT id FROM tl_c4g_map_profiles WHERE is_default=1")
 					->limit(1)->execute();
 				if ($objProfile->numRows > 0) {
-					$varValue = $objProfile->id;	
-				}		
+					$varValue = $objProfile->id;
+				}
 			}
-		}	
+		}
 		return $varValue;
 	}
 
@@ -1049,7 +1053,7 @@ class tl_c4g_maps extends Backend
 			if (!C4GMaps::validateGeoY($varValue)) {
 				throw new Exception($GLOBALS['TL_LANG']['c4g_maps']['geoy_invalid']);
 			}
-		}	
+		}
 		return $varValue;
 	}
 
@@ -1063,7 +1067,7 @@ class tl_c4g_maps extends Backend
 			if (!C4GMaps::validateGeoX($varValue)) {
 				throw new Exception($GLOBALS['TL_LANG']['c4g_maps']['geox_invalid']);
 			}
-		}	
+		}
 		return $varValue;
 	}
 
@@ -1075,7 +1079,7 @@ class tl_c4g_maps extends Backend
 		if ($dc->activeRecord->restrict_area) {
 			if (!C4GMaps::validateGeoY($varValue)) {
 				throw new Exception($GLOBALS['TL_LANG']['c4g_maps']['geoy_invalid']);
-			}	
+			}
 		}
 		return $varValue;
 	}
@@ -1090,7 +1094,7 @@ class tl_c4g_maps extends Backend
 		}
 		return $varValue;
 	}
-	
+
 	/**
 	 * Validate Location GeoY
 	 */
@@ -1101,7 +1105,7 @@ class tl_c4g_maps extends Backend
 		}
 		return $varValue;
 	}
-	
+
 	/**
 	 * Return the Geo Picker Wizard
 	 * @param object
@@ -1112,12 +1116,12 @@ class tl_c4g_maps extends Backend
 		$strField = 'ctrl_' . $dc->field . (($this->Input->get('act') == 'editAll') ? '_' . $dc->id : '');
 		if (substr($strField,-1,1)=='y') {
 			$strFieldX = substr($strField,0,-1).'x';
-			$strFieldY = $strField; 			
+			$strFieldY = $strField;
 		}
 		else {
 			$strFieldX = $strField;
-			$strFieldY = substr($strField,0,-1).'y';			
-		}		
+			$strFieldY = substr($strField,0,-1).'y';
+		}
 		return ' ' . $this->generateImage('system/modules/con4gis_maps/html/geopicker.png', $GLOBALS['TL_LANG']['c4g_maps']['geopicker'], 'style="vertical-align:top; cursor:pointer;" onclick="C4GMapsBackend.pickGeo(\'' . $strFieldX . '\',\''.$strFieldY . '\')"');
 	}
 
@@ -1133,18 +1137,18 @@ class tl_c4g_maps extends Backend
 			$objMaps = $this->Database->prepare("SELECT location_type FROM tl_c4g_maps WHERE id=?")
 			->limit(1)
 			->execute($dc->id);
-			
+
 			$wizard = ($objMaps->location_type == 'geojson');
-		}	
+		}
 		if ($wizard) {
 			$strField = 'ctrl_' . $dc->field . (($this->Input->get('act') == 'editAll') ? '_' . $dc->id : '');
 			return ' ' . $this->generateImage('system/modules/con4gis_maps/html/geopicker.png', $GLOBALS['TL_LANG']['c4g_maps']['geofeatureeditor'], 'style="vertical-align:top; cursor:pointer;" onclick="C4GMapsBackend.editFeatures(\'' . $strField . '\',\'' . $dc->id . '\')"');
 		}
 		else {
 			return false;
-		}	
-	}	
-	
+		}
+	}
+
 	/**
 	 * Return the "toggle visibility" button
 	 */
@@ -1167,7 +1171,7 @@ class tl_c4g_maps extends Backend
 		if (!$row['published'])
 		{
 			$icon = 'invisible.gif';
-		}		
+		}
 
 		return '<a href="'.$this->addToUrl($href).'" title="'.specialchars($title).'"'.$attributes.'>'.$this->generateImage($icon, $label).'</a> ';
 	}
@@ -1188,7 +1192,7 @@ class tl_c4g_maps extends Backend
 		}
 
 		$this->createInitialVersion('tl_c4g_maps', $intId);
-	
+
 		// Trigger the save_callback
 		if (is_array($GLOBALS['TL_DCA']['tl_c4g_maps']['fields']['published']['save_callback']))
 		{
@@ -1205,7 +1209,7 @@ class tl_c4g_maps extends Backend
 
 		$this->createNewVersion('tl_c4g_maps', $intId);
 	}
-	
+
 	/**
 	 * Return the page pick wizard for the linkUrl
 	 * @param DataContainer $dc
@@ -1219,9 +1223,9 @@ class tl_c4g_maps extends Backend
 		else {
 			return ' <a href="contao/page.php?do='.Input::get('do').'&amp;table='.$dc->table.'&amp;field='.$dc->field.'&amp;value='.str_replace(array('{{link_url::', '}}'), '', $dc->value).'" title="'.specialchars($GLOBALS['TL_LANG']['MSC']['pagepicker']).'" onclick="Backend.getScrollOffset();Backend.openModalSelector({\'width\':765,\'title\':\''.specialchars(str_replace("'", "\\'", $GLOBALS['TL_LANG']['MOD']['page'][0])).'\',\'url\':this.href,\'id\':\''.$dc->field.'\',\'tag\':\'ctrl_'.$dc->field . ((Input::get('act') == 'editAll') ? '_' . $dc->id : '').'\',\'self\':this});return false">' . $this->generateImage('pickpage.gif', $GLOBALS['TL_LANG']['MSC']['pagepicker'], 'style="vertical-align:top;cursor:pointer"') . '</a>';
 		}
-		
+
 	}
 
-	
+
 }
 ?>

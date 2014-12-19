@@ -9,7 +9,7 @@
  * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
  * @copyright Küstenschmiede GmbH Software & Design 2014
  * @link      https://www.kuestenschmiede.de
- * @filesource 
+ * @filesource
  */
 
 
@@ -18,13 +18,12 @@
  * Class C4GMaps
  *
  * Static Function library for c4g_maps
- *
  */
-class C4GMaps  
+class C4GMaps
 {
 
 	private static $allLocstyles = false;
-	
+
 	/**
  	* Validate a Geo X coordinate (longitude)
  	*/
@@ -48,7 +47,7 @@ class C4GMaps
 	}
 
 	/**
- 	* Validate a Geo Coordinate 
+ 	* Validate a Geo Coordinate
  	*/
 	public static function validateGeo( $value )
 	{
@@ -66,7 +65,7 @@ class C4GMaps
     private static function reassignLayers(&$mapData,&$array) {
     	foreach ($array AS &$child) {
     		if ($child['parent_layer']) {
-    
+
     			foreach ($mapData['data'] AS &$data) {
     				if ($data['layername']==$child['parent_layer']) {
     					$child['parent'] = $data['id'];
@@ -76,13 +75,13 @@ class C4GMaps
     			unset($child['parent_layer']);
     		}
     	}
-    
+
     }
-    
+
     /**
-     * 
+     *
      * Add child locations - eventually recursively
-     * 
+     *
      * @param unknown_type $objThis
      * @param unknown_type $database
      * @param unknown_type $mapId
@@ -102,7 +101,7 @@ class C4GMaps
     	$parentIds[] = $mapId;
 
     	$countOrg = $count-1;
-    	
+
     	// --------------------------------------------------------------------
     	// get child locations
     	// --------------------------------------------------------------------
@@ -111,14 +110,14 @@ class C4GMaps
 	    			"SELECT * FROM tl_c4g_maps WHERE ".
 	    			"(pid=? OR (id=? AND loc_only_in_parent<>?))".
 	    			"AND published=? ORDER BY sorting")->execute ( $mapId, $mapId, 1, 1 );
-    	}    	
+    	}
     	else {
     		$childData = $database->prepare (
     				"SELECT * FROM tl_c4g_maps WHERE ".
     				"pid=? ".
-    				"AND published=? ORDER BY sorting")->execute ( $mapId, 1 );	
-    	}	
-    	
+    				"AND published=? ORDER BY sorting")->execute ( $mapId, 1 );
+    	}
+
     	$forumHelper = null;
     	while ( $childData->next() ) {
 
@@ -145,12 +144,17 @@ class C4GMaps
     			$child = $database->prepare (
     					"SELECT * FROM tl_c4g_maps WHERE id=? ".
     					"AND published=?")->execute ( $childData->link_id, 1 );
-    			 
+
     		}
     		else {
     			$child = $childData;
     		}
-    			
+
+            // handle permalink-args
+            if (!empty( $_GET['layers'] ) && is_array( $_GET['layers'] )) {
+                $child->data_hidelayer = !in_array( $child->id, $_GET['layers'] );
+            }
+
     		// ---------------------------------------------------------
     		// Location Type 'single'
     		// ---------------------------------------------------------
@@ -167,15 +171,15 @@ class C4GMaps
     			$mapData ['child'] [$count] ['popupInfo'] = $child->popup_info;
     			if ($child->routing_to) {
     				$mapData ['child'] [$count] ['popupRouteTo'] = true;
-    			}	
+    			}
     			$mapData ['child'] [$count] ['linkurl'] = $objThis->repInsertTags($child->loc_linkurl);
-    				
+
     			$locStyleIds [$child->locstyle] = $child->locstyle;
     			$count ++;
     		}
-    	
+
     		// -------------------------------------------------------------------------
-    		// Location Type "c4gForum" - Forum locations from C4G-Forum 
+    		// Location Type "c4gForum" - Forum locations from C4G-Forum
             //      and Popupextensions (for OSM/Overpass)
     		// -------------------------------------------------------------------------
             $popupExtend = array();
@@ -192,43 +196,43 @@ class C4GMaps
     					->execute($child->forum_jumpto);
 
     					if ($objPage->numRows)
-    						$forumHelper->frontendUrl = $objThis->getFrontendUrl($objPage->row());		
+    						$forumHelper->frontendUrl = $objThis->getFrontendUrl($objPage->row());
     				}
     				$forums = deserialize($child->forums);
     				if ($forums) {
                         if ($child->location_type == 'c4gForum') {
         					foreach ($forums AS $forumId) {
-                                
+
                                 $forumLocations = $forumHelper->getMapLocationsForForum($forumId);
                                 foreach ($forumLocations AS $value) {
                                     $value['parent'] = ($level ? $mapId : 0);
-                                    
-                                    if (html_entity_decode($child->loc_label) != '')                                
+
+                                    if (html_entity_decode($child->loc_label) != '')
                                         $value['label'] = html_entity_decode($child->loc_label);
-                                    
+
                                     if (html_entity_decode($child->tooltip) != '')
                                         $value['graphicTitle'] = html_entity_decode($child->tooltip);
-                                    
+
                                     if ($child->popup_info != '')
                                         $value['popupInfo'] = $child->popup_info;
                                     if ($child->routing_to) {
                                         $value['popupRouteTo'] = true;
-                                    }   
+                                    }
                                     $value['onclick_zoomto'] = $child->loc_onclick_zoomto;
                                     $value['minzoom'] = $child->loc_minzoom;
                                     $value['maxzoom'] = $child->loc_maxzoom;
                                     if($child->forum_reassign_layer == 'THREAD') {
-                                        $value['parent_layer'] = $value['threadname']; 
+                                        $value['parent_layer'] = $value['threadname'];
                                     }
                                     unset($value['threadname']);
-                                        
+
                                     if ($value['type']) {
-                                        $mapData ['data'] [$count] = $value;      
-                                        C4GMaps::$allLocstyles = true;                              
+                                        $mapData ['data'] [$count] = $value;
+                                        C4GMaps::$allLocstyles = true;
                                     }
                                     else {
                                         $mapData ['child'] [$count] = $value;
-                                    }   
+                                    }
                                     $locStyleIds [$value['locstyle']] = $value['locstyle'];
                                     $count ++;
                                 }
@@ -238,7 +242,7 @@ class C4GMaps
                             if (empty( $mapData['popupExtend'] )) {
                                 $mapData['popupExtend'] = array();
                             }
-                            foreach ($forums AS $forumId) {   
+                            foreach ($forums AS $forumId) {
                                 $forumLocations = $forumHelper->getPopupExtensionsForForum($forumId);
                                 foreach ($forumLocations AS $value) {
                                     $osmId = $value['osmid'];
@@ -251,18 +255,18 @@ class C4GMaps
                             }
                         }//end else
                     }
-        
+
                 }
             }
-                
+
             // --------------------------------------------------------------------
             // Location Type "Table" - child locations from other tables in the DB
             // --------------------------------------------------------------------
             if ($child->location_type == 'table') {
-                $source = $GLOBALS['c4g_maps_extension']['sourcetable'][$child->tab_source];
+                $source = $GLOBALS['con4gis_maps_extension']['sourcetable'][$child->tab_source];
                 if (is_array($source)) {
     				if (($source['geox']) && ($source['geoy'])) {
-    					$orgCount = $count;	
+    					$orgCount = $count;
     					$stmt = "SELECT * FROM ".$child->tab_source.
     					" WHERE ".$source['geox']." <> '' AND ".$source['geoy']." <> ''";
     					if (($source['ptable']) and ($child->tab_pid)) {
@@ -287,7 +291,7 @@ class C4GMaps
     							}
     						}
     					}
-    						
+
     					// HOOK: add custom sql condition
     					if (isset($GLOBALS['TL_HOOKS']['c4gMapsSqlCondition']) && is_array($GLOBALS['TL_HOOKS']['c4gMapsSqlCondition']))
     					{
@@ -295,13 +299,13 @@ class C4GMaps
     						{
     							$objThis->import($callback[0]);
     							$custCondition = $objThis->$callback[0]->$callback[1]($child->tab_source, $objThis->c4g_map_id, $child, $objThis);
-    								
+
     							if ($custCondition!='') {
     								$stmt .= ' AND ( '.$custCondition.' )';
     							}
     						}
     					}
-    						
+
     					$stmt .= ' ORDER BY '.$source['geox'].','.$source['geoy'];
 
                         if ($child->tab_orderby) {
@@ -315,7 +319,7 @@ class C4GMaps
     						$popupInfo = '';
     						if ($source['popup']) {
     							$popupElements = explode(',',$source['popup']);
-    	
+
     							foreach ($popupElements as $element) {
     								$rgxp = '';
     								if ((substr($element,0,1)=='[') && (substr($element,-1)==']'))
@@ -337,14 +341,14 @@ class C4GMaps
     									str_replace('[id]',$obj->id,$element ) . ' ';
     								}
     							}
-    								
+
     							$popupInfo = $objThis->repInsertTags($popupInfo);
-                               
+
                                 if ($child->tab_force_target_blank) {
                                     $popupInfo = preg_replace('/<a /', '<a target="_blank" ', $popupInfo);
                                 }
     						}
-    	
+
     						if ($lastGeo == $obj->$source['geox'].$obj->$source['geoy']) {
     							$index = $count-1;
     							$mapData ['child'] [$index] ['count'] += 1;
@@ -383,7 +387,7 @@ class C4GMaps
                                 $mapData ['child'] [$count] ['popupInfo'] = $popupInfo;
                                 if ($child->routing_to) {
                                     $mapData ['child'][$count]['popupRouteTo'] = true;
-                                }                           
+                                }
                                 if (($source['linkurl']) && ($child->tab_directlink)) {
                                     $mapData ['child'] [$count] ['linkurl'] =
                                     $objThis->repInsertTags(
@@ -392,11 +396,11 @@ class C4GMaps
                                 $locStyleIds [$locstyle] = $locstyle;
                                 $count ++;
                             }
-        
+
                         }
                     }
-                }   	
-        
+                }
+
                 // for locations with more than one entry in the source table
                 if (isset($mapData['child'] )) {
                     if ($count > $orgCount) {
@@ -410,7 +414,7 @@ class C4GMaps
                                         $child['label'] = '('.$child['count'].')';
                                     }
                                 }
-            
+
                                 if ($child->tab_labeldisplay == '1ST_MORE') {
                                     if ($child['label']) {
                                         $child['label'] .= ' (...) ';
@@ -418,7 +422,7 @@ class C4GMaps
                                         $child['label'] = '(...)';
                                     }
                                 }
-            
+
                                 if ($child->tab_tooltipdisplay == '1ST_COUNT') {
                                     if ($child['graphicTitle']) {
                                         $child['graphicTitle'] .= ' ('.$child['count'].') ';
@@ -426,7 +430,7 @@ class C4GMaps
                                         $child['graphicTitle'] = '('.$child['count'].')';
                                     }
                                 }
-            
+
                                 if ($child->tab_tooltipdisplay == '1ST_MORE') {
                                     if ($child['graphicTitle']) {
                                         $child['graphicTitle'] .= ' (...) ';
@@ -434,13 +438,13 @@ class C4GMaps
                                         $child['graphicTitle'] = '(...)';
                                     }
                                 }
-            
+
                             }
                         }
                     }
                 }
             }
-        
+
     		// --------------------------------------------------------------------
     		// Location Types "gpx", "kml", "osm" and "geojson"
     		// --------------------------------------------------------------------
@@ -449,7 +453,7 @@ class C4GMaps
     				($child->location_type=='osm') ||
     				($child->location_type=='geojson') ||
     				($child->location_type=='overpass')) {
-    	
+
     			$addData = array();
     			$addData['parent'] = ($level ? $mapId : 0);
     			$addData['id'] = $child->id;
@@ -464,14 +468,14 @@ class C4GMaps
                         $objFile = FilesModel::findByPk($child->data_file);
                         $child->data_file = $objFile->path;
                     }
-    				
+
     				if  (file_exists($child->data_file)) {
     					$addData['filecontent'] = file_get_contents($child->data_file);
     				}
     			}
-    	
+
     			if ($child->location_type == 'overpass') {
-    				$addData['url'] = $GLOBALS['c4g_maps_extension']['overpass_proxy'];
+    				$addData['url'] = $GLOBALS['con4gis_maps_extension']['overpass_proxy'];
     				$addData['ovp_request'] = $child->ovp_request;
     				$addData['ovp_bbox_limited'] = $child->ovp_bbox_limited;
     			}
@@ -482,7 +486,7 @@ class C4GMaps
     			if ($child->data_projection) {
     				if ($child->data_projection=='WGS84') {
     					$addData['projection'] = 'EPSG:4326';
-    				}	    				
+    				}
     			}
     			$addData['forcenodes'] = $child->data_forcenodes;
     			$addData['layername'] = $child->data_layername;
@@ -493,7 +497,7 @@ class C4GMaps
     			$addData['popupInfo'] = $child->popup_info;
     			if ($child->routing_to) {
     				$addData ['popupRouteTo'] = true;
-    			}    			 
+    			}
     			$addData['linkurl'] = $child->loc_linkurl;
     			$addData['locstyle'] = $child->locstyle;
     			$addData['onclick_zoomto'] = $child->loc_onclick_zoomto;
@@ -505,16 +509,16 @@ class C4GMaps
                 }
 
     			$mapData['data'][$count] = $addData;
-    			
+
     			$locStyleIds [$child->locstyle] = $child->locstyle;
     			$count++;
     		}
 
     		if ($child->location_type=='geojson' || $child->location_type=='overpass') {
-    			C4GMaps::$allLocstyles = true;    			 
+    			C4GMaps::$allLocstyles = true;
     		}
-    		
-    		// structure entries 
+
+    		// structure entries
     		if (($child->location_type=='none') &&
     			($child->id!=$mapId)) {
     			$addData = array();
@@ -522,21 +526,51 @@ class C4GMaps
     			$addData['id'] = $child->id;
     			$addData['type'] = 'struct';
     			$addData['layername'] = $child->data_layername;
-    			$addData['hidelayer'] = $child->data_hidelayer;    			 
+    			$addData['hidelayer'] = $child->data_hidelayer;
     			$mapData['data'][$count] = $addData;
     			$count++;
-    		}    		
-    		
-    		if ($data['include_sublocations']) {    			    			
+    		}
+
+            /* add hook for track-implementation */
+
+            // HOOK: add custom logic
+			if (isset($GLOBALS['TL_HOOKS']['c4gAddLocationsParent']) && is_array($GLOBALS['TL_HOOKS']['c4gAddLocationsParent']))
+			{
+				foreach ($GLOBALS['TL_HOOKS']['c4gAddLocationsParent'] as $callback)
+				{
+                    $objThis->import($callback[0]);
+                    $arrData = $objThis->$callback[0]->$callback[1](($level ? $mapId : 0), $child, $objThis);
+
+                    if ($arrData && is_array($arrData) && sizeof($arrData)>0)
+                    {
+                        foreach ($arrData as $data)
+                        {
+                            if ($data['type'])
+                            {
+                                $mapData['data'][$count] = $data;
+                            }
+                            else
+                            {
+                                $mapData['child'][$count] = $data;
+                            }
+
+                            $count++;
+                        }
+
+                    }
+				}
+			}
+
+    		if ($data['include_sublocations']) {
     			if ($child->id!=$mapId) {
     				C4GMaps::addLocations($objThis, $database, $child->id, $mapData, $data, $locStyleIds, $count, $level+1, $parentIds);
-    			}	    			 
+    			}
     		}
-    	
+
     	}
 
     	if ($level==0) {
-    		
+
     		if ($mapData['child']) {
     			C4GMaps::reassignLayers($mapData, $mapData['child']);
     		}
@@ -544,13 +578,13 @@ class C4GMaps
     		if ($mapData['data']) {
     			C4GMaps::reassignLayers($mapData, $mapData['data']);
     		}
-    		
-    	}	
-    		 
+
+    	}
+
     }
-    
+
 	/**
-	 * Set up the mapData-Array for the template by populating it with the data in the database 
+	 * Set up the mapData-Array for the template by populating it with the data in the database
 	 */
     public static function prepareMapData($objThis, $database, $additionalLocations=NULL, $forEditor=false)
 	{
@@ -562,14 +596,14 @@ class C4GMaps
 		$data = $database->prepare ( "SELECT * FROM tl_c4g_maps WHERE id=?" )->limit ( 1 )->execute ( $objThis->c4g_map_id )->fetchAssoc ();
 
 		$profileId = $data ['profile'];
-		
+
         $isMobile = false;
 		if (($data['profile_mobile'] > 0) && (\Input::cookie('TL_VIEW') == 'mobile' || (\Environment::get('agent')->mobile && \Input::cookie('TL_VIEW') != 'desktop')))
 		{
             $isMobile = true;
 			$profileId = $data['profile_mobile'];
 		}
-		
+
         if ((FE_USER_LOGGED_IN) && ($data['use_specialprofile'])) {
             $groupMatch = array_intersect($objThis->User->groups, deserialize($data['specialprofile_groups']));
             if (!empty( $groupMatch )) {
@@ -581,19 +615,18 @@ class C4GMaps
             }
         }
 
-		$profile = $database->prepare ( "SELECT * FROM tl_c4g_map_profiles WHERE id=?" )->limit ( 1 )->execute ( $profileId )->fetchAssoc ();
-		if (!$profile) {
-			$profile = $database->prepare ( "SELECT * FROM tl_c4g_map_profiles WHERE is_default=?" )->limit ( 1 )->execute ( true )->fetchAssoc ();
-			if ($profile) {
-				$profileId = $profile['id'];
-			}
-		}
-		
+        $profile = $database->prepare ( "SELECT * FROM tl_c4g_map_profiles WHERE id=?" )->limit ( 1 )->execute ( $profileId )->fetchAssoc ();
+        if (!$profile) {
+            $profile = $database->prepare ( "SELECT * FROM tl_c4g_map_profiles WHERE is_default=?" )->limit ( 1 )->execute ( true )->fetchAssoc ();
+            if ($profile) {
+                $profileId = $profile['id'];
+            }
+        }
+
 		$mapData['profile'] = $profileId;
-		
-		
+
 		$mapData ['id'] = $objThis->c4g_map_id;
-		
+
 		if ($data['id']==0) {
 			// Map data not found -> use defaults
 			$mapData ['center_geox'] = '1.0';
@@ -604,14 +637,14 @@ class C4GMaps
 			$mapsize = deserialize ( $objThis->c4g_map_mapsize );
 			if (! is_array ( $mapsize ) || ($mapsize [0] == 0)) {
 				$mapData ['width'] = '400px';
-				$mapData ['height'] = '300px';				
+				$mapData ['height'] = '300px';
 			} else {
 				$mapData ['width'] = $mapsize [0] . $mapsize [2];
 				$mapData ['height'] = $mapsize [1] . $mapsize [2];
-			}	
+			}
 			$mapData ['calc_extent'] = 'CENTERZOOM';
-				
-		} else {	
+
+		} else {
 			$mapData ['center_geox'] = $data ['center_geox'];
 			$mapData ['center_geoy'] = $data ['center_geoy'];
 			if (is_numeric ( $objThis->c4g_map_zoom ) && ($objThis->c4g_map_zoom > 0)) {
@@ -621,7 +654,7 @@ class C4GMaps
 			}
 			if ($data['geolocation']) {
 				$mapData['geolocation'] = true;
-				$mapData['geolocation_zoom'] = $data['geolocation_zoom'];				
+				$mapData['geolocation_zoom'] = $data['geolocation_zoom'];
 			}
 			$mapsize = deserialize ( $objThis->c4g_map_mapsize );
 			if (! is_array ( $mapsize ) || ($mapsize [0] == 0)) {
@@ -641,28 +674,40 @@ class C4GMaps
                 $mapData['auto_height_min'] = $data['auto_height_min'];
                 $mapData['auto_height_max'] = $data['auto_height_max'];
             }
-    	
+
 			$mapData ['calc_extent'] = $data['calc_extent'];
 			if ($data['calc_extent']=='LOCATIONS') {
-				$mapData ['min_gap'] = $data['min_gap'];				
+				$mapData ['min_gap'] = $data['min_gap'];
 			}
-			
+
 	  		$mapData['restrict_area'] = $data['restrict_area'];
-	  		if ($data['restrict_area']) {  		    		    		  
+	  		if ($data['restrict_area']) {
 	  			$mapData['restr_bottomleft_geox'] = $data['restr_bottomleft_geox'];
 	  			$mapData['restr_bottomleft_geoy'] = $data['restr_bottomleft_geoy'];
 	  			$mapData['restr_topright_geox'] = $data['restr_topright_geox'];
 	  			$mapData['restr_topright_geoy'] = $data['restr_topright_geoy'];
 	  		}
 
-		}
-		$count = 0;
-		$locStyleIds = array();
-		C4GMaps::$allLocstyles = false;
+        }
+
+        // parse permalink-args:
+        if ($profile['permalink']) {
+            $mapData['center_geox'] = $_GET['lat'] ?: $mapData['center_geox'];
+            $mapData['center_geoy'] = $_GET['lon'] ?: $mapData['center_geoy'];
+            $mapData['zoom'] = $_GET['zoom'] ?: $mapData['zoom'];
+            $objThis->c4g_map_default_mapservice = $_GET['base'] ?: $objThis->c4g_map_default_mapservice;
+            if (!empty( $_GET['layers'] )){
+                $_GET['layers'] = explode('-', base64_decode( $_GET['layers'] ));
+            }
+        }
+
+        $count = 0;
+        $locStyleIds = array();
+        C4GMaps::$allLocstyles = false;
 		if (!$forEditor || $profile['editor_show_items']) {
-			// add all locations, but not when editing (in forum)		
+			// add all locations, but not when editing (in forum)
 			self::addLocations($objThis, $database, $objThis->c4g_map_id, $mapData, $data, $locStyleIds, $count);
-		}			
+		}
         // --------------------------------------------------------------------
         // add additional locations
         // --------------------------------------------------------------------
@@ -670,13 +715,13 @@ class C4GMaps
             foreach ($additionalLocations AS $value) {
                 if ($value['type']) {
                     $mapData ['data'] [$count] = $value;
-                    C4GMaps::$allLocstyles = true;      
+                    C4GMaps::$allLocstyles = true;
                 }
                 else {
                     $mapData ['child'] [$count] = $value;
-                }   
+                }
                 $locStyleIds [$value['locstyle']] = $value['locstyle'];
-                $count ++;              
+                $count ++;
             }
         }
 
@@ -687,7 +732,7 @@ class C4GMaps
           $mapData['pan_panel'] = $profile['pan_panel'];
           $mapData['zoom_panel'] = $profile['zoom_panel'];
           if ($mapData['zoom_panel']=='3') {
-            $mapData['css'][] = 'system/modules/con4gis_maps/html/OpenLayers-2.13.1/theme/default/style.mobile.css';             
+            $mapData['css'][] = 'system/modules/con4gis_maps/html/OpenLayers-2.13.1/theme/default/style.mobile.css';
           }
           $mapData['zoom_panel_world'] = $profile['zoom_panel_world'];
           $mapData['mouse_nav'] = $profile['mouse_nav'];
@@ -696,7 +741,7 @@ class C4GMaps
           $mapData['mouse_nav_kinetic'] = $profile['mouse_nav_kinetic'];
           $mapData['mouse_nav_toolbar'] = $profile['mouse_nav_toolbar'];
           $mapData['keyboard_nav'] = $profile['keyboard_nav'];
-          $mapData['nav_history'] = $profile['nav_history'];            
+          $mapData['nav_history'] = $profile['nav_history'];
           $mapData['geosearch'] = $profile['geosearch'];
           if ($mapData['geosearch']) {
             $mapData['geocoding_url'] = 'system/modules/con4gis_maps/C4GNominatim.php';
@@ -722,7 +767,7 @@ class C4GMaps
             $mapData['editor_field'] = '#c4gForumPostMapEntryGeodata';
             // $mapData['editor_types'] = array('polygon');
           }
-          if ($profile['geopicker']) { 
+          if ($profile['geopicker']) {
             $mapData['geocoding'] = true;
             $mapData['pickGeo'] = true;
             $mapData['geocoding_url'] = 'system/modules/con4gis_maps/C4GNominatim.php';
@@ -730,7 +775,7 @@ class C4GMaps
             $mapData['geocoding_fieldx'] = $profile['geopicker_fieldx'];
             $mapData['geocoding_fieldy'] = $profile['geopicker_fieldy'];
             $mapData['geocoding_attribution'] = $profile['geopicker_attribution'];
-          }           
+          }
           $mapData['attribution'] = $profile['attribution'];
           if ($profile['attribution'] && $profile['cfg_logo_attribution']) {
             $mapData['cfg_logo_attribution'] = $profile['cfg_logo_attribution'];
@@ -747,8 +792,8 @@ class C4GMaps
           $mapData['permalink'] = $profile['permalink'];
           $mapData['zoomlevel'] = $profile['zoomlevel'];
           $mapData['fullscreen'] = $profile['fullscreen'];
-          if ($profile['imagepath'] <> '0') {    // workaround for errors in Database generated with Version 0.10             
-            $mapData['imagepath'] = $profile['imagepath'];              
+          if ($profile['imagepath'] <> '0') {    // workaround for errors in Database generated with Version 0.10
+            $mapData['imagepath'] = $profile['imagepath'];
             $objFile = FilesModel::findByUuid($mapData['imagepath']);
             $mapData['imagepath'] = $objFile->path;
 
@@ -763,22 +808,22 @@ class C4GMaps
           } else {
             if (!$mapData['imagepath']) {
                 $mapData['imagepath'] = 'system/modules/con4gis_maps/html/OpenLayers-2.13.1/theme/default/img/';
-            }                   
+            }
             $mapData['switcher_class'] = 'olC4gSwitcher_default';
-          } 
-          $openlayers_libsource = $GLOBALS['c4g_maps_extension']['js_openlayers_libs'][$profile['libsource']];
-          $openlayers_css = $GLOBALS['c4g_maps_extension']['css_openlayers'][$profile['libsource']];
+          }
+          $openlayers_libsource = $GLOBALS['con4gis_maps_extension']['js_openlayers_libs'][$profile['libsource']];
+          $openlayers_css = $GLOBALS['con4gis_maps_extension']['css_openlayers'][$profile['libsource']];
           $mapData['script'] = $profile['script'];
           $mapData['link_newwindow'] = $profile['link_newwindow'];
           $mapData['link_open_on'] = $profile['link_open_on'];
           $mapData['hover_popups'] = $profile['hover_popups'];
           $mapData['hover_popups_stay'] = $profile['hover_popups_stay'];
           $mapData['div_layerswitcher'] = $profile['div_layerswitcher'];
-          
+
           if ($forEditor) {
             $mapData['editor_helpurl'] = $objThis->repInsertTags($profile['editor_helpurl']);
           }
-          
+
         }
         else {
           $mapData['pan_panel'] = true;
@@ -799,23 +844,22 @@ class C4GMaps
           $mapData['permalink'] = false;
           $mapData['zoomlevel'] = false;
           $mapData['fullscreen'] = false;
-          $mapData['imagepath'] = '';        
+          $mapData['imagepath'] = '';
           $mapData['script'] = '';
           $mapData['hover_popups'] = false;
           $mapData['hover_popups_stay'] = false;
           $mapData['link_newwindow'] = false;
-          $mapData['link_open_on'] = 'CLICK';         
+          $mapData['link_open_on'] = 'CLICK';
           $mapData['div_layerswitcher'] = '';
   		  $mapData['imagepath'] = 'system/modules/con4gis_maps/html/OpenLayers-2.13.1/theme/dark/img/';
   		  $profile['theme'] = 'dark';
   		  $mapData['switcher_class'] = 'olC4gSwitcher_dark';
 		}
 		if (!$openlayers_libsource) {
-  		  $openlayers_libsource = $GLOBALS['c4g_maps_extension']['js_openlayers_libs']['DEFAULT'];
-  	  	  $openlayers_css = $GLOBALS['c4g_maps_extension']['css_openlayers']['DEFAULT'];
-  		}  
-  		  	
-		
+  		  $openlayers_libsource = $GLOBALS['con4gis_maps_extension']['js_openlayers_libs']['DEFAULT'];
+  	  	  $openlayers_css = $GLOBALS['con4gis_maps_extension']['css_openlayers']['DEFAULT'];
+  		}
+
 		// -------------------------------------------------------------------------
 		// collect locationstyle data
 		// -------------------------------------------------------------------------
@@ -824,14 +868,14 @@ class C4GMaps
 			if ($forEditor) {
 				$stylesPoint = deserialize($profile['editor_styles_point']);
 				$stylesLine = deserialize($profile['editor_styles_line']);
-				$stylesPolygon = deserialize($profile['editor_styles_polygon']);			
+				$stylesPolygon = deserialize($profile['editor_styles_polygon']);
 				$editorStylesDefined = $stylesPoint || $stylesPolygon || $stylesLine;
-			}	
-				
+			}
+
 			if ($forEditor || C4GMaps::$allLocstyles) {
 				$locStyles = $database->prepare (
 						"SELECT * FROM tl_c4g_map_locstyles ORDER BY name"
-				)->execute ($profileId);		
+				)->execute ($profileId);
 			}
 			else {
 				// add hover location styles for all used styles
@@ -840,9 +884,9 @@ class C4GMaps
 						"WHERE id in (" . implode ( ',', $locStyleIds ) . ") AND onhover_locstyle<>0"
 				)->execute ();
 				while($hoverLocStyles->next()) {
-					$locStyleIds[$hoverLocStyles->onhover_locstyle] = $hoverLocStyles->onhover_locstyle; 
+					$locStyleIds[$hoverLocStyles->onhover_locstyle] = $hoverLocStyles->onhover_locstyle;
 				}
-				$locStyles = $database->prepare ( 
+				$locStyles = $database->prepare (
 					"SELECT * FROM tl_c4g_map_locstyles WHERE id in (" . implode ( ',', $locStyleIds ) . ") ORDER BY name"
 					)->execute ();
 			}
@@ -850,22 +894,22 @@ class C4GMaps
 
 			while ( $locStyles->next () ) {
 				$key = $locStyles->id;
-				
+
 				if ($locStyles->styletype == 'ol_icon') {
 
 					$locStyleData[$key]['internalGraphic'] = $locStyles->ol_icon;
-					
+
 					$iconSize = deserialize($locStyles->ol_icon_size);
 					$locStyleData[$key]['graphicWidth'] = (int) $iconSize[0];
 					$locStyleData[$key]['graphicHeight'] = (int) $iconSize[1];
-					
+
 					$offset = deserialize($locStyles->ol_icon_offset);
 					$locStyleData[$key]['graphicXOffset'] = (int) $offset[0];
 					$locStyleData[$key]['graphicYOffset'] = (int) $offset[1];
 
 					$iconopacity = deserialize( $locStyles->icon_opacity );
 					$locStyleData[$key]['graphicOpacity'] = $iconopacity['value'] / 100;
-										
+
 				}
 				else if ($locStyles->styletype == 'cust_icon') {
 					if (version_compare(VERSION, '3.2', '>=')) {
@@ -877,35 +921,35 @@ class C4GMaps
                         $objFile = FilesModel::findByPk($locStyles->icon_src);
                         $locStyles->icon_src = $objFile->path;
                     }
-						
+
 					$locStyleData[$key]['externalGraphic'] = $locStyles->icon_src;
-					
+
 					$iconSize = deserialize($locStyles->icon_size);
 					$locStyleData[$key]['graphicWidth'] = (int) $iconSize[0];
 					$locStyleData[$key]['graphicHeight'] = (int) $iconSize[1];
-					
+
 					$offset = deserialize($locStyles->icon_offset);
 					$locStyleData[$key]['graphicXOffset'] = (int) $offset[0];
 					$locStyleData[$key]['graphicYOffset'] = (int) $offset[1];
 
 					$iconopacity = deserialize($locStyles->icon_opacity);
 					$locStyleData[$key]['graphicOpacity'] = $iconopacity['value'] / 100;
-					
-				} else { 
-					
+
+				} else {
+
 					$locStyleData [$key] ['strokeColor'] = '#' . $locStyles->strokecolor;
 					$strokewidth = deserialize ( $locStyles->strokewidth );
 					$locStyleData [$key] ['strokeWidth'] = (int) $strokewidth ['value'];
 					$strokeopacity = deserialize ( $locStyles->strokeopacity );
 					$locStyleData [$key] ['strokeOpacity'] = $strokeopacity ['value'] / 100;
-					
+
 					$locStyleData [$key] ['fillColor'] = '#' . $locStyles->fillcolor;
 					$fillopacity = deserialize ( $locStyles->fillopacity );
 					$locStyleData [$key] ['fillOpacity'] = $fillopacity ['value'] / 100;
-					
+
 					$radius = deserialize ( $locStyles->radius );
 					$locStyleData [$key] ['pointRadius'] = (int) $radius ['value'];
-					
+
 					if ($locStyles->styletype == 'point') {
 						$locStyleData [$key] ['graphicName'] = "";
 					} else {
@@ -913,63 +957,63 @@ class C4GMaps
 					}
 				}
 				if (($locStyles->label_align_hor<>'') && ($locStyles->label_align_ver<>'')) {
-				  $locStyleData[$key]['labelAlign'] = 
+				  $locStyleData[$key]['labelAlign'] =
 				    substr($locStyles->label_align_hor,0,1).substr($locStyles->label_align_ver,0,1);
-				}    
-				
+				}
+
 				$offset = deserialize($locStyles->label_offset);
 				if ($offset[0]<>0) {
 				  $locStyleData[$key]['labelXOffset'] = (int) $offset[0];
-				}   
+				}
 				if ($offset[1]<>0) {
 				  $locStyleData[$key]['labelYOffset'] = (int) $offset[1];
-				}  
-				  				
+				}
+
 				if ($locStyles->font_color <> '') {
 				  $locStyleData [$key] ['fontColor'] = '#' . $locStyles->font_color;
 				}
 				else {
 				  $locStyleData [$key] ['fontColor'] = '#000000';
-				}  
+				}
 				$fontopacity = deserialize ( $locStyles->font_opacity );
 				if ($fontopacity <> 0) {
 				  $locStyleData [$key] ['fontOpacity'] = $fontopacity['value'] / 100;
 				}
 
 				if ($locStyles->font_family <> '') {
-				  $locStyleData [$key] ['fontFamily'] = $locStyles->font_family;					
+				  $locStyleData [$key] ['fontFamily'] = $locStyles->font_family;
 				}
 
 				if ($locStyles->font_size <> '') {
-				  $locStyleData [$key] ['fontSize'] = $locStyles->font_size;					
+				  $locStyleData [$key] ['fontSize'] = $locStyles->font_size;
 				}
 
 				if ($locStyles->font_style <> '') {
-				  $locStyleData [$key] ['fontStyle'] = $locStyles->font_style;					
+				  $locStyleData [$key] ['fontStyle'] = $locStyles->font_style;
 				}
 
 				if ($locStyles->font_weight <> '') {
-				  $locStyleData [$key] ['fontWeight'] = $locStyles->font_weight;					
+				  $locStyleData [$key] ['fontWeight'] = $locStyles->font_weight;
 				}
 
 				if ($locStyles->label_outl_color <> '') {
-					$locStyleData[$key]['labelOutlineColor'] = '#'.$locStyles->label_outl_color;						
+					$locStyleData[$key]['labelOutlineColor'] = '#'.$locStyles->label_outl_color;
 				}
-				
+
 				$outlineWidth = deserialize ( $locStyles->label_outl_width,true );
 				if ($outlineWidth['value']) {
 					$outlineWidth = (int) $outlineWidth['value'];
 					if ($outlineWidth <> 0) {
-						$locStyleData[$key]['labelOutlineWidth'] = $outlineWidth; 
+						$locStyleData[$key]['labelOutlineWidth'] = $outlineWidth;
 					}
 				}
-				
+
 				if (($locStyles->popup_kind) == 'cloud') {
-				    $locStyleData[$key]['popupClass'] = 'OpenLayers.Popup.FramedCloud';					
+				    $locStyleData[$key]['popupClass'] = 'OpenLayers.Popup.FramedCloud';
 				} else {
-				    $locStyleData[$key]['popupClass'] = 'OpenLayers.Popup.Anchored';									
+				    $locStyleData[$key]['popupClass'] = 'OpenLayers.Popup.Anchored';
 				}
-				
+
 				$offset = deserialize($locStyles->popup_offset);
  			    $locStyleData[$key]['popupXOffset'] = (int) $offset[0] | 0;
 				$locStyleData[$key]['popupYOffset'] = (int) $offset[1] | 0;
@@ -979,12 +1023,12 @@ class C4GMaps
  			    $locStyleData[$key]['popupYSize'] = (int) $size[1] | 200;
 
  			    if ($locStyles->label) {
- 			    	$locStyleData[$key]['label'] = html_entity_decode($locStyles->label); 			    	 
+ 			    	$locStyleData[$key]['label'] = html_entity_decode($locStyles->label);
  			    }
 			 	if ($locStyles->tooltip) {
- 			    	$locStyleData[$key]['graphicTitle'] = html_entity_decode($locStyles->tooltip); 			    	 
+ 			    	$locStyleData[$key]['graphicTitle'] = html_entity_decode($locStyles->tooltip);
  			    }
- 			    
+
  			    if ($locStyles->popup_info) {
  			    	$locStyleData[$key]['popupInfo'] = html_entity_decode($locStyles->popup_info);
  			    }
@@ -1000,10 +1044,10 @@ class C4GMaps
  			    if ($locStyles->maxzoom) {
  			    	$locStyleData[$key]['maxzoom'] = $locStyles->maxzoom;
  			    }
- 			    
+
  			    if ($locStyles->onhover_locstyle) {
  			    	$locStyleData[$key]['hoverStyle'] = $locStyles->onhover_locstyle;
- 			    }	
+ 			    }
 
  			    if ($locStyles->line_arrows) {
  			    	$arrow_radius = deserialize($locStyles->line_arrows_radius);
@@ -1015,7 +1059,7 @@ class C4GMaps
 
  			    if ($forEditor) {
  			    	$locStyleData[$key]['name'] = $locStyles->name;
- 			    	
+
  			    	$locStyleData[$key]['tooltip'] = $locStyles->tooltip;
 
  			    	if (version_compare(VERSION, '3.2', '>=')) {
@@ -1027,83 +1071,83 @@ class C4GMaps
                         $objFile = FilesModel::findByPk($locStyles->editor_icon);
                         $locStyles->editor_icon= $objFile->path;
                     }
- 			    	
+
  			    	$locStyleData[$key]['editor_icon'] = $locStyles->editor_icon;
  			    	$locStyleData[$key]['editor_collect'] = $locStyles->editor_collect;
- 			    	 
+
  			    	if ($profile) {
  			    		$used = false;
  			    		if ($editorStylesDefined) {
 	 			    		if ($stylesPoint) {
 	 			    			if (array_search($locStyles->id,$stylesPoint)!==false) {
 	 			    				$locStyleData[$key]['editor_points'] = true;
-	 			    				$used = true; 			    				
+	 			    				$used = true;
 	 			    			}
-	 			    		
+
 	 			    		}
 	 			    		if ($stylesLine) {
 	 			    			if (array_search($locStyles->id,$stylesLine)!==false) {
-	 			    				$locStyleData[$key]['editor_lines'] = true; 			    				
-	 			    				$used = true; 			    				
+	 			    				$locStyleData[$key]['editor_lines'] = true;
+	 			    				$used = true;
 	 			    			}
-	 			    		
+
 	 			    		}
-	
+
 	 			    		if ($stylesPolygon) {
 	 			    			if (array_search($locStyles->id,$stylesPolygon)!==false) {
 	 			    				$locStyleData[$key]['editor_polygones'] = true;
-	 			    				$used = true; 			    				
-	 			    			} 			    		
+	 			    				$used = true;
+	 			    			}
 	 			    		}
  			    		}
  			    		else {
  			    			// no editr styles explicitly defined -> use styles from profile
  			    			if ($locStyles->pid == $profileId) {
  			    				$used = true;
-	 			    			$locStyleData[$key]['editor_points'] = true; 			    				
+	 			    			$locStyleData[$key]['editor_points'] = true;
 	 			    			if (($locStyles->styletype != 'ol_icon') && ($locStyles->styletype != 'cust_icon')) {
-	 			    				$locStyleData[$key]['editor_lines'] = true; 			    				
-	 			    				$locStyleData[$key]['editor_polygones'] = true; 			    				
+	 			    				$locStyleData[$key]['editor_lines'] = true;
+	 			    				$locStyleData[$key]['editor_polygones'] = true;
 	 			    			}
- 			    			}	
- 			    			
+ 			    			}
+
  			    		}
-		    			$locStyleData[$key]['editor_vars'] = 
+		    			$locStyleData[$key]['editor_vars'] =
 		    				array_merge(
  	    					deserialize($profile['editor_vars'],true),
- 	    					deserialize($locStyles->editor_vars,true) 			    						
+ 	    					deserialize($locStyles->editor_vars,true)
  	    				);
- 			    		
+
  			    	}
  			    }
-			
+
 			}
-			
+
 		  // set defaults for Location Style IDs not found in database
-		  foreach($locStyleIdsNotFound as $key) {	
+		  foreach($locStyleIdsNotFound as $key) {
 			  $locStyleData [$key] ['strokeColor']   = '#ee0016';
 			  $locStyleData [$key] ['strokeWidth']   = 2;
-			  $locStyleData [$key] ['strokeOpacity'] = 1;				
+			  $locStyleData [$key] ['strokeOpacity'] = 1;
 			  $locStyleData [$key] ['fillColor']     = '#ee0011';
 			  $locStyleData [$key] ['fillOpacity']   = 0.5;
 			  $locStyleData [$key] ['pointRadius']   = 7;
-			  $locStyleData [$key] ['graphicName']   = "";										
-			  $locStyleData [$key] ['popupClass']    = 'OpenLayers.Popup.Anchored';					
-			  $locStyleData [$key] ['popupXSize']    = 200;					
-		  	  $locStyleData [$key] ['popupYSize']    = 200;					
-			  $locStyleData [$key] ['popupXOffset']  = 0;					
-		      $locStyleData [$key] ['popupYOffset']  = 0;					
+			  $locStyleData [$key] ['graphicName']   = "";
+			  $locStyleData [$key] ['popupClass']    = 'OpenLayers.Popup.Anchored';
+			  $locStyleData [$key] ['popupXSize']    = 200;
+		  	  $locStyleData [$key] ['popupYSize']    = 200;
+			  $locStyleData [$key] ['popupXOffset']  = 0;
+		      $locStyleData [$key] ['popupYOffset']  = 0;
 		  }
 		}
 		$mapData['locStyles'] = $locStyleData;
-	  	
+
 		// -------------------------------------------------------------------------
 		// set mapservice data
-		// -------------------------------------------------------------------------		
+		// -------------------------------------------------------------------------
 		$useBing = false;
 	    $useGoogle = false;
 	    $useOSM = false;
-	    
+
 	    if ($objThis->c4g_map_layer_switcher) {
  	        $mapData['layerSwitcher'] = true;
  	        $mapData['layerSwitcherOpen'] = ($objThis->c4g_map_layer_switcher_open=='1');
@@ -1117,20 +1161,20 @@ class C4GMaps
  	        if (count($ids)>0) {
  	        	$baseLayers = $database->prepare("SELECT * FROM tl_c4g_map_baselayers WHERE id IN (".implode(',',$ids).") ORDER BY sort,name")->execute();
  	        	$overlayLayers = $database->prepare("SELECT * FROM tl_c4g_map_overlays WHERE pid IN (".implode(',',$ids).") ORDER BY pid,name")->execute();
- 	        	 
+
  	        }
  	        else {
  	        	$baseLayers = $database->prepare("SELECT * FROM tl_c4g_map_baselayers ORDER BY sort,name")->execute();
  	        	$overlayLayers = $database->prepare("SELECT * FROM tl_c4g_map_overlays ORDER BY pid,name")->execute();
  	        }
-	    } 
+	    }
 	    else {
  	        $mapData['layerSwitcher'] = false;
-	    	$baseLayers = $database->prepare ( "SELECT * FROM tl_c4g_map_baselayers WHERE id=?" )	    	
+	    	$baseLayers = $database->prepare ( "SELECT * FROM tl_c4g_map_baselayers WHERE id=?" )
  	                                   ->execute ( $objThis->c4g_map_default_mapservice );
-	    	$overlayLayers = $database->prepare ( "SELECT * FROM tl_c4g_map_overlays WHERE pid=?" )	    	
+	    	$overlayLayers = $database->prepare ( "SELECT * FROM tl_c4g_map_overlays WHERE pid=?" )
  	                                   ->execute ( $objThis->c4g_map_default_mapservice );
-	    }  
+	    }
 
 	    $overlays=array();
 	    while ($overlayLayers->next()) {
@@ -1160,12 +1204,12 @@ class C4GMaps
 	    		$overlays[]=$overlay;
 	    	} else {
 	    		$overlays[$found]['parents'][]=$overlayLayers->pid;
-	    	} 	    	
+	    	}
 	    }
 	    if (count($overlays)>0) {
 	    	$mapData['overlays']=$overlays;
 	    }
-	    	
+
 	    $i = 0;
         while ($baseLayers->next()) {
 
@@ -1200,34 +1244,34 @@ class C4GMaps
         			if ($baseLayers->osm_style=='Osmarender') {
         				// Osmarender service discontinued March 2012 -> for old entries in database
         				// take Mapnik instead
-        				$mapData['service'][$i]['osm_style'] = 'Mapnik';        				
+        				$mapData['service'][$i]['osm_style'] = 'Mapnik';
         			} else {
                     	$mapData['service'][$i]['osm_style'] = $baseLayers->osm_style;
-        			}	
+        			}
                     if ($baseLayers->osm_style=='osm_custom') {
-                        $mapData['service'][$i]['osm_url1'] = $objThis->repInsertTags($baseLayers->osm_style_url1);                    	
-                        $mapData['service'][$i]['osm_url2'] = $objThis->repInsertTags($baseLayers->osm_style_url2);                    	
-                        $mapData['service'][$i]['osm_url3'] = $objThis->repInsertTags($baseLayers->osm_style_url3);                    	
-                        $mapData['service'][$i]['osm_url4'] = $objThis->repInsertTags($baseLayers->osm_style_url4);                    	
-                        $mapData['service'][$i]['osm_keyname'] = $baseLayers->osm_keyname;                    	
+                        $mapData['service'][$i]['osm_url1'] = $objThis->repInsertTags($baseLayers->osm_style_url1);
+                        $mapData['service'][$i]['osm_url2'] = $objThis->repInsertTags($baseLayers->osm_style_url2);
+                        $mapData['service'][$i]['osm_url3'] = $objThis->repInsertTags($baseLayers->osm_style_url3);
+                        $mapData['service'][$i]['osm_url4'] = $objThis->repInsertTags($baseLayers->osm_style_url4);
+                        $mapData['service'][$i]['osm_keyname'] = $baseLayers->osm_keyname;
                     }
-                    $useOSM = true;        		
+                    $useOSM = true;
         		    break;
         		case 'google':
                     $mapData['service'][$i]['google_style'] = $baseLayers->google_style;
-                    $useGoogle = true;        		
+                    $useGoogle = true;
         		    break;
         		case 'bing':
                     $mapData['service'][$i]['bing_style'] = $baseLayers->bing_style;
                     $mapData['service'][$i]['bing_key'] = $baseLayers->bing_key;
-                    $useBing = true;        		
+                    $useBing = true;
         		    break;
         		default:
             		break;
         	}
-        }	                               	     
-	    $mapData['defaultServiceKey'] = $objThis->c4g_map_default_mapservice;
-	    
+        }
+        $mapData['defaultServiceKey'] = $objThis->c4g_map_default_mapservice;
+
 	    if (count($mapData['service'])==0) {
 	    	// no mapservice defined -> use OSM Mapnik by default
 	    	$useOSM = true;
@@ -1235,9 +1279,9 @@ class C4GMaps
 	    	$mapData['defaultServiceKey'] = $key;
 	    	$mapData['service'][$key]['provider'] = 'osm';
 	    	$mapData['service'][$key]['name'] = 'OSM';
-	    	$mapData['service'][$key]['osm_style'] = 'Mapnik';	    		    	
+	    	$mapData['service'][$key]['osm_style'] = 'Mapnik';
 	    }
-	    
+
 	    $mapData['labels'] = $GLOBALS['TL_LANG']['c4g_maps']['labels'];
 	  	if ($profile['label_baselayer']!='') {
   			$mapData['labels']['baseLayer'] = $profile['label_baselayer'];
@@ -1245,29 +1289,29 @@ class C4GMaps
   		if ($profile['label_overlays']!='') {
   		 	$mapData['labels']['overlays'] = $profile['label_overlays'];
   		}
-  		
+
   		if ($profile['custom_div']) {
   			$mapData['createDiv'] = false;
 	    	$mapData['div'] = $profile['custom_div'];
   		} else {
   			$mapData['createDiv'] = true;
-  			$mapData['div'] = 'c4g_Map'.$mapData['id'];  				
+  			$mapData['div'] = 'c4g_Map'.$mapData['id'];
   		}
         $GLOBALS ['TL_JAVASCRIPT'] [] = $openlayers_libsource;
 	    $GLOBALS ['TL_JAVASCRIPT'] [] = 'system/modules/con4gis_maps/html/js/C4GMaps.js';
 
 
         // Include Extended OpenWeatherMap JS
-        //TODO Abfrage, Hier anders positionieren
-        $GLOBALS ['TL_JAVASCRIPT'] [] = $GLOBALS['c4g_maps_extension']['js_openlayers_owm'];
+    // @TODO check for appropriate version and legal stuff, then activate or remove ;-)
+        // $GLOBALS ['TL_JAVASCRIPT'] [] = $GLOBALS['con4gis_maps_extension']['js_openlayers_owm'];
 
     // @TODO add toolbox-switch
         //if ($profile['toolbox']) {
         if ($profile['measuretool'] || $profile['graticule']) {
             $mapData['graticule'] = $profile['graticule'];
-            $mapData['measuretool'] = $profile['measuretool'];    
+            $mapData['measuretool'] = $profile['measuretool'];
             $GLOBALS ['TL_JAVASCRIPT'] [] = 'system/modules/con4gis_maps/html/js/C4GMapsToolbox.js';
-            //$GLOBALS ['TL_CSS']['c4g_maps_toolbox'] = 'system/modules/con4gis_maps/html/css/C4GMapsToolbox.css';          
+            //$GLOBALS ['TL_CSS']['c4g_maps_toolbox'] = 'system/modules/con4gis_maps/html/css/C4GMapsToolbox.css';
         }
         if (!$profile['for_editor_old'] && $profile['editor']){
              $GLOBALS ['TL_JAVASCRIPT'] [] = 'system/modules/con4gis_maps/html/js/C4GMapsEditor.js';
@@ -1276,59 +1320,56 @@ class C4GMaps
         if ($profile['router']) {
             $mapData['router_attribution'] = $profile['router_attribution'];
             $GLOBALS ['TL_JAVASCRIPT'] [] = 'system/modules/con4gis_maps/html/js/C4GMapsRouter.js';
-            $GLOBALS ['TL_CSS']['c4g_maps_router'] = 'system/modules/con4gis_maps/html/css/C4GMapsRouter.css';          
+            $GLOBALS ['TL_CSS']['c4g_maps_router'] = 'system/modules/con4gis_maps/html/css/C4GMapsRouter.css';
             $mapData['geocoding_url'] = 'system/modules/con4gis_maps/C4GNominatim.php';
             $mapData['reverse_url'] = 'system/modules/con4gis_maps/C4GReverse.php';
             $mapData['viaroute_url'] = 'system/modules/con4gis_maps/C4GViaRoute.php';
-            $mapData['router_labels'] = $GLOBALS['TL_LANG']['c4g_maps']['router_labels'];               
+            $mapData['router_labels'] = $GLOBALS['TL_LANG']['c4g_maps']['router_labels'];
         }
-	    
-	    if ($objThis->c4g_map_layer_switcher_ext && $GLOBALS['c4g_jquery_gui_extension']['installed']) {	    	
-	    	
-	    	// Extended LayerSwitcher - only available when extension "c4g_jquery_gui" is installed
-	    	$mapData['ls_tree'] = true;
+        if ($mapData['permalink']) {
+            $GLOBALS ['TL_JAVASCRIPT'] [] = 'system/modules/con4gis_maps/html/js/C4GPermalink.js';
+        }
+
+	    // Extended LayerSwitcher - only available when extension "con4gis_core" is installed
+        if ($objThis->c4g_map_layer_switcher_ext && $GLOBALS['con4gis_core_extension']['installed']) {
 
 	    	// Initialize Libraries for jQuery Dynatree
 	    	C4GJQueryGUI::initializeTree();
-	    	
-	    	// Include Extended LayerSwitcher JS 
-	    	$GLOBALS ['TL_JAVASCRIPT'] [] = 'system/modules/con4gis_maps/html/js/C4GLayerSwitcher.js';
-            // And appropriate Permalink & ArgParser
-            $GLOBALS ['TL_JAVASCRIPT'] [] = 'system/modules/con4gis_maps/html/js/C4GArgParser.js';
-            $GLOBALS ['TL_JAVASCRIPT'] [] = 'system/modules/con4gis_maps/html/js/C4GPermalink.js';
 
-			// Include LayerSwitcher CSS (Dynatree styling)
-			$GLOBALS['TL_CSS']['c4g_layerswitcher'] = 'system/modules/con4gis_maps/html/css/C4GLayerSwitcher.css';			
-	    }
-	    
+	    	// Include Extended LayerSwitcher JS
+	    	$GLOBALS ['TL_JAVASCRIPT'] [] = 'system/modules/con4gis_maps/html/js/C4GLayerSwitcher.js';
+
+		}
+		$GLOBALS['TL_CSS']['c4g_layerswitcher'] = 'system/modules/con4gis_maps/html/css/C4GLayerSwitcher.css';
+
 		if ($openlayers_css) {
 	    	$mapData['css'][] = $openlayers_css;
 	    }
 	    $mapData['css'][] = 'system/modules/con4gis_maps/html/css/styles.css';
 	    if ($profile['theme']) {
-	    	$mapData['css'][] = 'system/modules/con4gis_maps/html/css/theme_'.$profile['theme'].'.css';	    	
-	    } 
-	     
+	    	$mapData['css'][] = 'system/modules/con4gis_maps/html/css/theme_'.$profile['theme'].'.css';
+	    }
+
         if ($useGoogle) {
-		    $GLOBALS ['TL_JAVASCRIPT'] [] = $GLOBALS['c4g_maps_extension']['js_google'];        	
+		    $GLOBALS ['TL_JAVASCRIPT'] [] = $GLOBALS['con4gis_maps_extension']['js_google'];
         }
-        
+
         if ($useBing) {
         	// nothing to add
         }
 
-        if (version_compare(VERSION,'3','<')) {        
+        if (version_compare(VERSION,'3','<')) {
         	$objToken = RequestToken::getInstance();
         	$mapData['REQUEST_TOKEN'] = $objToken->get();
         } else {
         	$mapData['REQUEST_TOKEN'] = RequestToken::get();
-        }	
-        // 
+        }
+        //
         return $mapData;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param Database $database
 	 * @param int $mapId
 	 */
@@ -1339,7 +1380,7 @@ class C4GMaps
 				"FROM tl_c4g_maps a, tl_c4g_map_profiles b ".
 				"WHERE a.id = ? and a.profile = b.id")
 				->execute($mapId);
-		
+
 		$ids = deserialize($profile->locstyles,true);
 		if (count($ids)>0) {
 			$locStyles = $database->prepare("SELECT * FROM tl_c4g_map_locstyles WHERE id IN (".implode(',',$ids).") ORDER BY name")->execute();
@@ -1347,8 +1388,8 @@ class C4GMaps
 		else {
 			$locStyles = $database->prepare("SELECT * FROM tl_c4g_map_locstyles ORDER BY name")->execute();
 		}
-		
-		return $locStyles->fetchAllAssoc();		
+
+		return $locStyles->fetchAllAssoc();
 	}
 
 	/**
@@ -1383,13 +1424,13 @@ class C4GMaps
 			}
 			else {
 				return C4GMaps::getMapForLocation($database, $map->pid);
-			}			
+			}
 		} else {
 			return 0;
 		}
-			
+
 	}
-	
+
 }
 
 ?>

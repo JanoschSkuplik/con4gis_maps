@@ -9,6 +9,7 @@
   $objCombiner->add('system/themes/'. $this->theme .'/basic.css');
   $objCombiner->add('system/modules/con4gis_maps/html/css/styles.css');
   $objCombiner->add('system/modules/con4gis_maps/html/css/geopicker.css');
+    $objCombiner->add('system/modules/con4gis_maps/html/css/C4GLayerSwitcher.css');
   echo $objCombiner->getCombinedFile();
 ?>" media="all">
 <!--[if IE]><link rel="stylesheet" href="<?php echo TL_SCRIPT_URL; ?>system/themes/<?php echo $this->theme; ?>/iefixes.css" media="screen"><![endif]-->
@@ -75,6 +76,7 @@ C4GMaps(mapdata);
 <div id="c4gGeoPickerGeocoding" class="c4gGeoPickerGeocoding"></div>
 <hr>
 <div id="c4g_Map"></div>
+<div id="c4g_attribution" class="c4g_attribution"></div>
 </div>
 </div>
 

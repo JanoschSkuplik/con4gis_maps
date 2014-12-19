@@ -8,7 +8,7 @@
   $objCombiner = new Combiner();
   $objCombiner->add('system/themes/'. $this->theme .'/basic.css');
   $objCombiner->add('system/modules/con4gis_maps/html/css/featureeditor.css');
-  //$objCombiner->add($GLOBALS['c4g_maps_extension']['css_oleditor']);
+  $objCombiner->add('system/modules/con4gis_maps/html/css/C4GLayerSwitcher.css');
   $objCombiner->add($GLOBALS['c4g_maps_extension']['css_editor']);
   echo $objCombiner->getCombinedFile();
 ?>" media="all">
@@ -85,6 +85,7 @@ window.addEvent("domready", function() {
 	    }).delay(50);
 	});  
 	fnResizeMap();
+  mapEditor.openEditor();
 });
 
 //]]>
@@ -103,6 +104,7 @@ window.addEvent("domready", function() {
 <div id="c4gFeatureEditorSearch" class="c4gFeatureEditorSearch"></div>
 <hr>
 <div id="c4g_Map"></div>
+<div id="c4gAttribution"></div>
 </div>
 </div>
 

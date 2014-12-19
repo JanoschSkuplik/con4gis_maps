@@ -1,1 +1,678 @@
-OpenLayers.Control.C4GLayerSwitcher=OpenLayers.Class(OpenLayers.Control,{roundedCorner:false,roundedCornerColor:"darkblue",layerStates:null,layersDiv:null,baseLayersDiv:null,baseLayers:null,dataLbl:null,dataLayersDiv:null,dataLayers:null,minimizeDiv:null,maximizeDiv:null,ascending:true,dynaTree:null,initialize:function(a){a.displayClass="olControlLayerSwitcher";OpenLayers.Control.prototype.initialize.apply(this,arguments);this.layerStates=[];if(this.roundedCorner){OpenLayers.Console.warn('roundedCorner option is deprecated')}},destroy:function(){this.clearLayersArray("base");this.clearLayersArray("data");this.map.events.un({buttonclick:this.onButtonClick,addlayer:this.redraw,changelayer:this.redraw,removelayer:this.redraw,changebaselayer:this.redraw,scope:this});this.events.unregister("buttonclick",this,this.onButtonClick);OpenLayers.Control.prototype.destroy.apply(this,arguments)},setMap:function(a){OpenLayers.Control.prototype.setMap.apply(this,arguments);this.map.events.on({addlayer:this.redraw,changelayer:this.redraw,removelayer:this.redraw,changebaselayer:this.redraw,scope:this});if(this.outsideViewport){this.events.attachToElement(this.div);this.events.register("buttonclick",this,this.onButtonClick)}else{this.map.events.register("buttonclick",this,this.onButtonClick)}},draw:function(){OpenLayers.Control.prototype.draw.apply(this);this.loadContents();if(!this.outsideViewport){this.minimizeControl()}this.redraw();return this.div},onButtonClick:function(a){var b=a.buttonElement;if(b===this.minimizeDiv){this.minimizeControl()}else if(b===this.maximizeDiv){this.maximizeControl()}else if(b._layerSwitcher===this.id){if(b["for"]){b=document.getElementById(b["for"])}if(!b.disabled){if(b.type=="radio"){b.checked=true;this.map.setBaseLayer(this.map.getLayer(b._layer))}else{b.checked=!b.checked;this.updateMap()}}}},clearLayersArray:function(a){this[a+"LayersDiv"].innerHTML="";this[a+"Layers"]=[]},checkRedraw:function(){var a=false;if(!this.layerStates.length||(this.map.layers.length!=this.layerStates.length)){a=true}else{for(var i=0,len=this.layerStates.length;i<len;i++){var b=this.layerStates[i];var c=this.map.layers[i];if((b.name!=c.name)||(b.inRange!=c.inRange)||(b.id!=c.id)||(b.visibility!=c.visibility)){a=true;break}}}return a},redraw:function(){if(!this.checkRedraw()){return this.div}this.clearLayersArray("base");this.clearLayersArray("data");var g=false;var h=false;var k=this.map.layers.length;this.layerStates=new Array(k);for(var i=0;i<k;i++){var l=this.map.layers[i];this.layerStates[i]={'name':l.name,'visibility':l.visibility,'inRange':l.inRange,'id':l.id}}var m=this.map.layers.slice();m.sort(function(a,b){var c=(a.sort?a.sort:0);var d=(b.sort?b.sort:0);return(c<d?-1:d<c?1:0)});if(!this.ascending){m.reverse()}var n=[];for(var i=0,k=m.length;i<k;i++){var l=m[i];var o=l.isBaseLayer;if(l.displayInLayerSwitcher&&!o){var p=n;if(l.parent){var q=function(a){for(var j=0;j<a.length;j++){if(a[j].key==l.parent){return a[j].children}var b=q(a[j].children);if(b)return b}return false};var r=q(n);if(r){p=r}}var s=false;if(this.dynaTree!=null){var t=this.dynaTree.getNodeByKey(l.key);if(t){s=t.bExpanded}}var u={title:l.name,icon:false,select:l.getVisibility(),expand:s,children:[],layer:l,key:l.key};p.push(u);g=true}if(l.displayInLayerSwitcher&&o){if(o){h=true}else{g=true}var v=(o)?(l==this.map.baseLayer):l.getVisibility();var w=document.createElement("input");w.id=this.id+"_input_"+l.name;w.name=(o)?this.id+"_baseLayers":l.name;w.type=(o)?"radio":"checkbox";w.value=l.name;w.checked=v;w.defaultChecked=v;w.className="olButton";w._layer=l.id;w._layerSwitcher=this.id;if(!o&&!l.inRange){w.disabled=true}var x=document.createElement("label");x["for"]=w.id;OpenLayers.Element.addClass(x,"labelSpan olButton");x._layer=l.id;x._layerSwitcher=this.id;if(!o&&!l.inRange){x.style.color="gray"}x.innerHTML=l.name;x.style.verticalAlign=(o)?"bottom":"baseline";var y=document.createElement("br");var z=(o)?this.baseLayers:this.dataLayers;z.push({'layer':l,'inputElem':w,'labelSpan':x});var A=(o)?this.baseLayersDiv:this.dataLayersDiv;A.appendChild(w);A.appendChild(x);A.appendChild(y)}}if(n.length>0){jQuery(this.dataLayersDiv).dynatree({onSelect:function(c,d){if(d.data.layer){var e=function(a){if(d.bSelected){var b=a.map.layers.length-1;while(a.map.layers[b]instanceof OpenLayers.Layer.Vector.RootContainer){b--}a.map.setLayerIndex(a,b)}};e(d.data.layer);d.data.layer.setVisibility(d.bSelected);var f=function(a){if(typeof(a)=='object'){for(var i=0;i<a.length;i++){e(a[i]);a[i].setVisibility(d.bSelected);f(a[i].children)}}};f(d.data.layer.children)}},onClick:function(a,b){if(a.getEventTargetType(b)=="title"){a.toggleSelect()}},onKeydown:function(a,b){if(b.which==32){a.toggleSelect();return false}},checkbox:true,selectMode:3,children:n});this.dynaTree=jQuery(this.dataLayersDiv).dynatree("getTree");this.dynaTree.reload()}this.dataLbl.style.display=(g)?"":"none";this.baseLbl.style.display=(h)?"":"none";this.keepEvents(this.layersDiv);return this.div},updateMap:function(){for(var i=0,len=this.baseLayers.length;i<len;i++){var a=this.baseLayers[i];if(a.inputElem.checked){this.map.setBaseLayer(a.layer,false)}}for(var i=0,len=this.dataLayers.length;i<len;i++){var a=this.dataLayers[i];a.layer.setVisibility(a.inputElem.checked)}},maximizeControl:function(e){this.div.style.width="";this.div.style.height="";this.div.style['border']='';this.showControls(false);if(e!=null){OpenLayers.Event.stop(e)}},minimizeControl:function(e){this.div.style.width="0px";this.div.style.height="0px";this.div.style['border']='none';this.showControls(true);if(e!=null){OpenLayers.Event.stop(e)}},showControls:function(a){this.maximizeDiv.style.display=a?"":"none";this.minimizeDiv.style.display=a?"none":"";this.layersDiv.style.display=a?"none":""},loadContents:function(){this.layersDiv=document.createElement("div");this.layersDiv.id=this.id+"_layersDiv";OpenLayers.Element.addClass(this.layersDiv,"layersDiv");this.baseLbl=document.createElement("div");this.baseLbl.innerHTML=OpenLayers.i18n("Base Layer");OpenLayers.Element.addClass(this.baseLbl,"baseLbl");this.baseLayersDiv=document.createElement("div");OpenLayers.Element.addClass(this.baseLayersDiv,"baseLayersDiv");this.dataLbl=document.createElement("div");this.dataLbl.innerHTML=OpenLayers.i18n("Overlays");OpenLayers.Element.addClass(this.dataLbl,"dataLbl");this.dataLayersDiv=document.createElement("div");OpenLayers.Element.addClass(this.dataLayersDiv,"dataLayersDiv");if(this.ascending){this.layersDiv.appendChild(this.baseLbl);this.layersDiv.appendChild(this.baseLayersDiv);this.layersDiv.appendChild(this.dataLbl);this.layersDiv.appendChild(this.dataLayersDiv)}else{this.layersDiv.appendChild(this.dataLbl);this.layersDiv.appendChild(this.dataLayersDiv);this.layersDiv.appendChild(this.baseLbl);this.layersDiv.appendChild(this.baseLayersDiv)}this.div.appendChild(this.layersDiv);if(this.roundedCorner){OpenLayers.Rico.Corner.round(this.div,{corners:"tl bl",bgColor:"transparent",color:this.roundedCornerColor,blend:false});OpenLayers.Rico.Corner.changeOpacity(this.layersDiv,0.75)}var a=OpenLayers.Util.getImageLocation('starboard-maximize.png');this.maximizeDiv=OpenLayers.Util.createAlphaImageDiv("OpenLayers_Control_MaximizeDiv",null,null,a,"absolute");OpenLayers.Element.addClass(this.maximizeDiv,"maximizeDiv olButton");this.maximizeDiv.style.display="none";this.div.appendChild(this.maximizeDiv);var a=OpenLayers.Util.getImageLocation('layer-switcher-minimize.png');this.minimizeDiv=OpenLayers.Util.createAlphaImageDiv("OpenLayers_Control_MinimizeDiv",null,null,a,"absolute");OpenLayers.Element.addClass(this.minimizeDiv,"minimizeDiv olButton");this.minimizeDiv.style.display="none";this.div.appendChild(this.minimizeDiv)},keepEvents:function(b){this.keepEventsDiv=new OpenLayers.Events(this,b,null,true);var c={"touchstart":function(a){OpenLayers.Event.stop(a,true)}};this.keepEventsDiv.on(c)},CLASS_NAME:"OpenLayers.Control.C4GLayerSwitcher"});
+/**
+ * Contao Open Source CMS
+ * Copyright (C) 2005-2014 Leo Feyer
+ *
+ * Formerly known as TYPOlight Open Source CMS.
+ *
+ * This program is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation, either
+ * version 3 of the License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this program. If not, please visit the Free
+ * Software Foundation website at <http://www.gnu.org/licenses/>.
+ *
+ * @copyright  Küstenschmiede GmbH Software & Design 2011-2014
+ * @author     Jürgen Witte <http://www.kuestenschmiede.de>
+ * @package    con4gis 
+ * @license    http://opensource.org/licenses/lgpl-3.0.html
+ */
+
+/**
+ * Class: OpenLayers.Control.C4GLayerSwitcher
+ *
+ * Extended LayerSwitcher, which allows Overlays to be displayed and switched on/off in a tree.
+ * Uses the jQuery dynatree Plugin.
+ *
+ * based upon OpenLayers.Control.LayerSwitcher from OpenLayers 2.12, which is: 
+ *
+ * Copyright (c) 2006-2012 by OpenLayers Contributors (see authors.txt for 
+ * full list of contributors). Published under the 2-clause BSD license.
+ * See license.txt in the OpenLayers distribution or repository for the
+ * full text of the license. 
+ */
+OpenLayers.Control.C4GLayerSwitcher = 
+  OpenLayers.Class(OpenLayers.Control, {
+
+    /**
+     * APIProperty: roundedCorner
+     * {Boolean} If true the Rico library is used for rounding the corners
+     *     of the layer switcher div, defaults to false. *Deprecated*. Use
+     *     CSS3's border-radius instead. If this option is set to true the
+     *     Rico/Corner.js script must be loaded in the page, and therefore
+     *     listed in the build profile.
+     *
+     */
+    roundedCorner: false,
+
+    /**  
+     * APIProperty: roundedCornerColor
+     * {String} The color of the rounded corners, only applies if roundedCorner
+     *     is true, defaults to "darkblue".
+     */
+    roundedCornerColor: "darkblue",
+    
+    /**  
+     * Property: layerStates 
+     * {Array(Object)} Basically a copy of the "state" of the map's layers 
+     *     the last time the control was drawn. We have this in order to avoid
+     *     unnecessarily redrawing the control.
+     */
+    layerStates: null,
+    
+
+    // DOM Elements
+  
+    /**
+     * Property: layersDiv
+     * {DOMElement} 
+     */
+    layersDiv: null,
+    
+    /** 
+     * Property: baseLayersDiv
+     * {DOMElement}
+     */
+    baseLayersDiv: null,
+
+    /** 
+     * Property: baseLayers
+     * {Array(Object)}
+     */
+    baseLayers: null,
+    
+    
+    /** 
+     * Property: dataLbl
+     * {DOMElement} 
+     */
+    dataLbl: null,
+    
+    /** 
+     * Property: dataLayersDiv
+     * {DOMElement} 
+     */
+    dataLayersDiv: null,
+
+    /** 
+     * Property: dataLayers
+     * {Array(Object)} 
+     */
+    dataLayers: null,
+
+
+    /** 
+     * Property: minimizeDiv
+     * {DOMElement} 
+     */
+    minimizeDiv: null,
+
+    /** 
+     * Property: maximizeDiv
+     * {DOMElement} 
+     */
+    maximizeDiv: null,
+    
+    /**
+     * APIProperty: ascending
+     * {Boolean} 
+     */
+    ascending: true,
+
+    dynaTree: null,
+    
+    /**
+     * Constructor: OpenLayers.Control.LayerSwitcher
+     * 
+     * Parameters:
+     * options - {Object}
+     */
+    initialize: function(options) {
+        options.displayClass = "olControlLayerSwitcher";
+        OpenLayers.Control.prototype.initialize.apply(this, arguments);
+        this.layerStates = [];
+        
+        if(this.roundedCorner) {
+            OpenLayers.Console.warn('roundedCorner option is deprecated');
+        }
+        
+    },
+
+    /**
+     * APIMethod: destroy 
+     */    
+    destroy: function() {
+        
+        //clear out layers info and unregister their events 
+        this.clearLayersArray("base");
+        this.clearLayersArray("data");
+        
+        this.map.events.un({
+            buttonclick: this.onButtonClick,
+            addlayer: this.redraw,
+            changelayer: this.redraw,
+            removelayer: this.redraw,
+            changebaselayer: this.redraw,
+            scope: this
+        });
+        this.events.unregister("buttonclick", this, this.onButtonClick);
+        
+        OpenLayers.Control.prototype.destroy.apply(this, arguments);
+    },
+
+    /** 
+     * Method: setMap
+     *
+     * Properties:
+     * map - {<OpenLayers.Map>} 
+     */
+    setMap: function(map) {
+        OpenLayers.Control.prototype.setMap.apply(this, arguments);
+
+        this.map.events.on({
+            addlayer: this.redraw,
+            changelayer: this.redraw,
+            removelayer: this.redraw,
+            changebaselayer: this.redraw,
+            scope: this
+        });
+        if (this.outsideViewport) {
+            this.events.attachToElement(this.div);
+            this.events.register("buttonclick", this, this.onButtonClick);
+        } else {
+            this.map.events.register("buttonclick", this, this.onButtonClick);
+        }
+    },
+
+    /**
+     * Method: draw
+     *
+     * Returns:
+     * {DOMElement} A reference to the DIV DOMElement containing the 
+     *     switcher tabs.
+     */  
+    draw: function() {
+        OpenLayers.Control.prototype.draw.apply(this);
+
+        // create layout divs
+        this.loadContents();
+
+        // set mode to minimize
+        if(!this.outsideViewport) {
+            this.minimizeControl();
+        }
+
+        // populate div with current info
+        this.redraw();    
+
+        return this.div;
+    },
+
+    /**
+     * Method: onButtonClick
+     *
+     * Parameters:
+     * evt - {Event}
+     */
+    onButtonClick: function(evt) {
+        var button = evt.buttonElement;
+        if (button === this.minimizeDiv) {
+            this.minimizeControl();
+        } else if (button === this.maximizeDiv) {
+            this.maximizeControl();
+        } else if (button._layerSwitcher === this.id) {
+            if (button["for"]) {
+                button = document.getElementById(button["for"]);
+            }
+            if (!button.disabled) {
+                if (button.type == "radio") {
+                    button.checked = true;
+                    this.map.setBaseLayer(this.map.getLayer(button._layer));
+                } else {
+                    button.checked = !button.checked;
+                    this.updateMap();
+                }
+            }
+        }
+    },
+
+    /** 
+     * Method: clearLayersArray
+     * User specifies either "base" or "data". we then clear all the
+     *     corresponding listeners, the div, and reinitialize a new array.
+     * 
+     * Parameters:
+     * layersType - {String}  
+     */
+    clearLayersArray: function(layersType) {
+        this[layersType + "LayersDiv"].innerHTML = "";
+        this[layersType + "Layers"] = [];
+    },
+
+
+    /**
+     * Method: checkRedraw
+     * Checks if the layer state has changed since the last redraw() call.
+     * 
+     * Returns:
+     * {Boolean} The layer state changed since the last redraw() call. 
+     */
+    checkRedraw: function() {
+        var redraw = false;
+        if ( !this.layerStates.length ||
+             (this.map.layers.length != this.layerStates.length) ) {
+            redraw = true;
+        } else {
+            for (var i=0, len=this.layerStates.length; i<len; i++) {
+                var layerState = this.layerStates[i];
+                var layer = this.map.layers[i];
+                if ( (layerState.name != layer.name) || 
+                     (layerState.inRange != layer.inRange) || 
+                     (layerState.id != layer.id) || 
+                     (layerState.visibility != layer.visibility) ) {
+                    redraw = true;
+                    break;
+                }    
+            }
+        }    
+        return redraw;
+    },
+    
+    /** 
+     * Method: redraw
+     * Goes through and takes the current state of the Map and rebuilds the
+     *     control to display that state. Groups base layers into a 
+     *     radio-button group and lists each data layer with a checkbox.
+     *
+     * Returns: 
+     * {DOMElement} A reference to the DIV DOMElement containing the control
+     */  
+    redraw: function() {
+        //if the state hasn't changed since last redraw, no need 
+        // to do anything. Just return the existing div.
+        if (!this.checkRedraw()) { 
+            return this.div; 
+        } 
+
+        //clear out previous layers 
+        this.clearLayersArray("base");
+        this.clearLayersArray("data");
+        
+        var containsOverlays = false;
+        var containsBaseLayers = false;
+        
+        // Save state -- for checking layer if the map state changed.
+        // We save this before redrawing, because in the process of redrawing
+        // we will trigger more visibility changes, and we want to not redraw
+        // and enter an infinite loop.
+        var len = this.map.layers.length;
+        this.layerStates = new Array(len);
+        for (var i=0; i <len; i++) {
+            var layer = this.map.layers[i];
+            this.layerStates[i] = {
+                'name': layer.name, 
+                'visibility': layer.visibility,
+                'inRange': layer.inRange,
+                'id': layer.id
+            };
+        }    
+
+        var layers = this.map.layers.slice();
+        // Sort layers by original order
+        layers.sort(function(a,b) {
+            var sortA = (a.sort ? a.sort : 0);
+            var sortB = (b.sort ? b.sort : 0);
+            return ( sortA < sortB ? -1 : sortB < sortA ? 1 : 0 );
+        });
+        if (!this.ascending) { layers.reverse(); }
+        var children = [];
+        for(var i=0, len=layers.length; i<len; i++) {
+            var layer = layers[i];
+            var baseLayer = layer.isBaseLayer;
+
+            if (layer.displayInLayerSwitcher && !baseLayer) {
+                var list = children;
+                if (layer.parent) {                 
+                    var fnFindParent=function(children) {
+                        for (var j=0; j<children.length; j++) {
+                            if (children[j].key==layer.parent) {
+                                return children[j].children;
+                            }
+                            var result = fnFindParent(children[j].children);
+                            if (result)
+                                return result;
+                        }       
+                        return false;
+                    };
+                    var parentList = fnFindParent(children);
+                    if (parentList) {
+                        list = parentList;
+                    }
+                }
+
+                var expand = false;
+                if (this.dynaTree!=null) {
+                    var node = this.dynaTree.getNodeByKey(layer.key);
+                    if (node) {
+                        expand = node.bExpanded;
+                    }
+                }       
+                
+                var child = {
+                    title: layer.name,
+                    icon: false, 
+                    select: layer.getVisibility(),
+                    expand: expand,
+                    children: [],
+                    layer: layer,
+                    key: layer.key
+                };
+                list.push(child);
+                containsOverlays = true;
+            }
+            if (layer.displayInLayerSwitcher && baseLayer) {
+            
+                if (baseLayer) {
+                    containsBaseLayers = true;
+                } else {
+                    containsOverlays = true;
+                }    
+
+                // only check a baselayer if it is *the* baselayer, check data
+                //  layers if they are visible
+                var checked = (baseLayer) ? (layer == this.map.baseLayer)
+                                          : layer.getVisibility();
+    
+                // create input element
+                var inputElem = document.createElement("input");
+                inputElem.id = this.id + "_input_" + layer.name;
+                inputElem.name = (baseLayer) ? this.id + "_baseLayers" : layer.name;
+                inputElem.type = (baseLayer) ? "radio" : "checkbox";
+                inputElem.value = layer.name;
+                inputElem.checked = checked;
+                inputElem.defaultChecked = checked;
+                inputElem.className = "olButton";
+                inputElem._layer = layer.id;
+                inputElem._layerSwitcher = this.id;
+
+                if (!baseLayer && !layer.inRange) {
+                    inputElem.disabled = true;
+                }
+                
+                // create span
+                var labelSpan = document.createElement("label");
+                labelSpan["for"] = inputElem.id;
+                OpenLayers.Element.addClass(labelSpan, "labelSpan olButton");
+                labelSpan._layer = layer.id;
+                labelSpan._layerSwitcher = this.id;
+                if (!baseLayer && !layer.inRange) {
+                    labelSpan.style.color = "gray";
+                }
+                labelSpan.innerHTML = layer.name;
+                labelSpan.style.verticalAlign = (baseLayer) ? "bottom" 
+                                                            : "baseline";
+                // create line break
+                var br = document.createElement("br");
+    
+                
+                var groupArray = (baseLayer) ? this.baseLayers
+                                             : this.dataLayers;
+                groupArray.push({
+                    'layer': layer,
+                    'inputElem': inputElem,
+                    'labelSpan': labelSpan
+                });
+                                                     
+    
+                var groupDiv = (baseLayer) ? this.baseLayersDiv
+                                           : this.dataLayersDiv;
+                groupDiv.appendChild(inputElem);
+                groupDiv.appendChild(labelSpan);
+                groupDiv.appendChild(br);
+            }
+        }
+
+        if (children.length > 0) {
+            jQuery(this.dataLayersDiv).dynatree({
+                onSelect: function(flag,node) {
+                    if (node.data.layer) {
+
+                        var fnSetLayerIndex = function( layer ) {
+                            if (node.bSelected) {
+                                // display selected layer on top of all other layers
+                                var index = layer.map.layers.length-1;
+                                while(layer.map.layers[index] instanceof OpenLayers.Layer.Vector.RootContainer) {
+                                    index--;
+                                }
+                                //layer.map.setLayerIndex(layer, layer.map.layers.length-1);                                
+                                layer.map.setLayerIndex(layer, index);
+
+                            }   
+                        };
+                        fnSetLayerIndex(node.data.layer);
+                        
+                        node.data.layer.setVisibility(node.bSelected);
+                        var fnSetVis = function(children) {
+                            if (typeof(children)=='object') {
+                                for (var i=0; i < children.length; i++) {
+                                    fnSetLayerIndex(children[i]);
+                                    children[i].setVisibility(node.bSelected);                                  
+                                    fnSetVis(children[i].children);
+                                }
+                            }
+                        };
+                        fnSetVis(node.data.layer.children);
+                    }               
+                },
+                onClick: function(node,event) {
+                    if( node.getEventTargetType(event) == "title" ) {
+                        node.toggleSelect();
+                    }   
+                },
+                onKeydown: function(node, event) {
+                    if( event.which == 32 ) {
+                        node.toggleSelect();
+                        return false;
+                    }
+                },              
+                selectMode: 3,
+                children: children,
+                checkbox: true             
+            });     
+            this.dynaTree = jQuery(this.dataLayersDiv).dynatree("getTree");
+            this.dynaTree.reload();
+        }
+        // if no overlays, dont display the overlay label
+        this.dataLbl.style.display = (containsOverlays) ? "" : "none";        
+        
+        // if no baselayers, dont display the baselayer label
+        this.baseLbl.style.display = (containsBaseLayers) ? "" : "none";        
+        
+
+        this.keepEvents(this.layersDiv); 
+        return this.div;
+    },
+
+    /** 
+     * Method: updateMap
+     * Cycles through the loaded data and base layer input arrays and makes
+     *     the necessary calls to the Map object such that that the map's 
+     *     visual state corresponds to what the user has selected in 
+     *     the control.
+     */
+    updateMap: function() {
+
+        // set the newly selected base layer        
+        for(var i=0, len=this.baseLayers.length; i<len; i++) {
+            var layerEntry = this.baseLayers[i];
+            if (layerEntry.inputElem.checked) {
+                this.map.setBaseLayer(layerEntry.layer, false);
+            }
+        }
+
+        // set the correct visibilities for the overlays
+        for(var i=0, len=this.dataLayers.length; i<len; i++) {
+            var layerEntry = this.dataLayers[i];   
+            layerEntry.layer.setVisibility(layerEntry.inputElem.checked);
+        }
+
+    },
+
+    /** 
+     * Method: maximizeControl
+     * Set up the labels and divs for the control
+     * 
+     * Parameters:
+     * e - {Event} 
+     */
+    maximizeControl: function(e) {
+
+        // set the div's width and height to empty values, so
+        // the div dimensions can be controlled by CSS
+        this.div.style.width = "";
+        this.div.style.height = "";
+        this.div.style['border'] = '';
+
+        this.showControls(false);
+
+        if (e != null) {
+            OpenLayers.Event.stop(e);                                            
+        }
+    },
+    
+    /** 
+     * Method: minimizeControl
+     * Hide all the contents of the control, shrink the size, 
+     *     add the maximize icon
+     *
+     * Parameters:
+     * e - {Event} 
+     */
+    minimizeControl: function(e) {
+
+        // to minimize the control we set its div's width
+        // and height to 0px, we cannot just set "display"
+        // to "none" because it would hide the maximize
+        // div
+        this.div.style.width = "0px";
+        this.div.style.height = "0px";
+        this.div.style['border'] = 'none';
+
+        this.showControls(true);
+
+        if (e != null) {
+            OpenLayers.Event.stop(e);                                            
+        }
+    },
+
+    /**
+     * Method: showControls
+     * Hide/Show all LayerSwitcher controls depending on whether we are
+     *     minimized or not
+     * 
+     * Parameters:
+     * minimize - {Boolean}
+     */
+    showControls: function(minimize) {
+
+        this.maximizeDiv.style.display = minimize ? "" : "none";
+        this.minimizeDiv.style.display = minimize ? "none" : "";
+
+        this.layersDiv.style.display = minimize ? "none" : "";
+    },
+    
+    /** 
+     * Method: loadContents
+     * Set up the labels and divs for the control
+     */
+    loadContents: function() {
+
+        // layers list div        
+        this.layersDiv = document.createElement("div");
+        this.layersDiv.id = this.id + "_layersDiv";
+        OpenLayers.Element.addClass(this.layersDiv, "layersDiv");
+
+        this.baseLbl = document.createElement("div");
+        this.baseLbl.innerHTML = OpenLayers.i18n("Base Layer");
+        OpenLayers.Element.addClass(this.baseLbl, "baseLbl");
+        
+        this.baseLayersDiv = document.createElement("div");
+        OpenLayers.Element.addClass(this.baseLayersDiv, "baseLayersDiv");
+
+        this.dataLbl = document.createElement("div");
+        this.dataLbl.innerHTML = OpenLayers.i18n("Overlays");
+        OpenLayers.Element.addClass(this.dataLbl, "dataLbl");
+        
+        this.dataLayersDiv = document.createElement("div");
+        OpenLayers.Element.addClass(this.dataLayersDiv, "dataLayersDiv");
+
+        if (this.ascending) {
+            this.layersDiv.appendChild(this.baseLbl);
+            this.layersDiv.appendChild(this.baseLayersDiv);
+            this.layersDiv.appendChild(this.dataLbl);
+            this.layersDiv.appendChild(this.dataLayersDiv);
+        } else {
+            this.layersDiv.appendChild(this.dataLbl);
+            this.layersDiv.appendChild(this.dataLayersDiv);
+            this.layersDiv.appendChild(this.baseLbl);
+            this.layersDiv.appendChild(this.baseLayersDiv);
+        }    
+ 
+        this.div.appendChild(this.layersDiv);
+
+        if(this.roundedCorner) {
+            OpenLayers.Rico.Corner.round(this.div, {
+                corners: "tl bl",
+                bgColor: "transparent",
+                color: this.roundedCornerColor,
+                blend: false
+            });
+            OpenLayers.Rico.Corner.changeOpacity(this.layersDiv, 0.75);
+        }
+
+        // maximize button div
+        var img = OpenLayers.Util.getImageLocation('starboard-maximize.png');
+        this.maximizeDiv = OpenLayers.Util.createAlphaImageDiv(
+                                    "OpenLayers_Control_MaximizeDiv", 
+                                    null, 
+                                    null, 
+                                    img, 
+                                    "absolute");
+        OpenLayers.Element.addClass(this.maximizeDiv, "maximizeDiv olButton");
+        this.maximizeDiv.style.display = "none";
+        
+        this.div.appendChild(this.maximizeDiv);
+
+        // minimize button div
+        var img = OpenLayers.Util.getImageLocation('layer-switcher-minimize.png');
+        this.minimizeDiv = OpenLayers.Util.createAlphaImageDiv(
+                                    "OpenLayers_Control_MinimizeDiv", 
+                                    null, 
+                                    null, 
+                                    img, 
+                                    "absolute");
+        OpenLayers.Element.addClass(this.minimizeDiv, "minimizeDiv olButton");
+        this.minimizeDiv.style.display = "none";
+
+        this.div.appendChild(this.minimizeDiv);
+    },
+
+    keepEvents:function(div) {
+        this.keepEventsDiv = new OpenLayers.Events(this, div, null, true);
+
+        var listeners = {
+            "touchstart": function (evt) {
+                OpenLayers.Event.stop(evt, true);
+            }
+        };
+        this.keepEventsDiv.on(listeners);
+    }, 
+    
+    CLASS_NAME: "OpenLayers.Control.C4GLayerSwitcher"
+});
