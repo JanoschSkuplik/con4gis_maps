@@ -288,10 +288,7 @@ $GLOBALS['TL_DCA']['tl_c4g_map_baselayers'] = array
  * Class tl_c4g_map_baselayers
  *
  * Provide methods that are used by the data configuration array.
- * @copyright  Küstenschmiede GmbH Software & Design 2012
- * @author     Jürgen Witte <http://www.kuestenschmiede.de>
- * @package    con4gis
- * @author     Jürgen Witte <http://www.kuestenschmiede.de>
+ * 
  */
 class tl_c4g_map_baselayers extends Backend
 {

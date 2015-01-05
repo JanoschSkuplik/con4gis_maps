@@ -18,8 +18,8 @@
  * License along with this program. If not, please visit the Free
  * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
- * @copyright  KÃ¼stenschmiede GmbH Software & Design 2014
- * @author     JÃ¼rgen Witte & Tobias Dobbrunz <http://www.kuestenschmiede.de>
+ * @copyright  Küstenschmiede GmbH Software & Design 2014
+ * @author     Jürgen Witte & Tobias Dobbrunz <http://www.kuestenschmiede.de>
  * @package    con4gis
  * @license    http://opensource.org/licenses/lgpl-3.0.html
  */
