@@ -7,9 +7,9 @@
  * @package   con4gis
  * @author    Jürgen Witte <http://www.kuestenschmiede.de>
  * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
- * @copyright Küstenschmiede GmbH Software & Design 2014
+ * @copyright Küstenschmiede GmbH Software & Design 2014 - 2015
  * @link      https://www.kuestenschmiede.de
- * @filesource 
+ * @filesource
  */
 
 
@@ -28,7 +28,7 @@ class C4GGeoPicker extends Backend
 
 	/**
 	 * Initialize the controller
-	 * 
+	 *
 	 * 1. Import user
 	 * 2. Call parent constructor
 	 * 3. Authenticate user
@@ -60,7 +60,7 @@ class C4GGeoPicker extends Backend
 		$this->Template->charset = $GLOBALS['TL_CONFIG']['characterSet'];
 		$this->c4g_map_layer_switcher = true;
 		$mapData = C4GMaps::prepareMapData($this, $this->Database);
-		
+
 		$mapData['pickGeo'] = true;
 		if ($this->Input->get('GeoX') || $this->Input->get('GeoY')) {
 			$mapData['pickGeo_init_xCoord'] = $this->Input->get('GeoX');
@@ -70,15 +70,15 @@ class C4GGeoPicker extends Backend
 			$mapData['center_geoy'] = $this->Input->get('GeoY');
 			$mapData['zoom'] = 14;
 		}
-		
+
 		$mapData['geocoding'] = true;
 		$mapData['geocoding_url'] = 'system/modules/con4gis_maps/C4GNominatim.php';
 		$mapData['geocoding_div'] = 'c4gGeoPickerGeocoding';
 		$mapData['geocoding_usebutton'] = true;
 		$mapData['div_attribution'] = 'c4g_attribution';
-		
+
 		$this->Template->mapData = $mapData;
-		
+
 		$this->Template->output();
 	}
 
@@ -86,20 +86,20 @@ class C4GGeoPicker extends Backend
 	{
 		return parent::replaceInsertTags($str);
 	}
-	
+
 	public function import($strClass, $strKey=false, $blnForce=false)
 	{
 		parent::import($strClass, $strKey, $blnForce);
 	}
-	
+
 	public function getInput() {
 		return $this->Input;
 	}
-	
+
 	public function getFrontendUrl($arrRow) {
 		return parent::generateFrontendUrl($arrRow);
 	}
-		
+
 }
 
 

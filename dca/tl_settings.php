@@ -7,7 +7,7 @@
  * @package   con4gis
  * @author    Jürgen Witte <http://www.kuestenschmiede.de>
  * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
- * @copyright Küstenschmiede GmbH Software & Design 2014
+ * @copyright Küstenschmiede GmbH Software & Design 2014 - 2015
  * @link      https://www.kuestenschmiede.de
  * @filesource
  */
@@ -30,7 +30,7 @@ $GLOBALS['TL_DCA']['tl_settings']['fields']['disabledC4gMapObjects'] = array
  * Class tl_settings_con4gis_maps
  *
  * Provide methods that are used by the data configuration array.
- * 
+ *
  */
 class tl_settings_con4gis_maps extends tl_settings
 {

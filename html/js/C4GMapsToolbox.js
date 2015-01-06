@@ -1,6 +1,6 @@
 /**
- * Contao Open Source 
- 
+ * Contao Open Source
+
  * Copyright (C) 2005-2014 Leo Feyer
  *
  * Formerly known as TYPOlight Open Source CMS.
@@ -9,30 +9,30 @@
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation, either
  * version 3 of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this program. If not, please visit the Free
  * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
- * @copyright  Küstenschmiede GmbH Software & Design 2014
+ * @copyright  Küstenschmiede GmbH Software & Design 2014 - 2015
  * @author     Tobias Dobbrunz <http://www.kuestenschmiede.de>
- * @package    con4gis 
+ * @package    con4gis
  * @license    http://opensource.org/licenses/lgpl-3.0.html
  */
 
 function C4GMapsToolbox (mapData, map)
 {
     // misc functions
-    var fnIgnoreEvent = function ( event ) 
+    var fnIgnoreEvent = function ( event )
     {
         OpenLayers.Event.stop(event, true);
     };
-    var fnIgnoreEvents = function ( element ) 
+    var fnIgnoreEvents = function ( element )
     {
         OpenLayers.Event.observe(element, 'click', fnIgnoreEvent);
         OpenLayers.Event.observe(element, 'mousedown', fnIgnoreEvent);
@@ -45,12 +45,12 @@ function C4GMapsToolbox (mapData, map)
         OpenLayers.Event.observe(element, 'touchmove', fnIgnoreEvent);
     };
 
-    
+
     if (mapData.graticule) {
     // ---------------------------------------------------------------------------------
     // GRATICULE BUTTON
     // ---------------------------------------------------------------------------------
-    
+
         var toggleGraticule = function()
         {
             //var ElementGraticulePanel = document.getElementById('C4GMapsToolGraticulePanel_' + mapData.id);
@@ -110,9 +110,9 @@ function C4GMapsToolbox (mapData, map)
     	toolMeasurePanelDiv.style.zIndex = '1030';
     	if (!mapData.zoom_panel_world) {
     		toolMeasurePanelDiv.className += " olControlZoomOutItemWithoutWorld";
-    	}	
+    	}
     	if (!mapData.fullscreen) {
-    		toolMeasurePanelDiv.className += " olControlWithoutFullscreen";		
+    		toolMeasurePanelDiv.className += " olControlWithoutFullscreen";
     	}
 
     	var toolMeasureIconDiv = document.createElement('div');
@@ -218,7 +218,7 @@ function C4GMapsToolbox (mapData, map)
                 }
             )
         };
-                
+
         var control;
         for(var key in measureControls) {
             control = measureControls[key];
@@ -230,7 +230,7 @@ function C4GMapsToolbox (mapData, map)
             map.addControl(control);
         }
 
-        var toggleControl = function (value) 
+        var toggleControl = function (value)
         {
         	var ElementMeasure = document.getElementById('C4GMapsToolMeasureIconDiv_' + mapData.id);
         	var ElementMeasureToggle = document.getElementById('C4GMapsToolMeasureToggle_' + mapData.id);
@@ -249,7 +249,7 @@ function C4GMapsToolbox (mapData, map)
     			    ElementMeasurePolygon.className = ElementMeasurePolygon.className.replace(/olControlToolMeasureIconPolygonInactive/gi, 'olControlToolMeasureIconPolygonActive');
         			break;
         		case 'toggle':
-    	    		
+
     	    		if (C4GMapsUtils.elementHasClass( ElementMeasureToggle, 'olControlToolMeasureIconInactive' )) {
     				    ElementMeasureLine.style.display = 'inline-block';
     			    	ElementMeasurePolygon.style.display = 'inline-block';
@@ -285,10 +285,10 @@ function C4GMapsToolbox (mapData, map)
                 }
             }
         }
-    }//end of measuretool-if    
+    }//end of measuretool-if
 
     // function-declarations in if-blocks are not allowed (ECMA-262)
-    function handleMeasurements(event) 
+    function handleMeasurements(event)
     {
         var geometry = event.geometry;
         var units = event.units;
@@ -302,6 +302,6 @@ function C4GMapsToolbox (mapData, map)
             out += measure.toFixed(3) + " " + units + "<sup>2</" + "sup>";
         }
         element.innerHTML = out;
-    } 
+    }
 
 }

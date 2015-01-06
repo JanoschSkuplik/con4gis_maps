@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /**
  * Contao Open Source CMS
@@ -7,9 +7,9 @@
  * @package   con4gis
  * @author    Jürgen Witte <http://www.kuestenschmiede.de>
  * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
- * @copyright Küstenschmiede GmbH Software & Design 2014
+ * @copyright Küstenschmiede GmbH Software & Design 2014 - 2015
  * @link      https://www.kuestenschmiede.de
- * @filesource 
+ * @filesource
  */
 
 
@@ -79,10 +79,10 @@ class C4GNominatim extends Controller
 					$url = 'http://nominatim.openstreetmap.org/search';
 					break;
 			}
-			
+
 			$r->send($url.'?'.$param);
 
-			echo $r->response;				
+			echo $r->response;
 		}
 
 	}
