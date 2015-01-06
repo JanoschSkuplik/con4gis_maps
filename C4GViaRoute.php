@@ -1,5 +1,5 @@
 
-<?php 
+<?php
 
 /**
  * Contao Open Source CMS
@@ -8,9 +8,9 @@
  * @package   con4gis
  * @author    Jürgen Witte <http://www.kuestenschmiede.de>
  * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
- * @copyright Küstenschmiede GmbH Software & Design 2014
+ * @copyright Küstenschmiede GmbH Software & Design 2014 - 2015
  * @link      https://www.kuestenschmiede.de
- * @filesource 
+ * @filesource
  */
 
 
@@ -46,7 +46,7 @@ class C4GViaRoute extends Controller
 				if (substr($key,0,4)=='hint')
 					$key='hint';
 				$param .= $key.'='.$value;
-			}	
+			}
 		}
 		$url = '';
 		if ($profileId) {
@@ -59,9 +59,9 @@ class C4GViaRoute extends Controller
 				if ($profileUrl) {
 					$url = $profileUrl;
 				} else {
-					$url = 'http://router.project-osrm.org/viaroute';						
+					$url = 'http://router.project-osrm.org/viaroute';
 				}
-			}	
+			}
 		}
 		if (version_compare(VERSION,'3','<')) {
 			$objToken = RequestToken::getInstance();
@@ -75,18 +75,18 @@ class C4GViaRoute extends Controller
 			$r = new Request();
 			if ($_SERVER['HTTP_REFERER']) {
 				$r->setHeader('Referer', $_SERVER['HTTP_REFERER']);
-			}		
+			}
 			if ($_SERVER['HTTP_USER_AGENT']) {
 				$r->setHeader('User-Agent', $_SERVER['HTTP_USER_AGENT']);
-			}		
+			}
 			$r->send($url.'?'.$param);
-			
+
 			echo $r->response;
 		}
 		else {
 			echo 'Error - Routing is not active in the map profile!';
-		}	
-		
+		}
+
 	}
 }
 $objC4GViaRoute = new C4GViaRoute();

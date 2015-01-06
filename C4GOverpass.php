@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /**
  * Contao Open Source CMS
@@ -7,9 +7,9 @@
  * @package   con4gis
  * @author    Jürgen Witte <http://www.kuestenschmiede.de>
  * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
- * @copyright Küstenschmiede GmbH Software & Design 2014
+ * @copyright Küstenschmiede GmbH Software & Design 2014 - 2015
  * @link      https://www.kuestenschmiede.de
- * @filesource 
+ * @filesource
  */
 
 
@@ -34,7 +34,7 @@ function fix_magic_quotes()
 	            foreach ($value as &$v) $fn($v, $fn);
 	        }
 	    ');
-	   
+
 	    // Unescape data
 	    $stripslashes_deep($_GET, $stripslashes_deep);
 	}
@@ -62,7 +62,7 @@ class C4GOverpass extends Controller
 				if ($param)
 					$param .= '&';
 				$param .= $key.'='.urlencode($value);
-			}	
+			}
 		}
 		$url = 'http://overpass-api.de/api/interpreter';
 		if ($profileId) {
@@ -74,7 +74,7 @@ class C4GOverpass extends Controller
 				$url = $profileUrl;
 			}
 		}
-		
+
 		if (version_compare(VERSION,'3','<')) {
 			$objToken = RequestToken::getInstance();
 			$compToken = $objToken->get();
@@ -91,10 +91,10 @@ class C4GOverpass extends Controller
 			if ($_SERVER['HTTP_USER_AGENT']) {
 				$r->setHeader('User-Agent', $_SERVER['HTTP_USER_AGENT']);
 			}
-			$r->send($url.'?'.$param);		
+			$r->send($url.'?'.$param);
 			echo $r->response;
 		}
-				
+
 	}
 }
 $objC4GOverpass = new C4GOverpass();

@@ -7,9 +7,9 @@
  * @package   con4gis
  * @author    Jürgen Witte <http://www.kuestenschmiede.de>
  * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
- * @copyright Küstenschmiede GmbH Software & Design 2014
+ * @copyright Küstenschmiede GmbH Software & Design 2014 - 2015
  * @link      https://www.kuestenschmiede.de
- * @filesource 
+ * @filesource
  */
 
 
@@ -32,7 +32,7 @@ class C4GImageSize extends ImageSize
 	{
 		$validatedInput = parent::validator($varInput);
 		$validatedInput[2] = preg_replace('/[^a-z0-9_%]+/', '', $varInput[2]);
-		
+
 		return $validatedInput;
 	}
 

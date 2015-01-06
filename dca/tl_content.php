@@ -7,9 +7,9 @@
  * @package   con4gis
  * @author     Jürgen Witte <http://www.kuestenschmiede.de>
  * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
- * @copyright Küstenschmiede GmbH Software & Design 2014
+ * @copyright Küstenschmiede GmbH Software & Design 2014 - 2015
  * @link      https://www.kuestenschmiede.de
- * @filesource 
+ * @filesource
  */
 
 
@@ -63,7 +63,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['c4g_map_layer_switcher'] = array
 	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['c4g_map_layer_switcher'],
 	'exclude'                 => true,
 	'inputType'               => 'checkbox',
-	'eval'                    => array('submitOnChange' => true)		
+	'eval'                    => array('submitOnChange' => true)
 );
 $GLOBALS['TL_DCA']['tl_content']['fields']['c4g_map_layer_switcher_open'] = array
 (
@@ -82,12 +82,12 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['c4g_map_layer_switcher_ext'] = array
  * Class tl_content_c4g_maps
  *
  * Provide methods that are used by the data configuration array.
- * 
+ *
  */
 class tl_content_c4g_maps extends Backend {
 
 	protected $firstMapId = null;
-	
+
 	/**
 	 * Return all base layers for current Map Profile as array
 	 * @param object
@@ -103,13 +103,13 @@ class tl_content_c4g_maps extends Backend {
 			// take firstMapId, because it will be chosen as DEFAULT value for c4g_map_id
 			$id = $this->firstMapId;
 		}
-		
+
 		$profile = $this->Database->prepare(
 				"SELECT b.baselayers ".
 				"FROM tl_c4g_maps a, tl_c4g_map_profiles b ".
 				"WHERE a.id = ? and a.profile = b.id")
 				->execute($id);
-		
+
 		$ids = deserialize($profile->baselayers,true);
 		if (count($ids)>0) {
 			$baseLayers = $this->Database->prepare("SELECT id,name FROM tl_c4g_map_baselayers WHERE id IN (".implode(',',$ids).") ORDER BY name")->execute();
@@ -117,24 +117,24 @@ class tl_content_c4g_maps extends Backend {
 		else {
 			$baseLayers = $this->Database->prepare("SELECT id,name FROM tl_c4g_map_baselayers ORDER BY name")->execute();
 		}
-		
-		
+
+
 		if ($baseLayers->numRows > 0) {
 			while ( $baseLayers->next () ) {
 				$return [$baseLayers->id] = $baseLayers->name;
 			}
 		}
 		return $return;
-	}		
-	
+	}
+
 	/**
-	 * Return all defined maps 
+	 * Return all defined maps
 	 * @param object
 	 * @return array
 	 */
 	public function get_maps(DataContainer $dc)
 	{
-		
+
 		$maps = $this->Database->prepare ( "SELECT * FROM tl_c4g_maps WHERE is_map=1 AND published=1" )->execute ();
 		if ($maps->numRows > 0) {
 			while ( $maps->next () ) {

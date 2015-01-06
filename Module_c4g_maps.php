@@ -7,9 +7,9 @@
  * @package   con4gis
  * @author    Jürgen Witte <http://www.kuestenschmiede.de>
  * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
- * @copyright Küstenschmiede GmbH Software & Design 2014
+ * @copyright Küstenschmiede GmbH Software & Design 2014 - 2015
  * @link      https://www.kuestenschmiede.de
- * @filesource 
+ * @filesource
  */
 
 
@@ -54,15 +54,15 @@ class Module_c4g_maps extends Module
 	 */
 	protected function compile()
 	{
-		$this->Template->mapData = C4GMaps::prepareMapData($this, $this->Database);				
+		$this->Template->mapData = C4GMaps::prepareMapData($this, $this->Database);
 	}
-	
+
 	public function repInsertTags( $str )
 	{
 		return parent::replaceInsertTags($str);
 	}
 
-	public function import($strClass, $strKey=false, $blnForce=false)	
+	public function import($strClass, $strKey=false, $blnForce=false)
 	{
 		parent::import($strClass, $strKey, $blnForce);
 	}
@@ -74,7 +74,7 @@ class Module_c4g_maps extends Module
 	public function getFrontendUrl($arrRow) {
 		return parent::generateFrontendUrl($arrRow);
 	}
-	
+
 }
 
 ?>

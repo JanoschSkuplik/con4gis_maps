@@ -7,17 +7,17 @@
  * @package   con4gis
  * @author    Jürgen Witte <http://www.kuestenschmiede.de>
  * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
- * @copyright Küstenschmiede GmbH Software & Design 2014
+ * @copyright Küstenschmiede GmbH Software & Design 2014 - 2015
  * @link      https://www.kuestenschmiede.de
- * @filesource 
+ * @filesource
  */
 
 
 
 /**
  * Class C4GTextField
- * DCA eval = array( 'require_input'=>true , adds "mandatory" field without Contao default 
- * "mandatory" functionality being executed 
+ * DCA eval = array( 'require_input'=>true , adds "mandatory" field without Contao default
+ * "mandatory" functionality being executed
  * (validation must be handled by code in the "save_callback" of the field)
  */
 class C4GTextField extends TextField
@@ -31,9 +31,9 @@ class C4GTextField extends TextField
 	{
 		if (($this->require_input) && ($this->value=='')) {
  		  $this->required = true;
-		}   
+		}
 		return parent::generateLabel();
 	}
-	
+
 }
 ?>

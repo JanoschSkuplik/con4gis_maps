@@ -7,9 +7,9 @@
  * @package   con4gis
  * @author    Jürgen Witte <http://www.kuestenschmiede.de>
  * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
- * @copyright Küstenschmiede GmbH Software & Design 2014
+ * @copyright Küstenschmiede GmbH Software & Design 2014 - 2015
  * @link      https://www.kuestenschmiede.de
- * @filesource 
+ * @filesource
  */
 
 
@@ -28,7 +28,7 @@ class C4GFeatureEditor extends Backend
 
 	/**
 	 * Initialize the controller
-	 * 
+	 *
 	 * 1. Import user
 	 * 2. Call parent constructor
 	 * 3. Authenticate user
@@ -60,10 +60,10 @@ class C4GFeatureEditor extends Backend
 		$this->Template->charset = $GLOBALS['TL_CONFIG']['characterSet'];
 		$this->c4g_map_layer_switcher = true;
 		$mapData = C4GMaps::prepareMapData($this, $this->Database, null, true);
-		
+
 		$mapData['editor'] = true;
 		$mapData['editor_labels'] = $GLOBALS['TL_LANG']['c4g_maps']['editor_labels'];
-		
+
   		$mapData['geocoding_url'] = 'system/modules/con4gis_maps/C4GNominatim.php';
   		$mapData['geosearch'] = true;
   		$mapData['geosearch_div'] = 'c4gFeatureEditorSearch';
@@ -72,16 +72,16 @@ class C4GFeatureEditor extends Backend
   		$mapData['geosearch_attribution'] = true;
 
   		$mapData['div_attribution'] = 'c4gAttribution';
-  		
+
   		$item = $this->Database->prepare(
   				"SELECT locstyle ".
   				"FROM tl_c4g_maps ".
   				"WHERE id = ?")
-  				->execute($this->Input->get('mapId'));  		
+  				->execute($this->Input->get('mapId'));
   		if ($item->numRows > 0) {
   			$mapData['editor_defstyle'] = $item->locstyle;
-  		}	
-  		
+  		}
+
   		$mapId = C4GMaps::getMapForLocation($this->Database, $this->Input->get('mapId'));
   		if ($mapId<>0) {
   			$map = $this->Database->prepare(
@@ -94,12 +94,12 @@ class C4GFeatureEditor extends Backend
   					$mapData['calc_extent'] = $map->calc_extent;
   					$mapData['center_geox'] = $map->center_geox;
   					$mapData['center_geoy'] = $map->center_geoy;
-  					$mapData['zoom'] = $map->zoom;  					  		
+  					$mapData['zoom'] = $map->zoom;
   				}
-  			}		
+  			}
   		}
 		$this->Template->mapData = $mapData;
-		
+
 		$this->Template->output();
 	}
 
@@ -107,20 +107,20 @@ class C4GFeatureEditor extends Backend
 	{
 		return parent::replaceInsertTags($str);
 	}
-	
+
 	public function import($strClass, $strKey=false, $blnForce=false)
 	{
 		parent::import($strClass, $strKey, $blnForce);
 	}
-	
+
 	public function getInput() {
 		return $this->Input;
 	}
-	
+
 	public function getFrontendUrl($arrRow) {
 		return parent::generateFrontendUrl($arrRow);
 	}
-		
+
 }
 
 

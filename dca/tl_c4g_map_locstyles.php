@@ -7,9 +7,9 @@
  * @package   con4gis
  * @author     Jürgen Witte <http://www.kuestenschmiede.de>
  * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
- * @copyright Küstenschmiede GmbH Software & Design 2014
+ * @copyright Küstenschmiede GmbH Software & Design 2014 - 2015
  * @link      https://www.kuestenschmiede.de
- * @filesource 
+ * @filesource
  */
 
 
@@ -19,7 +19,7 @@
  */
 $GLOBALS['TL_DCA']['tl_c4g_map_locstyles'] = array
 (
-	
+
     // Config
 	'config' => array
 	(
@@ -37,7 +37,7 @@ $GLOBALS['TL_DCA']['tl_c4g_map_locstyles'] = array
 			'fields'                  => array('name'),
 			'panelLayout'             => 'filter;sort,search,limit',
 			'headerFields'            => array('name'),
-			'flag'                    => 1,				
+			'flag'                    => 1,
 		),
 		'label' => array
 		(
@@ -84,7 +84,7 @@ $GLOBALS['TL_DCA']['tl_c4g_map_locstyles'] = array
 		)
 	),
 
-		
+
 	// Palettes
 	'palettes' => array
 	(
@@ -105,14 +105,14 @@ $GLOBALS['TL_DCA']['tl_c4g_map_locstyles'] = array
 	                                     '{popup_legend},tooltip,popup_info,popup_kind,popup_size,popup_offset;'.
 	                                     '{zoom_legend:hide},onclick_zoomto,minzoom,maxzoom;'.
 		                                 '{editor_legend:hide},editor_icon,editor_vars,editor_collect;',
-	),		                                 
-		                                 
+	),
+
     // Subpalettes
     'subpalettes' => array
     (
    		'line_arrows'                 => 'line_arrows_back,line_arrows_radius,line_arrows_minzoom',
     ),
-		                                  
+
 
 	// Fields
 	'fields' => array
@@ -137,7 +137,7 @@ $GLOBALS['TL_DCA']['tl_c4g_map_locstyles'] = array
 		    'options'               => array('point', 'square', 'star', 'x', 'cross', 'triangle', 'ol_icon', 'cust_icon' ),
 		    'reference'             => &$GLOBALS['TL_LANG']['tl_c4g_map_locstyles']['references'],
 		    'eval'                  => array('submitOnChange'=>'true')
-		),	
+		),
 		'strokecolor' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_map_locstyles']['strokecolor'],
@@ -252,15 +252,15 @@ $GLOBALS['TL_DCA']['tl_c4g_map_locstyles'] = array
 			'options'                 => array('%'),
 			'eval'                    => array('rgxp'=>'prcnt', 'tl_class'=>'clr', 'mandatory'=>true)
 		),
-		
+
 		'onhover_locstyle' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_map_locstyles']['onhover_locstyle'],
 			'exclude'                 => true,
 			'inputType'               => 'select',
 			'options_callback'        => array('tl_c4g_map_locstyles','getLocStyles', 'includeBlankOption' => true)
-		),		
-		
+		),
+
 		'line_arrows' => array
 		(
 				'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_map_locstyles']['line_arrows'],
@@ -277,7 +277,7 @@ $GLOBALS['TL_DCA']['tl_c4g_map_locstyles'] = array
 				'default'                 => '',
 				'inputType'               => 'checkbox',
 		),
-		
+
 		'line_arrows_radius' => array
 		(
 				'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_map_locstyles']['line_arrows_radius'],
@@ -294,8 +294,8 @@ $GLOBALS['TL_DCA']['tl_c4g_map_locstyles'] = array
 				'default'                 => '0',
 				'eval'                    => array('rgxp'=>'digit', 'tl_class'=>'clr')
 		),
-		
-		'label' => array		
+
+		'label' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_map_locstyles']['label'],
 			'exclude'                 => true,
@@ -372,7 +372,7 @@ $GLOBALS['TL_DCA']['tl_c4g_map_locstyles'] = array
 			'default'                 => '',
 			'options'                 => array('px'),
 			'eval'                    => array('rgxp'=>'digit', 'tl_class'=>'w50')
-		),		
+		),
 		'font_opacity' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_map_locstyles']['font_opacity'],
@@ -388,13 +388,13 @@ $GLOBALS['TL_DCA']['tl_c4g_map_locstyles'] = array
 			'exclude'                 => true,
 			'inputType'               => 'text',
 		),
-		
+
 		'font_weight' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_map_locstyles']['font_weight'],
 			'exclude'                 => true,
 			'inputType'               => 'text',
-		),				
+		),
 		'tooltip' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_map_locstyles']['tooltip'],
@@ -460,7 +460,7 @@ $GLOBALS['TL_DCA']['tl_c4g_map_locstyles'] = array
 			'inputType'               => 'text',
 			'default'                 => '0',
 			'eval'                    => array('rgxp'=>'digit', 'tl_class'=>'clr')
-		),		
+		),
 		'editor_icon' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_map_locstyles']['editor_icon'],
@@ -482,8 +482,8 @@ $GLOBALS['TL_DCA']['tl_c4g_map_locstyles'] = array
 			'default'                 => '',
 			'inputType'               => 'checkbox',
 		),
-		
-		
+
+
 	)
 );
 
@@ -491,7 +491,7 @@ $GLOBALS['TL_DCA']['tl_c4g_map_locstyles'] = array
  * Class tl_c4g_map_locstyles
  *
  * Provide methods that are used by the data configuration array.
- * 
+ *
  */
 class tl_c4g_map_locstyles extends Backend
 {
@@ -506,10 +506,10 @@ class tl_c4g_map_locstyles extends Backend
 		if (version_compare(VERSION,'2.11','<')) {
 			$GLOBALS['TL_CSS'][] = 'plugins/mootools/rainbow.css?'. MOO_RAINBOW . '|screen';
 			$GLOBALS['TL_JAVASCRIPT'][] = 'plugins/mootools/rainbow.js?' . MOO_RAINBOW;
-		}	
+		}
 
 	}
-	
+
 	/**
 	 * Return all Location Styles as array
 	 * @param object
@@ -526,7 +526,7 @@ class tl_c4g_map_locstyles extends Backend
 		}
 		return $return;
 	}
-		
+
 	/**
 	 * Color picker wizard
 	 * @param object
@@ -547,7 +547,7 @@ class tl_c4g_map_locstyles extends Backend
       $("ctrl_' . $dc->field . '").value = color.hex.replace("#", "");
     }
   });
-  </script>';			
+  </script>';
 		} else {
 			return ' ' . $this->generateImage('pickcolor.gif', $GLOBALS['TL_LANG']['MSC']['colorpicker'], 'style="vertical-align:top;cursor:pointer" id="moo_'.$dc->field.'"') . '
   <script>
@@ -560,9 +560,9 @@ class tl_c4g_map_locstyles extends Backend
     }
   });
   </script>';
-						
+
 		}
-	}	
+	}
 }
 
 

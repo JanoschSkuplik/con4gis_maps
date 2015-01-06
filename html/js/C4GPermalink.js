@@ -3,9 +3,9 @@
  * @requires OpenLayers/C4GArgParser.js
  * @requires OpenLayers/Lang.js
  *
- * @copyright  Küstenschmiede GmbH Software & Design 2014
+ * @copyright  Küstenschmiede GmbH Software & Design 2014 - 2015
  * @author     Tobias Dobbrunz <http://www.kuestenschmiede.de>
- * @package    con4gis 
+ * @package    con4gis
  * @license    http://opensource.org/licenses/lgpl-3.0.html
  */
 
@@ -14,14 +14,14 @@
  *
  * Extended Permalink for Tree-Layer-Permalinks
  *
- * based upon OpenLayers.Control.Permalink from OpenLayers 2.13, which is: 
+ * based upon OpenLayers.Control.Permalink from OpenLayers 2.13, which is:
  *
- * Copyright (c) 2006-2014 by OpenLayers Contributors (see authors.txt for 
+ * Copyright (c) 2006-2014 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
- * full text of the license. 
+ * full text of the license.
  */
-OpenLayers.Control.C4GPermalink = OpenLayers.Class(OpenLayers.Control, 
+OpenLayers.Control.C4GPermalink = OpenLayers.Class(OpenLayers.Control,
 {
     /**
      * APIProperty: argParserClass
@@ -30,13 +30,13 @@ OpenLayers.Control.C4GPermalink = OpenLayers.Class(OpenLayers.Control,
      */
     argParserClass: OpenLayers.Control.ArgParser,
 
-    /** 
-     * Property: element 
+    /**
+     * Property: element
      * {DOMElement}
      */
     element: null,
-    
-    /** 
+
+    /**
      * APIProperty: anchor
      * {Boolean} This option changes 3 things:
      *     the character '#' is used in place of the character '?',
@@ -46,13 +46,13 @@ OpenLayers.Control.C4GPermalink = OpenLayers.Class(OpenLayers.Control,
      */
     anchor: false,
 
-    /** 
+    /**
      * APIProperty: base
      * {String}
      */
     base: '',
 
-    /** 
+    /**
      * APIProperty: displayProjection
      * {<OpenLayers.Projection>} Requires proj4js support.  Projection used
      *     when creating the coordinates in the link. This will reproject the
@@ -60,16 +60,16 @@ OpenLayers.Control.C4GPermalink = OpenLayers.Class(OpenLayers.Control,
      *     functionality, the permalink which is last added to the map will
      *     determine the coordinate type which is read from the URL, which
      *     means you should not add permalinks with different
-     *     displayProjections to the same map. 
+     *     displayProjections to the same map.
      */
-    displayProjection: null, 
+    displayProjection: null,
 
     /**
      * Constructor: OpenLayers.Control.Permalink
      *
-     * Parameters: 
-     * element - {DOMElement} 
-     * base - {String} 
+     * Parameters:
+     * element - {DOMElement}
+     * base - {String}
      * options - {Object} options to the control.
      *
      * Or for anchor:
@@ -91,7 +91,7 @@ OpenLayers.Control.C4GPermalink = OpenLayers.Class(OpenLayers.Control,
             this.base = base || document.location.href;
         }
     },
-    
+
     /**
      * APIMethod: destroy
      */
@@ -105,15 +105,15 @@ OpenLayers.Control.C4GPermalink = OpenLayers.Class(OpenLayers.Control,
             this.map.events.unregister('moveend', this, this.updateLink);
         }
 
-        OpenLayers.Control.prototype.destroy.apply(this, arguments); 
+        OpenLayers.Control.prototype.destroy.apply(this, arguments);
     },
 
     /**
      * Method: setMap
-     * Set the map property for the control. 
-     * 
+     * Set the map property for the control.
+     *
      * Parameters:
-     * map - {<OpenLayers.Map>} 
+     * map - {<OpenLayers.Map>}
      */
     setMap: function(map)
     {
@@ -123,20 +123,20 @@ OpenLayers.Control.C4GPermalink = OpenLayers.Class(OpenLayers.Control,
         for(var i=0, len=this.map.controls.length; i<len; i++) {
             var control = this.map.controls[i];
             if (control.CLASS_NAME == this.argParserClass.CLASS_NAME) {
-                
+
                 // If a permalink is added to the map, and an ArgParser already
                 // exists, we override the displayProjection to be the one
-                // on the permalink. 
+                // on the permalink.
                 if (control.displayProjection != this.displayProjection) {
                     this.displayProjection = control.displayProjection;
-                }    
-                
+                }
+
                 break;
             }
         }
         if (i == this.map.controls.length) {
             this.map.addControl(new this.argParserClass(
-                { 'displayProjection': this.displayProjection }));       
+                { 'displayProjection': this.displayProjection }));
         }
 
     },
@@ -146,11 +146,11 @@ OpenLayers.Control.C4GPermalink = OpenLayers.Class(OpenLayers.Control,
      *
      * Returns:
      * {DOMElement}
-     */    
+     */
     draw: function()
     {
         OpenLayers.Control.prototype.draw.apply(this, arguments);
-          
+
         if (!this.element && !this.anchor) {
             this.element = document.createElement("a");
             this.element.innerHTML = OpenLayers.i18n("Permalink");
@@ -163,16 +163,16 @@ OpenLayers.Control.C4GPermalink = OpenLayers.Class(OpenLayers.Control,
             'changebaselayer': this.updateLink,
             scope: this
         });
-        
+
         // Make it so there is at least a link even though the map may not have
         // moved yet.
         this.updateLink();
-        
+
         return this.div;
     },
-   
+
     /**
-     * Method: updateLink 
+     * Method: updateLink
      */
     updateLink: function()
     {
@@ -196,12 +196,12 @@ OpenLayers.Control.C4GPermalink = OpenLayers.Class(OpenLayers.Control,
         else {
             this.element.href = href;
         }
-    }, 
-    
+    },
+
     /**
      * APIMethod: createParams
      * Creates the parameters that need to be encoded into the permalink url.
-     * 
+     *
      * Parameters:
      * center - {<OpenLayers.LonLat>} center to encode in the permalink.
      *     Defaults to the current map center.
@@ -209,7 +209,7 @@ OpenLayers.Control.C4GPermalink = OpenLayers.Class(OpenLayers.Control,
      *     current map zoom level.
      * layers - {Array(<OpenLayers.Layer>)} layers to encode in the permalink.
      *     Defaults to the current map layers.
-     * 
+     *
      * Returns:
      * {Object} Hash of parameters that will be url-encoded into the
      * permalink.
@@ -219,38 +219,38 @@ OpenLayers.Control.C4GPermalink = OpenLayers.Class(OpenLayers.Control,
         center = center || this.map.getCenter();
 
         var params = OpenLayers.Util.getParameters(this.base);
-        
-        // If there's still no center, map is not initialized yet. 
+
+        // If there's still no center, map is not initialized yet.
         // Break out of this function, and simply return the params from the
         // base link.
-        if (center) { 
+        if (center) {
 
             //zoom
-            params.zoom = zoom || this.map.getZoom(); 
+            params.zoom = zoom || this.map.getZoom();
 
             //lon,lat
             var lat = center.lat;
             var lon = center.lon;
-            
+
             if (this.displayProjection) {
                 var mapPosition = OpenLayers.Projection.transform(
-                  { x: lon, y: lat }, 
-                  this.map.getProjectionObject(), 
+                  { x: lon, y: lat },
+                  this.map.getProjectionObject(),
                   this.displayProjection );
-                lon = mapPosition.x;  
-                lat = mapPosition.y;  
-            }       
+                lon = mapPosition.x;
+                lat = mapPosition.y;
+            }
             params.lat = Math.round(lat*100000)/100000;
             params.lon = Math.round(lon*100000)/100000;
-    
-            //layers        
-            layers = layers || this.map.layers;  
+
+            //layers
+            layers = layers || this.map.layers;
             params.base = '';
             var arrLayers = new Array();
             var len = layers.length;
             for (var i=0; i<len; i++) {
                 var layer = layers[i];
-    
+
                 if (layer == this.map.baseLayer) {
                     params.base = layer.key;
                 } else if (layer.getVisibility() && typeof(layer.key) != 'undefined' && layer.name != "") {
@@ -268,7 +268,7 @@ OpenLayers.Control.C4GPermalink = OpenLayers.Class(OpenLayers.Control,
         }
 
         return params;
-    }, 
+    },
 
     CLASS_NAME: "OpenLayers.Control.C4GPermalink"
 });
