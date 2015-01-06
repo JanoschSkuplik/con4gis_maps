@@ -7,7 +7,7 @@
  * @package   con4gis
  * @author     Jürgen Witte <http://www.kuestenschmiede.de>
  * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
- * @copyright Küstenschmiede GmbH Software & Design 2014
+ * @copyright Küstenschmiede GmbH Software & Design 2014 - 2015
  * @link      https://www.kuestenschmiede.de
  * @filesource
  */
@@ -18,7 +18,7 @@
  * Global settings
  */
 $GLOBALS['con4gis_maps_extension']['installed'] = true;
-$GLOBALS['con4gis_maps_extension']['version'] = '1.0.0';
+$GLOBALS['con4gis_maps_extension']['version'] = '1.0.1';
 
 /**
  * Sourcetable definition

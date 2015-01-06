@@ -7,9 +7,9 @@
  * @package   con4gis
  * @author    Jürgen Witte <http://www.kuestenschmiede.de>
  * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
- * @copyright Küstenschmiede GmbH Software & Design 2014
+ * @copyright Küstenschmiede GmbH Software & Design 2014 - 2015
  * @link      https://www.kuestenschmiede.de
- * @filesource 
+ * @filesource
  */
 
 
@@ -27,7 +27,7 @@ if (!in_array('tl_calendar_events', $disabledObjects))
 	foreach ($GLOBALS['TL_DCA']['tl_calendar_events']['palettes'] as $key=>&$palette) {
 		if ($key != '__selector__') {
 		  	$palette = str_replace(';{expert_legend', ';{c4g_maps_legend},c4g_loc_geox,c4g_loc_geoy,c4g_loc_label,c4g_locstyle;{expert_legend', $palette);
-		}  	
+		}
 	}
 
 	$GLOBALS['TL_DCA']['tl_calendar_events']['fields']['c4g_loc_geox'] = array
@@ -64,8 +64,8 @@ if (!in_array('tl_calendar_events', $disabledObjects))
 		'exclude'                 => true,
 		'inputType'               => 'select',
 	    'options_callback'        => array('tl_calendar_events_c4g_maps','getLocStyles')
-	);			
-	
+	);
+
 
 }
 }
@@ -73,8 +73,8 @@ if (!in_array('tl_calendar_events', $disabledObjects))
 /**
  * Class tl_calendar_events_c4g_maps
  */
-class tl_calendar_events_c4g_maps extends Backend  
-{	
+class tl_calendar_events_c4g_maps extends Backend
+{
 	/**
 	 * Return all Location Styles as array
 	 * @param object
@@ -83,12 +83,12 @@ class tl_calendar_events_c4g_maps extends Backend
 	public function getLocStyles(DataContainer $dc)
 	{
 		$locStyles = $this->Database->prepare("SELECT id,name FROM tl_c4g_map_locstyles ORDER BY name")
-									->execute();									  
+									->execute();
 		$return[''] = '-';
 		while ($locStyles->next())
 		{
 			$return[$locStyles->id] = $locStyles->name;
-		}		
+		}
 		return $return;
 	}
 
@@ -101,10 +101,10 @@ class tl_calendar_events_c4g_maps extends Backend
 			if (!C4GMaps::validateGeoX($varValue)) {
 				throw new Exception($GLOBALS['TL_LANG']['c4g_maps']['geox_invalid']);
 			}
-		}	
+		}
 		return $varValue;
 	}
-	
+
 	/**
 	 * Validate Location GeoY
 	 */
@@ -114,10 +114,10 @@ class tl_calendar_events_c4g_maps extends Backend
 			if (!C4GMaps::validateGeoY($varValue)) {
 				throw new Exception($GLOBALS['TL_LANG']['c4g_maps']['geoy_invalid']);
 			}
-		}	
+		}
 		return $varValue;
 	}
-	
+
 
 	/**
 	 * Return the Geo Picker Wizard
@@ -129,15 +129,15 @@ class tl_calendar_events_c4g_maps extends Backend
 		$strField = 'ctrl_' . $dc->field . (($this->Input->get('act') == 'editAll') ? '_' . $dc->id : '');
 		if (substr($strField,-1,1)=='y') {
 			$strFieldX = substr($strField,0,-1).'x';
-			$strFieldY = $strField; 			
+			$strFieldY = $strField;
 		}
 		else {
 			$strFieldX = $strField;
-			$strFieldY = substr($strField,0,-1).'y';			
-		}		
+			$strFieldY = substr($strField,0,-1).'y';
+		}
 		return ' ' . $this->generateImage('system/modules/con4gis_maps/html/geopicker.png', $GLOBALS['TL_LANG']['c4g_maps']['geopicker'], 'style="vertical-align:top; cursor:pointer;" onclick="C4GMapsBackend.pickGeo(\'' . $strFieldX . '\',\''.$strFieldY . '\')"');
 	}
-			
+
 }
 
 ?>

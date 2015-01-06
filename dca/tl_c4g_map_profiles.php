@@ -7,7 +7,7 @@
  * @package   con4gis
  * @author     Jürgen Witte <http://www.kuestenschmiede.de>
  * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
- * @copyright Küstenschmiede GmbH Software & Design 2014
+ * @copyright Küstenschmiede GmbH Software & Design 2014 - 2015
  * @link      https://www.kuestenschmiede.de
  * @filesource
  */
@@ -650,7 +650,7 @@ $GLOBALS['TL_DCA']['tl_c4g_map_profiles'] = array
  * Class tl_c4g_map_profiles
  *
  * Provide methods that are used by the data configuration array.
- * 
+ *
  */
 class tl_c4g_map_profiles extends Backend {
 

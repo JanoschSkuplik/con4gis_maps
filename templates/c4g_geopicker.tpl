@@ -16,8 +16,8 @@
 <script type="text/javascript" src="plugins/mootools/mootools-more.js?<?php echo MOOTOOLS_MORE; ?>"></script>
 <script type="text/javascript" src="contao/contao.js?<?php echo VERSION .'.'. BUILD; ?>"></script>
 <script type="text/javascript" src="system/themes/<?php echo $this->theme; ?>/hover.js?<?php echo VERSION .'.'. BUILD; ?>"></script>
-<script type="text/javascript" src="<?php echo $GLOBALS['c4g_maps_extension']['js_openlayers']; ?>"></script>
-<script type="text/javascript" src="<?php echo $GLOBALS['c4g_maps_extension']['js_google']; ?>"></script>
+<script type="text/javascript" src="<?php echo $GLOBALS['con4gis_maps_extension']['js_openlayers']; ?>"></script>
+<script type="text/javascript" src="<?php echo $GLOBALS['con4gis_maps_extension']['js_google']; ?>"></script>
 <script type="text/javascript" src="system/modules/con4gis_maps/html/js/C4GMaps.js"></script>
 <script type="text/javascript" src="system/modules/con4gis_maps/html/js/C4GMapsBackend.js"></script>
 
@@ -28,14 +28,14 @@ function doSubmit() {
   self.opener.$(self.opener.C4GMapsBackend.currentIdX).value = $("c4gGeoPickerGeoX").value;
   self.opener.$(self.opener.C4GMapsBackend.currentIdY).value = $("c4gGeoPickerGeoY").value;
   self.close();
-}          
-           
+}
+
 var mapdata = <?php echo json_encode($this->mapData) ?>;
 mapdata.onPickGeo = function(geox, geoy) {
 	if (typeof($)!='undefined') {
 		$('c4gGeoPickerGeoX').value = geox;
 		$('c4gGeoPickerGeoY').value = geoy;
-	}	
+	}
 };
 C4GMaps(mapdata);
 //]]>

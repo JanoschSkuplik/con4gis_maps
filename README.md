@@ -1,8 +1,10 @@
 con4gis-Maps
 ============
 
-Part of the GIS-Kit con4gis
+Part of the GIS-kit *con4gis*
 
-- [ ] con4gis_core https://github.com/Kuestenschmiede/con4gis_core
-- [x] con4gis_maps
-- [ ] con4gis_forum https://github.com/Kuestenschmiede/con4gis_forum
+- [ ] con4gis-Core https://github.com/Kuestenschmiede/con4gis_core
+- [x] con4gis-Maps 
+- [ ] con4gis-Tracking https://github.com/Kuestenschmiede/con4gis_tracking
+- [ ] app4gis [Playstore-link](https://play.google.com/store/apps/details?id=org.con4gis.app4gis_tracking)
+- [ ] con4gis-Forum https://github.com/Kuestenschmiede/con4gis_forum

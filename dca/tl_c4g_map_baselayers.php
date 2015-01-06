@@ -7,9 +7,9 @@
  * @package   con4gis
  * @author     Jürgen Witte <http://www.kuestenschmiede.de>
  * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
- * @copyright Küstenschmiede GmbH Software & Design 2014
+ * @copyright Küstenschmiede GmbH Software & Design 2014 - 2015
  * @link      https://www.kuestenschmiede.de
- * @filesource 
+ * @filesource
  */
 
 
@@ -19,7 +19,7 @@
  */
 $GLOBALS['TL_DCA']['tl_c4g_map_baselayers'] = array
 (
-	
+
     // Config
 	'config' => array
 	(
@@ -87,11 +87,11 @@ $GLOBALS['TL_DCA']['tl_c4g_map_baselayers'] = array
 				'label'               => &$GLOBALS['TL_LANG']['tl_c4g_map_baselayers']['overlays'],
 				'href'                => 'table=tl_c4g_map_overlays',
 				'icon'                => 'system/modules/con4gis_maps/html/overlays.png'
-			),			
+			),
 		)
 	),
 
-	
+
 	// Palettes
 	'palettes' => array
 	(
@@ -136,7 +136,7 @@ $GLOBALS['TL_DCA']['tl_c4g_map_baselayers'] = array
 			'inputType'               => 'text',
 			'eval'                    => array('maxlength'=>50, 'tl_class'=>'w50')
 		),
-		
+
 		'sort' => array
 		(
 				'label'					  => &$GLOBALS['TL_LANG']['tl_c4g_map_baselayers']['sort'],
@@ -145,7 +145,7 @@ $GLOBALS['TL_DCA']['tl_c4g_map_baselayers'] = array
 				'default'                 => '0',
 				'eval'                    => array('rgxp'=>'digit')
 		),
-		
+
 		'provider' => array
 		(
 			'label'					  => &$GLOBALS['TL_LANG']['tl_c4g_map_baselayers']['provider'],
@@ -154,9 +154,9 @@ $GLOBALS['TL_DCA']['tl_c4g_map_baselayers'] = array
 		    'default'                 => 'osm',
 		    'options'                 => array('osm' => &$GLOBALS['TL_LANG']['tl_c4g_map_baselayers']['provider_osm'],
 		                                       'google' => &$GLOBALS['TL_LANG']['tl_c4g_map_baselayers']['provider_google'],
-		                                       'bing' => &$GLOBALS['TL_LANG']['tl_c4g_map_baselayers']['provider_bing'] 
+		                                       'bing' => &$GLOBALS['TL_LANG']['tl_c4g_map_baselayers']['provider_bing']
                                          	  ),
-            'eval'                    => array('submitOnChange' => true, 'tl_class'=>'clr')                             	  
+            'eval'                    => array('submitOnChange' => true, 'tl_class'=>'clr')
 		),
 		'osm_style' => array
 		(
@@ -177,9 +177,9 @@ $GLOBALS['TL_DCA']['tl_c4g_map_baselayers'] = array
 											   //'TonerLines'=> &$GLOBALS['TL_LANG']['tl_c4g_map_baselayers']['provider_osm_tonerlines'],
 											   //'TonerLabels'=> &$GLOBALS['TL_LANG']['tl_c4g_map_baselayers']['provider_osm_tonerlabels'],
 											   'Watercolor'=> &$GLOBALS['TL_LANG']['tl_c4g_map_baselayers']['provider_osm_watercolor'],
-											   'osm_custom' => &$GLOBALS['TL_LANG']['tl_c4g_map_baselayers']['provider_osm_custom'] 
+											   'osm_custom' => &$GLOBALS['TL_LANG']['tl_c4g_map_baselayers']['provider_osm_custom']
 											   ),
-            'eval'                    => array('submitOnChange' => true)                             	  
+            'eval'                    => array('submitOnChange' => true)
 		),
 		'osm_style_url1' => array
 		(
@@ -225,7 +225,7 @@ $GLOBALS['TL_DCA']['tl_c4g_map_baselayers'] = array
 		    'options'                 => array('streets' => &$GLOBALS['TL_LANG']['tl_c4g_map_baselayers']['provider_google_streets'],
 		                                       'hybrid' => &$GLOBALS['TL_LANG']['tl_c4g_map_baselayers']['provider_google_hybrid'],
 		                                       'satellite' => &$GLOBALS['TL_LANG']['tl_c4g_map_baselayers']['provider_google_satellite'],
-		                                       'terrain' => &$GLOBALS['TL_LANG']['tl_c4g_map_baselayers']['provider_google_terrain'] 
+		                                       'terrain' => &$GLOBALS['TL_LANG']['tl_c4g_map_baselayers']['provider_google_terrain']
                                          	  ),
 		),
 
@@ -247,7 +247,7 @@ $GLOBALS['TL_DCA']['tl_c4g_map_baselayers'] = array
 			'inputType' 		      => 'text',
             'eval'                    => array('decodeEntities'=>true, 'maxlength'=>100, 'tl_class'=>'long', 'mandatory'=>'true')
 		),
-		
+
 		'attribution' => array
 		(
 			'label'					  => &$GLOBALS['TL_LANG']['tl_c4g_map_baselayers']['attribution'],
@@ -280,15 +280,15 @@ $GLOBALS['TL_DCA']['tl_c4g_map_baselayers'] = array
 			'foreignKey'              => 'tl_member_group.name',
 			'eval'                    => array('mandatory'=>false, 'multiple'=>true)
 		),
-		
-    )		
+
+    )
 );
 
 /**
  * Class tl_c4g_map_baselayers
  *
  * Provide methods that are used by the data configuration array.
- * 
+ *
  */
 class tl_c4g_map_baselayers extends Backend
 {

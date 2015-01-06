@@ -7,9 +7,9 @@
  * @package   con4gis
  * @author    Jürgen Witte <http://www.kuestenschmiede.info>
  * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
- * @copyright Küstenschmiede GmbH Software & Design 2014
+ * @copyright Küstenschmiede GmbH Software & Design 2014 - 2015
  * @link      https://www.kuestenschmiede.de
- * @filesource 
+ * @filesource
  */
 
 
@@ -31,7 +31,7 @@ $GLOBALS['TL_DCA']['tl_c4g_map_overlays'] = array
 	// List
 	'list' => array
 	(
-	
+
 	'sorting' => array
 	(
 		'mode'                    => 4,
@@ -82,7 +82,7 @@ $GLOBALS['TL_DCA']['tl_c4g_map_overlays'] = array
 				'icon'                => 'delete.gif',
 				'attributes'          => 'onclick="if (!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\')) return false; Backend.getScrollOffset();"'
 			),
-			
+
 			'show' => array
 			(
 				'label'               => &$GLOBALS['TL_LANG']['tl_c4g_map_overlays']['show'],
@@ -91,16 +91,16 @@ $GLOBALS['TL_DCA']['tl_c4g_map_overlays'] = array
 			)
 		)
 	),
-	
-	
+
+
 	// Palettes
 	'palettes' => array
 	(
 		'__selector__'                => array('provider'),
-		'default'                     => 'name,provider,attribution',		
+		'default'                     => 'name,provider,attribution',
 		'custom'                      => 'name,provider,url1,url2,url3,url4,attribution',
 	),
-		
+
 	// Fields
 	'fields' => array
 	(
@@ -124,7 +124,7 @@ $GLOBALS['TL_DCA']['tl_c4g_map_overlays'] = array
 			'default'                 => 'default',
 			'options'                 => array('custom'),
 			// 'options'                 => array('openseamap','openweathermap_data','openweathermap_stations','openweathermap_clouds','openweathermap_cloudsForecasts','openweathermap_precipitation','openweathermap_precipitationForecasts','openweathermap_rain','openweathermap_pressure','openweathermap_wind','openweathermap_temp','openweathermap_snow','openweathermap_radar','custom'),
-			'reference'               => &$GLOBALS['TL_LANG']['tl_c4g_map_overlays']['references'],				
+			'reference'               => &$GLOBALS['TL_LANG']['tl_c4g_map_overlays']['references'],
 			'eval'                    => array('submitOnChange' => true)
 		),
 
@@ -143,7 +143,7 @@ $GLOBALS['TL_DCA']['tl_c4g_map_overlays'] = array
 			'inputType' 		      => 'text',
 			'eval'                    => array('decodeEntities'=>true, 'maxlength'=>255, 'tl_class'=>'long')
 		),
-		
+
 		'url3' => array
 		(
 			'label'					  => &$GLOBALS['TL_LANG']['tl_c4g_map_overlays']['url3'],
@@ -151,7 +151,7 @@ $GLOBALS['TL_DCA']['tl_c4g_map_overlays'] = array
 			'inputType' 		      => 'text',
 			'eval'                    => array('decodeEntities'=>true, 'maxlength'=>255, 'tl_class'=>'long')
 		),
-		
+
 		'url4' => array
 		(
 			'label'					  => &$GLOBALS['TL_LANG']['tl_c4g_map_overlays']['url4'],
@@ -159,7 +159,7 @@ $GLOBALS['TL_DCA']['tl_c4g_map_overlays'] = array
 			'inputType' 		      => 'text',
 			'eval'                    => array('decodeEntities'=>true, 'maxlength'=>255, 'tl_class'=>'long')
 		),
-		
+
 		'attribution' => array
 		(
 				'label'					  => &$GLOBALS['TL_LANG']['tl_c4g_map_overlays']['attribution'],
@@ -167,7 +167,7 @@ $GLOBALS['TL_DCA']['tl_c4g_map_overlays'] = array
 				'inputType' 		      => 'text',
 				'eval'                    => array('maxlength'=>255, 'tl_class'=>'long', 'allowHtml' => true)
 		),
-		
+
 	)
 );
 

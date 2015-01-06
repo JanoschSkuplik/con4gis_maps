@@ -7,9 +7,9 @@
  * @package   con4gis
  * @author    Jürgen Witte <http://www.kuestenschmiede.de>
  * @license   GNU/LGPL http://opensource.org/licenses/lgpl-3.0.html
- * @copyright Küstenschmiede GmbH Software & Design 2014
+ * @copyright Küstenschmiede GmbH Software & Design 2014 - 2015
  * @link      https://www.kuestenschmiede.de
- * @filesource 
+ * @filesource
  */
 
 
@@ -18,7 +18,7 @@
  * Class C4GMapsBackend
  *
  * Provide methods to handle backendconfigurations
- * 
+ *
  */
 class C4GMapsBackend extends Backend
 {
@@ -30,7 +30,7 @@ class C4GMapsBackend extends Backend
 		parent::__construct();
 		$this->import('Database');
 	}
-	
+
 	/**
 	 * Form for update of database to C4G-Maps 2.0
 	 */
@@ -38,17 +38,17 @@ class C4GMapsBackend extends Backend
 	{
 		$message = '';
 		$result = '';
-		
+
 		if ($this->Input->post('FORM_SUBMIT') == 'tl_c4g_maps_update_db')
 		{
 			$result = $this->performDBUpdate();
-			
+
 			$message ='
 			<div class="tl_header" style="color:#090;">
 			'.$GLOBALS['TL_LANG']['c4g_maps']['update_db_success'].'
 			</div>';
 		}
-		
+
 		// create the form
 		$form=
 			//back-button
@@ -74,19 +74,19 @@ class C4GMapsBackend extends Backend
 					<h1 class="main_headline">'.$GLOBALS['TL_LANG']['c4g_maps']['db_status'].'</h1>
 				</div>
 			';
-		
+
 		$uptodate = $this->isDBUpToDate();
 		if ($uptodate) {
 			$form .= '<div align="center" style="color:green; padding:3px; margin:1px;">'.$GLOBALS['TL_LANG']['c4g_maps']['db_uptodate'].'</div>';
-				
+
 		}
 		else {
 			$form .= '<div align="center" style="color:#900; padding:3px; margin:1px;">'.$GLOBALS['TL_LANG']['c4g_maps']['db_update_necessary'].'</div>';
-		}	
+		}
 		$form .='
 			<div>&nbsp;</div>
 			</div>
-			
+
 			<br/>
 			</center>
 			<br/>
@@ -99,18 +99,18 @@ class C4GMapsBackend extends Backend
 						<input type="submit" name="index" id="index" class="tl_submit" accesskey="i" value="'.specialchars($GLOBALS['TL_LANG']['c4g_maps']['update_db']).'">
 					</div>
 				</div>';
-		}	
+		}
 		$form .= '</form>';
-		
+
 		// return the form
 		return $form;
 	}
-	
+
 	/**
 	 * check if the database is up to date
 	 */
 	public function isDBUpToDate()
-	{		
+	{
 		if (!$this->Database->tableExists('tl_c4g_maps')) {
 			// no C4G-Maps tables installed
 			return false;
@@ -120,7 +120,7 @@ class C4GMapsBackend extends Backend
 		if ($this->Database->tableExists('tl_c4g_map_locstyles',null,true)) {
 			$locstyles = $this->Database->prepare(
 					"SELECT count(*) AS count FROM tl_c4g_map_locstyles")->executeUncached();
-			$new_count += $locstyles->count;			 
+			$new_count += $locstyles->count;
 		}
 		else {
 			$tabMissing = true;
@@ -128,19 +128,19 @@ class C4GMapsBackend extends Backend
 		if ($this->Database->tableExists('tl_c4g_map_baselayers',null,true)) {
 			$baselayers = $this->Database->prepare(
 					"SELECT count(*) AS count FROM tl_c4g_map_baselayers")->executeUncached();
-			$new_count += $baselayers->count;			 
+			$new_count += $baselayers->count;
 		}
 		else {
 			$tabMissing = true;
 		}
-		
+
 		$old_locstyles = $this->Database->prepare(
 				"SELECT count(*) AS count FROM tl_c4g_map_prof_locstyles")->execute();
 		$old_services = $this->Database->prepare(
 				"SELECT count(*) AS count FROM tl_c4g_map_prof_services")->execute();
-		
+
 		$old_count = $old_locstyles->count + $old_services->count;
-		
+
 		if ($new_count>0) {
 			return true;
 		}
@@ -153,7 +153,7 @@ class C4GMapsBackend extends Backend
 			}
 		}
 	}
-	
+
 	/**
 	 * Update database to C4G-Maps 2.0
 	 */
@@ -166,10 +166,10 @@ class C4GMapsBackend extends Backend
 		if ($this->isDBUpToDate()) {
 			return 'C4G-Maps DB is already up to date!';
 		}
-		
+
 		$newTables = false;
-		// Create the new baselayers table 
-		if (!$this->Database->tableExists('tl_c4g_map_baselayers')) {			
+		// Create the new baselayers table
+		if (!$this->Database->tableExists('tl_c4g_map_baselayers')) {
 			$this->Database->query(
 				"CREATE TABLE `tl_c4g_map_baselayers` (
 				  `id` int(10) unsigned NOT NULL auto_increment,
@@ -177,7 +177,7 @@ class C4GMapsBackend extends Backend
 				  `name` varchar(100) NOT NULL default '',
 				  `display_name` varchar(100) NOT NULL default '',
 				  `sort` int(10) NOT NULL default '0',
-				  `provider` varchar(10) NOT NULL default '', 
+				  `provider` varchar(10) NOT NULL default '',
 				  `osm_style` varchar(30) NOT NULL default '',
 				  `osm_style_url1` varchar(255) NOT NULL default '',
 				  `osm_style_url2` varchar(255) NOT NULL default '',
@@ -202,7 +202,7 @@ class C4GMapsBackend extends Backend
 				  `id` int(10) unsigned NOT NULL auto_increment,
 				  `tstamp` int(10) unsigned NOT NULL default '0',
 				  `name` varchar(100) NOT NULL default '',
-				  `styletype` varchar(10) NOT NULL default '', 
+				  `styletype` varchar(10) NOT NULL default '',
 				  `strokewidth` varchar(100) NOT NULL default '',
 				  `strokecolor` varchar(6) NOT NULL default '',
 				  `strokeopacity` varchar(100) NOT NULL default '',
@@ -237,10 +237,10 @@ class C4GMapsBackend extends Backend
 				  `popup_info` text NULL,
 				  `popup_kind` varchar(30) NOT NULL default 'cloud',
 				  `popup_size` varchar(100) NOT NULL default '',
-				  `popup_offset` varchar(100) NOT NULL default '',  
-				  `onclick_zoomto` int(10) unsigned NOT NULL default '0',  
-				  `minzoom` int(10) unsigned NOT NULL default '0',  
-				  `maxzoom` int(10) unsigned NOT NULL default '0',  
+				  `popup_offset` varchar(100) NOT NULL default '',
+				  `onclick_zoomto` int(10) unsigned NOT NULL default '0',
+				  `minzoom` int(10) unsigned NOT NULL default '0',
+				  `maxzoom` int(10) unsigned NOT NULL default '0',
 				  `editor_vars` text NULL,
 				  `editor_icon` varchar(255) NOT NULL default '',
 				  `editor_collect` char(1) NOT NULL default '',
@@ -249,19 +249,19 @@ class C4GMapsBackend extends Backend
 			);
 			$newTables = true;
 		}
-		
+
 		if ($newTables) {
 			// needed for DB update
 			try {
-				$this->Database->query("ALTER TABLE `tl_c4g_map_profiles` ADD `baselayers` blob NULL;");				
+				$this->Database->query("ALTER TABLE `tl_c4g_map_profiles` ADD `baselayers` blob NULL;");
 			} catch (Exception $e) {
 			}
 			try {
-				$this->Database->query("ALTER TABLE `tl_c4g_map_profiles` ADD `locstyles` blob NULL;");				
+				$this->Database->query("ALTER TABLE `tl_c4g_map_profiles` ADD `locstyles` blob NULL;");
 			} catch (Exception $e) {
 			}
-		}	
-		
+		}
+
 		$prof = $this->Database->prepare(
 				"SELECT count(*) AS count FROM tl_c4g_map_profiles")->execute();
 		$data = $this->Database->prepare(
@@ -271,12 +271,12 @@ class C4GMapsBackend extends Backend
 			foreach ($row as $key=>&$value ) {
 				if (($key!='pid') && ($key!='profname')) {
 					if ($key=='name') {
-						if ($prof->count > 1) {							
+						if ($prof->count > 1) {
 							$set['name'] = $row['profname'] . ' - ' . $value;
 						}
 						else {
-							$set['name'] = $value;								
-						}	
+							$set['name'] = $value;
+						}
 						$set['display_name'] = $value;
 					}
 					else {
@@ -284,16 +284,16 @@ class C4GMapsBackend extends Backend
 					}
 				}
 			}
-			
+
 			$objInsertStmt = $this->Database->prepare("INSERT INTO tl_c4g_map_baselayers %s")
 			->set($set)
 			->execute();
-			
+
 			if (!$objInsertStmt->affectedRows)
 			{
 				$result .= 'Error Service ID '.$row['id'].'<br/>';
 			}
-			
+
 		}
 
 		$data = $this->Database->prepare(
@@ -303,31 +303,31 @@ class C4GMapsBackend extends Backend
 			foreach ($row as $key=>&$value ) {
 				if (($key!='pid') && ($key!='profname')) {
 					if ($key=='name') {
-						if ($prof->count > 1) {							
+						if ($prof->count > 1) {
 							$set['name'] = $row['profname'] . ' - ' . $value;
 						}
 						else {
-							$set['name'] = $value;								
-						}	
+							$set['name'] = $value;
+						}
 					}
 					else {
 						$set[$key] = $value;
 					}
 				}
 			}
-				
+
 			$objInsertStmt = $this->Database->prepare("INSERT INTO tl_c4g_map_locstyles %s")
 			->set($set)
 			->execute();
-				
+
 			if (!$objInsertStmt->affectedRows)
 			{
 				$result .= 'Error Locstyle ID '.$row['id'].'<br/>';
 			}
 		}
-		
-		if ($prof->count > 1) {				
-			// update assignment for location styles and base layers in profiles from old child tables			
+
+		if ($prof->count > 1) {
+			// update assignment for location styles and base layers in profiles from old child tables
 			$profiles = $this->Database->prepare(
 					"SELECT id FROM tl_c4g_map_profiles")->execute();
 			while($profiles->next()) {
@@ -345,7 +345,7 @@ class C4GMapsBackend extends Backend
 		}
 		return $result;
 	}
-	
+
 }
 
 ?>
