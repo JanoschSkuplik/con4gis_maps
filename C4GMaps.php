@@ -1328,6 +1328,7 @@ class C4GMaps
         }
         if ($mapData['permalink']) {
             $GLOBALS ['TL_JAVASCRIPT'] [] = 'system/modules/con4gis_maps/html/js/C4GPermalink.js';
+            $mapData['ls_tree'] = true;
         }
 
 	    // Extended LayerSwitcher - only available when extension "con4gis_core" is installed
