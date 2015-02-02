@@ -836,7 +836,7 @@ class tl_c4g_maps extends Backend
 	public function getLocationTypes(DataContainer $dc)
 	{
 		$return = array('none','single','table','gpx','kml','geojson','osm','overpass','link');
-		if ($GLOBALS['c4g_forum_extension']['installed'] ) {
+		if ($GLOBALS['con4gis_forum_extension']['installed'] ) {
 			$return[] = 'c4gForum';
 		}
         if (isset($GLOBALS['c4g_locationtypes']) && is_array($GLOBALS['c4g_locationtypes']))
