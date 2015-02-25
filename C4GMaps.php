@@ -185,7 +185,7 @@ class C4GMaps
             $popupExtend = array();
 
     		if ($child->location_type == 'c4gForum' || $child->popup_extend) {
-    			if ($GLOBALS['c4g_forum_extension']['installed']) {
+    			if ($GLOBALS['con4gis_forum_extension']['installed']) {
     				if ($forumHelper==null) {
     					$forumHelper = new C4GForumHelper($database);
     				}
