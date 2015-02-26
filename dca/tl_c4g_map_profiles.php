@@ -97,7 +97,8 @@ $GLOBALS['TL_DCA']['tl_c4g_map_profiles'] = array
                                       '{router_legend:hide},router;'.
                                       '{editor_legend:hide},editor_styles_point,editor_styles_line,editor_styles_polygon,editor_vars,editor_show_items,editor_helpurl;'.
                                       '{expert_legend:hide},libsource,imagepath,script,overpass_url,custom_div;'.
-                                      '{misc_legend:hide},link_newwindow,link_open_on,hover_popups,div_layerswitcher,label_baselayer,label_overlays'
+                                      '{misc_legend:hide},link_newwindow,link_open_on,hover_popups,div_layerswitcher,label_baselayer,label_overlays;'.
+                                      '{backend_legend:hide},be_optimize_checkboxes_limit;'
 
 
   ),
@@ -132,7 +133,7 @@ $GLOBALS['TL_DCA']['tl_c4g_map_profiles'] = array
       'default'                 => false,
       'inputType'               => 'checkbox',
       'eval'                    => array('tl_class'=>'w50', 'maxlength'=>30),
-        'save_callback'           => array(array('tl_c4g_map_profiles','set_default'))
+      'save_callback'           => array(array('tl_c4g_map_profiles','set_default'))
     ),
 
     'theme' => array
@@ -262,9 +263,9 @@ $GLOBALS['TL_DCA']['tl_c4g_map_profiles'] = array
       'exclude'                 => true,
       'default'                 => null,
       'inputType'               => 'radio',
-      'options'         => array('1','2'),
-      'eval'            => array('includeBlankOption' => true, blankOptionLabel => $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['references_measuretool']['no_measuretool']),
-      'reference'             => &$GLOBALS['TL_LANG']['tl_c4g_map_profiles']['references_measuretool']
+      'options'                 => array('1','2'),
+      'eval'                    => array('includeBlankOption' => true, blankOptionLabel => $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['references_measuretool']['no_measuretool']),
+      'reference'               => &$GLOBALS['TL_LANG']['tl_c4g_map_profiles']['references_measuretool']
     ),
 
     'graticule' => array
@@ -639,11 +640,19 @@ $GLOBALS['TL_DCA']['tl_c4g_map_profiles'] = array
       'exclude'                 => true,
       'inputType'               => 'text',
       'eval'                    => array('rgxp'=>'url', 'decodeEntities'=>true, 'maxlength'=>255, 'tl_class'=>'wizard'),
-      'wizard'          => array(array('tl_c4g_map_profiles', 'pickUrl'))
+      'wizard'                  => array(array('tl_c4g_map_profiles', 'pickUrl'))
     ),
 
+    'be_optimize_checkboxes_limit' => array
+    (
+      'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_map_profiles']['be_optimize_checkboxes_limit'],
+      'exclude'                 => true,
+      'inputType'               => 'text',
+      'default'                 => '0',
+      'eval'                    => array('rgxp'=>'digit', 'submitOnChange' => true),
+    ),
 
-    )
+  )
 );
 
 /**
@@ -717,7 +726,7 @@ class tl_c4g_map_profiles extends Backend {
     if (!$dc->id) {
       return;
     }
-    $objProfile = $this->Database->prepare("SELECT zoom_panel, geosearch_engine FROM tl_c4g_map_profiles WHERE id=?")
+    $objProfile = $this->Database->prepare("SELECT zoom_panel, geosearch_engine, be_optimize_checkboxes_limit FROM tl_c4g_map_profiles WHERE id=?")
     ->limit(1)
     ->execute($dc->id);
     if ($objProfile->numRows > 0) {
@@ -726,10 +735,40 @@ class tl_c4g_map_profiles extends Backend {
           str_replace(',zoom_panel,',',zoom_panel,zoom_panel_world,',
             $GLOBALS['TL_DCA']['tl_c4g_map_profiles']['palettes']['default']);
       }
+
       if ($objProfile->geosearch_engine == '3') {
         $GLOBALS['TL_DCA']['tl_c4g_map_profiles']['subpalettes']['geosearch'] =
           str_replace(',geosearch_div,',',geosearch_customengine_url,geosearch_customengine_attribution,geosearch_div,',
             $GLOBALS['TL_DCA']['tl_c4g_map_profiles']['subpalettes']['geosearch']);
+      }
+
+      // convert checkboxes to chosenfields, if there are to many locationstyles
+      if ($objProfile->be_optimize_checkboxes_limit > '0') {
+        // basemap-options
+        $objLocCount = $this->Database->prepare("SELECT COUNT(id) AS entry_count FROM tl_c4g_map_baselayers")->execute();
+        if ($objLocCount->numRows > 0) {
+          if ($objLocCount->entry_count > $objProfile->be_optimize_checkboxes_limit) {
+            $GLOBALS['TL_DCA']['tl_c4g_map_profiles']['fields']['baselayers']['inputType'] = 'select';
+            $GLOBALS['TL_DCA']['tl_c4g_map_profiles']['fields']['baselayers']['eval']['chosen'] = true;
+          }
+        }
+        // locationstyle-options
+        $objLocCount = $this->Database->prepare("SELECT COUNT(id) AS entry_count FROM tl_c4g_map_locstyles")->execute();
+        if ($objLocCount->numRows > 0) {
+          if ($objLocCount->entry_count > $objProfile->be_optimize_checkboxes_limit) {
+            $GLOBALS['TL_DCA']['tl_c4g_map_profiles']['fields']['locstyles']['inputType'] = 'select';
+            $GLOBALS['TL_DCA']['tl_c4g_map_profiles']['fields']['locstyles']['eval']['chosen'] = true;
+
+            $GLOBALS['TL_DCA']['tl_c4g_map_profiles']['fields']['editor_styles_point']['inputType'] = 'select';
+            $GLOBALS['TL_DCA']['tl_c4g_map_profiles']['fields']['editor_styles_point']['eval']['chosen'] = true;
+
+            $GLOBALS['TL_DCA']['tl_c4g_map_profiles']['fields']['editor_styles_line']['inputType'] = 'select';
+            $GLOBALS['TL_DCA']['tl_c4g_map_profiles']['fields']['editor_styles_line']['eval']['chosen'] = true;
+
+            $GLOBALS['TL_DCA']['tl_c4g_map_profiles']['fields']['editor_styles_polygon']['inputType'] = 'select';
+            $GLOBALS['TL_DCA']['tl_c4g_map_profiles']['fields']['editor_styles_polygon']['eval']['chosen'] = true;
+          }
+        }
       }
     }
 

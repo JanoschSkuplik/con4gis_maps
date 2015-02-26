@@ -87,6 +87,7 @@ CREATE TABLE `tl_c4g_maps` (
   `specialprofile` int(10) unsigned NOT NULL default '0',
   `specialprofile_mobile` int(10) unsigned NOT NULL default '0',
   `specialprofile_groups` blob NULL,
+  `be_optimize_checkboxes_limit` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `pid` (`pid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -161,6 +162,7 @@ CREATE TABLE `tl_c4g_map_profiles` (
   `editor_vars` text NULL,
   `editor_show_items` char(1) NOT NULL default '',
   `editor_helpurl` varchar(255) NOT NULL default '',
+  `be_optimize_checkboxes_limit` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -217,6 +219,7 @@ CREATE TABLE `tl_c4g_map_prof_locstyles` (
   `editor_sort` int(10) unsigned NOT NULL default '0',
   `editor_vars` text NULL,
   `editor_collect` char(1) NOT NULL default '',
+  `be_optimize_checkboxes_limit` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `pid` (`pid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;

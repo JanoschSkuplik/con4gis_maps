@@ -139,6 +139,8 @@ $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['editor_show_items'] 	= array('Alle K
 																			'Zeigt im Editor nicht nur den zu bearbeitenden Karteneintrag an, sondern auch alle Anderen.');
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['editor_helpurl'] 		= array('Hilfe-Link',
 																			'Wenn hier eine URL eingetragen wird, so erscheint ein "Hilfe" Link im Editor, der zu der angegebenen URL führt.');
+$GLOBALS['TL_LANG']['tl_c4g_map_profiles']['be_optimize_checkboxes_limit'] 		= array('Grenzwert für Optimierung großer Checkbox-Listen',
+																			'Definiert wie viele Einträge enthalten sein müssen, bis die Checkbox-Listen in Chosenfields umgewandelt werden. (0 = niemals umwandeln)');
 
 
 /**
@@ -192,6 +194,7 @@ $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['geosearch_legend']	    = 'Suche';
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['geopicker_legend']	    = 'Geopicker-Einstellungen';
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['router_legend']	    	= 'Router (OSRM)';
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['editor_legend']	    	= 'Einstellungen für Editor (GeoJSON und con4gis-Forum)';
+$GLOBALS['TL_LANG']['tl_c4g_map_profiles']['backend_legend']	    	= 'Backendeinstellungen';
 
 /**
  * Globals

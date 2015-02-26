@@ -140,6 +140,8 @@ $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['editor_show_items'] 	= array('Show o
 																			'Check this if you don\' want to hide other map structure items in the editor.');
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['editor_helpurl'] 		= array('Help page URL',
 																			'If you enter an URL here, a help link is displayed inside the editor, which opens the given URL.');
+$GLOBALS['TL_LANG']['tl_c4g_map_profiles']['be_optimize_checkboxes_limit'] 		= array('Limit for optimization of large checkbox-lists',
+																			'Defines how much entries must be there after the checkbox-lists will be converted to chosenfields. (0 = do not convert)');
 
 
 
@@ -194,6 +196,7 @@ $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['geosearch_legend']	    = 'Search';
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['geopicker_legend']	    = 'Geopicker';
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['router_legend']	    	= 'Router (OSRM)';
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['editor_legend']	    	= 'Editor settings (GeoJSON and con4gis-Forum)';
+$GLOBALS['TL_LANG']['tl_c4g_map_profiles']['backend_legend']	    	= 'Backend settings';
 
 /**
  * Globals
