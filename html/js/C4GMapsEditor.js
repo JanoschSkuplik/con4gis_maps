@@ -387,7 +387,7 @@ function C4GMapsEditor(mapData,map,styles) {
 	toolbarDiv.appendChild(locstyleDiv);
 	editor.locstyleDiv = locstyleDiv;
 
-	// sort locations alphabetically
+	// sort locations after sort-order and alphabetically
 	editor.locations = new Array();
 	for (var i in mapData.locStyles) {
 		var loc = mapData.locStyles[i];
@@ -395,20 +395,29 @@ function C4GMapsEditor(mapData,map,styles) {
 		editor.locations.push(loc);
 	}
 
-	editor.locations.sort( function(a,b){
+	var alphaSort = function(a,b){
 		if (!a.name || !b.name) {
 			return (!b.name)? -1 : 1;
-		}else {
+		} else {
 			var A = a.name.toLowerCase();
 			var B = b.name.toLowerCase();
 			return (A > B)? 1 : -1;
 		}
-	});
+	};
 
 	editor.locations.sort( function(a,b){
-		if (!a.editor_sort || !b.editor_sort || a.editor_sort <= 0 || b.editor_sort <= 0) {
+		if (a.editor_sort && a.editor_sort <= 0) {
+			a.editor_sort = false;
+		}
+		if (b.editor_sort && b.editor_sort <= 0) {
+			b.editor_sort = false;
+		}
+
+		if ((!a.editor_sort && !b.editor_sort) || (a.editor_sort == b.editor_sort)) {
+			return alphaSort(a, b);
+		} else if (!a.editor_sort || !b.editor_sort) {
 			return (!b.editor_sort)? -1 : 1;
-		}else {
+		} else {
 			return (a.editor_sort > b.editor_sort)? 1 : -1;
 		}
 	});
