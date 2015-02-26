@@ -1073,6 +1073,7 @@ class C4GMaps
                     }
 
  			    	$locStyleData[$key]['editor_icon'] = $locStyles->editor_icon;
+                    $locStyleData[$key]['editor_sort'] = $locStyles->editor_sort;
  			    	$locStyleData[$key]['editor_collect'] = $locStyles->editor_collect;
 
  			    	if ($profile) {

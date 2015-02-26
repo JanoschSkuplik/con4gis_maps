@@ -58,6 +58,7 @@ $GLOBALS['TL_LANG']['tl_c4g_map_locstyles']['onclick_zoomto'] 	 = array('Zoomen 
 $GLOBALS['TL_LANG']['tl_c4g_map_locstyles']['minzoom'] 		 = array('Mindest-Zoomstufe', 'Geben Sie die Zoomstufe ein, ab der die Elemente des Karteneintrags angezeigt werden. 0=keine Einschränkung. Überschreibt die Einstellung am Kartenstrukturelement!');
 $GLOBALS['TL_LANG']['tl_c4g_map_locstyles']['maxzoom'] 		 = array('Maximale Zoomstufe', 'Geben Sie die Zoomstufe ein, bis zu der die Elemente des Karteneintrags angezeigt werden. 0=keine Einschränkung. Überschreibt die Einstellung am Kartenstrukturelement!');
 $GLOBALS['TL_LANG']['tl_c4g_map_locstyles']['editor_icon'] 	 = array('Icon im Editor','Das Icon wird im Editor an Stelle des Standardicons verwendet.');
+$GLOBALS['TL_LANG']['tl_c4g_map_locstyles']['editor_sort']      = array('Sortierung','Reihenfolge im Editor für diesen Lokationsstil.');
 $GLOBALS['TL_LANG']['tl_c4g_map_locstyles']['editor_vars'] 	 = array('Zusatzfelder','Zusatzfelder stehen im Editor zur Verfügung und können über ${Schlüssel} im Popup, Label und Tooltip in die Karte eingefügt werden.');
 $GLOBALS['TL_LANG']['tl_c4g_map_locstyles']['editor_collect'] 	 = array('Geometrien zusammenfassen','Fasst alle Geometrien dieses Lokationsstils, die miteinander im Editor bearbeitet werden, zusammen.');
 

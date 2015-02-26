@@ -397,11 +397,19 @@ function C4GMapsEditor(mapData,map,styles) {
 
 	editor.locations.sort( function(a,b){
 		if (!a.name || !b.name) {
-			return 1;
+			return (!b.name)? -1 : 1;
 		}else {
 			var A = a.name.toLowerCase();
 			var B = b.name.toLowerCase();
 			return (A > B)? 1 : -1;
+		}
+	});
+
+	editor.locations.sort( function(a,b){
+		if (!a.editor_sort || !b.editor_sort || a.editor_sort <= 0 || b.editor_sort <= 0) {
+			return (!b.editor_sort)? -1 : 1;
+		}else {
+			return (a.editor_sort > b.editor_sort)? 1 : -1;
 		}
 	});
 
@@ -432,7 +440,12 @@ function C4GMapsEditor(mapData,map,styles) {
 				}
 				locstyleImg.setAttribute('src','system/modules/con4gis_maps/html/' + icon);
 			}
-			locstyleImg.setAttribute('title',locstyle.name);
+			//shows the tooltip instead of name
+			if ((locstyle.tooltip) && (locstyle.tooltip != 'unknown') && (locstyle.tooltip.indexOf("${") == -1)) {
+			  locstyleImg.setAttribute('title',locstyle.tooltip);
+			} else {
+			  locstyleImg.setAttribute('title',locstyle.name);
+			}
 			locstyleImg.drawStyle = drawStyle;
 			locstyleDiv.appendChild(locstyleImg);
 			OpenLayers.Event.observe(locstyleImg, 'click',
