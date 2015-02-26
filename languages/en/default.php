@@ -36,6 +36,9 @@ $GLOBALS['TL_LANG']['c4g_maps']['db_status'] 			= 'State of the con4gis-Maps dat
 $GLOBALS['TL_LANG']['c4g_maps']['db_uptodate'] 			= 'Database is up to date!';
 $GLOBALS['TL_LANG']['c4g_maps']['db_update_necessary'] 	= 'Database must be updated for use with con4gis-Maps Version >= 2.0!';
 
+$GLOBALS['TL_LANG']['c4g_maps']['infotext_minmaxzoom']   = 'Only visible on Zoomlevel greater than ##minZoom## and lower then ##maxZoom##.';
+
+
 /**
  * Labels
  */

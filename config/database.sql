@@ -151,6 +151,7 @@ CREATE TABLE `tl_c4g_map_profiles` (
   `custom_div` varchar(30) NOT NULL default '',
   `hover_popups` char(1) NOT NULL default '',
   `hover_popups_stay` char(1) NOT NULL default '',
+  `show_minmaxzoom_icon` char(1) NOT NULL default '',
   `link_newwindow` char(1) NOT NULL default '',
   `link_open_on` char(5) NOT NULL default 'CLICK',
   `div_layerswitcher` varchar(30) NOT NULL default '',

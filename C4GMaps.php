@@ -818,6 +818,8 @@ class C4GMaps
           $mapData['link_open_on'] = $profile['link_open_on'];
           $mapData['hover_popups'] = $profile['hover_popups'];
           $mapData['hover_popups_stay'] = $profile['hover_popups_stay'];
+          $mapData['show_minmaxzoom_icon'] = $profile['show_minmaxzoom_icon'];
+          $mapData['infotext_minmaxzoom'] = $GLOBALS['TL_LANG']['c4g_maps']['infotext_minmaxzoom'];
           $mapData['div_layerswitcher'] = $profile['div_layerswitcher'];
 
           if ($forEditor) {

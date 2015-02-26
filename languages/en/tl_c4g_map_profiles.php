@@ -78,6 +78,8 @@ $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['hover_popups'] 			= array('Popups on
 																			'Show popup when mouse pointer rests on location.');
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['hover_popups_stay'] 	= array('Mouse hover popups stay open',
 																			'Popups that have been opened on mouse hover are not closed when the mouse pointer leaves the location.');
+$GLOBALS['TL_LANG']['tl_c4g_map_profiles']['show_minmaxzoom_icon'] 	= array('Show min-/maxzoom icon',
+																			'Show an icon in the starboard, when the layer has an min- or maxzoom restriction.');
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['attribution'] 			= array('Attribution',
 																			'Shows the attribution. Deactivate only when you are sure it is allowed.');
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['cfg_logo_attribution'] 	= array('Show con4gis-logo',
@@ -202,5 +204,3 @@ $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['backend_legend']	    	= 'Backend set
  * Globals
  */
 $GLOBALS['TL_LANG']['MSC']['ow_value'] = 'Editor label';
-
-?>

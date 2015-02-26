@@ -97,7 +97,7 @@ $GLOBALS['TL_DCA']['tl_c4g_map_profiles'] = array
                                       '{router_legend:hide},router;'.
                                       '{editor_legend:hide},editor_styles_point,editor_styles_line,editor_styles_polygon,editor_vars,editor_show_items,editor_helpurl;'.
                                       '{expert_legend:hide},libsource,imagepath,script,overpass_url,custom_div;'.
-                                      '{misc_legend:hide},link_newwindow,link_open_on,hover_popups,div_layerswitcher,label_baselayer,label_overlays;'.
+                                      '{misc_legend:hide},link_newwindow,link_open_on,hover_popups,show_minmaxzoom_icon,div_layerswitcher,label_baselayer,label_overlays;'.
                                       '{backend_legend:hide},be_optimize_checkboxes_limit;'
 
 
@@ -566,6 +566,14 @@ $GLOBALS['TL_DCA']['tl_c4g_map_profiles'] = array
       'exclude'                 => true,
       'default'                 => false,
       'inputType'               => 'checkbox'
+    ),
+
+    'show_minmaxzoom_icon' => array
+    (
+      'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_map_profiles']['show_minmaxzoom_icon'],
+      'exclude'                 => true,
+      'default'                 => '',
+      'inputType'               => 'checkbox',
     ),
 
     'div_layerswitcher' => array
