@@ -37,6 +37,8 @@ $GLOBALS['TL_LANG']['c4g_maps']['db_status'] 			= 'Status der con4gis-maps Daten
 $GLOBALS['TL_LANG']['c4g_maps']['db_uptodate'] 			= 'Datenbank ist auf dem aktuellsten Stand!';
 $GLOBALS['TL_LANG']['c4g_maps']['db_update_necessary'] 	= 'Datenbank muss für con4gis-maps Version >= 2.0 aktualisiert werden!';
 
+$GLOBALS['TL_LANG']['c4g_maps']['infotext_minmaxzoom']   = 'Nur sichtbar auf einem Zoomlevel größer als ##minZoom## und kleiner als ##maxZoom##.';
+
 /**
  * Labels
  */
@@ -107,5 +109,3 @@ $GLOBALS['TL_LANG']['c4g_maps']['router_labels']['c4gRtSEARCHING'] 		= "Suche Ad
 $GLOBALS['TL_LANG']['c4g_maps']['router_labels']['c4gRtERROR_SEARCHING'] 		= "Fehler beim Suchen der Adresse";
 $GLOBALS['TL_LANG']['c4g_maps']['router_labels']['c4gRtCALC_ROUTE'] 	= "Berechne Route...";
 $GLOBALS['TL_LANG']['c4g_maps']['router_labels']['c4gRtERROR_CALC_ROUTE'] 		= "Fehler beim Berechnen der Route";
-
-?>

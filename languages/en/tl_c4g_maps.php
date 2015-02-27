@@ -87,6 +87,8 @@ $GLOBALS['TL_LANG']['tl_c4g_maps']['use_specialprofile'] = array('Activate speci
 $GLOBALS['TL_LANG']['tl_c4g_maps']['specialprofile'] = array('Specialprofile', 'The profile you want to use for selected groups.');
 $GLOBALS['TL_LANG']['tl_c4g_maps']['specialprofile_mobile'] = array('Specialprofile mobile', 'Optional: special map profile used on mobile devices.');
 $GLOBALS['TL_LANG']['tl_c4g_maps']['specialprofile_groups'] = array('Groups', 'The groups for which the specialprofile will be active.');
+$GLOBALS['TL_LANG']['tl_c4g_maps']['be_optimize_checkboxes_limit']    = array('Limit for optimization of large checkbox-lists',
+                                      'Defines how much entries must be there after the checkbox-lists will be converted to chosenfields. (0 = do not convert)');
 
 /**
  * Buttons
@@ -142,4 +144,4 @@ $GLOBALS['TL_LANG']['tl_c4g_maps']['map_legend']		    = 'Map';
 $GLOBALS['TL_LANG']['tl_c4g_maps']['location_legend']	    = 'Location';
 $GLOBALS['TL_LANG']['tl_c4g_maps']['protection_legend']	    = 'Access protection';
 $GLOBALS['TL_LANG']['tl_c4g_maps']['expert_legend']	    	= 'Expert';
-?>
+$GLOBALS['TL_LANG']['tl_c4g_maps']['backend_legend']        = 'Backend settings';

@@ -1685,9 +1685,27 @@ function C4GMaps(mapData) {
                 };
                 importFormat = new OpenLayers.Format.GeoJSON(options);
             }
+
+
+
 			var layerName = '';
 			if ((data.layername !== undefined) && (data.layername !== null)){
 				layerName = data.layername;
+			}
+			if (mapData.show_minmaxzoom_icon && data.layername) {
+				var minzoom = (data.minzoom > 0) ? data.minzoom : 0;
+				var maxzoom = (data.maxzoom > 0) ? data.maxzoom : 26;
+				if (data.locstyle) {
+					if (mapData.locStyles[data.locstyle].minzoom) {
+						minzoom = mapData.locStyles[data.locstyle].minzoom;
+					}
+					if (mapData.locStyles[data.locstyle].maxzoom) {
+						maxzoom = mapData.locStyles[data.locstyle].maxzoom;
+					}
+				}
+				if ((minzoom > 0 || maxzoom < 26) ) {
+					layerName = '<img src="system/modules/con4gis_maps/html/zoom_restriction_icon.png" title="'+mapData.infotext_minmaxzoom.replace(/##minZoom##/g, minzoom).replace(/##maxZoom##/g, maxzoom)+'"> ' + layerName;
+				};
 			}
 			var options = {
 				parent : data.parent,

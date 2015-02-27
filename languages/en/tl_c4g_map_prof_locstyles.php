@@ -54,7 +54,8 @@ $GLOBALS['TL_LANG']['tl_c4g_map_prof_locstyles']['popup_offset']     = array('Of
 $GLOBALS['TL_LANG']['tl_c4g_map_prof_locstyles']['onclick_zoomto'] 	 = array('On mouse click zoom to zoom level', 'Enter a zoom level, to which is zoomed when clicking onto a map element. Works only when there is no direct link. Overrides setting defined at map items.');
 $GLOBALS['TL_LANG']['tl_c4g_map_prof_locstyles']['minzoom'] 		 = array('Min. zoom level', 'Enter the minimum zoom level, on which the elements are shown. 0 means no restriction. Overrides setting defined at map items.');
 $GLOBALS['TL_LANG']['tl_c4g_map_prof_locstyles']['maxzoom'] 		 = array('Max. zoom level', 'Enter the maximum zoom level, on which the elements are shown. 0 means no restriction. Overrides setting defined at map items.');
-$GLOBALS['TL_LANG']['tl_c4g_map_prof_locstyles']['editor_icon'] 	 = array('Editor icon','Icon used for add functionality in the editor (replaces default icon).');
+$GLOBALS['TL_LANG']['tl_c4g_map_prof_locstyles']['editor_icon']    = array('Editor icon','Icon used for add functionality in the editor (replaces default icon).');
+$GLOBALS['TL_LANG']['tl_c4g_map_prof_locstyles']['editor_sort']      = array('Sortorder','Sortorder in editor for this locationstyle.');
 $GLOBALS['TL_LANG']['tl_c4g_map_prof_locstyles']['editor_vars']      = array('Additional fields','Fields available for geometries of this location style. Can be addressed using ${key} in popup, label and tooltip.');
 $GLOBALS['TL_LANG']['tl_c4g_map_prof_locstyles']['editor_collect'] 	 = array('Create geometry collection','Puts all geometries of this location type that are edited together into a single geometry collection.');
 

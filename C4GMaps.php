@@ -185,7 +185,7 @@ class C4GMaps
             $popupExtend = array();
 
     		if ($child->location_type == 'c4gForum' || $child->popup_extend) {
-    			if ($GLOBALS['c4g_forum_extension']['installed']) {
+    			if ($GLOBALS['con4gis_forum_extension']['installed']) {
     				if ($forumHelper==null) {
     					$forumHelper = new C4GForumHelper($database);
     				}
@@ -818,6 +818,8 @@ class C4GMaps
           $mapData['link_open_on'] = $profile['link_open_on'];
           $mapData['hover_popups'] = $profile['hover_popups'];
           $mapData['hover_popups_stay'] = $profile['hover_popups_stay'];
+          $mapData['show_minmaxzoom_icon'] = $profile['show_minmaxzoom_icon'];
+          $mapData['infotext_minmaxzoom'] = $GLOBALS['TL_LANG']['c4g_maps']['infotext_minmaxzoom'];
           $mapData['div_layerswitcher'] = $profile['div_layerswitcher'];
 
           if ($forEditor) {
@@ -1073,6 +1075,7 @@ class C4GMaps
                     }
 
  			    	$locStyleData[$key]['editor_icon'] = $locStyles->editor_icon;
+                    $locStyleData[$key]['editor_sort'] = $locStyles->editor_sort;
  			    	$locStyleData[$key]['editor_collect'] = $locStyles->editor_collect;
 
  			    	if ($profile) {

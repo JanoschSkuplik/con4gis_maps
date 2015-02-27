@@ -387,7 +387,7 @@ function C4GMapsEditor(mapData,map,styles) {
 	toolbarDiv.appendChild(locstyleDiv);
 	editor.locstyleDiv = locstyleDiv;
 
-	// sort locations alphabetically
+	// sort locations after sort-order and alphabetically
 	editor.locations = new Array();
 	for (var i in mapData.locStyles) {
 		var loc = mapData.locStyles[i];
@@ -395,13 +395,30 @@ function C4GMapsEditor(mapData,map,styles) {
 		editor.locations.push(loc);
 	}
 
-	editor.locations.sort( function(a,b){
+	var alphaSort = function(a,b){
 		if (!a.name || !b.name) {
-			return 1;
-		}else {
+			return (!b.name)? -1 : 1;
+		} else {
 			var A = a.name.toLowerCase();
 			var B = b.name.toLowerCase();
 			return (A > B)? 1 : -1;
+		}
+	};
+
+	editor.locations.sort( function(a,b){
+		if (a.editor_sort && a.editor_sort <= 0) {
+			a.editor_sort = false;
+		}
+		if (b.editor_sort && b.editor_sort <= 0) {
+			b.editor_sort = false;
+		}
+
+		if ((!a.editor_sort && !b.editor_sort) || (a.editor_sort == b.editor_sort)) {
+			return alphaSort(a, b);
+		} else if (!a.editor_sort || !b.editor_sort) {
+			return (!b.editor_sort)? -1 : 1;
+		} else {
+			return (a.editor_sort > b.editor_sort)? 1 : -1;
 		}
 	});
 
@@ -432,7 +449,12 @@ function C4GMapsEditor(mapData,map,styles) {
 				}
 				locstyleImg.setAttribute('src','system/modules/con4gis_maps/html/' + icon);
 			}
-			locstyleImg.setAttribute('title',locstyle.name);
+			//shows the tooltip instead of name
+			if ((locstyle.tooltip) && (locstyle.tooltip != 'unknown') && (locstyle.tooltip.indexOf("${") == -1)) {
+			  locstyleImg.setAttribute('title',locstyle.tooltip);
+			} else {
+			  locstyleImg.setAttribute('title',locstyle.name);
+			}
 			locstyleImg.drawStyle = drawStyle;
 			locstyleDiv.appendChild(locstyleImg);
 			OpenLayers.Event.observe(locstyleImg, 'click',

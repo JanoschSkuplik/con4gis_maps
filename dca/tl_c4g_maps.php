@@ -121,43 +121,53 @@ $GLOBALS['TL_DCA']['tl_c4g_maps'] = array
 		                                 '{map_legend},is_map;'.
 		                                 '{location_legend},location_type,data_layername,data_hidelayer;'.
 		                                 '{protection_legend:hide},protect_element;'.
-		                                 '{expert_legend:hide},use_specialprofile;',
+		                                 '{expert_legend:hide},use_specialprofile;'.
+		                                 '{backend_legend:hide},be_optimize_checkboxes_limit;',
 		'single'                      => '{general_legend},name,profile,profile_mobile,published;'.
 		                                 '{map_legend},is_map;'.
 		                                 '{location_legend},location_type,loc_geox,loc_geoy,locstyle,loc_only_in_parent,loc_label,tooltip,popup_info,routing_to,loc_linkurl,loc_onclick_zoomto,loc_minzoom,loc_maxzoom;'.
-		                                 '{protection_legend:hide},protect_element;',
+		                                 '{protection_legend:hide},protect_element;'.
+		                                 '{backend_legend:hide},be_optimize_checkboxes_limit;',
 		'table'                      =>  '{general_legend},name,profile,profile_mobile,published;'.
 		                                 '{map_legend},is_map;'.
 		                                 '{location_legend},location_type,tab_source,tab_pid,tab_labeldisplay,tab_tooltipdisplay,tab_directlink,tab_force_target_blank,tab_whereclause,tab_orderby,tab_filter_alias,locstyle,routing_to,loc_onclick_zoomto,loc_minzoom,loc_maxzoom;'.
-		                                 '{protection_legend:hide},protect_element;',
+		                                 '{protection_legend:hide},protect_element;'.
+		                                 '{backend_legend:hide},be_optimize_checkboxes_limit;',
 		'gpx'                        =>  '{general_legend},name,profile,profile_mobile,published;'.
 		                                 '{map_legend},is_map;'.
 		                                 '{location_legend},location_type,data_file,data_url,data_layername,data_hidelayer,data_js_style_function,locstyle,loc_label,tooltip,popup_info,routing_to,loc_linkurl,loc_onclick_zoomto,loc_minzoom,loc_maxzoom;'.
-		                                 '{protection_legend:hide},protect_element;',
+		                                 '{protection_legend:hide},protect_element;'.
+		                                 '{backend_legend:hide},be_optimize_checkboxes_limit;',
 		'kml'                        =>  '{general_legend},name,profile,profile_mobile,published;'.
 		                                 '{map_legend},is_map;'.
 		                                 '{location_legend},location_type,data_file,data_url,data_layername,data_hidelayer,data_js_style_function,loc_label,tooltip,popup_info,routing_to,loc_linkurl,loc_onclick_zoomto,loc_minzoom,loc_maxzoom;'.
-		                                 '{protection_legend:hide},protect_element;',
+		                                 '{protection_legend:hide},protect_element;'.
+		                                 '{backend_legend:hide},be_optimize_checkboxes_limit;',
 		'geojson'                    =>  '{general_legend},name,profile,profile_mobile,published;'.
 		                                 '{map_legend},is_map;'.
 		                                 '{location_legend},location_type,data_file,data_url,data_content,data_projection,data_layername,data_hidelayer,data_js_style_function,locstyle,loc_label,tooltip,popup_info,routing_to,loc_linkurl,loc_onclick_zoomto,loc_minzoom,loc_maxzoom;'.
-		                                 '{protection_legend:hide},protect_element;',
+		                                 '{protection_legend:hide},protect_element;'.
+		                                 '{backend_legend:hide},be_optimize_checkboxes_limit;',
 		'osm'                    	 =>  '{general_legend},name,profile,profile_mobile,published;'.
 		                                 '{map_legend},is_map;'.
 		                                 '{location_legend},location_type,data_file,data_url,data_forcenodes,data_layername,data_hidelayer,data_js_style_function,locstyle,loc_label,tooltip,popup_info,popup_extend,routing_to,loc_linkurl,loc_onclick_zoomto,loc_minzoom,loc_maxzoom;'.
-		                                 '{protection_legend:hide},protect_element;',
+		                                 '{protection_legend:hide},protect_element;'.
+		                                 '{backend_legend:hide},be_optimize_checkboxes_limit;',
 		'overpass'                	 =>  '{general_legend},name,profile,profile_mobile,published;'.
 		                                 '{map_legend},is_map;'.
 		                                 '{location_legend},location_type,ovp_request,ovp_bbox_limited,data_forcenodes,data_layername,data_hidelayer,data_js_style_function,locstyle,loc_label,tooltip,popup_info,popup_extend,routing_to,loc_linkurl,loc_onclick_zoomto,loc_minzoom,loc_maxzoom;'.
-		                                 '{protection_legend:hide},protect_element;',
+		                                 '{protection_legend:hide},protect_element;'.
+		                                 '{backend_legend:hide},be_optimize_checkboxes_limit;',
 		'link'                       =>  '{general_legend},name,profile,profile_mobile,published;'.
 		                                 '{map_legend},is_map;'.
 		                                 '{location_legend},location_type,link_id;'.
-		                                 '{protection_legend:hide},protect_element;',
+		                                 '{protection_legend:hide},protect_element;'.
+		                                 '{backend_legend:hide},be_optimize_checkboxes_limit;',
 		'c4gForum'                   =>  '{general_legend},name,profile,profile_mobile,published;'.
 		                                 '{map_legend},is_map;'.
 		                                 '{location_legend},location_type,forums,forum_jumpto,forum_reassign_layer,loc_label,tooltip,popup_info,routing_to,loc_onclick_zoomto,loc_minzoom,loc_maxzoom;'.
-		                                 '{protection_legend:hide},protect_element;'
+		                                 '{protection_legend:hide},protect_element;'.
+		                                 '{backend_legend:hide},be_optimize_checkboxes_limit;'
 	),
 
 	// Subpalettes
@@ -735,7 +745,16 @@ $GLOBALS['TL_DCA']['tl_c4g_maps'] = array
 			'inputType'               => 'checkbox',
 			'foreignKey'              => 'tl_member_group.name',
 			'eval'                    => array('tl_class'=>'clr', 'mandatory'=>false, 'multiple'=>true)
-		)
+		),
+
+		'be_optimize_checkboxes_limit' => array
+    (
+      'label'                   => &$GLOBALS['TL_LANG']['tl_c4g_maps']['be_optimize_checkboxes_limit'],
+      'exclude'                 => true,
+      'inputType'               => 'text',
+      'default'                 => '0',
+      'eval'                    => array('rgxp'=>'digit', 'submitOnChange' => true),
+    ),
 	)
 );
 
@@ -818,7 +837,7 @@ class tl_c4g_maps extends Backend
 	public function getTabSources(DataContainer $dc)
 	{
 		$return = array();
-		foreach ($GLOBALS['c4g_maps_extension']['sourcetable'] as $key=>$sourcetable)
+		foreach ($GLOBALS['con4gis_maps_extension']['sourcetable'] as $key=>$sourcetable)
 		{
 			if (!isset($this->firstTabSource)) {
 				$this->firstTabSource = $key;
@@ -836,7 +855,7 @@ class tl_c4g_maps extends Backend
 	public function getLocationTypes(DataContainer $dc)
 	{
 		$return = array('none','single','table','gpx','kml','geojson','osm','overpass','link');
-		if ($GLOBALS['c4g_forum_extension']['installed'] ) {
+		if ($GLOBALS['con4gis_forum_extension']['installed'] ) {
 			$return[] = 'c4gForum';
 		}
         if (isset($GLOBALS['c4g_locationtypes']) && is_array($GLOBALS['c4g_locationtypes']))
@@ -876,7 +895,7 @@ class tl_c4g_maps extends Backend
 			$tabsource = $this->firstTabSource;
 		}
 
-		$source = $GLOBALS['c4g_maps_extension']['sourcetable'][$tabsource];
+		$source = $GLOBALS['con4gis_maps_extension']['sourcetable'][$tabsource];
 		if (is_array($source)) {
 			if (($source['ptable']) && ($source['ptable_option'])) {
 				$obj = $this->Database->prepare(
@@ -957,10 +976,10 @@ class tl_c4g_maps extends Backend
 	 */
 	public function updateDCA(DataContainer $dc)
 	{
-	    if (!$dc->id) {
-	    	return;
-	    }
-		$objMap = $this->Database->prepare("SELECT is_map,calc_extent,restrict_area,geolocation,auto_width,auto_height FROM tl_c4g_maps WHERE id=?")
+    if (!$dc->id) {
+    	return;
+    }
+		$objMap = $this->Database->prepare("SELECT is_map,calc_extent,restrict_area,geolocation,auto_width,auto_height,be_optimize_checkboxes_limit FROM tl_c4g_maps WHERE id=?")
 			->limit(1)
 			->execute($dc->id);
 		if ($objMap->numRows > 0) {
@@ -1000,8 +1019,22 @@ class tl_c4g_maps extends Backend
 			}
 			$GLOBALS['TL_DCA']['tl_c4g_maps']['subpalettes']['is_map'] =
 		   		$mapsize.'auto_width,'.$autoWidthFields.'auto_height,'.$autoHeightFields.'calc_extent,'.$calcExtentFields.'geolocation,'.$geolocationFields.'restrict_area,'.$restrictAreaFields.',include_sublocations;';
-		}
 
+			// convert checkboxes to chosenfields, if there are to many locationstyles
+      if ($objMap->be_optimize_checkboxes_limit > '0') {
+        // subforums-options
+        if ($GLOBALS['con4gis_forum_extension']['installed']) {
+	        $objForumCount = $this->Database->prepare("SELECT COUNT(id) AS entry_count FROM tl_c4g_forum WHERE enable_maps = 1")->execute();
+	        if ($objForumCount->numRows > 0) {
+	          if ($objForumCount->entry_count > $objMap->be_optimize_checkboxes_limit) {
+	            $GLOBALS['TL_DCA']['tl_c4g_maps']['fields']['forums']['inputType'] = 'select';
+	            $GLOBALS['TL_DCA']['tl_c4g_maps']['fields']['forums']['eval']['chosen'] = true;
+	          }
+	        }
+	      }
+			}
+
+		}
 	}
 
 	/**
@@ -1228,4 +1261,3 @@ class tl_c4g_maps extends Backend
 
 
 }
-?>

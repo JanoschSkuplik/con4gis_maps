@@ -77,6 +77,8 @@ $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['hover_popups'] 			= array('Popups ü
 																			'Popups anzeigen sobald der Mauszeiger über der Lokation verweilt, und nicht erst nach einem Mausklick.');
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['hover_popups_stay'] 	= array('Maus-Hover-Popups geöffnet lassen',
 																			'Popups nicht automatisch schließen, wenn der Mauszeiger die Lokation verlässt.');
+$GLOBALS['TL_LANG']['tl_c4g_map_profiles']['show_minmaxzoom_icon'] 	= array('Aktiviere min-/maxzoom Icon',
+																			'Aktiviert das min-/maxzoom Icon an Ebenen im Starboard, die eine Zoom-Beschränkung aktiviert haben.');
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['attribution'] 			= array('Copyright-Text (Attribution)',
 																			'Blendet einen Copyright-Text (eine sogenannte Attribution) ein. Deaktivierung nicht empfohlen!');
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['cfg_logo_attribution'] 	= array('con4gis-Logo einblenden',
@@ -139,6 +141,8 @@ $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['editor_show_items'] 	= array('Alle K
 																			'Zeigt im Editor nicht nur den zu bearbeitenden Karteneintrag an, sondern auch alle Anderen.');
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['editor_helpurl'] 		= array('Hilfe-Link',
 																			'Wenn hier eine URL eingetragen wird, so erscheint ein "Hilfe" Link im Editor, der zu der angegebenen URL führt.');
+$GLOBALS['TL_LANG']['tl_c4g_map_profiles']['be_optimize_checkboxes_limit'] 		= array('Grenzwert für Optimierung großer Checkbox-Listen',
+																			'Definiert wie viele Einträge enthalten sein müssen, bis die Checkbox-Listen in Chosenfields umgewandelt werden. (0 = niemals umwandeln)');
 
 
 /**
@@ -192,6 +196,7 @@ $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['geosearch_legend']	    = 'Suche';
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['geopicker_legend']	    = 'Geopicker-Einstellungen';
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['router_legend']	    	= 'Router (OSRM)';
 $GLOBALS['TL_LANG']['tl_c4g_map_profiles']['editor_legend']	    	= 'Einstellungen für Editor (GeoJSON und con4gis-Forum)';
+$GLOBALS['TL_LANG']['tl_c4g_map_profiles']['backend_legend']	    	= 'Backendeinstellungen';
 
 /**
  * Globals
