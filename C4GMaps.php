@@ -590,6 +590,7 @@ class C4GMaps
 	{
         // fetch user
         $objThis->import('FrontendUser', 'User');
+        \System::loadLanguageFile('default');
 		// --------------------------------------------------------------------
 		// get data for map
 		// --------------------------------------------------------------------
