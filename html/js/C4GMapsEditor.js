@@ -406,11 +406,17 @@ function C4GMapsEditor(mapData,map,styles) {
 	};
 
 	editor.locations.sort( function(a,b){
-		if (a.editor_sort && a.editor_sort <= 0) {
-			a.editor_sort = false;
+		if (a.editor_sort) {
+			a.editor_sort = parseInt( a.editor_sort, 10 );
+			if (a.editor_sort <= 0) {
+				a.editor_sort = false;
+			};
 		}
-		if (b.editor_sort && b.editor_sort <= 0) {
-			b.editor_sort = false;
+		if (b.editor_sort) {
+			b.editor_sort = parseInt( b.editor_sort, 10 );
+			if (b.editor_sort <= 0) {
+				b.editor_sort = false;
+			};
 		}
 
 		if ((!a.editor_sort && !b.editor_sort) || (a.editor_sort == b.editor_sort)) {
