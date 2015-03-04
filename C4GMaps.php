@@ -151,8 +151,8 @@ class C4GMaps
     		}
 
             // handle permalink-args
-            if (!empty( $_GET['layers'] ) && is_array( $_GET['layers'] )) {
-                $child->data_hidelayer = !in_array( $child->id, $_GET['layers'] );
+            if (!empty( $_GET['enclay'] ) && is_array( $_GET['enclay'] )) {
+                $child->data_hidelayer = !in_array( $child->id, $_GET['enclay'] );
             }
 
     		// ---------------------------------------------------------
@@ -697,8 +697,8 @@ class C4GMaps
             $mapData['center_geoy'] = $_GET['lon'] ?: $mapData['center_geoy'];
             $mapData['zoom'] = $_GET['zoom'] ?: $mapData['zoom'];
             $objThis->c4g_map_default_mapservice = $_GET['base'] ?: $objThis->c4g_map_default_mapservice;
-            if (!empty( $_GET['layers'] )){
-                $_GET['layers'] = explode('-', base64_decode( $_GET['layers'] ));
+            if (!empty( $_GET['enclay'] )){
+                $_GET['enclay'] = explode('-', base64_decode( $_GET['enclay'] ));
             }
         }
 
