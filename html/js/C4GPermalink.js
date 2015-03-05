@@ -259,11 +259,11 @@ OpenLayers.Control.C4GPermalink = OpenLayers.Class(OpenLayers.Control,
                 }
             }
             if (arrLayers.length) {
-                params.layers = arrLayers.join('-');
+                params.enclay = arrLayers.join('-');
             } else {
-                params.layers = '0';
+                params.enclay = '0';
             }
-            params.layers = btoa(params.layers);
+            params.enclay = btoa(params.enclay);
 
         }
 
