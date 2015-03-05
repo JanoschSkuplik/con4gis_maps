@@ -18,7 +18,7 @@
  * Global settings
  */
 $GLOBALS['con4gis_maps_extension']['installed'] = true;
-$GLOBALS['con4gis_maps_extension']['version'] = '1.1.0';
+$GLOBALS['con4gis_maps_extension']['version'] = '1.1.1';
 
 /**
  * Sourcetable definition
