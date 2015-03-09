@@ -25,6 +25,9 @@
  * @license    http://opensource.org/licenses/lgpl-3.0.html
  */
 
+// we need a global variable for some informations in live-tracking
+var globals = {};
+
 /*	-----------------------------------------------
 	Utility function object
 	----------------------------------------------- */
@@ -684,6 +687,7 @@ function C4GMaps(mapData) {
 				styles[key] = aStyle;
 			}
 		}
+		globals.locationStyles = styles;
 
 		if (typeof (mapData.child) == 'object') {
 			for ( var key in mapData.child) {
