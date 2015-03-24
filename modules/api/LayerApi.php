@@ -13,6 +13,9 @@ class LayerApi extends \Frontend
      * @param  array $arrInput Fragments from request uri
      * @return mixed           JSON data
      */
+  protected $arrLayers = array();
+  protected $arrConfig = array();
+     
 	public function generate(array $arrInput)
 	{
         // Only allow GET requests
@@ -27,7 +30,11 @@ class LayerApi extends \Frontend
             \HttpResultHelper::BadRequest();
         }
         
-        return json_encode($this->getLayerList(intval($arrInput[0])));
+        $intParentId = intval($arrInput[0]);
+        
+        $this->getLayerList($intParentId);
+        $this->arrConfig['countAll'] = sizeof($this->arrLayers);
+        echo json_encode(array('config'=>$this->arrConfig,'layer'=>$this->arrLayers));
 	}
 
 	/**
@@ -35,45 +42,56 @@ class LayerApi extends \Frontend
      * 
 	 * @param int $id 
 	 */
-	protected function getLayerList($intId) 
+	protected function getLayerList($intId, $blnIsSubLayer = false) 
 	{
-        // Find the requested map
-        $objMap = \C4gMapsModel::findById($intId);
-        
-        // Only return map entries
-        if ($objMap == null || !$objMap->is_map)
-        {
-            \HttpResultHelper::NotFound();
+  	
+  	    if (!$blnIsSubLayer)
+  	    {
+          // Find the requested map
+          $objMap = \C4gMapsModel::findById($intId);
+          
+          // Only return map entries
+          if ($objMap == null || !$objMap->is_map)
+          {
+              \HttpResultHelper::NotFound();
+          }
         }
-        
-        // TODO: Make this a recursive functions to get deeper branches of the tree
         
         // Get all layers on the map
-        $objLayers = \C4gMapsModel::findByPid($intId);
         
+        $objLayers = \C4gMapsModel::findPublishedByPid($intId);
+
         if ($objLayers != null) 
         {
-            return $this->parseLayers($objLayers);
+            while($objLayers->next())
+            {
+              
+              $arrLayerData = $this->parseLayer($objLayers);
+              if ($blnIsSubLayer)
+              {
+                if (!is_array($this->arrLayers[$arrLayerData['pid']]['childs']))
+                {
+                  $this->arrLayers[$arrLayerData['pid']]['childs'] = array();
+                }
+                $this->arrLayers[$arrLayerData['pid']]['childs'][$objLayers->id] = $arrLayerData;
+              }
+              else
+              {
+                $this->arrLayers[$objLayers->id] = $arrLayerData;       
+              }       
+              if ($childLayerList = $this->getLayerList($objLayers->id, true))
+              {
+                $this->arrLayers[$objLayers->id]['hasChilds'] = true;//$arrLayerData;   
+                $this->arrLayers[$objLayers->id]['childsCount'] = $childLayerList->count();
+              }
+              
+
+              
+            }
+            return $objLayers;
         }
+        return false;
 	}
-    
-    /**
-     * Summary of parseLayers
-     * 
-     * @param C4gMapsModel $objLayers 
-     * @return array
-     */
-    protected function parseLayers($objLayers)
-    {
-        $arrResult = array();
-        
-        while($objLayers->next())
-        {
-            $arrResult[] = $this->parseLayer($objLayers);
-        }
-        
-        return $arrResult;
-    }
     
     /**
      * Summary of parseLayer
@@ -83,6 +101,13 @@ class LayerApi extends \Frontend
      */
     protected function parseLayer($objLayer)
     {
-        return array('title' => $objLayer->id . '::' . $objLayer->name);
+        $arrLayerData = array();
+        $arrLayerData['id'] = $objLayer->id;
+        $arrLayerData['pid'] = $objLayer->pid;
+        $arrLayerData['name'] = $objLayer->name;
+        //$arrLayerData = $objLayer->row();
+        return $arrLayerData; //array('title' => $objLayer->id . '::' . $objLayer->name);
     }
+
+    
 }

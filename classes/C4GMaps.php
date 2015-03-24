@@ -350,6 +350,7 @@ class C4GMaps
     }
     // CONTINUE HERE!!!
 
+
     // $GLOBALS['TL_JAVASCRIPT'][] = $GLOBALS['con4gis_core_extension']['jQuery-path'];
     $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/con4gis_core/lib/jQuery/jquery-1.11.1.min.js';
     $GLOBALS['TL_JAVASCRIPT'][] = $GLOBALS['c4g_maps_extension']['js_openlayers']['DEFAULT'];
@@ -371,6 +372,15 @@ class C4GMaps
     $GLOBALS['TL_CSS'][] = 'system/modules/con4gis_maps/assets/css/themes/c4g-theme-colors.css';
     $GLOBALS['TL_CSS'][] = 'system/modules/con4gis_maps/assets/css/themes/c4g-theme-effects.css';
 
+    
+    if ($objThis->c4g_map_layer_switcher_ext)
+    {
+      $mapData['c4g_map_layer_switcher_ext'] = $objThis->c4g_map_layer_switcher_ext;
+      $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/con4gis_maps/assets/vendor/jqTree/tree.jquery.js';
+      $GLOBALS['TL_CSS'][] = 'system/modules/con4gis_maps/assets/vendor/jqTree/jqtree.css';
+    }
+
+    $mapData['starboard_layerapi'] = $GLOBALS['c4g_maps_extension']['starboard_layerapi'];
     $mapData['addIdToDiv'] = true;
     // $mapData['mapDiv'] = 'c4gMap';
     // return print_r( $mapData, true );

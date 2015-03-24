@@ -30,7 +30,9 @@ jQuery(document).ready(function()
 	c4g.mapContainer<?php echo $this->mapData['mapId'] ?> = new c4g.MapContainer(
 			 <?php echo json_encode($this->mapData) ?>
 		);
-	c4g.addStarboard(c4g.mapContainer<?php echo $this->mapData['mapId'] ?>, {});
+	c4g.addStarboard(c4g.mapContainer<?php echo $this->mapData['mapId'] ?>, {
+  	layerApiUrl: '<?php echo $this->mapData['starboard_layerapi']; ?>'
+	});
 	// c4g_Map<?php echo $this->mapData['mapId'] ?>.run();
 });
 //]]>

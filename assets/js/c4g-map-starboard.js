@@ -24,6 +24,7 @@ this.c4g = this.c4g || {};
      */
 
     // Create the visual elements
+    var self = this;
     var container = document.createElement('div');
 
     var control = document.createElement('div');
@@ -119,7 +120,8 @@ this.c4g = this.c4g || {};
       mapContainer.isStarboardLoading = true;
 
     //@TODO get url as parameter
-      $.getJSON('api4gis/c4g_maps_layerapi/1')
+
+      $.getJSON(config.layerApiUrl + '/' + mapContainer.data.profile)
         .done(function (data) {
           drawStarboard(data);
         })
@@ -139,14 +141,65 @@ this.c4g = this.c4g || {};
        * Currently the starboard makes sure, it only loads once and then keeps
        * the list of layers.
        */
+       
+      if(mapContainer.data.c4g_map_layer_switcher_ext) {
+        // initialize jqTree
+        self.useJqTree = true;
+        self.jqTreeData = [];
+        var treeControl = document.createElement('div');
+        $(treeControl).addClass('ol-jqtree');
+        $(treeControl).attr('id', 'ol-jqtree');
+        container.appendChild(treeControl);
+      } 
 
-      // Add the layers
-      $.each(data, function (index, item){
-        // TODO:
-        // Create layer, extend with state properties and keep the tree.
-      });
+      
+      if (self.useJqTree) {
+        var $tree = jQuery(treeControl);
+        $tree.tree({
+          data: getTreeData(data.layer),
+          autoOpen: true,
+          dragAndDrop: true,
+          onCreateLi: function(node, $li) {
+            if (node.selected) {
+              $li.addClass('selected');
+            }
+          }
+        });
+        $tree.bind(
+            'tree.click',
+            function(event) {
+                var node = event.node;
+                var $li = $(node.element);
+        
+                if (node.selected) {
+                    node.selected = false;
+                    $li.removeClass('selected');
+                }
+                else {
+                    node.selected = true;
+                    $li.addClass('selected');
+                }
+            }
+        );
+      }
+      
+      
       mapContainer.isStarboardLoaded = true;
     };
+    
+    var getTreeData = function(itemData) {
+      var data = [];
+      $.each(itemData, function(index, item) {
+        var itemObject = {};
+        itemObject.label = item.name
+        itemObject.id = item.id
+        if (item.hasChilds) {
+          itemObject.children = getTreeData(item.childs);
+        }
+        data.push(itemObject);
+      });
+      return data;
+    }
 
     // Create anddisplay the control
     mapContainer.map.addControl(new ol.control.Control({ element: control }));

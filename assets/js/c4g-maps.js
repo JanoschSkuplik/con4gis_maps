@@ -36,6 +36,8 @@ this.c4g = this.c4g || {};
       },
       calc_extent: 'CENTERZOOM'
     }, mapData);
+    
+    self.data = mapData;
 
     if (mapData.addIdToDiv) {
       mapData.mapDiv += mapData.mapId;

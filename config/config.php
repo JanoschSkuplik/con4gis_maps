@@ -93,6 +93,7 @@ array_insert($GLOBALS['TL_CTE']['con4gis'], 1, array
  * Rest-API
  */
 $GLOBALS['TL_API']['c4g_maps_layerapi'] = 'LayerApi';
+$GLOBALS['TL_API']['layerService'] = 'LayerApi';
 $GLOBALS['TL_API']['c4g_maps_layercontentapi'] = 'LayerContentApi';
 
 /**
@@ -106,6 +107,7 @@ $GLOBALS['BE_FFL']['c4g_imageSize'] 	= 'C4GImageSize';
  */
 // $GLOBALS['c4g_maps_extension']['js_openlayers'] 					= 'system/modules/con4gis_maps/html/OpenLayers-2.13.1/OpenLayers.js';
 // $GLOBALS['c4g_maps_extension']['js_google'] 						= 'http://maps.google.com/maps/api/js?v=3.5&amp;sensor=false';
+$GLOBALS['c4g_maps_extension']['starboard_layerapi'] = "system/modules/con4gis_core/api/layerService";
 $GLOBALS['c4g_maps_extension']['js_openlayers']['DEFAULT'] 			= 'system/modules/con4gis_maps/assets/vendor/OpenLayers-' . $GLOBALS['c4g_maps_extension']['ol-version'] . '/ol.js';
 $GLOBALS['c4g_maps_extension']['js_openlayers']['DEBUG'] 			= 'system/modules/con4gis_maps/assets/vendor/OpenLayers-' . $GLOBALS['c4g_maps_extension']['ol-version'] . '/ol-debug.js';
 // $GLOBALS['c4g_maps_extension']['js_openlayers']['SERVER'] 			= 'http://openlayers.org/api/2.13.1/OpenLayers.js';
